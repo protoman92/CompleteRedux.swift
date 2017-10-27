@@ -79,7 +79,7 @@ public final class HMReduxStoreTest: XCTestCase {
     
     fileprivate func reduce(_ state: HMState, _ action: Action) -> HMState {
         let updateFn = action.updateFn()
-        return state.updateValueFn(updateId, updateFn)
+        return state.mapValue(updateId, updateFn)
     }
     
     public func test_dispatchAction_shouldUpdateState() {

@@ -58,7 +58,7 @@ public extension HMState {
     ///   - identifier: A String value.
     ///   - valueFn: Value update function.
     /// - Returns: A HMState instance.
-    public func updateValueFn<T>(_ identifier: String, _ valueFn: UpdateFn<T?>) -> HMState {
+    public func mapValue<T>(_ identifier: String, _ valueFn: UpdateFn<T?>) -> HMState {
         let separator = substateSeparator
         let separated = identifier.split(separator: separator).map(String.init)
         
@@ -67,7 +67,7 @@ public extension HMState {
         } else if let first = separated.first {
             let subId = separated.dropFirst().joined(separator: String(separator))
             let substate = self.substate(first) ?? .empty()
-            let updatedSubstate = substate.updateValueFn(subId, valueFn)
+            let updatedSubstate = substate.mapValue(subId, valueFn)
             return cloneBuilder().updateSubstate(first, updatedSubstate).build()
         } else {
             return self
@@ -81,10 +81,10 @@ public extension HMState {
     ///   - identifier: A String value.
     ///   - valueFn: Value update function.
     /// - Returns: A HMState instance.
-    public func updateValueFn<T>(_ cls: T.Type,
+    public func mapValue<T>(_ cls: T.Type,
                                  _ identifier: String,
                                  _ valueFn: UpdateFn<T?>) -> HMState {
-        return updateValueFn(identifier, valueFn)
+        return mapValue(identifier, valueFn)
     }
     
     /// Only update a value if it is of type T.
@@ -93,7 +93,7 @@ public extension HMState {
     ///   - identifier: A String value.
     ///   - valueFn: Value update function.
     /// - Returns: A HMState instance.
-    public func updateValueFnIfAvailable<T>(_ identifier: String,
+    public func mapValueIfAvailable<T>(_ identifier: String,
                                             _ valueFn: UpdateFn<T>) -> HMState {
         if let currentValue = stateValue(identifier) as? T {
             let newValue = valueFn(currentValue)
@@ -110,10 +110,10 @@ public extension HMState {
     ///   - identifier: A String value.
     ///   - valueFn: Value update function.
     /// - Returns: A HMState instance.
-    public func updateValueFnInAvailable<T>(_ cls: T.Type,
+    public func mapValueInAvailable<T>(_ cls: T.Type,
                                             _ identifier: String,
                                             _ valueFn: UpdateFn<T>) -> HMState {
-        return updateValueFnIfAvailable(identifier, valueFn)
+        return mapValueIfAvailable(identifier, valueFn)
     }
     
     /// Convenience function to update a value at a node.
@@ -124,7 +124,7 @@ public extension HMState {
     /// - Returns: A HMState instance.
     public func updateValue(_ identifier: String, _ value: Any?) -> HMState {
         let valueFn: UpdateFn<Any?> = {_ in value}
-        return updateValueFn(identifier, valueFn)
+        return mapValue(identifier, valueFn)
     }
 }
 
@@ -174,7 +174,7 @@ public extension HMState {
 
 extension HMState: CustomStringConvertible {
     public var description: String {
-        return "Current state: \(currentState). Current substate: \n\(substate)"
+        return "Current state: \(currentState). Current substate: \(substate)"
     }
 }
 

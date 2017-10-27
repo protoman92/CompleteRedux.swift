@@ -24,6 +24,7 @@
 		D350C36A1FA388190040556F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D350C3681FA388190040556F /* Main.storyboard */; };
 		D350C36C1FA3881A0040556F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D350C36B1FA388190040556F /* Assets.xcassets */; };
 		D350C36F1FA3881A0040556F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D350C36D1FA3881A0040556F /* LaunchScreen.storyboard */; };
+		D350C3771FA3A1F50040556F /* HMReactiveRedux.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D350C3761FA3A1F50040556F /* HMReactiveRedux.podspec */; };
 		D3943ED81FA32D5600898233 /* HMReactiveRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3943ECE1FA32D5600898233 /* HMReactiveRedux.framework */; };
 		D3943EDF1FA32D5600898233 /* HMReactiveRedux.h in Headers */ = {isa = PBXBuildFile; fileRef = D3943ED11FA32D5600898233 /* HMReactiveRedux.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 		D350C36B1FA388190040556F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D350C36E1FA3881A0040556F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D350C3701FA3881A0040556F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D350C3761FA3A1F50040556F /* HMReactiveRedux.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HMReactiveRedux.podspec; sourceTree = "<group>"; };
 		D3943ECE1FA32D5600898233 /* HMReactiveRedux.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMReactiveRedux.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3943ED11FA32D5600898233 /* HMReactiveRedux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMReactiveRedux.h; sourceTree = "<group>"; };
 		D3943ED21FA32D5600898233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -111,11 +113,11 @@
 			isa = PBXGroup;
 			children = (
 				D350C3641FA388190040556F /* AppDelegate.swift */,
-				D350C3661FA388190040556F /* ViewController.swift */,
-				D350C3681FA388190040556F /* Main.storyboard */,
 				D350C36B1FA388190040556F /* Assets.xcassets */,
-				D350C36D1FA3881A0040556F /* LaunchScreen.storyboard */,
 				D350C3701FA3881A0040556F /* Info.plist */,
+				D350C36D1FA3881A0040556F /* LaunchScreen.storyboard */,
+				D350C3681FA388190040556F /* Main.storyboard */,
+				D350C3661FA388190040556F /* ViewController.swift */,
 			);
 			path = "HMReactiveRedux-Demo";
 			sourceTree = "<group>";
@@ -123,6 +125,7 @@
 		D3943EC41FA32D5600898233 = {
 			isa = PBXGroup;
 			children = (
+				D350C3761FA3A1F50040556F /* HMReactiveRedux.podspec */,
 				D3943ED01FA32D5600898233 /* HMReactiveRedux */,
 				D3943EDB1FA32D5600898233 /* HMReactiveReduxTests */,
 				D350C3631FA388190040556F /* HMReactiveRedux-Demo */,
@@ -161,9 +164,9 @@
 		D3943EDB1FA32D5600898233 /* HMReactiveReduxTests */ = {
 			isa = PBXGroup;
 			children = (
-				D3943EDE1FA32D5600898233 /* Info.plist */,
 				D350C3581FA345200040556F /* HMReduxStoreTest.swift */,
 				D350C35C1FA34E7B0040556F /* HMStateTest.swift */,
+				D3943EDE1FA32D5600898233 /* Info.plist */,
 			);
 			path = HMReactiveReduxTests;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D350C3771FA3A1F50040556F /* HMReactiveRedux.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
