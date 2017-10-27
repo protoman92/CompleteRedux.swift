@@ -17,6 +17,7 @@
 		D350C3571FA337A60040556F /* HMReduxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3561FA337A60040556F /* HMReduxStore.swift */; };
 		D350C3591FA345200040556F /* HMReduxStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3581FA345200040556F /* HMReduxStoreTest.swift */; };
 		D350C35B1FA3465C0040556F /* HMState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C35A1FA3465C0040556F /* HMState.swift */; };
+		D350C35D1FA34E7B0040556F /* HMStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C35C1FA34E7B0040556F /* HMStateTest.swift */; };
 		D3943ED81FA32D5600898233 /* HMReactiveRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3943ECE1FA32D5600898233 /* HMReactiveRedux.framework */; };
 		D3943EDF1FA32D5600898233 /* HMReactiveRedux.h in Headers */ = {isa = PBXBuildFile; fileRef = D3943ED11FA32D5600898233 /* HMReactiveRedux.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -46,6 +47,7 @@
 		D350C3561FA337A60040556F /* HMReduxStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMReduxStore.swift; sourceTree = "<group>"; };
 		D350C3581FA345200040556F /* HMReduxStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMReduxStoreTest.swift; sourceTree = "<group>"; };
 		D350C35A1FA3465C0040556F /* HMState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMState.swift; sourceTree = "<group>"; };
+		D350C35C1FA34E7B0040556F /* HMStateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMStateTest.swift; sourceTree = "<group>"; };
 		D3943ECE1FA32D5600898233 /* HMReactiveRedux.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMReactiveRedux.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3943ED11FA32D5600898233 /* HMReactiveRedux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMReactiveRedux.h; sourceTree = "<group>"; };
 		D3943ED21FA32D5600898233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -102,10 +104,10 @@
 				D350C3521FA3325B0040556F /* HMReducer.swift */,
 				D350C3561FA337A60040556F /* HMReduxStore.swift */,
 				D350C3541FA3369D0040556F /* HMReduxStoreType.swift */,
+				D350C35A1FA3465C0040556F /* HMState.swift */,
 				D350C34C1FA32EC70040556F /* HMStateFactoryType.swift */,
 				D350C3501FA3317A0040556F /* HMStateType.swift */,
 				D3943ED21FA32D5600898233 /* Info.plist */,
-				D350C35A1FA3465C0040556F /* HMState.swift */,
 			);
 			path = HMReactiveRedux;
 			sourceTree = "<group>";
@@ -115,6 +117,7 @@
 			children = (
 				D3943EDE1FA32D5600898233 /* Info.plist */,
 				D350C3581FA345200040556F /* HMReduxStoreTest.swift */,
+				D350C35C1FA34E7B0040556F /* HMStateTest.swift */,
 			);
 			path = HMReactiveReduxTests;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D350C35D1FA34E7B0040556F /* HMStateTest.swift in Sources */,
 				D350C3591FA345200040556F /* HMReduxStoreTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
