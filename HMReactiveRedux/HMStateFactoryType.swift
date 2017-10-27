@@ -11,7 +11,6 @@ import RxSwift
 /// Classes that implement this protocol should be able to produce state based
 /// on reducers.
 public protocol HMStateFactoryType {
-    associatedtype Action: HMActionType
     associatedtype State: HMStateType
 }
 
@@ -26,9 +25,9 @@ public extension HMStateFactoryType {
     /// - Returns: An Observable instance.
     public func createState<O>(_ actionTrigger: O,
                                _ initialState: State,
-                               _ mainReducer: @escaping HMReducer<Action,State>)
+                               _ mainReducer: @escaping HMReducer<State>)
         -> Observable<State> where
-        O: ObservableConvertibleType, O.E == Action
+        O: ObservableConvertibleType, O.E == HMActionType
     {
         return actionTrigger.asObservable()
             .scan(initialState, accumulator: mainReducer)

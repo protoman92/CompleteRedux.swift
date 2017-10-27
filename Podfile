@@ -20,5 +20,11 @@ target 'HMReactiveRedux' do
     
     pod 'SwiftUtilitiesTests/Main', git: 'https://github.com/protoman92/SwiftUtilities.git'
   end
+  
+  target 'HMReactiveRedux-Demo' do
+      inherit! :search_paths
+      # Pods for demo
+      allPods
+  end
 
 end

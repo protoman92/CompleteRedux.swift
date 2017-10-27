@@ -11,7 +11,7 @@ import RxSwift
 import SwiftUtilities
 
 /// A Redux-compliant store.
-public struct HMReduxStore<A: HMActionType, S: HMStateType> {
+public struct HMReduxStore<S: HMStateType> {
     
     /// Create a redux store that only receives and delivers events on the main
     /// thread.
@@ -20,16 +20,15 @@ public struct HMReduxStore<A: HMActionType, S: HMStateType> {
     ///   - initialState: A State instance.
     ///   - mainReducer: A HMReducer instance.
     /// - Returns: A HMReduxStore instance.
-    public static func mainThreadVariant<Action,State>(
+    public static func mainThreadVariant<State>(
         _ initialState: State,
-        _ mainReducer: @escaping HMReducer<Action,State>)
-        -> HMReduxStore<Action,State> where
-        Action: HMActionType, State: HMStateType
+        _ mainReducer: @escaping HMReducer<State>)
+        -> HMReduxStore<State> where State: HMStateType
     {
         let actionSubject = BehaviorSubject<Action?>(value: nil)
         let stateSubject = BehaviorSubject<State>(value: initialState)
         
-        return HMReduxStore<Action,State>.builder()
+        return HMReduxStore<State>.builder()
             .with(actionTrigger: actionSubject)
             .with(actionStream: actionSubject.asDriver(onErrorJustReturn: nil))
             .with(stateTrigger: stateSubject)
@@ -42,14 +41,13 @@ public struct HMReduxStore<A: HMActionType, S: HMStateType> {
     fileprivate var rdActionStream: Observable<Action?>?
     fileprivate var rdStateTrigger: AnyObserver<State>?
     fileprivate var rdStateStream: Observable<State>?
-    fileprivate var rdMainReducer: HMReducer<Action,State>?
     
     fileprivate init() {
         disposeBag = DisposeBag()
     }
     
     fileprivate func setupStateBindings(_ initialState: State,
-                                        _ reducer: @escaping HMReducer<Action,State>) {
+                                        _ reducer: @escaping HMReducer<State>) {
         let disposeBag = self.disposeBag
         
         createState(actionStream(), initialState, reducer)
@@ -59,7 +57,6 @@ public struct HMReduxStore<A: HMActionType, S: HMStateType> {
 }
 
 extension HMReduxStore: HMReduxStoreType {
-    public typealias Action = A
     public typealias State = S
     
     public func actionTrigger() -> AnyObserver<Action?> {
@@ -162,7 +159,7 @@ extension HMReduxStore: BuildableType {
         ///   - reducer: A HMReducer instance.
         /// - Returns: The Buildable instance.
         public func build(withInitialState state: State,
-                          reducer: @escaping HMReducer<Action,State>) -> Buildable {
+                          reducer: @escaping HMReducer<State>) -> Buildable {
             store.setupStateBindings(state, reducer)
             return build()
         }

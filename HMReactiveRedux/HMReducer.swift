@@ -8,4 +8,4 @@
 
 /// Represent a reducer that takes an action and a state to produce another
 /// state.
-public typealias HMReducer<Action,State> = (State, Action) -> State
+public typealias HMReducer<State> = (State, HMActionType) -> State

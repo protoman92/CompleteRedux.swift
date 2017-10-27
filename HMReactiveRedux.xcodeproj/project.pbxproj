@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49875A8972FAB9416DA00A57 /* Pods_HMReactiveRedux_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8E50928F35E88FA359DD19 /* Pods_HMReactiveRedux_Demo.framework */; };
 		77C06BC3B287EB8510D9ECD2 /* Pods_HMReactiveRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93AD75A808109D388B4F4DDC /* Pods_HMReactiveRedux.framework */; };
 		984BDB27B73C46ABD871C1BA /* Pods_HMReactiveReduxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A27B0C6BE1BCD41C63493B /* Pods_HMReactiveReduxTests.framework */; };
 		D350C34D1FA32EC70040556F /* HMStateFactoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C34C1FA32EC70040556F /* HMStateFactoryType.swift */; };
@@ -18,11 +19,23 @@
 		D350C3591FA345200040556F /* HMReduxStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3581FA345200040556F /* HMReduxStoreTest.swift */; };
 		D350C35B1FA3465C0040556F /* HMState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C35A1FA3465C0040556F /* HMState.swift */; };
 		D350C35D1FA34E7B0040556F /* HMStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C35C1FA34E7B0040556F /* HMStateTest.swift */; };
+		D350C3651FA388190040556F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3641FA388190040556F /* AppDelegate.swift */; };
+		D350C3671FA388190040556F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3661FA388190040556F /* ViewController.swift */; };
+		D350C36A1FA388190040556F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D350C3681FA388190040556F /* Main.storyboard */; };
+		D350C36C1FA3881A0040556F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D350C36B1FA388190040556F /* Assets.xcassets */; };
+		D350C36F1FA3881A0040556F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D350C36D1FA3881A0040556F /* LaunchScreen.storyboard */; };
 		D3943ED81FA32D5600898233 /* HMReactiveRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3943ECE1FA32D5600898233 /* HMReactiveRedux.framework */; };
 		D3943EDF1FA32D5600898233 /* HMReactiveRedux.h in Headers */ = {isa = PBXBuildFile; fileRef = D3943ED11FA32D5600898233 /* HMReactiveRedux.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D350C3741FA390C40040556F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3943EC51FA32D5600898233 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D3943ECD1FA32D5600898233;
+			remoteInfo = HMReactiveRedux;
+		};
 		D3943ED91FA32D5600898233 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D3943EC51FA32D5600898233 /* Project object */;
@@ -34,11 +47,14 @@
 
 /* Begin PBXFileReference section */
 		1313896D61BA3474DC199493 /* Pods-HMReactiveReduxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveReduxTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveReduxTests/Pods-HMReactiveReduxTests.release.xcconfig"; sourceTree = "<group>"; };
+		3B8E50928F35E88FA359DD19 /* Pods_HMReactiveRedux_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HMReactiveRedux_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46D0C3333FD0E789B251843E /* Pods-HMReactiveReduxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveReduxTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveReduxTests/Pods-HMReactiveReduxTests.debug.xcconfig"; sourceTree = "<group>"; };
 		62A27B0C6BE1BCD41C63493B /* Pods_HMReactiveReduxTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HMReactiveReduxTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		880C5375A9B5A837897F8E66 /* Pods-HMReactiveRedux.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveRedux.release.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveRedux/Pods-HMReactiveRedux.release.xcconfig"; sourceTree = "<group>"; };
 		93AD75A808109D388B4F4DDC /* Pods_HMReactiveRedux.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HMReactiveRedux.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44674A6B87D5F37AB34DB3C /* Pods-HMReactiveRedux.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveRedux.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveRedux/Pods-HMReactiveRedux.debug.xcconfig"; sourceTree = "<group>"; };
+		BA132F14BA5FF8ECCC780234 /* Pods-HMReactiveRedux-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveRedux-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		C4359F1890C5103901AC2490 /* Pods-HMReactiveRedux-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveRedux-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		D350C34C1FA32EC70040556F /* HMStateFactoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMStateFactoryType.swift; sourceTree = "<group>"; };
 		D350C34E1FA330C10040556F /* HMActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMActionType.swift; sourceTree = "<group>"; };
 		D350C3501FA3317A0040556F /* HMStateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMStateType.swift; sourceTree = "<group>"; };
@@ -48,6 +64,13 @@
 		D350C3581FA345200040556F /* HMReduxStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMReduxStoreTest.swift; sourceTree = "<group>"; };
 		D350C35A1FA3465C0040556F /* HMState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMState.swift; sourceTree = "<group>"; };
 		D350C35C1FA34E7B0040556F /* HMStateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMStateTest.swift; sourceTree = "<group>"; };
+		D350C3621FA388190040556F /* HMReactiveRedux-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HMReactiveRedux-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D350C3641FA388190040556F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D350C3661FA388190040556F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D350C3691FA388190040556F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D350C36B1FA388190040556F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D350C36E1FA3881A0040556F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D350C3701FA3881A0040556F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3943ECE1FA32D5600898233 /* HMReactiveRedux.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMReactiveRedux.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3943ED11FA32D5600898233 /* HMReactiveRedux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMReactiveRedux.h; sourceTree = "<group>"; };
 		D3943ED21FA32D5600898233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,6 +79,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D350C35F1FA388190040556F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49875A8972FAB9416DA00A57 /* Pods_HMReactiveRedux_Demo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D3943ECA1FA32D5600898233 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -76,11 +107,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D350C3631FA388190040556F /* HMReactiveRedux-Demo */ = {
+			isa = PBXGroup;
+			children = (
+				D350C3641FA388190040556F /* AppDelegate.swift */,
+				D350C3661FA388190040556F /* ViewController.swift */,
+				D350C3681FA388190040556F /* Main.storyboard */,
+				D350C36B1FA388190040556F /* Assets.xcassets */,
+				D350C36D1FA3881A0040556F /* LaunchScreen.storyboard */,
+				D350C3701FA3881A0040556F /* Info.plist */,
+			);
+			path = "HMReactiveRedux-Demo";
+			sourceTree = "<group>";
+		};
 		D3943EC41FA32D5600898233 = {
 			isa = PBXGroup;
 			children = (
 				D3943ED01FA32D5600898233 /* HMReactiveRedux */,
 				D3943EDB1FA32D5600898233 /* HMReactiveReduxTests */,
+				D350C3631FA388190040556F /* HMReactiveRedux-Demo */,
 				D3943ECF1FA32D5600898233 /* Products */,
 				D9FDB6A1BE36AB53F2F7BD7D /* Pods */,
 				F4BA7F7E72D7951122BF8008 /* Frameworks */,
@@ -92,6 +137,7 @@
 			children = (
 				D3943ECE1FA32D5600898233 /* HMReactiveRedux.framework */,
 				D3943ED71FA32D5600898233 /* HMReactiveReduxTests.xctest */,
+				D350C3621FA388190040556F /* HMReactiveRedux-Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -129,6 +175,8 @@
 				880C5375A9B5A837897F8E66 /* Pods-HMReactiveRedux.release.xcconfig */,
 				46D0C3333FD0E789B251843E /* Pods-HMReactiveReduxTests.debug.xcconfig */,
 				1313896D61BA3474DC199493 /* Pods-HMReactiveReduxTests.release.xcconfig */,
+				C4359F1890C5103901AC2490 /* Pods-HMReactiveRedux-Demo.debug.xcconfig */,
+				BA132F14BA5FF8ECCC780234 /* Pods-HMReactiveRedux-Demo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -138,6 +186,7 @@
 			children = (
 				93AD75A808109D388B4F4DDC /* Pods_HMReactiveRedux.framework */,
 				62A27B0C6BE1BCD41C63493B /* Pods_HMReactiveReduxTests.framework */,
+				3B8E50928F35E88FA359DD19 /* Pods_HMReactiveRedux_Demo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -156,6 +205,27 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		D350C3611FA388190040556F /* HMReactiveRedux-Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D350C3711FA3881A0040556F /* Build configuration list for PBXNativeTarget "HMReactiveRedux-Demo" */;
+			buildPhases = (
+				B6F981038F850EE7B1E25A84 /* [CP] Check Pods Manifest.lock */,
+				D350C35E1FA388190040556F /* Sources */,
+				D350C35F1FA388190040556F /* Frameworks */,
+				D350C3601FA388190040556F /* Resources */,
+				99BF2019B1653BDFFC28C1FA /* [CP] Embed Pods Frameworks */,
+				242C144A28726F83BAE8A348 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D350C3751FA390C40040556F /* PBXTargetDependency */,
+			);
+			name = "HMReactiveRedux-Demo";
+			productName = "HMReactiveRedux-Demo";
+			productReference = D350C3621FA388190040556F /* HMReactiveRedux-Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D3943ECD1FA32D5600898233 /* HMReactiveRedux */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3943EE21FA32D5600898233 /* Build configuration list for PBXNativeTarget "HMReactiveRedux" */;
@@ -207,6 +277,10 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Holmusk;
 				TargetAttributes = {
+					D350C3611FA388190040556F = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
 					D3943ECD1FA32D5600898233 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0900;
@@ -225,6 +299,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = D3943EC41FA32D5600898233;
 			productRefGroup = D3943ECF1FA32D5600898233 /* Products */;
@@ -233,11 +308,22 @@
 			targets = (
 				D3943ECD1FA32D5600898233 /* HMReactiveRedux */,
 				D3943ED61FA32D5600898233 /* HMReactiveReduxTests */,
+				D350C3611FA388190040556F /* HMReactiveRedux-Demo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D350C3601FA388190040556F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D350C36F1FA3881A0040556F /* LaunchScreen.storyboard in Resources */,
+				D350C36C1FA3881A0040556F /* Assets.xcassets in Resources */,
+				D350C36A1FA388190040556F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D3943ECC1FA32D5600898233 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -285,6 +371,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMReactiveReduxTests/Pods-HMReactiveReduxTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		242C144A28726F83BAE8A348 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8243ECD11139563371BAD5C5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -311,6 +412,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMReactiveReduxTests/Pods-HMReactiveReduxTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		99BF2019B1653BDFFC28C1FA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftUtilities/SwiftUtilities.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftUtilities.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6F981038F850EE7B1E25A84 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HMReactiveRedux-Demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CEEB4B37BEB3BFE65056E476 /* [CP] Check Pods Manifest.lock */ = {
@@ -352,6 +495,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D350C35E1FA388190040556F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D350C3671FA388190040556F /* ViewController.swift in Sources */,
+				D350C3651FA388190040556F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D3943EC91FA32D5600898233 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,6 +530,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D350C3751FA390C40040556F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D3943ECD1FA32D5600898233 /* HMReactiveRedux */;
+			targetProxy = D350C3741FA390C40040556F /* PBXContainerItemProxy */;
+		};
 		D3943EDA1FA32D5600898233 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D3943ECD1FA32D5600898233 /* HMReactiveRedux */;
@@ -385,7 +542,58 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		D350C3681FA388190040556F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D350C3691FA388190040556F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D350C36D1FA3881A0040556F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D350C36E1FA3881A0040556F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		D350C3721FA3881A0040556F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C4359F1890C5103901AC2490 /* Pods-HMReactiveRedux-Demo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 785WJQ47KY;
+				INFOPLIST_FILE = "HMReactiveRedux-Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.holmusk.HMReactiveRedux-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D350C3731FA3881A0040556F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA132F14BA5FF8ECCC780234 /* Pods-HMReactiveRedux-Demo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 785WJQ47KY;
+				INFOPLIST_FILE = "HMReactiveRedux-Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.holmusk.HMReactiveRedux-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		D3943EE01FA32D5600898233 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -586,6 +794,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D350C3711FA3881A0040556F /* Build configuration list for PBXNativeTarget "HMReactiveRedux-Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D350C3721FA3881A0040556F /* Debug */,
+				D350C3731FA3881A0040556F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D3943EC81FA32D5600898233 /* Build configuration list for PBXProject "HMReactiveRedux" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

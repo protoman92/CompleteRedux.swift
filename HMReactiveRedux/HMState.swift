@@ -93,7 +93,8 @@ public extension HMState {
     ///   - identifier: A String value.
     ///   - valueFn: Value update function.
     /// - Returns: A HMState instance.
-    public func updateValueFn<T>(_ identifier: String, _ valueFn: UpdateFn<T>) -> HMState {
+    public func updateValueFnIfAvailable<T>(_ identifier: String,
+                                            _ valueFn: UpdateFn<T>) -> HMState {
         if let currentValue = stateValue(identifier) as? T {
             let newValue = valueFn(currentValue)
             return updateValue(identifier, newValue)
@@ -109,10 +110,10 @@ public extension HMState {
     ///   - identifier: A String value.
     ///   - valueFn: Value update function.
     /// - Returns: A HMState instance.
-    public func updateValueFn<T>(_ cls: T.Type,
-                                 _ identifier: String,
-                                 _ valueFn: UpdateFn<T>) -> HMState {
-        return updateValueFn(identifier, valueFn)
+    public func updateValueFnInAvailable<T>(_ cls: T.Type,
+                                            _ identifier: String,
+                                            _ valueFn: UpdateFn<T>) -> HMState {
+        return updateValueFnIfAvailable(identifier, valueFn)
     }
     
     /// Convenience function to update a value at a node.

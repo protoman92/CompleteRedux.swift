@@ -10,6 +10,7 @@ import RxSwift
 
 /// Classes that implement this protocol should act as a redux-compliant store.
 public protocol HMReduxStoreType: HMStateFactoryType {
+    typealias Action = HMActionType
     
     /// Trigger an action.
     func actionTrigger() -> AnyObserver<Action?>
