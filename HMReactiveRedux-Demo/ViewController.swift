@@ -93,7 +93,7 @@ public final class ViewController: UIViewController {
     
     fileprivate let disposeBag = DisposeBag()
     
-    fileprivate var store: HMReduxStore<HMState>!
+    fileprivate var store: HMStateStore!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -103,29 +103,20 @@ public final class ViewController: UIViewController {
         
         let initial = HMState.empty()
         
-        store = HMReduxStore<HMState>.mainThreadVariant(initial, mainReducer)
+        store = HMStateStore.mainThreadVariant(initial, mainReducer)
         
-        let stateStream = store.stateStream().shareReplay(1)
-        
-        stateStream
-            .map({$0.stateValue(NumberAction.path)})
-            .mapNonNilOrEmpty()
+        store.stateValueStream(Int.self, NumberAction.path)
             .map({String(describing: $0)})
             .distinctUntilChanged()
             .bind(to: counterTF.rx.text)
             .disposed(by: disposeBag)
         
-        stateStream
-            .map({$0.stateValue(StringAction.path)})
-            .mapNonNilOrEmpty()
-            .map({String(describing: $0)})
+        store.stateValueStream(String.self, StringAction.path)
             .distinctUntilChanged()
             .bind(to: stringTF1.rx.text)
             .disposed(by: disposeBag)
         
-        stateStream
-            .map({$0.stateValue(SliderAction.path)})
-            .mapNonNilOrEmpty()
+        store.stateValueStream(Double.self, SliderAction.path)
             .map({String(describing: $0)})
             .distinctUntilChanged()
             .bind(to: slideTF.rx.text)

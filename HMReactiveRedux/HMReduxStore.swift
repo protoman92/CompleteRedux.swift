@@ -20,13 +20,13 @@ public struct HMReduxStore<S: HMStateType> {
     ///   - initialState: A State instance.
     ///   - mainReducer: A HMReducer instance.
     /// - Returns: A HMReduxStore instance.
-    public static func mainThreadVariant<State>(
+    public static func mainThreadVariant(
         _ initialState: State,
         _ mainReducer: @escaping HMReducer<State>)
-        -> HMReduxStore<State> where State: HMStateType
+        -> HMReduxStore<State>
     {
         let actionSubject = BehaviorSubject<Action?>(value: nil)
-        let stateSubject = BehaviorSubject<State>(value: initialState)
+        let stateSubject = BehaviorSubject<S>(value: initialState)
         
         return HMReduxStore<State>.builder()
             .with(actionTrigger: actionSubject)

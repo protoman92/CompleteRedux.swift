@@ -10,6 +10,7 @@
 		49875A8972FAB9416DA00A57 /* Pods_HMReactiveRedux_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8E50928F35E88FA359DD19 /* Pods_HMReactiveRedux_Demo.framework */; };
 		77C06BC3B287EB8510D9ECD2 /* Pods_HMReactiveRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93AD75A808109D388B4F4DDC /* Pods_HMReactiveRedux.framework */; };
 		984BDB27B73C46ABD871C1BA /* Pods_HMReactiveReduxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A27B0C6BE1BCD41C63493B /* Pods_HMReactiveReduxTests.framework */; };
+		D303DE6B1FA4662700E8943C /* HMStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D303DE6A1FA4662700E8943C /* HMStateStore.swift */; };
 		D350C34D1FA32EC70040556F /* HMStateFactoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C34C1FA32EC70040556F /* HMStateFactoryType.swift */; };
 		D350C34F1FA330C10040556F /* HMActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C34E1FA330C10040556F /* HMActionType.swift */; };
 		D350C3511FA3317A0040556F /* HMStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3501FA3317A0040556F /* HMStateType.swift */; };
@@ -56,6 +57,7 @@
 		B44674A6B87D5F37AB34DB3C /* Pods-HMReactiveRedux.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveRedux.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveRedux/Pods-HMReactiveRedux.debug.xcconfig"; sourceTree = "<group>"; };
 		BA132F14BA5FF8ECCC780234 /* Pods-HMReactiveRedux-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveRedux-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		C4359F1890C5103901AC2490 /* Pods-HMReactiveRedux-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveRedux-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		D303DE6A1FA4662700E8943C /* HMStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMStateStore.swift; sourceTree = "<group>"; };
 		D350C34C1FA32EC70040556F /* HMStateFactoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMStateFactoryType.swift; sourceTree = "<group>"; };
 		D350C34E1FA330C10040556F /* HMActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMActionType.swift; sourceTree = "<group>"; };
 		D350C3501FA3317A0040556F /* HMStateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMStateType.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				D350C3541FA3369D0040556F /* HMReduxStoreType.swift */,
 				D350C35A1FA3465C0040556F /* HMState.swift */,
 				D350C34C1FA32EC70040556F /* HMStateFactoryType.swift */,
+				D303DE6A1FA4662700E8943C /* HMStateStore.swift */,
 				D350C3501FA3317A0040556F /* HMStateType.swift */,
 				D3943ED21FA32D5600898233 /* Info.plist */,
 			);
@@ -512,6 +515,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D303DE6B1FA4662700E8943C /* HMStateStore.swift in Sources */,
 				D350C3511FA3317A0040556F /* HMStateType.swift in Sources */,
 				D350C3571FA337A60040556F /* HMReduxStore.swift in Sources */,
 				D350C35B1FA3465C0040556F /* HMState.swift in Sources */,

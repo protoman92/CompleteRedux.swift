@@ -47,7 +47,7 @@ public final class HMReduxStoreTest: XCTestCase {
     fileprivate var disposeBag: DisposeBag!
     fileprivate var scheduler: TestScheduler!
     fileprivate var initialState: HMState!
-    fileprivate var store: HMReduxStore<Action,HMState>!
+    fileprivate var store: HMStateStore!
     
     fileprivate var updateId: String {
         return "layer1.layer2.layer3.calculation"
@@ -74,23 +74,34 @@ public final class HMReduxStoreTest: XCTestCase {
             .updateSubstate(SubState.layer1, layer1)
             .build()
         
-        store = HMReduxStore<Action,HMState>.mainThreadVariant(initialState!, reduce)
+        store = HMStateStore.mainThreadVariant(initialState!, reduce)
     }
     
-    fileprivate func reduce(_ state: HMState, _ action: Action) -> HMState {
-        let updateFn = action.updateFn()
-        return state.mapValue(updateId, updateFn)
+    fileprivate func reduce(_ state: HMState, _ action: HMActionType) -> HMState {
+        switch action {
+        case let action as Action:
+            let updateFn = action.updateFn()
+            return state.mapValueIfAvailable(updateId, updateFn)
+            
+        default:
+            return state
+        }
     }
     
     public func test_dispatchAction_shouldUpdateState() {
         /// Setup
         let stateObs = scheduler.createObserver(HMState.self)
+        let valueObs = scheduler.createObserver(Int.self)
         let store = self.store!
         var original = 0
         let times = 1000
         
         store.stateStream()
             .subscribe(stateObs)
+            .disposed(by: disposeBag)
+        
+        store.stateValueStream(Int.self, updateId)
+            .subscribe(valueObs)
             .disposed(by: disposeBag)
         
         /// When
@@ -101,11 +112,15 @@ public final class HMReduxStoreTest: XCTestCase {
         }
         
         /// Then
-        let nextElements = stateObs.nextElements()
-        XCTAssertTrue(nextElements.isNotEmpty)
+        let nextStateElements = stateObs.nextElements()
+        let nextValueElements = valueObs.nextElements()
+        XCTAssertTrue(nextStateElements.isNotEmpty)
+        XCTAssertTrue(nextValueElements.isNotEmpty)
         
-        let state = nextElements.last!
+        let state = nextStateElements.last!
+        let value = nextValueElements.last!
         let currentValue = state.stateValue(updateId) as! Int
-        XCTAssertEqual(currentValue, original) 
+        XCTAssertEqual(currentValue, original)
+        XCTAssertEqual(currentValue, value)
     }
 }
