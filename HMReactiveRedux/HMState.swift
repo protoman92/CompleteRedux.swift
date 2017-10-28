@@ -155,7 +155,7 @@ public extension HMState {
     ///   - identifier: A String value.
     ///   - substate: A HMState instance.
     /// - Returns: A HMState instance.
-    public func updateSubstate(_ identifier: String, _ substate: HMState) -> HMState {
+    public func updateSubstate(_ identifier: String, _ substate: HMState?) -> HMState {
         let separator = substateSeparator
         let separated = identifier.split(separator: separator).map(String.init)
         
@@ -245,8 +245,13 @@ extension HMState: BuildableType {
         ///   - substate: A HMState instance.
         /// - Returns: The current Builder instance.
         @discardableResult
-        public func updateSubstate(_ identifier: String, _ substate: HMState) -> Self {
-            state.substate.updateValue(substate, forKey: identifier)
+        public func updateSubstate(_ identifier: String, _ substate: HMState?) -> Self {
+            if let substate = substate {
+                state.substate.updateValue(substate, forKey: identifier)
+            } else {
+                state.substate.removeValue(forKey: identifier)
+            }
+            
             return self
         }
         

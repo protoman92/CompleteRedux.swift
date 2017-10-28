@@ -10,10 +10,8 @@ import HMReactiveRedux
 import RxSwift
 import UIKit
 
-public final class ActionType {
-    public static let numberAction = "NUMBER_ACTION"
-    
-    private init() {}
+public enum ClearAction: HMActionType {
+    case clearState
 }
 
 public enum NumberAction: HMActionType {
@@ -21,7 +19,11 @@ public enum NumberAction: HMActionType {
     case minus
     
     public static var path: String {
-        return "main.number.action"
+        return "main.number"
+    }
+    
+    public static var actionPath: String {
+        return "\(path).action"
     }
 }
 
@@ -29,7 +31,11 @@ public enum StringAction: HMActionType {
     case input(String)
     
     public static var path: String {
-        return "main.string.action"
+        return "main.string"
+    }
+    
+    public static var actionPath: String {
+        return "\(path).action"
     }
 }
 
@@ -37,12 +43,17 @@ public enum SliderAction: HMActionType {
     case input(Double)
     
     public static var path: String {
-        return "main.slider.action"
+        return "main.slider"
+    }
+    
+    public static var actionPath: String {
+        return "\(path).action"
     }
 }
 
 public func mainReducer(_ state: HMState, _ action: HMActionType) -> HMState {
     switch action {
+    case let action as ClearAction: return clearReducer(state, action)
     case let action as NumberAction: return numberReducer(state, action)
     case let action as StringAction: return stringReducer(state, action)
     case let action as SliderAction: return sliderReducer(state, action)
@@ -50,8 +61,18 @@ public func mainReducer(_ state: HMState, _ action: HMActionType) -> HMState {
     }
 }
 
+public func clearReducer(_ state: HMState, _ action: ClearAction) -> HMState {
+    switch action {
+    case .clearState:
+        return state
+            .updateSubstate(NumberAction.path, nil)
+            .updateSubstate(StringAction.path, nil)
+            .updateSubstate(SliderAction.path, nil)
+    }
+}
+
 public func numberReducer(_ state: HMState, _ action: NumberAction) -> HMState {
-    let path = NumberAction.path
+    let path = NumberAction.actionPath
     
     switch action {
     case .add:
@@ -63,7 +84,7 @@ public func numberReducer(_ state: HMState, _ action: NumberAction) -> HMState {
 }
 
 public func stringReducer(_ state: HMState, _ action: StringAction) -> HMState {
-    let path = StringAction.path
+    let path = StringAction.actionPath
     
     switch action {
     case .input(let string):
@@ -72,7 +93,7 @@ public func stringReducer(_ state: HMState, _ action: StringAction) -> HMState {
 }
 
 public func sliderReducer(_ state: HMState, _ action: SliderAction) -> HMState {
-    let path = SliderAction.path
+    let path = SliderAction.actionPath
     
     switch action {
     case .input(let value):
@@ -101,25 +122,40 @@ public final class ViewController: UIViewController {
         stringTF1.isEnabled = false
         slideTF.isEnabled = false
         
+        let deleteBtn = UIBarButtonItem(title: "Clear state",
+                                        style: .plain,
+                                        target: nil,
+                                        action: nil)
+        
+        navigationItem.rightBarButtonItem = deleteBtn
+        
         let initial = HMState.empty()
         
         store = HMStateStore.mainThreadVariant(initial, mainReducer)
         
-        store.stateValueStream(Int.self, NumberAction.path)
+        store.stateValueStream(NumberAction.actionPath)
+            .mapNonNilOrElse({$0 as? Int}, 0)
             .map({String(describing: $0)})
             .distinctUntilChanged()
             .bind(to: counterTF.rx.text)
             .disposed(by: disposeBag)
         
-        store.stateValueStream(String.self, StringAction.path)
+        store.stateValueStream(StringAction.actionPath)
+            .mapNonNilOrElse({$0 as? String}, "Input on the right")
             .distinctUntilChanged()
             .bind(to: stringTF1.rx.text)
             .disposed(by: disposeBag)
         
-        store.stateValueStream(Double.self, SliderAction.path)
+        store.stateValueStream(SliderAction.actionPath)
+            .mapNonNilOrElse({$0 as? Double}, 0)
             .map({String(describing: $0)})
             .distinctUntilChanged()
             .bind(to: slideTF.rx.text)
+            .disposed(by: disposeBag)
+        
+        deleteBtn.rx.tap.asObservable()
+            .map({_ in ClearAction.clearState})
+            .bind(to: store.actionTrigger())
             .disposed(by: disposeBag)
         
         addBT.rx.tap.asObservable()

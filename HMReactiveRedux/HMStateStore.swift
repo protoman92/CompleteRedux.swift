@@ -14,23 +14,21 @@ public typealias HMStateStore = HMReduxStore<HMState>
 public extension HMReduxStore where State == HMState {
     
     /// Subscribe to this stream to receive notifications for a particular
-    /// substate. Beware that this stream may be empty if the substate in question
-    /// does not exist.
+    /// substate.
     ///
     /// - Parameter identifier: A String value.
     /// - Returns: An Observable instance.
-    public func substateStream(_ identifier: String) -> Observable<State> {
-        return stateStream().mapNonNilOrEmpty({$0.substate(identifier)})
+    public func substateStream(_ identifier: String) -> Observable<State?> {
+        return stateStream().map({$0.substate(identifier)})
     }
     
     /// Subscribe to this stream to receive notifications for a particular
-    /// state value. Beware that this stream may be empty if the state value
-    /// does not exist.
+    /// state value.
     ///
     /// - Parameter identifier: A String value.
     /// - Returns: An Observable instance.
-    public func stateValueStream(_ identifier: String) -> Observable<Any> {
-        return stateStream().mapNonNilOrEmpty({$0.stateValue(identifier)})
+    public func stateValueStream(_ identifier: String) -> Observable<Any?> {
+        return stateStream().map({$0.stateValue(identifier)})
     }
     
     /// Subscribe to this stream to receive notifications for a state value of
@@ -40,7 +38,7 @@ public extension HMReduxStore where State == HMState {
     ///   - cls: The T class type.
     ///   - identifier: A String value.
     /// - Returns: An Observable instance.
-    public func stateValueStream<T>(_ cls: T.Type, _ identifier: String) -> Observable<T> {
-        return stateValueStream(identifier).ofType(cls)
+    public func stateValueStream<T>(_ cls: T.Type, _ identifier: String) -> Observable<T?> {
+        return stateValueStream(identifier).map({$0 as? T})
     }
 }
