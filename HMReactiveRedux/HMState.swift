@@ -82,8 +82,8 @@ public extension HMState {
     ///   - valueFn: Value update function.
     /// - Returns: A HMState instance.
     public func mapValue<T>(_ cls: T.Type,
-                                 _ identifier: String,
-                                 _ valueFn: UpdateFn<T?>) -> HMState {
+                            _ identifier: String,
+                            _ valueFn: UpdateFn<T?>) -> HMState {
         return mapValue(identifier, valueFn)
     }
     
@@ -94,7 +94,7 @@ public extension HMState {
     ///   - valueFn: Value update function.
     /// - Returns: A HMState instance.
     public func mapValueIfAvailable<T>(_ identifier: String,
-                                            _ valueFn: UpdateFn<T>) -> HMState {
+                                       _ valueFn: UpdateFn<T>) -> HMState {
         if let currentValue = stateValue(identifier) as? T {
             let newValue = valueFn(currentValue)
             return updateValue(identifier, newValue)
@@ -111,8 +111,8 @@ public extension HMState {
     ///   - valueFn: Value update function.
     /// - Returns: A HMState instance.
     public func mapValueInAvailable<T>(_ cls: T.Type,
-                                            _ identifier: String,
-                                            _ valueFn: UpdateFn<T>) -> HMState {
+                                       _ identifier: String,
+                                       _ valueFn: UpdateFn<T>) -> HMState {
         return mapValueIfAvailable(identifier, valueFn)
     }
     
