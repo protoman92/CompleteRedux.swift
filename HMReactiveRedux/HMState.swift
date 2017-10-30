@@ -8,7 +8,7 @@
 
 import SwiftUtilities
 
-/// A simple nested state implementation.
+/// A simple nested state implementation. All HMState instances are immutable.
 public struct HMState {
     public typealias UpdateFn<T> = (T) -> T
     
@@ -126,6 +126,14 @@ public extension HMState {
         let valueFn: UpdateFn<Any?> = {_ in value}
         return mapValue(identifier, valueFn)
     }
+    
+    /// Convenience method to remove value in the current state/a substate.
+    ///
+    /// - Parameter identifier: A String value.
+    /// - Returns: A HMState instance.
+    public func removeValue(_ identifier: String) -> HMState {
+        return updateValue(identifier, nil)
+    }
 }
 
 public extension HMState {
@@ -169,6 +177,24 @@ public extension HMState {
         } else {
             return self
         }
+    }
+    
+    /// Convenience method to remove substate at a node.
+    ///
+    /// - Parameter identifier: A String value.
+    /// - Returns: A HMState instance.
+    public func removeSubstate(_ identifier: String) -> HMState {
+        return updateSubstate(identifier, nil)
+    }
+}
+
+public extension HMState {
+    
+    /// Get a new blank state.
+    ///
+    /// - Returns: A HMState instance.
+    public func clearAllState() -> HMState {
+        return .empty()
     }
 }
 
@@ -221,8 +247,13 @@ extension HMState: BuildableType {
         @discardableResult
         public func updateStateFn<T>(_ identifier: String, _ updateFn: UpdateFn<T?>) -> Self {
             let value = state.stateValue(identifier) as? T
-            let newValue = updateFn(value)
-            state.currentState.updateValue(newValue, forKey: identifier)
+            
+            if let newValue = updateFn(value) {
+                state.currentState.updateValue(newValue, forKey: identifier)
+            } else {
+                state.currentState.removeValue(forKey: identifier)
+            }
+            
             return self
         }
         

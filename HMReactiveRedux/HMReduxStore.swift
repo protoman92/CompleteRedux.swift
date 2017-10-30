@@ -22,8 +22,7 @@ public struct HMReduxStore<S: HMStateType> {
     /// - Returns: A HMReduxStore instance.
     public static func mainThreadVariant(
         _ initialState: State,
-        _ mainReducer: @escaping HMReducer<State>)
-        -> HMReduxStore<State>
+        _ mainReducer: @escaping HMReducer<State>) -> HMReduxStore<State>
     {
         let actionSubject = BehaviorSubject<Action?>(value: nil)
         let stateSubject = BehaviorSubject<S>(value: initialState)

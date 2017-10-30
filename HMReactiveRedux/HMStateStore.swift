@@ -13,6 +13,16 @@ public typealias HMStateStore = HMReduxStore<HMState>
 
 public extension HMReduxStore where State == HMState {
     
+    /// Convenience method to create a store with an empty state.
+    ///
+    /// - Parameter mainReducer: A HMReducer instance.
+    /// - Returns: A HMReduxStore instance.
+    public static func mainThreadVariant(
+        _ mainReducer: @escaping HMReducer<State>) -> HMReduxStore<State>
+    {
+        return mainThreadVariant(.empty(), mainReducer)
+    }
+    
     /// Subscribe to this stream to receive notifications for a particular
     /// substate.
     ///
