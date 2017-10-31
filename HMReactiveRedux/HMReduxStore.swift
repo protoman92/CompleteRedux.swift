@@ -31,19 +31,19 @@ public struct HMReduxStore<S: HMStateType> {
     }
     
     fileprivate let disposeBag: DisposeBag
-    fileprivate var rdActionVariable: Variable<Action?>
+    fileprivate var rdActionObserver: HMReduxObserver<Action?>
     fileprivate var rdStateVariable: Variable<State>
     
     fileprivate init(_ initialState: State) {
         disposeBag = DisposeBag()
-        rdActionVariable = Variable<Action?>(nil)
+        rdActionObserver = HMReduxObserver<Action?>(nil)
         rdStateVariable = Variable(initialState)
     }
     
     fileprivate func setupStateBindings(_ reducer: @escaping HMReducer<State>) {
         let disposeBag = self.disposeBag
         let initialState = rdStateVariable.value
-        let actionStream = rdActionVariable.asObservable().mapNonNilOrEmpty()
+        let actionStream = rdActionObserver.mapNonNilOrEmpty()
         
         createState(actionStream, initialState, reducer)
             .bind(to: rdStateVariable)
@@ -55,29 +55,10 @@ extension HMReduxStore: HMReduxStoreType {
     public typealias State = S
     
     public func actionTrigger() -> AnyObserver<Action?> {
-        return rdActionVariable.asObserver()
+        return rdActionObserver.asObserver()
     }
     
     public func stateStream() -> Observable<State> {
         return rdStateVariable.asDriver().asObservable()
-    }
-}
-
-extension Variable: ObserverType {
-    public typealias E = Element
-    
-    public func on(_ event: Event<Element>) {
-        Preconditions.checkRunningOnMainThread(event)
-        
-        switch event {
-        case .next(let event):
-            self.value = event
-            
-        case .error(let error):
-            debugPrint("Error \(error) received - ignoring.")
-            
-        case .completed:
-            debugPrint("Completed signal received - ignoring.")
-        }
     }
 }
