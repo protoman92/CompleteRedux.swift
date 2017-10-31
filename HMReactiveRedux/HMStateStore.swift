@@ -17,10 +17,10 @@ public extension HMReduxStore where State == HMState {
     ///
     /// - Parameter mainReducer: A HMReducer instance.
     /// - Returns: A HMReduxStore instance.
-    public static func mainThreadVariant(
+    public static func createInstance(
         _ mainReducer: @escaping HMReducer<State>) -> HMReduxStore<State>
     {
-        return mainThreadVariant(.empty(), mainReducer)
+        return createInstance(.empty(), mainReducer)
     }
     
     /// Subscribe to this stream to receive notifications for a particular

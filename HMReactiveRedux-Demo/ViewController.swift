@@ -25,6 +25,10 @@ public enum NumberAction: HMActionType {
     public static var actionPath: String {
         return "\(path).action"
     }
+    
+    public static var action2Path: String {
+        return "\(path).action2"
+    }
 }
 
 public enum StringAction: HMActionType {
@@ -132,7 +136,7 @@ public final class ViewController: UIViewController {
         
         let initial = HMState.empty()
         
-        store = HMStateStore.mainThreadVariant(initial, mainReducer)
+        store = HMStateStore.createInstance(initial, mainReducer)
         
         store.stateValueStream(NumberAction.actionPath)
             .mapNonNilOrElse({$0 as? Int}, 0)

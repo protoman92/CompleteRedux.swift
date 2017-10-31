@@ -74,7 +74,7 @@ public final class HMReduxStoreTest: XCTestCase {
             .updateSubstate(SubState.layer1, layer1)
             .build()
         
-        store = HMStateStore.mainThreadVariant(initialState!, reduce)
+        store = HMStateStore.createInstance(initialState!, reduce)
     }
     
     fileprivate func reduce(_ state: HMState, _ action: HMActionType) -> HMState {

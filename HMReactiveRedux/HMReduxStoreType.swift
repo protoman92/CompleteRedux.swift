@@ -14,12 +14,6 @@ public protocol HMReduxStoreType: HMStateFactoryType {
     
     /// Trigger an action.
     func actionTrigger() -> AnyObserver<Action?>
-    
-    /// Subscribe to this stream to receive action notifications.
-    func actionStream() -> Observable<Action>
-    
-    /// Trigger a state.
-    func stateTrigger() -> AnyObserver<State>
 
     /// Subscribe to this stream to receive state notifications.
     func stateStream() -> Observable<State>
