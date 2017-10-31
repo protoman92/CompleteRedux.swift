@@ -10,7 +10,8 @@ import RxCocoa
 import RxSwift
 import SwiftUtilities
 
-/// A Redux-compliant store.
+/// A Redux-compliant store. Since this store is used for UI-related work, it
+/// should operation on the main thread.
 public struct HMReduxStore<S: HMStateType> {
     
     /// Create a redux store that only receives and delivers events on the main
@@ -30,14 +31,12 @@ public struct HMReduxStore<S: HMStateType> {
     }
     
     fileprivate let disposeBag: DisposeBag
-    fileprivate var rdActionTrigger: PublishSubject<Action?>
     fileprivate var rdActionVariable: Variable<Action?>
     fileprivate var rdStateVariable: Variable<State>
     
     fileprivate init(_ initialState: State) {
         disposeBag = DisposeBag()
         rdActionVariable = Variable<Action?>(nil)
-        rdActionTrigger = PublishSubject<Action?>()
         rdStateVariable = Variable(initialState)
     }
     
@@ -45,10 +44,6 @@ public struct HMReduxStore<S: HMStateType> {
         let disposeBag = self.disposeBag
         let initialState = rdStateVariable.value
         let actionStream = rdActionVariable.asObservable().mapNonNilOrEmpty()
-        
-        rdActionTrigger
-            .bind(to: rdActionVariable)
-            .disposed(by: disposeBag)
         
         createState(actionStream, initialState, reducer)
             .bind(to: rdStateVariable)
@@ -60,10 +55,29 @@ extension HMReduxStore: HMReduxStoreType {
     public typealias State = S
     
     public func actionTrigger() -> AnyObserver<Action?> {
-        return rdActionTrigger.asObserver()
+        return rdActionVariable.asObserver()
     }
     
     public func stateStream() -> Observable<State> {
         return rdStateVariable.asDriver().asObservable()
+    }
+}
+
+extension Variable: ObserverType {
+    public typealias E = Element
+    
+    public func on(_ event: Event<Element>) {
+        Preconditions.checkRunningOnMainThread(event)
+        
+        switch event {
+        case .next(let event):
+            self.value = event
+            
+        case .error(let error):
+            debugPrint("Error \(error) received - ignoring.")
+            
+        case .completed:
+            debugPrint("Completed signal received - ignoring.")
+        }
     }
 }

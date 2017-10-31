@@ -69,10 +69,13 @@ public func clearReducer(_ state: HMState, _ action: ClearAction) -> HMState {
     switch action {
     case .clearState:
         return state
-            .removeValue(NumberAction.actionPath)
-            .removeValue(StringAction.actionPath)
-            .removeValue(SliderAction.actionPath)
-            .clearAllState()
+            .removeSubstate(NumberAction.path)
+            .removeSubstate(StringAction.path)
+            .removeSubstate(SliderAction.path)
+//            .removeValue(NumberAction.actionPath)
+//            .removeValue(StringAction.actionPath)
+//            .removeValue(SliderAction.actionPath)
+//            .clearAllState()
     }
 }
 
