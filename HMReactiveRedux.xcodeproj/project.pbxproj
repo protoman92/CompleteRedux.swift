@@ -12,6 +12,10 @@
 		984BDB27B73C46ABD871C1BA /* Pods_HMReactiveReduxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A27B0C6BE1BCD41C63493B /* Pods_HMReactiveReduxTests.framework */; };
 		D303DE6B1FA4662700E8943C /* HMStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D303DE6A1FA4662700E8943C /* HMStateStore.swift */; };
 		D3040A1E1FA8566B00BE0E14 /* HMReduxObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3040A1D1FA8566B00BE0E14 /* HMReduxObserver.swift */; };
+		D310A0362012612000F96648 /* HMGeneralRedux.swift in Sources */ = {isa = PBXBuildFile; fileRef = D310A0352012611F00F96648 /* HMGeneralRedux.swift */; };
+		D310A0382012614D00F96648 /* HMGeneralRedux+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D310A0372012614D00F96648 /* HMGeneralRedux+Error.swift */; };
+		D310A03A2012617400F96648 /* HMGeneralRedux+Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D310A0392012617400F96648 /* HMGeneralRedux+Progress.swift */; };
+		D310A03C2012619F00F96648 /* HMGeneralRedux+Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D310A03B2012619F00F96648 /* HMGeneralRedux+Global.swift */; };
 		D350C34D1FA32EC70040556F /* HMStateFactoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C34C1FA32EC70040556F /* HMStateFactoryType.swift */; };
 		D350C34F1FA330C10040556F /* HMActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C34E1FA330C10040556F /* HMActionType.swift */; };
 		D350C3511FA3317A0040556F /* HMStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3501FA3317A0040556F /* HMStateType.swift */; };
@@ -60,6 +64,10 @@
 		C4359F1890C5103901AC2490 /* Pods-HMReactiveRedux-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveRedux-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		D303DE6A1FA4662700E8943C /* HMStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMStateStore.swift; sourceTree = "<group>"; };
 		D3040A1D1FA8566B00BE0E14 /* HMReduxObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMReduxObserver.swift; sourceTree = "<group>"; };
+		D310A0352012611F00F96648 /* HMGeneralRedux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMGeneralRedux.swift; sourceTree = "<group>"; };
+		D310A0372012614D00F96648 /* HMGeneralRedux+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMGeneralRedux+Error.swift"; sourceTree = "<group>"; };
+		D310A0392012617400F96648 /* HMGeneralRedux+Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMGeneralRedux+Progress.swift"; sourceTree = "<group>"; };
+		D310A03B2012619F00F96648 /* HMGeneralRedux+Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMGeneralRedux+Global.swift"; sourceTree = "<group>"; };
 		D350C34C1FA32EC70040556F /* HMStateFactoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMStateFactoryType.swift; sourceTree = "<group>"; };
 		D350C34E1FA330C10040556F /* HMActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMActionType.swift; sourceTree = "<group>"; };
 		D350C3501FA3317A0040556F /* HMStateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMStateType.swift; sourceTree = "<group>"; };
@@ -153,6 +161,10 @@
 			isa = PBXGroup;
 			children = (
 				D350C34E1FA330C10040556F /* HMActionType.swift */,
+				D310A0352012611F00F96648 /* HMGeneralRedux.swift */,
+				D310A0372012614D00F96648 /* HMGeneralRedux+Error.swift */,
+				D310A03B2012619F00F96648 /* HMGeneralRedux+Global.swift */,
+				D310A0392012617400F96648 /* HMGeneralRedux+Progress.swift */,
 				D3943ED11FA32D5600898233 /* HMReactiveRedux.h */,
 				D350C3521FA3325B0040556F /* HMReducer.swift */,
 				D3040A1D1FA8566B00BE0E14 /* HMReduxObserver.swift */,
@@ -520,13 +532,17 @@
 			files = (
 				D303DE6B1FA4662700E8943C /* HMStateStore.swift in Sources */,
 				D350C3511FA3317A0040556F /* HMStateType.swift in Sources */,
+				D310A03C2012619F00F96648 /* HMGeneralRedux+Global.swift in Sources */,
 				D350C3571FA337A60040556F /* HMReduxStore.swift in Sources */,
 				D350C35B1FA3465C0040556F /* HMState.swift in Sources */,
 				D350C3551FA3369D0040556F /* HMReduxStoreType.swift in Sources */,
 				D3040A1E1FA8566B00BE0E14 /* HMReduxObserver.swift in Sources */,
 				D350C3531FA3325B0040556F /* HMReducer.swift in Sources */,
 				D350C34F1FA330C10040556F /* HMActionType.swift in Sources */,
+				D310A0362012612000F96648 /* HMGeneralRedux.swift in Sources */,
+				D310A0382012614D00F96648 /* HMGeneralRedux+Error.swift in Sources */,
 				D350C34D1FA32EC70040556F /* HMStateFactoryType.swift in Sources */,
+				D310A03A2012617400F96648 /* HMGeneralRedux+Progress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

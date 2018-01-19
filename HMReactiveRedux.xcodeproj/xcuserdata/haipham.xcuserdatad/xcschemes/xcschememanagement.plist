@@ -4,10 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>HMReactiveRedux-Demo.xcscheme</key>
+		<key>HMReactiveRedux-Demo 2.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>11</integer>
+		</dict>
+		<key>HMReactiveRedux-Demo.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
 		</dict>
 		<key>HMReactiveRedux.xcscheme</key>
 		<dict>
@@ -17,11 +22,16 @@
 		<key>HMReactiveReduxTests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>9</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>D350C3611FA388190040556F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D3943ECD1FA32D5600898233</key>
 		<dict>
 			<key>primary</key>
