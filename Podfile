@@ -2,7 +2,7 @@
 # platform :ios, '9.0'
 
 def allPods
-    pod 'SwiftUtilities/Main', git: 'https://github.com/protoman92/SwiftUtilities.git'
+    pod 'SwiftUtilities/Main', git: 'https://github.com/protoman92/SwiftUtilities.git', :branch => 'legacy'
 end
 
 target 'HMReactiveRedux' do
@@ -18,7 +18,7 @@ target 'HMReactiveRedux' do
     # Pods for testing
     allPods
     
-    pod 'SwiftUtilitiesTests/Main', git: 'https://github.com/protoman92/SwiftUtilities.git'
+    pod 'SwiftUtilitiesTests/Main', git: 'https://github.com/protoman92/SwiftUtilities.git', :branch => 'legacy'
   end
   
   target 'HMReactiveRedux-Demo' do

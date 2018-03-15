@@ -17,21 +17,23 @@ PODS:
     - RxTest (~> 3.0)
 
 DEPENDENCIES:
-  - SwiftUtilities/Main (from `https://github.com/protoman92/SwiftUtilities.git`)
-  - SwiftUtilitiesTests/Main (from `https://github.com/protoman92/SwiftUtilities.git`)
+  - SwiftUtilities/Main (from `https://github.com/protoman92/SwiftUtilities.git`, branch `legacy`)
+  - SwiftUtilitiesTests/Main (from `https://github.com/protoman92/SwiftUtilities.git`, branch `legacy`)
 
 EXTERNAL SOURCES:
   SwiftUtilities:
+    :branch: legacy
     :git: https://github.com/protoman92/SwiftUtilities.git
   SwiftUtilitiesTests:
+    :branch: legacy
     :git: https://github.com/protoman92/SwiftUtilities.git
 
 CHECKOUT OPTIONS:
   SwiftUtilities:
-    :commit: 0e383d6e86f73e68e6bb0fd0235a3f8e60c86063
+    :commit: 18d4bbe1368555569822681f18dd167e5d3c32e4
     :git: https://github.com/protoman92/SwiftUtilities.git
   SwiftUtilitiesTests:
-    :commit: 0e383d6e86f73e68e6bb0fd0235a3f8e60c86063
+    :commit: 18d4bbe1368555569822681f18dd167e5d3c32e4
     :git: https://github.com/protoman92/SwiftUtilities.git
 
 SPEC CHECKSUMS:
@@ -42,6 +44,6 @@ SPEC CHECKSUMS:
   SwiftUtilities: ef0087625fe58fb8909af372111e23461d10af55
   SwiftUtilitiesTests: ed0f926a2abd328fdee7cbe2d6f6550b62a9ff86
 
-PODFILE CHECKSUM: 4b3e4c34d2f20f52b14f43504796f94fb5850bdd
+PODFILE CHECKSUM: a75e667f50ed35f2adecd637882486a330cc959e
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0
