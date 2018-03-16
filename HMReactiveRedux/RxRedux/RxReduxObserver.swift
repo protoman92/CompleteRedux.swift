@@ -1,5 +1,5 @@
 //
-//  HMReduxObserver.swift
+//  RxReduxObserver.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 31/10/17.
@@ -11,7 +11,7 @@ import RxSwift
 import SwiftUtilities
 
 /// Use this wrapper to discard completed events.
-internal struct HMReduxObserver<Element> {
+internal struct RxReduxObserver<Element> {
 	fileprivate let reduxVariable: Variable<E>
 	
 	public init(_ value: E) {
@@ -19,13 +19,13 @@ internal struct HMReduxObserver<Element> {
 	}
 }
 
-extension HMReduxObserver: ObservableConvertibleType {
+extension RxReduxObserver: ObservableConvertibleType {
 	internal func asObservable() -> Observable<E> {
 		return reduxVariable.asObservable()
 	}
 }
 
-extension HMReduxObserver: ObserverType {
+extension RxReduxObserver: ObserverType {
 	typealias E = Element
 	
 	internal func on(_ event: Event<Element>) {

@@ -21,16 +21,22 @@ PODS:
     - RxTest (~> 4.0)
 
 DEPENDENCIES:
+  - SwiftFP/Main (from `https://github.com/protoman92/SwiftFP.git`)
   - SwiftUtilities/Main+Rx (from `https://github.com/protoman92/SwiftUtilities.git`)
   - SwiftUtilitiesTests/Main+Rx (from `https://github.com/protoman92/SwiftUtilities.git`)
 
 EXTERNAL SOURCES:
+  SwiftFP:
+    :git: https://github.com/protoman92/SwiftFP.git
   SwiftUtilities:
     :git: https://github.com/protoman92/SwiftUtilities.git
   SwiftUtilitiesTests:
     :git: https://github.com/protoman92/SwiftUtilities.git
 
 CHECKOUT OPTIONS:
+  SwiftFP:
+    :commit: d5441fb57754f696689c166733be2f8cb042c436
+    :git: https://github.com/protoman92/SwiftFP.git
   SwiftUtilities:
     :commit: 826987273a056da01407076628c78c9d519c9fce
     :git: https://github.com/protoman92/SwiftUtilities.git
@@ -47,6 +53,6 @@ SPEC CHECKSUMS:
   SwiftUtilities: 4c007d0fcf9219d458fc0752c2cfb0bb7f5b2863
   SwiftUtilitiesTests: fe794f9d745ca8bdacf25160cfdb4b1899383cc6
 
-PODFILE CHECKSUM: c968daee353b0cc92489df3e1cd98c4bb5258798
+PODFILE CHECKSUM: a64970eb2d2944d06b3fdd90634a8cc2dca20c34
 
 COCOAPODS: 1.4.0

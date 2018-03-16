@@ -1,5 +1,5 @@
 //
-//  HMReduxStoreType.swift
+//  RxReduxStateFactoryType.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 27/10/17.
@@ -10,12 +10,12 @@ import RxSwift
 
 /// Classes that implement this protocol should be able to produce state based
 /// on reducers.
-public protocol HMStateFactoryType {
-	associatedtype State: HMStateType
+public protocol RxReduxStateFactoryType {
+	associatedtype State: StateType
 }
 
-public extension HMStateFactoryType {
-	
+public extension RxReduxStateFactoryType {
+
 	/// Create a state stream that builds up from an initial state.
 	///
 	/// - Parameters:
@@ -25,9 +25,9 @@ public extension HMStateFactoryType {
 	/// - Returns: An Observable instance.
 	public func createState<O>(_ actionTrigger: O,
 														 _ initialState: State,
-														 _ mainReducer: @escaping HMReducer<State>)
+														 _ mainReducer: @escaping ReduxReducer<State>)
 		-> Observable<State> where
-		O: ObservableConvertibleType, O.E == HMActionType
+		O: ObservableConvertibleType, O.E == ReduxActionType
 	{
 		return actionTrigger.asObservable()
 			.scan(initialState, accumulator: mainReducer)

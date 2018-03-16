@@ -9,17 +9,17 @@
 			<key>orderHint</key>
 			<integer>11</integer>
 		</dict>
-		<key>HMReactiveRedux-Demo.xcscheme</key>
+		<key>HMReactiveRedux-Demo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>11</integer>
 		</dict>
-		<key>HMReactiveRedux.xcscheme</key>
+		<key>HMReactiveRedux.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
-		<key>HMReactiveReduxTests.xcscheme</key>
+		<key>HMReactiveReduxTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>10</integer>

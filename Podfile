@@ -2,6 +2,7 @@
 # platform :ios, '9.0'
 
 def allPods
+		pod 'SwiftFP/Main', git: 'https://github.com/protoman92/SwiftFP.git'
     pod 'SwiftUtilities/Main+Rx', git: 'https://github.com/protoman92/SwiftUtilities.git'
 end
 

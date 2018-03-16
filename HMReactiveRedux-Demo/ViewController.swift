@@ -8,13 +8,14 @@
 
 import HMReactiveRedux
 import RxSwift
+import SwiftFP
 import UIKit
 
-public enum ClearAction: HMActionType {
+public enum ClearAction: ReduxActionType {
 	case clearState
 }
 
-public enum NumberAction: HMActionType {
+public enum NumberAction: ReduxActionType {
 	case add
 	case minus
 	
@@ -31,7 +32,7 @@ public enum NumberAction: HMActionType {
 	}
 }
 
-public enum StringAction: HMActionType {
+public enum StringAction: ReduxActionType {
 	case input(String)
 	
 	public static var path: String {
@@ -43,7 +44,7 @@ public enum StringAction: HMActionType {
 	}
 }
 
-public enum SliderAction: HMActionType {
+public enum SliderAction: ReduxActionType {
 	case input(Double)
 	
 	public static var path: String {
@@ -55,7 +56,7 @@ public enum SliderAction: HMActionType {
 	}
 }
 
-public func mainReducer(_ state: HMState, _ action: HMActionType) -> HMState {
+public func mainReducer(_ state: TreeState<Any>, _ action: ReduxActionType) -> TreeState<Any> {
 	switch action {
 	case let action as ClearAction: return clearReducer(state, action)
 	case let action as NumberAction: return numberReducer(state, action)
@@ -65,47 +66,53 @@ public func mainReducer(_ state: HMState, _ action: HMActionType) -> HMState {
 	}
 }
 
-public func clearReducer(_ state: HMState, _ action: ClearAction) -> HMState {
+public func clearReducer(_ state: TreeState<Any>, _ action: ClearAction) -> TreeState<Any> {
 	switch action {
 	case .clearState:
 		return state
 			.removeSubstate(NumberAction.path)
 			.removeSubstate(StringAction.path)
 			.removeSubstate(SliderAction.path)
-		//            .removeValue(NumberAction.actionPath)
-		//            .removeValue(StringAction.actionPath)
-		//            .removeValue(SliderAction.actionPath)
-		//            .clearAllState()
 	}
 }
 
-public func numberReducer(_ state: HMState, _ action: NumberAction) -> HMState {
+public func numberReducer(_ state: TreeState<Any>, _ action: NumberAction) -> TreeState<Any> {
 	let path = NumberAction.actionPath
 	
 	switch action {
 	case .add:
-		return state.mapValue(Int.self, path, {($0 ?? 0) + 1})
+		return state.map(path, {
+			return $0.flatMap({$0 as? Int})
+				.successOrElse(Try.success(0))
+				.map({$0 + 1})
+				.map({$0 as Any})
+		})
 		
 	case .minus:
-		return state.mapValue(Int.self, path, {($0 ?? 0) - 1})
+		return state.map(path, {
+			return $0.flatMap({$0 as? Int})
+				.successOrElse(Try.success(0))
+				.map({$0 - 1})
+				.map({$0 as Any})
+		})
 	}
 }
 
-public func stringReducer(_ state: HMState, _ action: StringAction) -> HMState {
+public func stringReducer(_ state: TreeState<Any>, _ action: StringAction) -> TreeState<Any> {
 	let path = StringAction.actionPath
 	
 	switch action {
 	case .input(let string):
-		return state.mapValue(String.self, path, {_ in string})
+		return state.updateValue(path, string)
 	}
 }
 
-public func sliderReducer(_ state: HMState, _ action: SliderAction) -> HMState {
+public func sliderReducer(_ state: TreeState<Any>, _ action: SliderAction) -> TreeState<Any> {
 	let path = SliderAction.actionPath
 	
 	switch action {
 	case .input(let value):
-		return state.mapValue(Double.self, path, {_ in value})
+		return state.updateValue(path, value)
 	}
 }
 
@@ -122,7 +129,7 @@ public final class ViewController: UIViewController {
 	
 	fileprivate let disposeBag = DisposeBag()
 	
-	fileprivate var store: HMStateStore!
+	fileprivate var store: RxReduxStore<Any>!
 	
 	override public func viewDidLoad() {
 		super.viewDidLoad()
@@ -137,25 +144,29 @@ public final class ViewController: UIViewController {
 		
 		navigationItem.rightBarButtonItem = deleteBtn
 		
-		let initial = HMState.empty()
+		let initial = TreeState<Any>.empty()
 		
-		store = HMStateStore.createInstance(initial, mainReducer)
+		store = RxReduxStore.createInstance(initial, mainReducer)
 		
 		store.stateValueStream(NumberAction.actionPath)
-			.mapNonNilOrElse({$0 as? Int}, 0)
+			.map({$0.flatMap({$0 as? Int})})
+			.mapNonNilOrElse(0)
 			.map({String(describing: $0)})
 			.distinctUntilChanged()
 			.bind(to: counterTF.rx.text)
 			.disposed(by: disposeBag)
 		
 		store.stateValueStream(StringAction.actionPath)
-			.mapNonNilOrElse({$0 as? String}, "Input on the right")
+			.map({$0.flatMap({$0 as? String})})
+			.mapNonNilOrElse("Input on the right")
+			.map({String(describing: $0)})
 			.distinctUntilChanged()
 			.bind(to: stringTF1.rx.text)
 			.disposed(by: disposeBag)
 		
 		store.stateValueStream(SliderAction.actionPath)
-			.mapNonNilOrElse({$0 as? Double}, 0)
+			.map({$0.flatMap({$0 as? Double})})
+			.mapNonNilOrElse(0)
 			.map({String(describing: $0)})
 			.distinctUntilChanged()
 			.bind(to: slideTF.rx.text)

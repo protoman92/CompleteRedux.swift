@@ -1,16 +1,16 @@
 //
-//  HMGeneralRedux+Progress.swift
+//  GeneralRedux+Progress.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 20/1/18.
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-public extension HMGeneralReduxAction {
+public extension GeneralReduxAction {
 	
 	/// Progress-related actions.
 	public final class Progress {
-		public enum Display: HMActionType {
+		public enum Display: ReduxActionType {
 			case updateShowProgress(Bool)
 			
 			public static var path: String {
@@ -24,13 +24,13 @@ public extension HMGeneralReduxAction {
 	}
 }
 
-public extension HMGeneralReduxReducer {
+public extension GeneralReduxReducer {
 	
 	/// Progress reducer.
-	final class Progress {
-		typealias Display = HMGeneralReduxAction.Progress.Display
+	public final class Progress {
+		public typealias Display = GeneralReduxAction.Progress.Display
 		
-		static func displayReducer(_ state: HMState, _ action: Display) -> HMState {
+		public static func displayReducer(_ state: TreeState<Any>, _ action: Display) -> TreeState<Any> {
 			switch action {
 			case .updateShowProgress(let show):
 				return state.updateValue(Display.progressPath, show)

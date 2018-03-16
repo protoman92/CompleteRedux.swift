@@ -1,5 +1,5 @@
 //
-//  HMActionType.swift
+//  ReduxActionType.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 27/10/17.
@@ -11,4 +11,4 @@
 ///
 /// Ideally, an app should define an enum for this purpose, so that it can pass
 /// data as enum arguments.
-public protocol HMActionType {}
+public protocol ReduxActionType {}

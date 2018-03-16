@@ -1,5 +1,5 @@
 //
-//  HMReducer.swift
+//  ReduxReducer.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 27/10/17.
@@ -8,4 +8,4 @@
 
 /// Represent a reducer that takes an action and a state to produce another
 /// state.
-public typealias HMReducer<State> = (State, HMActionType) -> State
+public typealias ReduxReducer<State> = (State, ReduxActionType) -> State

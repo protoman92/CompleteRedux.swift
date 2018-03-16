@@ -1,5 +1,5 @@
 //
-//  HMReduxStoreType.swift
+//  RxReduxStoreType.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 27/10/17.
@@ -9,8 +9,8 @@
 import RxSwift
 
 /// Classes that implement this protocol should act as a redux-compliant store.
-public protocol HMReduxStoreType: HMStateFactoryType {
-	typealias Action = HMActionType
+public protocol RxReduxStoreType: RxReduxStateFactoryType {
+	typealias Action = ReduxActionType
 	
 	/// Trigger an action.
 	func actionTrigger() -> AnyObserver<Action?>
@@ -19,7 +19,7 @@ public protocol HMReduxStoreType: HMStateFactoryType {
 	func stateStream() -> Observable<State>
 }
 
-public extension HMReduxStoreType {
+public extension RxReduxStoreType {
 	
 	/// Dispatch an action.
 	///
