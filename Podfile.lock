@@ -1,24 +1,24 @@
 PODS:
-  - RxBlocking (3.6.1):
-    - RxSwift (~> 3.6)
-  - RxCocoa (3.6.1):
-    - RxSwift (~> 3.6)
-  - RxSwift (3.6.1)
-  - RxTest (3.6.1):
-    - RxSwift (~> 3.6)
+  - RxBlocking (4.1.2):
+    - RxSwift (~> 4.0)
+  - RxCocoa (4.1.2):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.1.2)
+  - RxTest (4.1.2):
+    - RxSwift (~> 4.0)
   - SwiftFP (1.0.0):
     - SwiftFP/Main (= 1.0.0)
   - SwiftFP/Main (1.0.0)
   - SwiftUtilities/Main+Rx (1.4.5):
-    - RxBlocking (~> 3.0)
-    - RxCocoa (~> 3.0)
-    - RxSwift (~> 3.0)
+    - RxBlocking (~> 4.0)
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
     - SwiftFP (~> 1.0.0)
   - SwiftUtilitiesTests/Main+Rx (1.4.5):
-    - RxBlocking (~> 3.0)
-    - RxCocoa (~> 3.0)
-    - RxSwift (~> 3.0)
-    - RxTest (~> 3.0)
+    - RxBlocking (~> 4.0)
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
+    - RxTest (~> 4.0)
 
 DEPENDENCIES:
   - SwiftUtilities/Main+Rx (from `https://github.com/protoman92/SwiftUtilities.git`)
@@ -32,20 +32,20 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftUtilities:
-    :commit: fc95c185bca98cb22946d0366586f071c53fd470
+    :commit: 826987273a056da01407076628c78c9d519c9fce
     :git: https://github.com/protoman92/SwiftUtilities.git
   SwiftUtilitiesTests:
-    :commit: fc95c185bca98cb22946d0366586f071c53fd470
+    :commit: 826987273a056da01407076628c78c9d519c9fce
     :git: https://github.com/protoman92/SwiftUtilities.git
 
 SPEC CHECKSUMS:
-  RxBlocking: 4f4bd5732e8b952e54ae8a57739bcfb645de12bc
-  RxCocoa: 84a08739ab186248c7f31ce4ee92d6f8a947d690
-  RxSwift: f9de85ea20cd2f7716ee5409fc13523dc638e4e4
-  RxTest: 1d00348a7848c91ab5bf5d197d2378aa6b2bb356
+  RxBlocking: f6054985901412fc8c02daa84e92d4ba68c61389
+  RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
+  RxSwift: e49536837d9901277638493ea537394d4b55f570
+  RxTest: e634f15fd2c2cd0e0120132ef7a4f7be69ad0393
   SwiftFP: 7ce3b2b2fb3c85d6195fd50cb1d873dcf82ae50e
-  SwiftUtilities: dd99610e76f2f86c7089c51aa65ce8cc982858bb
-  SwiftUtilitiesTests: e5b92a392a70786531092a3454c55d10af1a63cb
+  SwiftUtilities: 4c007d0fcf9219d458fc0752c2cfb0bb7f5b2863
+  SwiftUtilitiesTests: fe794f9d745ca8bdacf25160cfdb4b1899383cc6
 
 PODFILE CHECKSUM: c968daee353b0cc92489df3e1cd98c4bb5258798
 

@@ -6,12 +6,12 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.version = "1.0.0"
     s.license = { :type => "Apache-2.0", :file => "LICENSE" }
-    s.author = { "Holmusk" => "viethai.pham@holmusk.com" }
-    s.homepage = "https://github.com/Holmusk/HMReactiveRedux-iOS.git"
-    s.source = { :git => "https://github.com/Holmusk/HMReactiveRedux-iOS.git", :tag => "#{s.version}"}
-    s.dependency 'SwiftUtilities/Main'
+    s.author = { "Hai Pham" => "viethai.pham@Hai Pham.com" }
+    s.homepage = "https://github.com/protoman92/HMReactiveRedux-iOS.git"
+    s.source = { :git => "https://github.com/protoman92/HMReactiveRedux-Swift.git", :tag => "#{s.version}"}
+    s.dependency 'SwiftUtilities/Main+Rx'
 
     s.subspec 'Main' do |main|
-    main.source_files = "HMReactiveRedux/**/*.{swift}"
+      main.source_files = "HMReactiveRedux/**/*.{swift}"
     end
 end
