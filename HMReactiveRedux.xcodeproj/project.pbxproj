@@ -13,6 +13,7 @@
 		D303DE6B1FA4662700E8943C /* RxReduxStore+Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = D303DE6A1FA4662700E8943C /* RxReduxStore+Stream.swift */; };
 		D3040A1E1FA8566B00BE0E14 /* RxReduxObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3040A1D1FA8566B00BE0E14 /* RxReduxObserver.swift */; };
 		D30CC2FD205C329A005B5EA1 /* TreeStateTest+Stress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30CC2FC205C329A005B5EA1 /* TreeStateTest+Stress.swift */; };
+		D30CC2FF205C40F0005B5EA1 /* ReduxPresetTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30CC2FE205C40F0005B5EA1 /* ReduxPresetTest.swift */; };
 		D310A0362012612000F96648 /* GeneralRedux.swift in Sources */ = {isa = PBXBuildFile; fileRef = D310A0352012611F00F96648 /* GeneralRedux.swift */; };
 		D310A0382012614D00F96648 /* GeneralRedux+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D310A0372012614D00F96648 /* GeneralRedux+Error.swift */; };
 		D310A03A2012617400F96648 /* GeneralRedux+Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D310A0392012617400F96648 /* GeneralRedux+Progress.swift */; };
@@ -66,6 +67,7 @@
 		D303DE6A1FA4662700E8943C /* RxReduxStore+Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxReduxStore+Stream.swift"; sourceTree = "<group>"; };
 		D3040A1D1FA8566B00BE0E14 /* RxReduxObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxReduxObserver.swift; sourceTree = "<group>"; };
 		D30CC2FC205C329A005B5EA1 /* TreeStateTest+Stress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TreeStateTest+Stress.swift"; sourceTree = "<group>"; };
+		D30CC2FE205C40F0005B5EA1 /* ReduxPresetTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxPresetTest.swift; sourceTree = "<group>"; };
 		D310A0352012611F00F96648 /* GeneralRedux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralRedux.swift; sourceTree = "<group>"; };
 		D310A0372012614D00F96648 /* GeneralRedux+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeneralRedux+Error.swift"; sourceTree = "<group>"; };
 		D310A0392012617400F96648 /* GeneralRedux+Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeneralRedux+Progress.swift"; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				D350C3581FA345200040556F /* ReduxStoreTest.swift */,
 				D350C35C1FA34E7B0040556F /* TreeStateTest.swift */,
 				D30CC2FC205C329A005B5EA1 /* TreeStateTest+Stress.swift */,
+				D30CC2FE205C40F0005B5EA1 /* ReduxPresetTest.swift */,
 			);
 			path = HMReactiveReduxTests;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 				D350C35D1FA34E7B0040556F /* TreeStateTest.swift in Sources */,
 				D30CC2FD205C329A005B5EA1 /* TreeStateTest+Stress.swift in Sources */,
 				D350C3591FA345200040556F /* ReduxStoreTest.swift in Sources */,
+				D30CC2FF205C40F0005B5EA1 /* ReduxPresetTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

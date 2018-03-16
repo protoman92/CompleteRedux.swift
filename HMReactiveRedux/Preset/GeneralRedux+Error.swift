@@ -30,7 +30,8 @@ public extension GeneralReduxReducer {
 	public final class Error {
 		public typealias Display = GeneralReduxAction.Error.Display
 
-		public static func displayReducer(_ state: TreeState<Any>, _ action: Display) -> TreeState<Any> {
+		public static func displayReducer(_ state: TreeState<Any>, 
+																			_ action: Display) -> TreeState<Any> {
 			switch action {
 			case .updateShowError(let error):
 				return state.updateValue(Display.errorPath, error)

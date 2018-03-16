@@ -18,7 +18,8 @@ public extension GeneralReduxReducer {
 	public final class Global {
 		public typealias Action = GeneralReduxAction.Global
 		
-		public static func globalReducer(_ state: TreeState<Any>, _ action: Action) -> TreeState<Any> {
+		public static func globalReducer(_ state: TreeState<Any>,
+																		 _ action: Action) -> TreeState<Any> {
 			switch action {
 			case .clearAll: return state.clear()
 			}

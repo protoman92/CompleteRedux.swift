@@ -30,7 +30,8 @@ public extension GeneralReduxReducer {
 	public final class Progress {
 		public typealias Display = GeneralReduxAction.Progress.Display
 		
-		public static func displayReducer(_ state: TreeState<Any>, _ action: Display) -> TreeState<Any> {
+		public static func displayReducer(_ state: TreeState<Any>,
+																			_ action: Display) -> TreeState<Any> {
 			switch action {
 			case .updateShowProgress(let show):
 				return state.updateValue(Display.progressPath, show)

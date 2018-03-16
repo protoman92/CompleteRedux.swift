@@ -12,12 +12,12 @@ import SwiftUtilities
 /// A simple nested state implementation. All TreeState instances are immutable.
 public struct TreeState<Value> {
 	fileprivate var values: [String : Value]
-	fileprivate var substate: [String : TreeState]
+	fileprivate var substates: [String : TreeState]
 	fileprivate var substateSeparator: Character
 	
 	fileprivate init() {
 		values = [:]
-		substate = [:]
+		substates = [:]
 		
 		// This separator is used to separate identifiers to access inner state.
 		// For example, if the identifier is 'a.b.c' and the separator is '.',
@@ -28,7 +28,7 @@ public struct TreeState<Value> {
 
 extension TreeState: CustomStringConvertible {
 	public var description: String {
-		return "Current state: \(values). Current substate: \(substate)"
+		return "Current state: \(values). Current substate: \(substates)"
 	}
 }
 
@@ -70,6 +70,10 @@ extension TreeState: StateType {
 	public func clear() -> TreeState {
 		return .empty()
 	}
+
+	public func isEmpty() -> Bool {
+		return values.isEmpty && substates.isEmpty
+	}
 }
 
 public extension TreeState {
@@ -83,7 +87,7 @@ public extension TreeState {
 		let separated = identifier.split(separator: separator).map(String.init)
 
 		if separated.count == 1, let first = separated.first {
-			return substate[first].asTry("No substate found at \(identifier)")
+			return substates[first].asTry("No substate found at \(identifier)")
 		} else if let first = separated.first {
 			let subId = separated.dropFirst().joined(separator: String(separator))
 			return substate(first).flatMap({$0.substate(subId)})
@@ -152,7 +156,7 @@ extension TreeState: BuildableType {
 		/// - Returns: The current Builder instance.
 		@discardableResult
 		public func with(substate: [String : TreeState]) -> Self {
-			state.substate = substate
+			state.substates = substate
 			return self
 		}
 		
@@ -207,9 +211,9 @@ extension TreeState: BuildableType {
 		@discardableResult
 		public func updateSubstate(_ identifier: String, _ substate: TreeState?) -> Self {
 			if let substate = substate {
-				state.substate.updateValue(substate, forKey: identifier)
+				state.substates.updateValue(substate, forKey: identifier)
 			} else {
-				state.substate.removeValue(forKey: identifier)
+				state.substates.removeValue(forKey: identifier)
 			}
 			
 			return self
@@ -235,7 +239,7 @@ extension TreeState.Builder: BuilderType {
 		if let buildable = buildable {
 			return self
 				.with(currentState: buildable.values)
-				.with(substate: buildable.substate)
+				.with(substate: buildable.substates)
 				.with(substateSeparator: buildable.substateSeparator)
 		} else {
 			return self

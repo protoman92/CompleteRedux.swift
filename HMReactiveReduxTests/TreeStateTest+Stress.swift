@@ -46,5 +46,9 @@ public final class TreeStateStressTest: XCTestCase {
 			let stateValue = state.stateValue(key).value!
 			XCTAssertEqual(stateValue, value)
 		}
+
+		state = state.removeValues(keys!)
+		XCTAssertTrue(state.isEmpty())
+		print(state)
 	}
 }

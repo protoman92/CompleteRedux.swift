@@ -37,6 +37,11 @@ public protocol StateType {
 	///
 	/// - Returns: A Self instance.
 	func clear() -> Self
+
+	/// Check if the current State is empty.
+	///
+	/// - Returns: A Bool value.
+	func isEmpty() -> Bool
 }
 
 public extension StateType {
@@ -79,6 +84,20 @@ public extension StateType {
 
 		for (key, value) in dict {
 			state = state.updateValue(key, value)
+		}
+
+		return state
+	}
+
+	/// Convenience method to remove all values with specified identifiers.
+	///
+	/// - Parameter keys: A Sequence of keys.
+	/// - Returns: A Self instance.
+	public func removeValues<S>(_ keys: S) -> Self where S: Sequence, S.Iterator.Element == String {
+		var state = Self.empty()
+
+		for key in keys {
+			state = state.removeValue(key)
 		}
 
 		return state
