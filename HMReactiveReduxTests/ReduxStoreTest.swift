@@ -138,7 +138,7 @@ public final class RxReduxStoreTest: XCTestCase {
       .disposed(by: disposeBag!)
 
     rxStore.substateStream(updateId)
-      .mapNonNilOrEmpty()
+      .mapNonNilOrEmpty({$0.asOptional()})
       .subscribe(substateObs)
       .disposed(by: disposeBag!)
 

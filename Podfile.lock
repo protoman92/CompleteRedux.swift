@@ -38,10 +38,10 @@ CHECKOUT OPTIONS:
     :commit: caa124fe2a43910f014a43dec2704eb9c035820a
     :git: https://github.com/protoman92/SwiftFP.git
   SwiftUtilities:
-    :commit: e4a14944291e6aac114f8b59eaf326785f466903
+    :commit: 76547c17090785c592fae37b27a340058c93936b
     :git: https://github.com/protoman92/SwiftUtilities.git
   SwiftUtilitiesTests:
-    :commit: e4a14944291e6aac114f8b59eaf326785f466903
+    :commit: 76547c17090785c592fae37b27a340058c93936b
     :git: https://github.com/protoman92/SwiftUtilities.git
 
 SPEC CHECKSUMS:
