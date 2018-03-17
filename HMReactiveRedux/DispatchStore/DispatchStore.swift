@@ -8,8 +8,19 @@
 
 import SwiftFP
 
-/// Use this for state value callback.
-public typealias ReduxCallback<Value> = (DispatchStore<Value>, Try<Value>) -> Void
+/// Use this for state value callback. The callback exposes both the previous
+/// and the current values since all dispatches will trigger callbacks. The
+/// receivers may compare both values to see if there has been an actual change,
+/// and act accordingly.
+public typealias ReduxCallback<Value> = (Try<Value>) -> Void
+
+fileprivate final class StrongReference<T> {
+  fileprivate let value: T
+
+  public init(_ value: T) {
+    self.value = value
+  }
+}
 
 /// This is a simple dispatch-based Redux store with no rx.
 public final class DispatchStore<Value> {
@@ -73,11 +84,11 @@ public final class DispatchStore<Value> {
     var pathCB = callbacks[path] ?? [:]
     pathCB[id] = callback
     callbacks[path] = pathCB
-    let value = state.stateValue(path)
+    let value = StrongReference(state.stateValue(path))
 
     /// Relay the last event.
     dispatchQueue.async {
-      callback(self, value)
+      callback(value.value)
     }
   }
 
@@ -152,16 +163,24 @@ extension DispatchStore: ReduxStoreType {
   public func dispatch(_ action: ReduxActionType) {
     mutex.lock()
     defer { mutex.unlock() }
-    let state = reducer(self.state, action)
-    self.state = state
+    var state = reducer(self.state, action)
+    let newState = StrongReference(state)
     let callbacks = self.callbacks
 
     dispatchQueue.async {
       for (key, value) in callbacks {
         for (_, callback) in value {
-          callback(self, state.stateValue(key))
+          callback(newState.value.stateValue(key))
         }
       }
     }
+
+    // If the action does not want to retain state, remove from global state
+    // but do not notify.
+    if let pingAction = action as? ReduxPingActionType {
+      state = state.removeValue(pingAction.pingValuePath)
+    }
+
+    self.state = state
   }
 }

@@ -1,5 +1,5 @@
 //
-//  RxReduxStoreTest.swift
+//  ReduxStoreTest.swift
 //  HMReactiveReduxTests
 //
 //  Created by Hai Pham on 27/10/17.
@@ -50,7 +50,7 @@ public enum Action: ReduxActionType, EnumerableType {
   }
 }
 
-public final class RxReduxStoreTest: XCTestCase {
+public final class ReduxStoreTest: XCTestCase {
   fileprivate var disposeBag: DisposeBag!
   fileprivate var scheduler: TestScheduler!
   fileprivate var callCount: Int!
@@ -161,7 +161,7 @@ public final class RxReduxStoreTest: XCTestCase {
     let id = "Registrant"
     let updateId = self.updateId
     var actualCallCount = 0
-    dispatchStore!.register(id, updateId, {(_, _) in actualCallCount += 1})
+    dispatchStore!.register(id, updateId, {_ in actualCallCount += 1})
 
     let dispatchFn: (ReduxActionType) -> Void = {(action: ReduxActionType) in
       let qos = DispatchQoS.QoSClass.randomValue()!
@@ -203,7 +203,7 @@ public final class RxReduxStoreTest: XCTestCase {
     let ids = ["R1", "R2", "R3", "R4"]
 
     for id in ids {
-      dispatchStore!.register(id, updateId, {(_, _) in})
+      dispatchStore!.register(id, updateId, {_ in})
     }
 
     /// When
@@ -211,5 +211,64 @@ public final class RxReduxStoreTest: XCTestCase {
 
     /// Then
     XCTAssertEqual(unregistered, ids.count)
+  }
+}
+
+public extension ReduxStoreTest {
+  public func test_pingAction_shouldWork() {
+    /// Setup
+    enum PingAction: ReduxPingActionType {
+      case action1(Int)
+
+      var pingValuePath: String {
+        return "action1"
+      }
+    }
+
+    enum NormalAction: ReduxActionType {
+      case action2(Int)
+    }
+
+    let reducer: ReduxReducer<TreeState<Int>> = {
+      switch $1 {
+      case let action as PingAction:
+        switch action {
+        case .action1(let value):
+          return $0.updateValue(action.pingValuePath, value)
+        }
+
+      case let action as NormalAction:
+        switch action {
+        case .action2(let value):
+          return $0.updateValue("action2", value)
+        }
+
+      default:
+        fatalError()
+      }
+    }
+
+    let initial = TreeState<Int>.empty()
+    let dq = DispatchQueue.global(qos: .background)
+    let store = DispatchStore<Int>.createInstance(initial, reducer, dq)
+    var actualCallCount = 0
+
+    store.register("123", "action1", {
+      guard $0.isSuccess else { return }
+      actualCallCount += 1
+    })
+
+    /// When
+    for i in (0..<callCount!) {
+      store.dispatch(PingAction.action1(i))
+      store.dispatch(NormalAction.action2(i))
+    }
+
+    Thread.sleep(forTimeInterval: waitTime!)
+
+    /// Then
+    XCTAssertEqual(actualCallCount, callCount!)
+    XCTAssertTrue(store.lastValue("action1").isFailure)
+    XCTAssertEqual(store.lastValue("action2").value!, callCount! - 1)
   }
 }

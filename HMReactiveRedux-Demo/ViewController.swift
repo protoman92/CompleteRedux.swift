@@ -164,7 +164,7 @@ public final class ViewController: UIViewController {
     let queue = DispatchQueue.main
     dispatchStore = DispatchStore.createInstance(initial, mainReducer, queue)
 
-    dispatchStore!.register(id, NumberAction.actionPath, {[weak self] (_, v) in
+    dispatchStore!.register(id, NumberAction.actionPath, {[weak self] v in
       DispatchQueue.main.async {
         _ = v.cast(Int.self)
           .successOrElse(Try.success(0))
@@ -173,7 +173,7 @@ public final class ViewController: UIViewController {
       }
     })
 
-    dispatchStore!.register(id, StringAction.actionPath, {[weak self] (_, v) in
+    dispatchStore!.register(id, StringAction.actionPath, {[weak self] v in
       DispatchQueue.main.async {
         _ = v.cast(String.self)
           .successOrElse(Try.success("Input on the right"))
@@ -181,7 +181,7 @@ public final class ViewController: UIViewController {
       }
     })
 
-    dispatchStore!.register(id, SliderAction.actionPath, {[weak self] (_, v) in
+    dispatchStore!.register(id, SliderAction.actionPath, {[weak self] v in
       DispatchQueue.main.async {
         _ = v.cast(Double.self)
           .successOrElse(Try.success(0))

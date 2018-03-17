@@ -10,8 +10,12 @@ public extension GeneralReduxAction {
 
   /// Error-related actions.
   public final class Error {
-    public enum Display: ReduxActionType {
+    public enum Display: ReduxPingActionType {
       case updateShowError(Swift.Error?)
+
+      public var pingValuePath: String {
+        return Display.errorPath
+      }
 
       public static var path: String {
         return "error.display"
