@@ -33,16 +33,25 @@ public final class DispatchStore<Value> {
   fileprivate var callbacks: [String : [String : ReduxCallback<Value>]]
   fileprivate var state: State
 
-  var currentState: State {
-    return state
-  }
-
   fileprivate init(_ initialState: State,
                    _ reducer: @escaping ReduxReducer<State>) {
     self.reducer = reducer
     callbacks = [:]
     mutex = NSLock()
     state = initialState
+  }
+
+  /// The state is immutable anyway, so no harm exposing it.
+  public func lastState() -> State {
+    mutex.lock()
+    defer { mutex.unlock() }
+    return state
+  }
+
+  public func lastValue(_ identifier: String) -> Try<Value> {
+    mutex.lock()
+    defer { mutex.unlock() }
+    return state.stateValue(identifier)
   }
 
   /// Register a callback at a particular path.

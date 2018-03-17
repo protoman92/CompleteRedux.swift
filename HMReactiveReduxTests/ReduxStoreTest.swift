@@ -158,13 +158,9 @@ public final class RxReduxStoreTest: XCTestCase {
   public func test_dispatchNonRxAction_shouldUpdateState() {
     /// Setup
     let id = "Registrant"
-    var lastValue = Try<Int>.failure("Nothing yet")
+    let updateId = self.updateId
     var actualCallCount = 0
-
-    dispatchStore!.register(id, updateId, {
-      lastValue = $0
-      actualCallCount += 1
-    })
+    dispatchStore!.register(id, updateId, {_ in actualCallCount += 1})
 
     let dispatchFn: (ReduxActionType) -> Void = {(action: ReduxActionType) in
       let qos = DispatchQoS.QoSClass.randomValue()!
@@ -177,8 +173,8 @@ public final class RxReduxStoreTest: XCTestCase {
     /// When & Then 1
     test_dispatchAction_shouldUpdateState(dispatchStore!,
                                           dispatchFn,
-                                          {dispatchStore!.currentState},
-                                          {lastValue})
+                                          {dispatchStore!.lastState()},
+                                          {dispatchStore!.lastValue(updateId)})
 
     // Add 1 to reflect initial value relay on first subscription.
     XCTAssertEqual(actualCallCount, callCount! + 1)
