@@ -129,7 +129,14 @@ public final class ViewController: UIViewController {
 
   fileprivate let disposeBag = DisposeBag()
 
-  fileprivate var store: RxStore<Any>!
+  fileprivate var dispatchStore: DispatchStore<Any>!
+  fileprivate var rxStore: RxStore<Any>!
+  fileprivate let useRx = false
+
+  deinit {
+    let id = String(describing: ViewController.self)
+    _ = dispatchStore?.unregisterAll(id)
+  }
 
   override public func viewDidLoad() {
     super.viewDidLoad()
@@ -139,65 +146,133 @@ public final class ViewController: UIViewController {
 
     let deleteBtn = UIBarButtonItem(title: "Clear state",
                                     style: .plain,
-                                    target: nil,
-                                    action: nil)
+                                    target: self,
+                                    action: #selector(self.deleteButtonTapped))
 
     navigationItem.rightBarButtonItem = deleteBtn
 
+    if useRx {
+      setupRxStore()
+    } else {
+      setupDispatchStore()
+    }
+  }
+
+  fileprivate func setupDispatchStore() {
+    let id = String(describing: ViewController.self)
     let initial = TreeState<Any>.empty()
+    let queue = DispatchQueue.main
+    dispatchStore = DispatchStore.createInstance(initial, mainReducer, queue)
 
-    store = RxStore.createInstance(initial, mainReducer)
+    dispatchStore!.register(id, NumberAction.actionPath, {[weak self] (_, v) in
+      DispatchQueue.main.async {
+        _ = v.cast(Int.self)
+          .successOrElse(Try.success(0))
+          .map({String(describing: $0)})
+          .map({self?.counterTF!.text = $0})
+      }
+    })
 
-    store.stateValueStream(NumberAction.actionPath)
+    dispatchStore!.register(id, StringAction.actionPath, {[weak self] (_, v) in
+      DispatchQueue.main.async {
+        _ = v.cast(String.self)
+          .successOrElse(Try.success("Input on the right"))
+          .map({self?.stringTF1!.text = $0})
+      }
+    })
+
+    dispatchStore!.register(id, SliderAction.actionPath, {[weak self] (_, v) in
+      DispatchQueue.main.async {
+        _ = v.cast(Double.self)
+          .successOrElse(Try.success(0))
+          .map({String(describing: $0)})
+          .map({self?.slideTF!.text = $0})
+      }
+    })
+
+    addBT!.addTarget(self, action: #selector(self.addButtonTapped), for: .touchDown)
+    minusBT!.addTarget(self, action: #selector(self.minusButtonTapped), for: .touchDown)
+    stringTF2!.addTarget(self, action: #selector(self.string2Changed), for: .editingChanged)
+    valueSL!.addTarget(self, action: #selector(self.sliderChanged), for: .valueChanged)
+  }
+
+  @objc func addButtonTapped() {
+    DispatchQueue.main.async {
+      self.dispatchStore!.dispatch(NumberAction.add)
+    }
+  }
+
+  @objc func minusButtonTapped() {
+    dispatchStore!.dispatch(NumberAction.minus)
+  }
+
+  @objc func string2Changed() {
+    dispatchStore!.dispatch(StringAction.input(stringTF2!.text!))
+  }
+
+  @objc func sliderChanged() {
+    let value = Double(valueSL!.value).rounded(.toNearestOrAwayFromZero)
+    dispatchStore!.dispatch(SliderAction.input(value))
+  }
+
+  @objc func deleteButtonTapped() {
+    dispatchStore?.dispatch(ClearAction.clearState)
+  }
+
+  fileprivate func setupRxStore() {
+    let initial = TreeState<Any>.empty()
+    rxStore = RxStore.createInstance(initial, mainReducer)
+
+    rxStore.stateValueStream(NumberAction.actionPath)
       .map({$0.flatMap({$0 as? Int})})
-      .mapNonNilOrElse(0)
+      .mapNonNilOrElse({$0.asOptional()}, 0)
       .map({String(describing: $0)})
       .distinctUntilChanged()
       .bind(to: counterTF.rx.text)
       .disposed(by: disposeBag)
 
-    store.stateValueStream(StringAction.actionPath)
+    rxStore.stateValueStream(StringAction.actionPath)
       .map({$0.flatMap({$0 as? String})})
-      .mapNonNilOrElse("Input on the right")
+      .mapNonNilOrElse({$0.asOptional()}, "Input on the right")
       .map({String(describing: $0)})
       .distinctUntilChanged()
       .bind(to: stringTF1.rx.text)
       .disposed(by: disposeBag)
 
-    store.stateValueStream(SliderAction.actionPath)
+    rxStore.stateValueStream(SliderAction.actionPath)
       .map({$0.flatMap({$0 as? Double})})
-      .mapNonNilOrElse(0)
+      .mapNonNilOrElse({$0.asOptional()}, 0)
       .map({String(describing: $0)})
       .distinctUntilChanged()
       .bind(to: slideTF.rx.text)
       .disposed(by: disposeBag)
 
-    deleteBtn.rx.tap.asObservable()
+    navigationItem.rightBarButtonItem!.rx.tap.asObservable()
       .map({_ in ClearAction.clearState})
-      .bind(to: store.actionTrigger())
+      .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)
 
     addBT.rx.tap.asObservable()
       .map({_ in NumberAction.add})
-      .bind(to: store.actionTrigger())
+      .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)
 
     minusBT.rx.tap.asObservable()
       .map({_ in NumberAction.minus})
-      .bind(to: store.actionTrigger())
+      .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)
 
     stringTF2.rx.text.asObservable()
       .mapNonNilOrEmpty()
       .map(StringAction.input)
-      .bind(to: store.actionTrigger())
+      .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)
 
     valueSL.rx.value.asObservable()
       .map({Int($0)})
       .map({Double($0).rounded(.toNearestOrAwayFromZero)})
       .map(SliderAction.input)
-      .bind(to: store.actionTrigger())
+      .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)
   }
 }

@@ -67,8 +67,8 @@ public final class RxReduxStoreTest: XCTestCase {
     super.setUp()
     scheduler = TestScheduler(initialClock: 0)
     disposeBag = DisposeBag()
-    callCount = 1000
-    waitTime = 1
+    callCount = 500
+    waitTime = 3
 
     let layer3 = TreeState<Int>.builder()
       .updateValue(State.calculation, 0)
@@ -86,7 +86,8 @@ public final class RxReduxStoreTest: XCTestCase {
       .updateSubstate(SubState.layer1, layer1)
       .build()
 
-    dispatchStore = DispatchStore.createInstance(initialState!, reduce)
+    let dispatchQueue = DispatchQueue.global(qos: .utility)
+    dispatchStore = DispatchStore.createInstance(initialState!, reduce, dispatchQueue)
     rxStore = RxStore<Int>.createInstance(initialState!, reduce)
   }
 
@@ -160,7 +161,7 @@ public final class RxReduxStoreTest: XCTestCase {
     let id = "Registrant"
     let updateId = self.updateId
     var actualCallCount = 0
-    dispatchStore!.register(id, updateId, {_ in actualCallCount += 1})
+    dispatchStore!.register(id, updateId, {(_, _) in actualCallCount += 1})
 
     let dispatchFn: (ReduxActionType) -> Void = {(action: ReduxActionType) in
       let qos = DispatchQoS.QoSClass.randomValue()!
@@ -180,16 +181,19 @@ public final class RxReduxStoreTest: XCTestCase {
     XCTAssertEqual(actualCallCount, callCount! + 1)
 
     /// When & Then 2
+    print("Test unregister")
     var didUnregister = dispatchStore!.unregister(id, updateId)
     dispatchStore!.dispatch(Action.addTwo)
     XCTAssertTrue(didUnregister)
     XCTAssertEqual(actualCallCount, callCount! + 1)
 
     /// When & Then 3
+    print("Test unregister after unregistering")
     didUnregister = dispatchStore!.unregister(id, updateId)
     XCTAssertFalse(didUnregister)
 
     /// When & Then 4
+    print("Test unregister all")
     let unregistered = dispatchStore!.unregisterAll(id)
     XCTAssertEqual(unregistered, 0)
   }
@@ -199,7 +203,7 @@ public final class RxReduxStoreTest: XCTestCase {
     let ids = ["R1", "R2", "R3", "R4"]
 
     for id in ids {
-      dispatchStore!.register(id, updateId, {_ in})
+      dispatchStore!.register(id, updateId, {(_, _) in})
     }
 
     /// When

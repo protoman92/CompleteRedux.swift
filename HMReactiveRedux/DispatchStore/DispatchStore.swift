@@ -9,7 +9,7 @@
 import SwiftFP
 
 /// Use this for state value callback.
-public typealias ReduxCallback<Value> = (Try<Value>) -> Void
+public typealias ReduxCallback<Value> = (DispatchStore<Value>, Try<Value>) -> Void
 
 /// This is a simple dispatch-based Redux store with no rx.
 public final class DispatchStore<Value> {
@@ -20,21 +20,26 @@ public final class DispatchStore<Value> {
   /// - Parameters:
   ///   - initialState: The initial state.
   ///   - reducer: The main reducer.
+  ///   - dispatchQueue: The queue to dispatch callbacks on.
   /// - Returns: A DispatchStore instance.
   public static func createInstance(_ initialState: State,
-                                    _ reducer: @escaping ReduxReducer<State>)
+                                    _ reducer: @escaping ReduxReducer<State>,
+                                    _ dispatchQueue: DispatchQueue)
     -> DispatchStore<Value>
   {
-    return DispatchStore(initialState, reducer)
+    return DispatchStore(initialState, reducer, dispatchQueue)
   }
 
+  fileprivate let dispatchQueue: DispatchQueue
   fileprivate let mutex: NSLock
   fileprivate let reducer: ReduxReducer<State>
   fileprivate var callbacks: [String : [String : ReduxCallback<Value>]]
   fileprivate var state: State
 
   fileprivate init(_ initialState: State,
-                   _ reducer: @escaping ReduxReducer<State>) {
+                   _ reducer: @escaping ReduxReducer<State>,
+                   _ dispatchQueue: DispatchQueue) {
+    self.dispatchQueue = dispatchQueue
     self.reducer = reducer
     callbacks = [:]
     mutex = NSLock()
@@ -68,10 +73,12 @@ public final class DispatchStore<Value> {
     var pathCB = callbacks[path] ?? [:]
     pathCB[id] = callback
     callbacks[path] = pathCB
+    let value = state.stateValue(path)
 
     /// Relay the last event.
-    let value = state.stateValue(path)
-    callback(value)
+    dispatchQueue.async {
+      callback(self, value)
+    }
   }
 
   /// Unregister callback at a path.
@@ -147,10 +154,13 @@ extension DispatchStore: ReduxStoreType {
     defer { mutex.unlock() }
     let state = reducer(self.state, action)
     self.state = state
+    let callbacks = self.callbacks
 
-    for (key, value) in callbacks {
-      for (_, callback) in value {
-        callback(state.stateValue(key))
+    dispatchQueue.async {
+      for (key, value) in callbacks {
+        for (_, callback) in value {
+          callback(self, state.stateValue(key))
+        }
       }
     }
   }
