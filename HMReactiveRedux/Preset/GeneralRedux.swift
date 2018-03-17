@@ -15,23 +15,23 @@ public final class GeneralReduxAction {}
 
 /// General Redux reducer that is not tied to a specifiec app/implementation.
 public final class GeneralReduxReducer {
-	public static func generalReducer(_ state: TreeState<Any>,
-																		_ action: ReduxActionType) -> TreeState<Any> {
-		switch action {
-		case let action as Global.Action:
-			return Global.globalReducer(state, action)
-			
-		case let action as Error.Display:
-			return Error.displayReducer(state, action)
-			
-		case let action as Progress.Display:
-			return Progress.displayReducer(state, action)
-			
-		default:
-			debugException("Unhandled action: \(action)")
-			return state
-		}
-	}
-	
-	private init() {}
+  public static func generalReducer(_ state: TreeState<Any>,
+                                    _ action: ReduxActionType) -> TreeState<Any> {
+    switch action {
+    case let action as Global.Action:
+      return Global.globalReducer(state, action)
+
+    case let action as Error.Display:
+      return Error.displayReducer(state, action)
+
+    case let action as Progress.Display:
+      return Progress.displayReducer(state, action)
+
+    default:
+      debugException("Unhandled action: \(action)")
+      return state
+    }
+  }
+
+  private init() {}
 }

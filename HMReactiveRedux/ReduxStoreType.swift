@@ -9,8 +9,8 @@
 /// This represents a Redux store that can dispatch events.
 public protocol ReduxStoreType {
 
-	/// Dispatch an event and notify listeners.
-	///
-	/// - Parameter action: A ReduxActionType instance.
-	func dispatch(_ action: ReduxActionType)
+  /// Dispatch an event and notify listeners.
+  ///
+  /// - Parameter action: A ReduxActionType instance.
+  func dispatch(_ action: ReduxActionType)
 }

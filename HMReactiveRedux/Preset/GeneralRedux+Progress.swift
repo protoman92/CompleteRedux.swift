@@ -7,35 +7,35 @@
 //
 
 public extension GeneralReduxAction {
-	
-	/// Progress-related actions.
-	public final class Progress {
-		public enum Display: ReduxActionType {
-			case updateShowProgress(Bool)
-			
-			public static var path: String {
-				return "progress.display"
-			}
-			
-			public static var progressPath: String {
-				return "\(path).progress"
-			}
-		}
-	}
+
+  /// Progress-related actions.
+  public final class Progress {
+    public enum Display: ReduxActionType {
+      case updateShowProgress(Bool)
+
+      public static var path: String {
+        return "progress.display"
+      }
+
+      public static var progressPath: String {
+        return "\(path).progress"
+      }
+    }
+  }
 }
 
 public extension GeneralReduxReducer {
-	
-	/// Progress reducer.
-	public final class Progress {
-		public typealias Display = GeneralReduxAction.Progress.Display
-		
-		public static func displayReducer(_ state: TreeState<Any>,
-																			_ action: Display) -> TreeState<Any> {
-			switch action {
-			case .updateShowProgress(let show):
-				return state.updateValue(Display.progressPath, show)
-			}
-		}
-	}
+
+  /// Progress reducer.
+  public final class Progress {
+    public typealias Display = GeneralReduxAction.Progress.Display
+
+    public static func displayReducer(_ state: TreeState<Any>,
+                                      _ action: Display) -> TreeState<Any> {
+      switch action {
+      case .updateShowProgress(let show):
+        return state.updateValue(Display.progressPath, show)
+      }
+    }
+  }
 }

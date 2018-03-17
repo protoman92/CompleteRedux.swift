@@ -8,35 +8,34 @@
 
 public extension GeneralReduxAction {
 
-	/// Error-related actions.
-	public final class Error {
-		public enum Display: ReduxActionType {
-			case updateShowError(Swift.Error?)
+  /// Error-related actions.
+  public final class Error {
+    public enum Display: ReduxActionType {
+      case updateShowError(Swift.Error?)
 
-			public static var path: String {
-				return "error.display"
-			}
+      public static var path: String {
+        return "error.display"
+      }
 
-			public static var errorPath: String {
-				return "\(path).error"
-			}
-		}
-	}
+      public static var errorPath: String {
+        return "\(path).error"
+      }
+    }
+  }
 }
 
 public extension GeneralReduxReducer {
 
-	/// Error reducer.
-	public final class Error {
-		public typealias Display = GeneralReduxAction.Error.Display
+  /// Error reducer.
+  public final class Error {
+    public typealias Display = GeneralReduxAction.Error.Display
 
-		public static func displayReducer(_ state: TreeState<Any>, 
-																			_ action: Display) -> TreeState<Any> {
-			switch action {
-			case .updateShowError(let error):
-				return state.updateValue(Display.errorPath, error)
-			}
-		}
-	}
+    public static func displayReducer(_ state: TreeState<Any>,
+                                      _ action: Display) -> TreeState<Any> {
+      switch action {
+      case .updateShowError(let error):
+        return state.updateValue(Display.errorPath, error)
+      }
+    }
+  }
 }
-
