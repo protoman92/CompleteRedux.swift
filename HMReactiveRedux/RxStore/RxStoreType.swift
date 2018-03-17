@@ -9,7 +9,7 @@
 import RxSwift
 
 /// Classes that implement this protocol should act as a redux-compliant store.
-public protocol RxReduxStoreType: RxReduxStateFactoryType {
+public protocol RxReduxStoreType: ReduxStoreType, RxReduxStateFactoryType {
 	typealias Action = ReduxActionType
 	
 	/// Trigger an action.

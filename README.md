@@ -5,5 +5,5 @@
 
 Rx-enabled Redux implementation for iOS clients.
 
-Simply subscribe to state streams published by a RxReduxStore<Value> to receive notifications whenever state changes.
+Simply subscribe to state streams published by a RxStore<Value> to receive notifications whenever state changes.
 Enums with parameters should be used in place of action creators, as demonstrated in the sample app.

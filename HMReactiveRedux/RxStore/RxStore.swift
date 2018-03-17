@@ -12,7 +12,7 @@ import SwiftUtilities
 
 /// A Redux-compliant store. Since this store is used for UI-related work, it
 /// should operation on the main thread.
-public struct RxReduxStore<Value> {
+public struct RxStore<Value> {
 	
 	/// Create a redux store that only receives and delivers events on the main
 	/// thread.
@@ -23,9 +23,9 @@ public struct RxReduxStore<Value> {
 	/// - Returns: A RxReduxStore instance.
 	public static func createInstance(
 		_ initialState: State,
-		_ mainReducer: @escaping ReduxReducer<State>) -> RxReduxStore<Value>
+		_ mainReducer: @escaping ReduxReducer<State>) -> RxStore<Value>
 	{
-		let store = RxReduxStore(initialState)
+		let store = RxStore(initialState)
 		store.setupStateBindings(mainReducer)
 		return store
 	}
@@ -35,7 +35,7 @@ public struct RxReduxStore<Value> {
 	/// - Parameter mainReducer: A ReduxReducer instance.
 	/// - Returns: A RxReduxStore instance.
 	public static func createInstance(
-		_ mainReducer: @escaping ReduxReducer<State>) -> RxReduxStore<Value>
+		_ mainReducer: @escaping ReduxReducer<State>) -> RxStore<Value>
 	{
 		return createInstance(.empty(), mainReducer)
 	}
@@ -61,7 +61,7 @@ public struct RxReduxStore<Value> {
 	}
 }
 
-extension RxReduxStore: RxReduxStoreType {
+extension RxStore: RxReduxStoreType {
 	public typealias State = TreeState<Value>
 
 	public func actionTrigger() -> AnyObserver<Action?> {

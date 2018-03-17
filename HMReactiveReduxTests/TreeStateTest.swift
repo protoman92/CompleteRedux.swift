@@ -107,4 +107,15 @@ public final class TreeStateTest: XCTestCase {
 		XCTAssertEqual(updated.stateValue("Test1.Test2.Test3.Test4.test4_value").value!, 10000)
 		XCTAssertEqual(updated.stateValue("123.456.789").value!, 123456789)
 	}
+
+	public func test_accessingInvalidKey_shouldWork() {
+		/// Setup
+		let key = "a.b.c"
+		var state = TreeState<Int>.empty()
+		state = state.updateValue(key, 1)
+
+		/// When & Then
+		XCTAssertTrue(state.substate("").isFailure)
+		XCTAssertTrue(state.stateValue("").isFailure)
+	}
 }

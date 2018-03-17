@@ -11,9 +11,7 @@ import SwiftUtilities
 /// General Redux actions that are not tied to any specific app/implementation.
 /// We can use these generic actions as building blocks for app-specific redux
 /// deployments.
-public final class GeneralReduxAction {
-	private init() {}
-}
+public final class GeneralReduxAction {}
 
 /// General Redux reducer that is not tied to a specifiec app/implementation.
 public final class GeneralReduxReducer {

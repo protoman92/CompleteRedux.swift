@@ -129,7 +129,7 @@ public final class ViewController: UIViewController {
 	
 	fileprivate let disposeBag = DisposeBag()
 	
-	fileprivate var store: RxReduxStore<Any>!
+	fileprivate var store: RxStore<Any>!
 	
 	override public func viewDidLoad() {
 		super.viewDidLoad()
@@ -146,7 +146,7 @@ public final class ViewController: UIViewController {
 		
 		let initial = TreeState<Any>.empty()
 		
-		store = RxReduxStore.createInstance(initial, mainReducer)
+		store = RxStore.createInstance(initial, mainReducer)
 		
 		store.stateValueStream(NumberAction.actionPath)
 			.map({$0.flatMap({$0 as? Int})})

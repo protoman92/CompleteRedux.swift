@@ -9,7 +9,7 @@
 import RxSwift
 import SwiftFP
 
-public extension RxReduxStore {
+public extension RxStore {
 
 	/// Subscribe to this stream to receive notifications for a particular
 	/// substate.
