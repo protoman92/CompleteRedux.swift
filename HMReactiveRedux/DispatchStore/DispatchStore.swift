@@ -12,7 +12,7 @@ import SwiftFP
 /// and the current values since all dispatches will trigger callbacks. The
 /// receivers may compare both values to see if there has been an actual change,
 /// and act accordingly.
-public typealias ReduxCallback<Value> = (Try<Value>) -> Void
+public typealias ReduxCallback<Value> = (Try<Value>) throws -> Void
 
 fileprivate final class StrongReference<T> {
   fileprivate let value: T
@@ -88,7 +88,7 @@ public final class DispatchStore<Value> {
 
     /// Relay the last event.
     dispatchQueue.async {
-      callback(value.value)
+      try? callback(value.value)
     }
   }
 
@@ -170,7 +170,7 @@ extension DispatchStore: ReduxStoreType {
     dispatchQueue.async {
       for (key, value) in callbacks {
         for (_, callback) in value {
-          callback(newState.value.stateValue(key))
+          try? callback(newState.value.stateValue(key))
         }
       }
     }

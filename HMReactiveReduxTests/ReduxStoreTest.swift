@@ -65,10 +65,11 @@ public final class ReduxStoreTest: XCTestCase {
 
   override public func setUp() {
     super.setUp()
+    continueAfterFailure = true
     scheduler = TestScheduler(initialClock: 0)
     disposeBag = DisposeBag()
-    callCount = 500
-    waitTime = 3
+    callCount = 10000
+    waitTime = 5
 
     let layer3 = TreeState<Int>.builder()
       .updateValue(State.calculation, 0)
@@ -86,7 +87,7 @@ public final class ReduxStoreTest: XCTestCase {
       .updateSubstate(SubState.layer1, layer1)
       .build()
 
-    let dispatchQueue = DispatchQueue.global(qos: .utility)
+    let dispatchQueue = DispatchQueue.global(qos: .userInteractive)
     dispatchStore = DispatchStore.createInstance(initialState!, reduce, dispatchQueue)
     rxStore = RxStore<Int>.createInstance(initialState!, reduce)
   }
@@ -161,7 +162,15 @@ public final class ReduxStoreTest: XCTestCase {
     let id = "Registrant"
     let updateId = self.updateId
     var actualCallCount = 0
-    dispatchStore!.register(id, updateId, {_ in actualCallCount += 1})
+    let mutex = NSLock()
+
+    let addCallCount: () -> Void = {
+      mutex.lock()
+      defer { mutex.unlock() }
+      actualCallCount += 1
+    }
+
+    dispatchStore!.register(id, updateId, {_ in addCallCount()})
 
     let dispatchFn: (ReduxActionType) -> Void = {(action: ReduxActionType) in
       let qos = DispatchQoS.QoSClass.randomValue()!
@@ -252,10 +261,17 @@ public extension ReduxStoreTest {
     let dq = DispatchQueue.global(qos: .background)
     let store = DispatchStore<Int>.createInstance(initial, reducer, dq)
     var actualCallCount = 0
+    let mutex = NSLock()
+
+    let addCallCount: () -> Void = {
+      mutex.lock()
+      defer { mutex.unlock() }
+      actualCallCount += 1
+    }
 
     store.register("123", "action1", {
       guard $0.isSuccess else { return }
-      actualCallCount += 1
+      addCallCount()
     })
 
     /// When
