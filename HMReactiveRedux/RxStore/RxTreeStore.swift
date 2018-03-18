@@ -1,5 +1,5 @@
 //
-//  RxReduxStore.swift
+//  RxTreeStore.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 27/10/17.
@@ -12,7 +12,7 @@ import SwiftUtilities
 
 /// A Redux-compliant store. Since this store is used for UI-related work, it
 /// should operation on the main thread.
-public struct RxStore<Value> {
+public struct RxTreeStore<Value> {
 
   /// Create a redux store that only receives and delivers events on the main
   /// thread.
@@ -23,9 +23,9 @@ public struct RxStore<Value> {
   /// - Returns: A RxReduxStore instance.
   public static func createInstance(
     _ initialState: State,
-    _ mainReducer: @escaping ReduxReducer<State>) -> RxStore<Value>
+    _ mainReducer: @escaping ReduxReducer<State>) -> RxTreeStore<Value>
   {
-    let store = RxStore(initialState)
+    let store = RxTreeStore(initialState)
     store.setupStateBindings(mainReducer)
     return store
   }
@@ -35,7 +35,7 @@ public struct RxStore<Value> {
   /// - Parameter mainReducer: A ReduxReducer instance.
   /// - Returns: A RxReduxStore instance.
   public static func createInstance(
-    _ mainReducer: @escaping ReduxReducer<State>) -> RxStore<Value>
+    _ mainReducer: @escaping ReduxReducer<State>) -> RxTreeStore<Value>
   {
     return createInstance(.empty(), mainReducer)
   }
@@ -61,7 +61,7 @@ public struct RxStore<Value> {
   }
 }
 
-extension RxStore: RxReduxStoreType {
+extension RxTreeStore: RxReduxStoreType {
   public typealias State = TreeState<Value>
 
   public func actionTrigger() -> AnyObserver<Action?> {

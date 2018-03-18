@@ -129,13 +129,13 @@ public final class ViewController: UIViewController {
 
   fileprivate let disposeBag = DisposeBag()
 
-  fileprivate var dispatchStore: DispatchStore<Any>!
-  fileprivate var rxStore: RxStore<Any>!
+  fileprivate var dispatchStore: TreeDispatchStoreWrapper<Any>!
+  fileprivate var rxStore: RxTreeStore<Any>!
   fileprivate let useRx = false
 
   deinit {
     let id = String(describing: ViewController.self)
-    _ = dispatchStore?.unregisterAll(id)
+    _ = dispatchStore?.unregister(id)
   }
 
   override public func viewDidLoad() {
@@ -162,7 +162,7 @@ public final class ViewController: UIViewController {
     let id = String(describing: ViewController.self)
     let initial = TreeState<Any>.empty()
     let queue = DispatchQueue.main
-    dispatchStore = DispatchStore.createInstance(initial, mainReducer, queue)
+    dispatchStore = TreeDispatchStore.createInstance(initial, mainReducer, queue)
 
     dispatchStore!.register(id, NumberAction.actionPath, {[weak self] v in
       DispatchQueue.main.async {
@@ -221,7 +221,7 @@ public final class ViewController: UIViewController {
 
   fileprivate func setupRxStore() {
     let initial = TreeState<Any>.empty()
-    rxStore = RxStore.createInstance(initial, mainReducer)
+    rxStore = RxTreeStore.createInstance(initial, mainReducer)
 
     rxStore.stateValueStream(NumberAction.actionPath)
       .map({$0.flatMap({$0 as? Int})})

@@ -1,5 +1,5 @@
 //
-//  RxReduxStateFactoryType.swift
+//  RxStateFactoryType.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 27/10/17.
@@ -10,11 +10,11 @@ import RxSwift
 
 /// Classes that implement this protocol should be able to produce state based
 /// on reducers.
-public protocol RxReduxStateFactoryType {
+public protocol RxStateFactoryType {
   associatedtype State: StateType
 }
 
-public extension RxReduxStateFactoryType {
+public extension RxStateFactoryType {
 
   /// Create a state stream that builds up from an initial state.
   ///

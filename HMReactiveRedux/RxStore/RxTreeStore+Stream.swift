@@ -1,5 +1,5 @@
 //
-//  RxReduxStore+Stream.swift
+//  RxTreeStore+Stream.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 28/10/17.
@@ -9,7 +9,7 @@
 import RxSwift
 import SwiftFP
 
-public extension RxStore {
+public extension RxTreeStore {
 
   /// Subscribe to this stream to receive notifications for a particular
   /// substate.
