@@ -23,7 +23,7 @@ fileprivate final class StrongReference<T> {
 public final class GenericDispatchStore<State> {
   fileprivate let dispatchQueue: DispatchQueue
   fileprivate let reducer: ReduxReducer<State>
-  fileprivate var callbacks: [String : [GenericReduxCallback<State>]]
+  fileprivate var callbacks: [(String, [GenericReduxCallback<State>])]
   fileprivate var state: State
 
   init(_ initialState: State,
@@ -31,7 +31,7 @@ public final class GenericDispatchStore<State> {
        _ dispatchQueue: DispatchQueue) {
     self.dispatchQueue = dispatchQueue
     self.reducer = reducer
-    callbacks = [:]
+    callbacks = []
     state = initialState
   }
 }
@@ -42,7 +42,7 @@ extension GenericDispatchStore: ReduxStoreType {
     let callbacks = self.callbacks
 
     dispatchQueue.async {
-      callbacks.forEach({$0.value.forEach({try? $0(newState.value)})})
+      callbacks.forEach({$1.forEach({try? $0(newState.value)})})
     }
 
     self.state = newState.value
@@ -61,22 +61,41 @@ extension GenericDispatchStore: MinimalDispatchStoreType {
   @discardableResult
   public func unregister<S>(_ ids: S) -> Int where S: Sequence, S.Iterator.Element == String {
     var unregistered = 0
+    var newCallbacks = [(String, [GenericReduxCallback<State>])]()
 
-    for id in ids {
-      if callbacks.removeValue(forKey: id) != nil {
-        unregistered += 1
+    for (key, value) in callbacks {
+      if !ids.contains(key) {
+        newCallbacks.append((key, value))
+      } else {
+        unregistered += value.count
       }
     }
 
+    self.callbacks = newCallbacks
     return unregistered
   }
 }
 
 extension GenericDispatchStore: GenericDispatchStoreType {
   public func register(_ id: String, _ callback: @escaping GenericReduxCallback<State>) {
-    var callbacksForRegistrant = callbacks[id] ?? []
-    callbacksForRegistrant.append(callback)
-    callbacks[id] = callbacksForRegistrant
+    var didAdd = false
+
+    for (ix, (key, value)) in callbacks.enumerated() {
+      if key == id {
+        var newValue = value
+        newValue.append(callback)
+        callbacks[ix] = (key, newValue)
+        didAdd = true
+        break
+      }
+    }
+
+    if !didAdd {
+      var newValue = [GenericReduxCallback<State>]()
+      newValue.append(callback)
+      callbacks.append((id, newValue))
+    }
+    
     let lastState = StrongReference(state)
 
     /// Relay the last event.
