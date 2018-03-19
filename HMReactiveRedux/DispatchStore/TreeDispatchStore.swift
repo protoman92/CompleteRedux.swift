@@ -21,8 +21,8 @@ public final class TreeDispatchStore<V> {
 }
 
 extension TreeDispatchStore: ReduxStoreType {
-  public func dispatch(_ action: ReduxActionType) {
-    genericStore.dispatch(action)
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Iterator.Element == Action {
+    genericStore.dispatch(actions)
   }
 }
 

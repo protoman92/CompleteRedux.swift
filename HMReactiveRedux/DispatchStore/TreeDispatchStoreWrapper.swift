@@ -19,8 +19,8 @@ public final class TreeDispatchStoreWrapper<V> {
 }
 
 extension TreeDispatchStoreWrapper: ReduxStoreType {
-  public func dispatch(_ action: ReduxActionType) {
-    return wrapper.dispatch(action)
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Iterator.Element == Action {
+    return wrapper.dispatch(actions)
   }
 }
 

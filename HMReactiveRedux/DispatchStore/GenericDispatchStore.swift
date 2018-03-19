@@ -44,28 +44,40 @@ public final class GenericDispatchStore<State> {
 }
 
 extension GenericDispatchStore: ReduxStoreType {
-  public func dispatch(_ action: ReduxActionType) {
-    let newState = reducer(self.state, action)
-    let newStateRef = StrongReference(newState)
-    let callbacks = self.callbacks
-    self.state = newState
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Iterator.Element == Action {
+    let lastAction = self.lastAction
+    
+    for action in actions {
+      let newState = reducer(self.state, action)
+      let newStateRef = StrongReference(newState)
+      let callbacks = self.callbacks
+      self.state = newState
+      self.lastAction = action
+
+      dispatchQueue.async {
+        callbacks.forEach({$1.forEach({try? $0(newStateRef.value)})})
+      }
+    }
     
     #if DEBUG
+      let newState = self.state
+      
       /// Check whether the ping action has been cleared, or else throw an error.
+      /// To avoid this, ping actions should be dispatched along with their
+      /// reset counterparts. For e.g.:
+      ///
+      ///   store.dispatch(triggerAction, clearAction)
+      ///
+      /// Because this check only happens once per dispatch batch, the store
+      /// knows when to correctly throw an error.
       if let state = newState as? PingActionCheckerType {
-        if let action = self.lastAction, !state.checkPingActionCleared(action) {
-          debugException("Must clear ping action \(action)")
+        if let action = lastAction, !state.checkPingActionCleared(action) {
+          debugException("Must clear ping action: \(action)")
         }
       } else {
         debugPrint("\(State.self) must implement \(PingActionCheckerType.self)")
       }
-      
-      self.lastAction = action
     #endif
-
-    dispatchQueue.async {
-      callbacks.forEach({$1.forEach({try? $0(newStateRef.value)})})
-    }
   }
 }
 

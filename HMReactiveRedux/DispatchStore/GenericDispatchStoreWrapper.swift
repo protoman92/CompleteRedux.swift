@@ -18,8 +18,8 @@ public final class GenericDispatchStoreWrapper<S> {
 }
 
 extension GenericDispatchStoreWrapper: ReduxStoreType {
-  public func dispatch(_ action: ReduxActionType) {    
-    wrapper.dispatch(action)
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Iterator.Element == Action {
+    wrapper.dispatch(actions)
   }
 }
 

@@ -12,7 +12,16 @@ import SwiftFP
 import UIKit
 
 public enum ClearAction: ReduxActionType {
-  case clearState
+  case triggerClear
+  case resetClear
+  
+  public static var path: String {
+    return "clear"
+  }
+  
+  public static var clearPath: String {
+    return "\(path).value"
+  }
 }
 
 public enum NumberAction: ReduxActionType {
@@ -68,11 +77,15 @@ public func mainReducer(_ state: TreeState<Any>, _ action: ReduxActionType) -> T
 
 public func clearReducer(_ state: TreeState<Any>, _ action: ClearAction) -> TreeState<Any> {
   switch action {
-  case .clearState:
+  case .triggerClear:
     return state
       .removeSubstate(NumberAction.path)
       .removeSubstate(StringAction.path)
       .removeSubstate(SliderAction.path)
+      .updateValue(ClearAction.clearPath, true)
+    
+  case .resetClear:
+    return state.removeValue(ClearAction.clearPath)
   }
 }
 
@@ -115,6 +128,30 @@ public func sliderReducer(_ state: TreeState<Any>, _ action: SliderAction) -> Tr
     return state.updateValue(path, value)
   }
 }
+
+#if DEBUG
+  extension TreeState: PingActionCheckerType {
+    public func checkPingActionCleared(_ action: ReduxActionType) -> Bool {
+      switch action {
+      case let action as ClearAction:
+        switch action {
+        case .triggerClear:
+          return !stateValue(ClearAction.clearPath)
+            .cast(Bool.self)
+            .getOrElse(false)
+        
+        default:
+          break
+        }
+        
+      default:
+        break
+      }
+      
+      return true
+    }
+  }
+#endif
 
 public final class ViewController: UIViewController {
   @IBOutlet fileprivate weak var counterTF: UITextField!
@@ -197,13 +234,17 @@ public final class ViewController: UIViewController {
   }
 
   @objc func addButtonTapped() {
-    DispatchQueue.main.async {
-      self.dispatchStore!.dispatch(NumberAction.add)
+    DispatchQueue.global(qos: .background).async {
+      let actionCount = Int.random(0, 100)
+      let actions = (0..<actionCount).map({_ in NumberAction.add})
+      self.dispatchStore!.dispatch(actions)
     }
   }
 
   @objc func minusButtonTapped() {
-    dispatchStore!.dispatch(NumberAction.minus)
+    let actionCount = Int.random(0, 100)
+    let actions = (0..<actionCount).map({_ in NumberAction.minus})
+    dispatchStore!.dispatch(actions)
   }
 
   @objc func string2Changed() {
@@ -216,7 +257,7 @@ public final class ViewController: UIViewController {
   }
 
   @objc func deleteButtonTapped() {
-    dispatchStore?.dispatch(ClearAction.clearState)
+    dispatchStore?.dispatch(ClearAction.triggerClear, ClearAction.resetClear)
   }
 
   fileprivate func setupRxStore() {
@@ -248,7 +289,7 @@ public final class ViewController: UIViewController {
       .disposed(by: disposeBag)
 
     navigationItem.rightBarButtonItem!.rx.tap.asObservable()
-      .map({_ in ClearAction.clearState})
+      .map({_ in ClearAction.triggerClear})
       .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)
 

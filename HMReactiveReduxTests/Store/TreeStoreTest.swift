@@ -30,12 +30,21 @@ public class State {
   public static let calculation = "calculation"
 }
 
+#if DEBUG
+  extension TreeState: PingActionCheckerType {
+    public func checkPingActionCleared(_ action: ReduxActionType) -> Bool {
+      return true
+    }
+  }
+#endif
+
 public final class TreeStoreTest: XCTestCase {
   fileprivate var disposeBag: DisposeBag!
   fileprivate var scheduler: TestScheduler!
   fileprivate var initialState: TreeState<Int>!
   fileprivate var treeStore: TreeDispatchStoreWrapper<Int>!
   fileprivate var rxStore: RxTreeStore<Int>!
+  fileprivate var actionsPerIter: Int!
 
   fileprivate var updateId: String {
     return "layer1.layer2.layer3.calculation"
@@ -46,6 +55,7 @@ public final class TreeStoreTest: XCTestCase {
     continueAfterFailure = true
     scheduler = TestScheduler(initialClock: 0)
     disposeBag = DisposeBag()
+    actionsPerIter = 5
 
     let layer3 = TreeState<Int>.builder()
       .updateValue(State.calculation, 0)
@@ -79,7 +89,7 @@ public final class TreeStoreTest: XCTestCase {
 public extension TreeStoreTest {
   public func test_dispatchTreeBasedAction_shouldUpdateState(
     _ store: ReduxStoreType,
-    _ dispatchFn: (ReduxActionType) -> Void,
+    _ dispatchFn: ([ReduxActionType]) -> Void,
     _ lastStateFn: () -> TreeState<Int>,
     _ lastValueFn: () -> Try<Int>)
   {
@@ -88,9 +98,15 @@ public extension TreeStoreTest {
 
     /// When
     for _ in 0..<StoreTestParams.callCount {
-      let action = Action.randomValue()!
-      original = action.treeStateUpdateFn()(Try.success(original)).value!
-      dispatchFn(action)
+      var actions = [ReduxActionType]()
+      
+      for _ in 0..<actionsPerIter! {
+        let action = Action.randomValue()!
+        original = action.treeStateUpdateFn()(Try.success(original)).value!
+        actions.append(action)
+      }
+      
+      dispatchFn(actions)
     }
 
     Thread.sleep(forTimeInterval: StoreTestParams.waitTime)
@@ -135,22 +151,22 @@ public extension TreeStoreTest {
     /// Setup
     let id = "Registrant"
     let updateId = self.updateId
-    var actualCallCount = 0
+    var actualCount = 0
     let mutex = NSLock()
 
     let addCallCount: () -> Void = {
       mutex.lock()
       defer { mutex.unlock() }
-      actualCallCount += 1
+      actualCount += 1
     }
 
     treeStore!.register(id, updateId, {_ in addCallCount()})
 
-    let dispatchFn: (ReduxActionType) -> Void = {(action: ReduxActionType) in
+    let dispatchFn: ([ReduxActionType]) -> Void = {(actions: [ReduxActionType]) in
       let qos = DispatchQoS.QoSClass.randomValue()!
 
       DispatchQueue.global(qos: qos).async {
-        self.treeStore!.dispatch(action)
+        self.treeStore!.dispatch(actions)
       }
     }
 
@@ -161,13 +177,13 @@ public extension TreeStoreTest {
                                           {treeStore!.lastValue(updateId)})
 
     // Add 1 to reflect initial value relay on first subscription.
-    XCTAssertEqual(actualCallCount, StoreTestParams.callCount + 1)
+    XCTAssertEqual(actualCount, StoreTestParams.callCount * actionsPerIter! + 1)
 
     /// When & Then 2
     var unregistered = treeStore!.unregister(id)
     XCTAssertEqual(unregistered, 1)
     treeStore!.dispatch(Action.addTwo)
-    XCTAssertEqual(actualCallCount, StoreTestParams.callCount + 1)
+    XCTAssertEqual(actualCount, StoreTestParams.callCount * actionsPerIter! + 1)
 
     /// When & Then 3
     unregistered = treeStore!.unregister(id)

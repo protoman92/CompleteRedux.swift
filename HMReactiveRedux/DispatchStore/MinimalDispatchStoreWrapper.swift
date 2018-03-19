@@ -18,10 +18,10 @@ final class MinimalDispatchStoreWrapper<Store: MinimalDispatchStoreType> {
 }
 
 extension MinimalDispatchStoreWrapper: ReduxStoreType {
-  func dispatch(_ action: ReduxActionType) {
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Iterator.Element == Action {
     mutex.lock()
     defer { mutex.unlock() }
-    store.dispatch(action)
+    store.dispatch(actions)
   }
 }
 

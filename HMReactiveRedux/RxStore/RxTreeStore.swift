@@ -42,21 +42,21 @@ public struct RxTreeStore<Value> {
 
   fileprivate let disposeBag: DisposeBag
   fileprivate var rdActionObserver: RxReduxObserver<Action?>
-  fileprivate var rdStateVariable: Variable<State>
+  fileprivate var rdStateObserver: BehaviorRelay<State>
 
   fileprivate init(_ initialState: State) {
     disposeBag = DisposeBag()
     rdActionObserver = RxReduxObserver<Action?>(nil)
-    rdStateVariable = Variable(initialState)
+    rdStateObserver = BehaviorRelay(value: initialState)
   }
 
   fileprivate func setupStateBindings(_ reducer: @escaping ReduxReducer<State>) {
     let disposeBag = self.disposeBag
-    let initialState = rdStateVariable.value
+    let initialState = rdStateObserver.value
     let actionStream = rdActionObserver.mapNonNilOrEmpty()
 
     createState(actionStream, initialState, reducer)
-      .bind(to: rdStateVariable)
+      .bind(to: rdStateObserver)
       .disposed(by: disposeBag)
   }
 }
@@ -69,6 +69,6 @@ extension RxTreeStore: RxReduxStoreType {
   }
 
   public func stateStream() -> Observable<State> {
-    return rdStateVariable.asDriver().asObservable()
+    return rdStateObserver.asDriver().asObservable()
   }
 }

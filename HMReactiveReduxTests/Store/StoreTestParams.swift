@@ -9,6 +9,6 @@
 import Foundation
 
 public final class StoreTestParams {
-  public static var callCount = 10000
+  public static var callCount = 1000
   public static var waitTime: TimeInterval = 5
 }

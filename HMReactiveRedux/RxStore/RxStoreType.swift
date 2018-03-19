@@ -10,7 +10,6 @@ import RxSwift
 
 /// Classes that implement this protocol should act as a redux-compliant store.
 public protocol RxReduxStoreType: ReduxStoreType, RxStateFactoryType {
-  typealias Action = ReduxActionType
 
   /// Trigger an action.
   func actionTrigger() -> AnyObserver<Action?>
@@ -24,7 +23,8 @@ public extension RxReduxStoreType {
   /// Dispatch an action.
   ///
   /// - Parameter action: An Action instance.
-  public func dispatch(_ action: Action) {
-    actionTrigger().onNext(action)
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Iterator.Element == Action {
+    let trigger = actionTrigger()
+    actions.forEach({trigger.onNext($0)})
   }
 }
