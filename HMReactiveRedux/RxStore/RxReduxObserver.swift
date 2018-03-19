@@ -12,16 +12,20 @@ import SwiftUtilities
 
 /// Use this wrapper to discard completed events.
 internal struct RxReduxObserver<Element> {
-  fileprivate let reduxVariable: Variable<E>
+  fileprivate let reduxObserver: BehaviorRelay<E>
 
   public init(_ value: E) {
-    reduxVariable = Variable(value)
+    reduxObserver = BehaviorRelay(value: value)
+  }
+  
+  public var value: E {
+    return reduxObserver.value
   }
 }
 
 extension RxReduxObserver: ObservableConvertibleType {
   internal func asObservable() -> Observable<E> {
-    return reduxVariable.asObservable()
+    return reduxObserver.asObservable()
   }
 }
 
@@ -33,7 +37,7 @@ extension RxReduxObserver: ObserverType {
 
     switch event {
     case .next(let element):
-      reduxVariable.value = element
+      reduxObserver.accept(element)
 
     case .error(let error):
       debugPrint("Received error: \(error), ignoring.")

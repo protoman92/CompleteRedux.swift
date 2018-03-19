@@ -7,6 +7,7 @@
 //
 
 import SwiftFP
+import SwiftUtilities
 
 fileprivate final class StrongReference<T> {
   fileprivate let value: T
@@ -25,6 +26,12 @@ public final class GenericDispatchStore<State> {
   fileprivate let reducer: ReduxReducer<State>
   fileprivate var callbacks: [(String, [GenericReduxCallback<State>])]
   fileprivate var state: State
+  
+  #if DEBUG
+    /// If in debug mode, keep track of last action to perform some custom
+    /// asserts.
+    fileprivate var lastAction: ReduxActionType?
+  #endif
 
   init(_ initialState: State,
        _ reducer: @escaping ReduxReducer<State>,
@@ -38,14 +45,27 @@ public final class GenericDispatchStore<State> {
 
 extension GenericDispatchStore: ReduxStoreType {
   public func dispatch(_ action: ReduxActionType) {
-    let newState = StrongReference(reducer(self.state, action))
+    let newState = reducer(self.state, action)
+    let newStateRef = StrongReference(newState)
     let callbacks = self.callbacks
+    self.state = newState
+    
+    #if DEBUG
+      /// Check whether the ping action has been cleared, or else throw an error.
+      if let state = newState as? PingActionCheckerType {
+        if let action = self.lastAction, !state.checkPingActionCleared(action) {
+          debugException("Must clear ping action \(action)")
+        }
+      } else {
+        debugPrint("\(State.self) must implement \(PingActionCheckerType.self)")
+      }
+      
+      self.lastAction = action
+    #endif
 
     dispatchQueue.async {
-      callbacks.forEach({$1.forEach({try? $0(newState.value)})})
+      callbacks.forEach({$1.forEach({try? $0(newStateRef.value)})})
     }
-
-    self.state = newState.value
   }
 }
 
