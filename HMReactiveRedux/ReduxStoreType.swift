@@ -10,26 +10,31 @@
 public protocol ReduxStoreType {
   typealias Action = ReduxActionType
 
+  /// Dispatch a single action.
+  ///
+  /// - Parameter action: An Action instance.
+  func dispatch(_ action: Action)
+
   /// Dispatch some actions and notify listeners.
   ///
-  /// - Parameter actions: A Sequence of ReduxActionType.
-  func dispatch<S>(_ actions: S) where S: Sequence, S.Iterator.Element == Action
+  /// - Parameter actions: A Sequence of Action.
+  func dispatchAll<S>(_ actions: S) where S: Sequence, S.Element == Action
 }
 
 public extension ReduxStoreType {
   
   /// Convenience method to dispatch some actions.
   ///
-  /// - Parameter actions: A Sequence of ReduxActionType.
-  public func dispatch<S>(_ actions: S) where S: Sequence, S.Iterator.Element: Action {
+  /// - Parameter actions: A Sequence of Action.
+  public func dispatchAll<S>(_ actions: S) where S: Sequence, S.Element: Action {
     let mapped: [Action] = actions.map({$0})
-    dispatch(mapped)
+    dispatchAll(mapped)
   }
   
   /// Convenience method to dispatch some actions.
   ///
   /// - Parameter actions: Varargs of Redux actions.
-  public func dispatch(_ actions: Action...) {
-    dispatch(actions)
+  public func dispatchAll(_ actions: Action...) {
+    dispatchAll(actions)
   }
 }

@@ -18,98 +18,46 @@ fileprivate final class StrongReference<T> {
 }
 
 /// This is a simple dispatch-based Redux store with no rx. It can be used to
-/// build more specialized store implementations.
+/// build more specialized store implementations. Keep in mind that this store
+/// is not thread-safe, so we can wrap it with ConcurrentDispatchStore for
+/// locking.
 ///
 /// The state should be a value data structure to avoid external modifications.
-public final class GenericDispatchStore<State> {
+public final class GenericDispatchStore<State>: DispatchReduxStore<State, String, State> {
   fileprivate let dispatchQueue: DispatchQueue
   fileprivate let reducer: ReduxReducer<State>
-  fileprivate var callbacks: [(String, [GenericReduxCallback<State>])]
+  fileprivate var callbacks: [(String, [ReduxCallback<CBValue>])]
   fileprivate var state: State
-  
-  #if DEBUG
-    /// If in debug mode, keep track of last action to perform some custom
-    /// asserts.
-    fileprivate var lastAction: ReduxActionType?
-  #endif
 
-  init(_ initialState: State,
-       _ reducer: @escaping ReduxReducer<State>,
-       _ dispatchQueue: DispatchQueue) {
+  public init(_ initialState: State,
+              _ reducer: @escaping ReduxReducer<State>,
+              _ dispatchQueue: DispatchQueue) {
     self.dispatchQueue = dispatchQueue
     self.reducer = reducer
     callbacks = []
     state = initialState
   }
-}
 
-extension GenericDispatchStore: ReduxStoreType {
-  public func dispatch<S>(_ actions: S) where S: Sequence, S.Iterator.Element == Action {
-    let lastAction = self.lastAction
-    
-    for action in actions {
-      let newState = reducer(self.state, action)
-      let newStateRef = StrongReference(newState)
-      let callbacks = self.callbacks
-      self.state = newState
-      self.lastAction = action
+  override public func dispatch(_ action: Action) {
+    let newState = reducer(self.state, action)
+    let newStateRef = StrongReference(newState)
+    let callbacks = self.callbacks
+    self.state = newState
 
-      dispatchQueue.async {
-        callbacks.forEach({$1.forEach({try? $0(newStateRef.value)})})
-      }
+    dispatchQueue.async {
+      callbacks.forEach({$1.forEach({try? $0(newStateRef.value)})})
     }
-    
-    #if DEBUG
-      let newState = self.state
-      
-      /// Check whether the ping action has been cleared, or else throw an error.
-      /// To avoid this, ping actions should be dispatched along with their
-      /// reset counterparts. For e.g.:
-      ///
-      ///   store.dispatch(triggerAction, clearAction)
-      ///
-      /// Because this check only happens once per dispatch batch, the store
-      /// knows when to correctly throw an error.
-      if let state = newState as? PingActionCheckerType {
-        if let action = lastAction, !state.checkPingActionCleared(action) {
-          debugException("Must clear ping action: \(action)")
-        }
-      } else {
-        debugPrint("\(State.self) must implement \(PingActionCheckerType.self)")
-      }
-    #endif
   }
-}
 
-extension GenericDispatchStore: MinimalDispatchStoreType {
-  public func lastState() -> State {
+  override public func dispatchAll<S>(_ actions: S) where S: Sequence, S.Element == Action {
+    actions.forEach({self.dispatch($0)})
+  }
+
+  override public func lastState() -> State {
     return state
   }
-  
-  /// Unregister all callbacks for some ids.
-  ///
-  /// - Parameter ids: The registrant's ids.
-  /// - Returns: An Int value indicating the number of removed callbacks.
-  @discardableResult
-  public func unregister<S>(_ ids: S) -> Int where S: Sequence, S.Iterator.Element == String {
-    var unregistered = 0
-    var newCallbacks = [(String, [GenericReduxCallback<State>])]()
 
-    for (key, value) in callbacks {
-      if !ids.contains(key) {
-        newCallbacks.append((key, value))
-      } else {
-        unregistered += value.count
-      }
-    }
-
-    self.callbacks = newCallbacks
-    return unregistered
-  }
-}
-
-extension GenericDispatchStore: GenericDispatchStoreType {
-  public func register(_ id: String, _ callback: @escaping GenericReduxCallback<State>) {
+  override public func register(_ id: String, _ callback: @escaping ReduxCallback<CBValue>) {
     var didAdd = false
 
     for (ix, (key, value)) in callbacks.enumerated() {
@@ -123,7 +71,7 @@ extension GenericDispatchStore: GenericDispatchStoreType {
     }
 
     if !didAdd {
-      var newValue = [GenericReduxCallback<State>]()
+      var newValue = [ReduxCallback<CBValue>]()
       newValue.append(callback)
       callbacks.append((id, newValue))
     }
@@ -133,25 +81,20 @@ extension GenericDispatchStore: GenericDispatchStoreType {
     /// Relay the last event.
     dispatchQueue.async {try? callback(lastState.value)}
   }
-}
 
-public extension GenericDispatchStore {
+  override public func unregister<S>(_ ids: S) -> Int where S: Sequence, S.Element == String {
+    var unregistered = 0
+    var newCallbacks = [(String, [ReduxCallback<CBValue>])]()
 
-  /// Create a generic dispatch store instance wrapper.
-  ///
-  /// - Parameters:
-  ///   - initialState: The initial state.
-  ///   - reducer: A ReduxReducer instance.
-  ///   - dispatchQueue: A DispatchQueue instance.
-  /// - Returns: A GenericDispatchStoreWrapper instance.
-  public static func createInstance(_ initialState: State,
-                                    _ reducer: @escaping ReduxReducer<State>,
-                                    _ dispatchQueue: DispatchQueue)
-    -> GenericDispatchStoreWrapper<State>
-  {
-    let mutex = NSLock()
-    let store = GenericDispatchStore(initialState, reducer, dispatchQueue)
-    let wrapper = MinimalDispatchStoreWrapper(store, mutex)
-    return GenericDispatchStoreWrapper(wrapper)
+    for (key, value) in callbacks {
+      if !ids.contains(key) {
+        newCallbacks.append((key, value))
+      } else {
+        unregistered += value.count
+      }
+    }
+
+    self.callbacks = newCallbacks
+    return unregistered
   }
 }

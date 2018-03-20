@@ -166,7 +166,7 @@ public final class ViewController: UIViewController {
 
   fileprivate let disposeBag = DisposeBag()
 
-  fileprivate var dispatchStore: TreeDispatchStoreWrapper<Any>!
+  fileprivate var dispatchStore: ConcurrentTreeDispatchStore<Any>!
   fileprivate var rxStore: RxTreeStore<Any>!
   fileprivate let useRx = false
 
@@ -199,9 +199,11 @@ public final class ViewController: UIViewController {
     let id = String(describing: ViewController.self)
     let initial = TreeState<Any>.empty()
     let queue = DispatchQueue.main
-    dispatchStore = TreeDispatchStore.createInstance(initial, mainReducer, queue)
+    let genericStore = GenericDispatchStore(initial, mainReducer, queue)
+    let treeStore = TreeDispatchStore(genericStore)
+    self.dispatchStore = ConcurrentTreeDispatchStore<Any>.createInstance(treeStore)
 
-    dispatchStore!.register(id, NumberAction.actionPath, {[weak self] v in
+    dispatchStore!.register((id, NumberAction.actionPath), {[weak self] v in
       DispatchQueue.main.async {
         _ = v.cast(Int.self)
           .successOrElse(Try.success(0))
@@ -210,7 +212,7 @@ public final class ViewController: UIViewController {
       }
     })
 
-    dispatchStore!.register(id, StringAction.actionPath, {[weak self] v in
+    dispatchStore!.register((id, StringAction.actionPath), {[weak self] v in
       DispatchQueue.main.async {
         _ = v.cast(String.self)
           .successOrElse(Try.success("Input on the right"))
@@ -218,7 +220,7 @@ public final class ViewController: UIViewController {
       }
     })
 
-    dispatchStore!.register(id, SliderAction.actionPath, {[weak self] v in
+    dispatchStore!.register((id, SliderAction.actionPath), {[weak self] v in
       DispatchQueue.main.async {
         _ = v.cast(Double.self)
           .successOrElse(Try.success(0))
@@ -237,14 +239,14 @@ public final class ViewController: UIViewController {
     DispatchQueue.global(qos: .background).async {
       let actionCount = Int.random(0, 100)
       let actions = (0..<actionCount).map({_ in NumberAction.add})
-      self.dispatchStore!.dispatch(actions)
+      self.dispatchStore!.dispatchAll(actions)
     }
   }
 
   @objc func minusButtonTapped() {
     let actionCount = Int.random(0, 100)
     let actions = (0..<actionCount).map({_ in NumberAction.minus})
-    dispatchStore!.dispatch(actions)
+    dispatchStore!.dispatchAll(actions)
   }
 
   @objc func string2Changed() {
@@ -257,7 +259,7 @@ public final class ViewController: UIViewController {
   }
 
   @objc func deleteButtonTapped() {
-    dispatchStore?.dispatch(ClearAction.triggerClear, ClearAction.resetClear)
+    dispatchStore?.dispatchAll(ClearAction.triggerClear, ClearAction.resetClear)
   }
 
   fileprivate func setupRxStore() {

@@ -93,7 +93,7 @@ public extension StateType {
   ///
   /// - Parameter keys: A Sequence of keys.
   /// - Returns: A Self instance.
-  public func removeValues<S>(_ keys: S) -> Self where S: Sequence, S.Iterator.Element == String {
+  public func removeValues<S>(_ keys: S) -> Self where S: Sequence, S.Element == String {
     var state = Self.empty()
 
     for key in keys {
