@@ -60,7 +60,7 @@ public extension ConcurrentDispatchStore {
   ///
   /// - Parameter store: A DispatchReduxStore instance.
   /// - Returns: A ConcurrentDispatchStore instance.
-  private static func _createInstance(_ store: DispatchReduxStore<State, Registry, CBValue>)
+  fileprivate static func _createInstance(_ store: DispatchReduxStore<State, Registry, CBValue>)
     -> ConcurrentDispatchStore<State, Registry, CBValue>
   {
     #if DEBUG
