@@ -8,6 +8,7 @@
 
 import RxCocoa
 import RxSwift
+import SwiftFP
 import SwiftUtilities
 
 /// A Redux-compliant store. Since this store is used for UI-related work, it
@@ -61,7 +62,19 @@ public struct RxTreeStore<Value> {
   }
 }
 
-extension RxTreeStore: RxReduxStoreType {
+public extension RxTreeStore {
+
+  /// Subscribe to this stream to receive notifications for a particular
+  /// substate.
+  ///
+  /// - Parameter identifier: A String value.
+  /// - Returns: An Observable instance.
+  public func substateStream(_ identifier: String) -> Observable<Try<State>> {
+    return stateStream().map({$0.substate(identifier)})
+  }
+}
+
+extension RxTreeStore: RxTreeStoreType {
   public typealias State = TreeState<Value>
 
   public func actionTrigger() -> AnyObserver<Action?> {

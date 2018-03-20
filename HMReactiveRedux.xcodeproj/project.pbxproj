@@ -29,11 +29,10 @@
 		D314CC3420609B4800571F3A /* DispatchReduxStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314CC3320609B4800571F3A /* DispatchReduxStoreType.swift */; };
 		D32FE10A205FFBFD00FC9ADD /* PingActionCheckerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FE109205FFBFD00FC9ADD /* PingActionCheckerType.swift */; };
 		D32FE10C2060067800FC9ADD /* ReduxObserverTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FE10B2060067800FC9ADD /* ReduxObserverTest.swift */; };
-		D350C34D1FA32EC70040556F /* RxStateFactoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C34C1FA32EC70040556F /* RxStateFactoryType.swift */; };
 		D350C34F1FA330C10040556F /* ReduxActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C34E1FA330C10040556F /* ReduxActionType.swift */; };
 		D350C3511FA3317A0040556F /* StateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3501FA3317A0040556F /* StateType.swift */; };
 		D350C3531FA3325B0040556F /* ReduxReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3521FA3325B0040556F /* ReduxReducer.swift */; };
-		D350C3551FA3369D0040556F /* RxStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3541FA3369D0040556F /* RxStoreType.swift */; };
+		D350C3551FA3369D0040556F /* RxTreeStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3541FA3369D0040556F /* RxTreeStoreType.swift */; };
 		D350C3571FA337A60040556F /* RxTreeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3561FA337A60040556F /* RxTreeStore.swift */; };
 		D350C3591FA345200040556F /* TreeStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3581FA345200040556F /* TreeStoreTest.swift */; };
 		D350C35B1FA3465C0040556F /* TreeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C35A1FA3465C0040556F /* TreeState.swift */; };
@@ -100,11 +99,10 @@
 		D314CC3320609B4800571F3A /* DispatchReduxStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchReduxStoreType.swift; sourceTree = "<group>"; };
 		D32FE109205FFBFD00FC9ADD /* PingActionCheckerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingActionCheckerType.swift; sourceTree = "<group>"; };
 		D32FE10B2060067800FC9ADD /* ReduxObserverTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxObserverTest.swift; sourceTree = "<group>"; };
-		D350C34C1FA32EC70040556F /* RxStateFactoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxStateFactoryType.swift; sourceTree = "<group>"; };
 		D350C34E1FA330C10040556F /* ReduxActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxActionType.swift; sourceTree = "<group>"; };
 		D350C3501FA3317A0040556F /* StateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateType.swift; sourceTree = "<group>"; };
 		D350C3521FA3325B0040556F /* ReduxReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxReducer.swift; sourceTree = "<group>"; };
-		D350C3541FA3369D0040556F /* RxStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxStoreType.swift; sourceTree = "<group>"; };
+		D350C3541FA3369D0040556F /* RxTreeStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxTreeStoreType.swift; sourceTree = "<group>"; };
 		D350C3561FA337A60040556F /* RxTreeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxTreeStore.swift; sourceTree = "<group>"; };
 		D350C3581FA345200040556F /* TreeStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeStoreTest.swift; sourceTree = "<group>"; };
 		D350C35A1FA3465C0040556F /* TreeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeState.swift; sourceTree = "<group>"; };
@@ -163,10 +161,9 @@
 			isa = PBXGroup;
 			children = (
 				D3040A1D1FA8566B00BE0E14 /* RxReduxObserver.swift */,
-				D350C34C1FA32EC70040556F /* RxStateFactoryType.swift */,
-				D350C3541FA3369D0040556F /* RxStoreType.swift */,
 				D350C3561FA337A60040556F /* RxTreeStore.swift */,
 				D303DE6A1FA4662700E8943C /* RxTreeStore+Stream.swift */,
+				D350C3541FA3369D0040556F /* RxTreeStoreType.swift */,
 			);
 			path = RxStore;
 			sourceTree = "<group>";
@@ -663,7 +660,7 @@
 				D350C3571FA337A60040556F /* RxTreeStore.swift in Sources */,
 				D3145E172060F7B30089261E /* TreeDispatchStoreType.swift in Sources */,
 				D350C35B1FA3465C0040556F /* TreeState.swift in Sources */,
-				D350C3551FA3369D0040556F /* RxStoreType.swift in Sources */,
+				D350C3551FA3369D0040556F /* RxTreeStoreType.swift in Sources */,
 				D32FE10A205FFBFD00FC9ADD /* PingActionCheckerType.swift in Sources */,
 				D3040A1E1FA8566B00BE0E14 /* RxReduxObserver.swift in Sources */,
 				D350C3531FA3325B0040556F /* ReduxReducer.swift in Sources */,
@@ -675,7 +672,6 @@
 				D3D5B55C2060A7D900FA5E83 /* LastActionDispatchStore.swift in Sources */,
 				D3D5B56C2060B84000FA5E83 /* ConcurrentDispatchStore+Types.swift in Sources */,
 				D3D5B5642060AF1B00FA5E83 /* DispatchReduxStore.swift in Sources */,
-				D350C34D1FA32EC70040556F /* RxStateFactoryType.swift in Sources */,
 				D352CE65205CB9BE00319B07 /* ReduxStoreType.swift in Sources */,
 				D310A03A2012617400F96648 /* GeneralRedux+Progress.swift in Sources */,
 				D312BF48205E077000F366A5 /* TreeDispatchStore.swift in Sources */,

@@ -9,23 +9,14 @@
 import RxSwift
 import SwiftFP
 
-public extension RxTreeStore {
-
-  /// Subscribe to this stream to receive notifications for a particular
-  /// substate.
-  ///
-  /// - Parameter identifier: A String value.
-  /// - Returns: An Observable instance.
-  public func substateStream(_ identifier: String) -> Observable<Try<State>> {
-    return stateStream().map({$0.substate(identifier)})
-  }
+public extension RxTreeStoreType {
 
   /// Subscribe to this stream to receive notifications for a particular
   /// state value.
   ///
   /// - Parameter identifier: A String value.
   /// - Returns: An Observable instance.
-  public func stateValueStream(_ identifier: String) -> Observable<Try<Value>> {
+  public func stateValueStream(_ identifier: String) -> Observable<Try<State.Value>> {
     return stateStream().map({$0.stateValue(identifier)})
   }
 

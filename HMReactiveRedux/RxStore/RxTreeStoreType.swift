@@ -1,5 +1,5 @@
 //
-//  RxStateFactoryType.swift
+//  RxTreeReduxStoreType.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 27/10/17.
@@ -8,13 +8,18 @@
 
 import RxSwift
 
-/// Classes that implement this protocol should be able to produce state based
-/// on reducers.
-public protocol RxStateFactoryType {
+/// Classes that implement this protocol should act as a redux-compliant store.
+public protocol RxTreeStoreType: ReduxStoreType {
   associatedtype State: StateType
+
+  /// Trigger an action.
+  func actionTrigger() -> AnyObserver<Action?>
+
+  /// Subscribe to this stream to receive state notifications.
+  func stateStream() -> Observable<State>
 }
 
-public extension RxStateFactoryType {
+public extension RxTreeStoreType {
 
   /// Create a state stream that builds up from an initial state.
   ///
@@ -31,5 +36,12 @@ public extension RxStateFactoryType {
   {
     return actionTrigger.asObservable()
       .scan(initialState, accumulator: mainReducer)
+  }
+}
+
+public extension RxTreeStoreType {
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
+    let trigger = actionTrigger()
+    actions.forEach({trigger.onNext($0)})
   }
 }
