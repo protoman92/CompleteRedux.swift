@@ -239,14 +239,14 @@ public final class ViewController: UIViewController {
     DispatchQueue.global(qos: .background).async {
       let actionCount = Int.random(0, 100)
       let actions = (0..<actionCount).map({_ in NumberAction.add})
-      self.dispatchStore!.dispatchAll(actions)
+      self.dispatchStore!.dispatch(actions)
     }
   }
 
   @objc func minusButtonTapped() {
     let actionCount = Int.random(0, 100)
     let actions = (0..<actionCount).map({_ in NumberAction.minus})
-    dispatchStore!.dispatchAll(actions)
+    dispatchStore!.dispatch(actions)
   }
 
   @objc func string2Changed() {
@@ -259,7 +259,7 @@ public final class ViewController: UIViewController {
   }
 
   @objc func deleteButtonTapped() {
-    dispatchStore?.dispatchAll(ClearAction.triggerClear, ClearAction.resetClear)
+    dispatchStore?.dispatch(ClearAction.triggerClear, ClearAction.resetClear)
   }
 
   fileprivate func setupRxStore() {

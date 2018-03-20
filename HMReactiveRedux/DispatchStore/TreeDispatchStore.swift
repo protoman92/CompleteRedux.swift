@@ -20,12 +20,8 @@ public final class TreeDispatchStore<V>: DispatchReduxStore<TreeState<V>, (Strin
     self.genericStore = genericStore
   }
 
-  override public func dispatch(_ action: Action) {
-    genericStore.dispatch(action)
-  }
-
-  override public func dispatchAll<S>(_ actions: S) where S: Sequence, S.Element == Action {
-    genericStore.dispatchAll(actions)
+  override public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
+    genericStore.dispatch(actions)
   }
 
   override public func lastState() -> State {

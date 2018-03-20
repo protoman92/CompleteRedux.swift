@@ -9,11 +9,7 @@
 /// Convenience class to get around Swift's generic constraints. Other stores
 /// should extend from this.
 public class DispatchReduxStore<State, RegistryInfo, CBValue> {
-  public func dispatch(_ action: ReduxStoreType.Action) {
-    fatalError("Must override this")
-  }
-
-  public func dispatchAll<S>(_ actions: S) where S: Sequence, S.Element == Action {
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
     fatalError("Must override this")
   }
 

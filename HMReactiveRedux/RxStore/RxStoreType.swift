@@ -19,11 +19,7 @@ public protocol RxReduxStoreType: ReduxStoreType, RxStateFactoryType {
 }
 
 public extension RxReduxStoreType {
-  public func dispatch(_ action: Action) {
-    actionTrigger().onNext(action)
-  }
-
-  public func dispatchAll<S>(_ actions: S) where S: Sequence, S.Element == Action {
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
     let trigger = actionTrigger()
     actions.forEach({trigger.onNext($0)})
   }

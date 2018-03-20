@@ -38,19 +38,17 @@ public final class GenericDispatchStore<State>: DispatchReduxStore<State, String
     state = initialState
   }
 
-  override public func dispatch(_ action: Action) {
-    let newState = reducer(self.state, action)
-    let newStateRef = StrongReference(newState)
-    let callbacks = self.callbacks
-    self.state = newState
+  override public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
+    for action in actions {
+      let newState = reducer(self.state, action)
+      let newStateRef = StrongReference(newState)
+      let callbacks = self.callbacks
+      self.state = newState
 
-    dispatchQueue.async {
-      callbacks.forEach({$1.forEach({try? $0(newStateRef.value)})})
+      dispatchQueue.async {
+        callbacks.forEach({$1.forEach({try? $0(newStateRef.value)})})
+      }
     }
-  }
-
-  override public func dispatchAll<S>(_ actions: S) where S: Sequence, S.Element == Action {
-    actions.forEach({self.dispatch($0)})
   }
 
   override public func lastState() -> State {

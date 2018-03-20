@@ -23,11 +23,7 @@ public final class LastActionDispatchStore<State, RegistryInfo, CBValue>:
     self.store = store
   }
 
-  override public func dispatch(_ action: Action) {
-    store.dispatch(action)
-  }
-
-  override public func dispatchAll<S>(_ actions: S) where S: Sequence, S.Element == Action {
+  override public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
     let lastAction = self.lastAction
 
     for action in actions {

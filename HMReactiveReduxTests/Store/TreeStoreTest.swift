@@ -147,7 +147,7 @@ public extension TreeStoreTest {
 
     /// When & Then
     test_dispatchTreeBasedAction_shouldUpdateState(rxStore!,
-                                          {rxStore!.dispatchAll($0)},
+                                          {rxStore!.dispatch($0)},
                                           {rxStore!.dispatch($0)},
                                           {stateObs.nextElements().last!},
                                           {valueObs.nextElements().last!})
@@ -174,7 +174,7 @@ public extension TreeStoreTest {
       let qos = DispatchQoS.QoSClass.randomValue()!
 
       DispatchQueue.global(qos: qos).async {
-        self.treeStore!.dispatchAll(actions)
+        self.treeStore!.dispatch(actions)
       }
     }
 

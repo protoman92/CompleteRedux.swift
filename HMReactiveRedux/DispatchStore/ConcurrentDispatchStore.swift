@@ -21,16 +21,10 @@ public final class ConcurrentDispatchStore<State, Registry, CBValue>:
     mutex = NSLock()
   }
 
-  override public func dispatch(_ action: Action) {
+  override public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
     mutex.lock()
     defer { mutex.unlock() }
-    store.dispatch(action)
-  }
-
-  override public func dispatchAll<S>(_ actions: S) where S: Sequence, S.Element == Action {
-    mutex.lock()
-    defer { mutex.unlock() }
-    store.dispatchAll(actions)
+    store.dispatch(actions)
   }
 
   override public func lastState() -> State {
