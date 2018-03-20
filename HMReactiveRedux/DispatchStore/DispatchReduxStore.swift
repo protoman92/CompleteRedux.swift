@@ -3,12 +3,12 @@
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 20/3/18.
-//  Copyright © 2018 Holmusk. All rights reserved.
+//  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
 /// Convenience class to get around Swift's generic constraints. Other stores
 /// should extend from this.
-public class DispatchReduxStore<State, RegistryInfo, CBValue> {
+open class DispatchReduxStore<State, RegistryInfo, CBValue> {
   public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
     fatalError("Must override this")
   }

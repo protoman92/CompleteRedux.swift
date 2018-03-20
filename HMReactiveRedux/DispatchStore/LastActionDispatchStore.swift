@@ -3,7 +3,7 @@
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 20/3/18.
-//  Copyright © 2018 Holmusk. All rights reserved.
+//  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
 import SwiftUtilities
@@ -19,9 +19,22 @@ public final class LastActionDispatchStore<State, RegistryInfo, CBValue>:
   /// Track the last dispatched action.
   fileprivate var lastAction: ReduxActionType?
 
-  public init(_ store: Store) {
-    self.store = store
-  }
+  #if DEBUG
+    fileprivate let issueNotifier: (String) -> Void
+
+    public init(_ store: Store, _ issueNotifier: @escaping (String) -> Void) {
+      self.issueNotifier = issueNotifier
+      self.store = store
+    }
+  
+    convenience public init(_ store: Store) {
+      self.init(store, {debugException($0)})
+    }
+  #else
+    public init(_ store: Store) {
+      self.store = store
+    }
+  #endif
 
   override public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
     let lastAction = self.lastAction
@@ -33,6 +46,7 @@ public final class LastActionDispatchStore<State, RegistryInfo, CBValue>:
 
     #if DEBUG
       let newState = store.lastState()
+      let issueNotifier = self.issueNotifier
 
       /// Check whether the ping action has been cleared, or else throw an error.
       /// To avoid this, ping actions should be dispatched along with their
@@ -44,10 +58,10 @@ public final class LastActionDispatchStore<State, RegistryInfo, CBValue>:
       /// knows when to correctly throw an error.
       if let state = newState as? PingActionCheckerType {
         if let action = lastAction, !state.checkPingActionCleared(action) {
-          debugException("Must clear ping action: \(action)")
+          issueNotifier("Must clear ping action: \(action)")
         }
       } else {
-        debugPrint("\(State.self) must implement \(PingActionCheckerType.self)")
+        issueNotifier("\(State.self) must implement \(PingActionCheckerType.self)")
       }
     #endif
   }

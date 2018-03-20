@@ -3,7 +3,7 @@
 //  HMReactiveReduxTests
 //
 //  Created by Hai Pham on 19/3/18.
-//  Copyright © 2018 Holmusk. All rights reserved.
+//  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
 import RxSwift
