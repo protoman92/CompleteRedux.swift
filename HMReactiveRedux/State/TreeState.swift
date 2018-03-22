@@ -32,7 +32,11 @@ extension TreeState: CustomStringConvertible {
   }
 }
 
-extension TreeState: StateType {
+extension TreeState: TreeStateType {
+
+  /// This typealias is for backward-compatibility.
+  public typealias UpdateFn<Value> = (Try<Value>) -> Try<Value>
+
   public static func empty() -> TreeState {
     return TreeState.builder().build()
   }
@@ -51,7 +55,7 @@ extension TreeState: StateType {
     }
   }
 
-  public func map(_ identifier: String, _ valueFn: UpdateFn) -> TreeState {
+  public func map(_ identifier: String, _ valueFn: UpdateFn<Value>) -> TreeState {
     let separator = substateSeparator
     let separated = identifier.split(separator: separator).map(String.init)
 
@@ -167,7 +171,7 @@ extension TreeState: BuildableType {
     ///   - updateFn: An update function.
     /// - Returns: The current Builder instance.
     @discardableResult
-    public func updateValueFn(_ identifier: String, _ updateFn: UpdateFn) -> Self {
+    public func updateValueFn(_ identifier: String, _ updateFn: UpdateFn<Value>) -> Self {
       let newValue = updateFn(state.stateValue(identifier))
 
       if let value = newValue.value {

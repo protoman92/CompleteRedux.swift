@@ -1,5 +1,5 @@
 //
-//  HMStateType.swift
+//  TreeStateType.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 27/10/17.
@@ -8,10 +8,10 @@
 
 import SwiftFP
 
-/// Classes that implement this protocol should act as state for an app.
-public protocol StateType {
+/// Classes that implement this protocol should act as tree-based state.
+public protocol TreeStateType {
   associatedtype Value
-  typealias UpdateFn = (Try<Value>) -> Try<Value>
+  typealias UpdateFunc = (Try<Value>) -> Try<Value>
 
   /// Get an empty state.
   ///
@@ -31,7 +31,7 @@ public protocol StateType {
   ///   - identifier: A String value.
   ///   - valueFn: Value update function.
   /// - Returns: A Self instance.
-  func map(_ identifier: String, _ valueFn: UpdateFn) -> Self
+  func map(_ identifier: String, _ valueFn: UpdateFunc) -> Self
 
   /// Get a new blank state.
   ///
@@ -44,7 +44,7 @@ public protocol StateType {
   func isEmpty() -> Bool
 }
 
-public extension StateType {
+public extension TreeStateType {
 
   /// Convenience function to update a value at a node.
   ///
@@ -53,7 +53,7 @@ public extension StateType {
   ///   - value: A Try Value instance.
   /// - Returns: A Self instance.
   public func updateValue(_ identifier: String, _ value: Try<Value>) -> Self {
-    let valueFn: UpdateFn = {_ in value}
+    let valueFn: UpdateFunc = {_ in value}
     return map(identifier, valueFn)
   }
 

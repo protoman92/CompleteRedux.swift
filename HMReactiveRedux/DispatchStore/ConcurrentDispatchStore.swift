@@ -82,7 +82,7 @@ public extension ConcurrentTreeDispatchStore {
   }
 }
 
-public extension ConcurrentDispatchStore where State: StateType {
+public extension ConcurrentDispatchStore where State: TreeStateType {
   public func lastValue(_ identifier: String) -> Try<State.Value> {
     mutex.lock()
     defer { mutex.unlock() }

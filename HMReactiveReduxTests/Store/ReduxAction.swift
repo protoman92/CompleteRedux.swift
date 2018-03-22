@@ -29,7 +29,7 @@ public enum Action: ReduxActionType, EnumerableType {
     }
   }
 
-  public func treeStateUpdateFn() -> TreeState<Int>.UpdateFn {
+  public func treeStateUpdateFn() -> TreeState<Int>.UpdateFn<Int> {
     switch self {
     case .add: return {$0.map({$0 + 1})}
     case .addTwo: return {$0.map({$0 + 2})}

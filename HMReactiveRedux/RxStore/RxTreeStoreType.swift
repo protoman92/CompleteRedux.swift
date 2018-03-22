@@ -10,7 +10,7 @@ import RxSwift
 
 /// Classes that implement this protocol should act as a redux-compliant store.
 public protocol RxTreeStoreType: ReduxStoreType {
-  associatedtype State: StateType
+  associatedtype State: TreeStateType
 
   /// Trigger an action.
   func actionTrigger() -> AnyObserver<Action?>

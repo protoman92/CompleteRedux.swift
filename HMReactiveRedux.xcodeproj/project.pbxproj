@@ -30,7 +30,7 @@
 		D32FE10A205FFBFD00FC9ADD /* PingActionCheckerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FE109205FFBFD00FC9ADD /* PingActionCheckerType.swift */; };
 		D32FE10C2060067800FC9ADD /* ReduxObserverTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FE10B2060067800FC9ADD /* ReduxObserverTest.swift */; };
 		D350C34F1FA330C10040556F /* ReduxActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C34E1FA330C10040556F /* ReduxActionType.swift */; };
-		D350C3511FA3317A0040556F /* StateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3501FA3317A0040556F /* StateType.swift */; };
+		D350C3511FA3317A0040556F /* TreeStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3501FA3317A0040556F /* TreeStateType.swift */; };
 		D350C3531FA3325B0040556F /* ReduxReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3521FA3325B0040556F /* ReduxReducer.swift */; };
 		D350C3551FA3369D0040556F /* RxTreeStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3541FA3369D0040556F /* RxTreeStoreType.swift */; };
 		D350C3571FA337A60040556F /* RxTreeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3561FA337A60040556F /* RxTreeStore.swift */; };
@@ -100,7 +100,7 @@
 		D32FE109205FFBFD00FC9ADD /* PingActionCheckerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingActionCheckerType.swift; sourceTree = "<group>"; };
 		D32FE10B2060067800FC9ADD /* ReduxObserverTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxObserverTest.swift; sourceTree = "<group>"; };
 		D350C34E1FA330C10040556F /* ReduxActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxActionType.swift; sourceTree = "<group>"; };
-		D350C3501FA3317A0040556F /* StateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateType.swift; sourceTree = "<group>"; };
+		D350C3501FA3317A0040556F /* TreeStateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeStateType.swift; sourceTree = "<group>"; };
 		D350C3521FA3325B0040556F /* ReduxReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxReducer.swift; sourceTree = "<group>"; };
 		D350C3541FA3369D0040556F /* RxTreeStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxTreeStoreType.swift; sourceTree = "<group>"; };
 		D350C3561FA337A60040556F /* RxTreeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxTreeStore.swift; sourceTree = "<group>"; };
@@ -172,7 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				D350C35A1FA3465C0040556F /* TreeState.swift */,
-				D350C3501FA3317A0040556F /* StateType.swift */,
+				D350C3501FA3317A0040556F /* TreeStateType.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -284,15 +284,15 @@
 		D3943ED01FA32D5600898233 /* HMReactiveRedux */ = {
 			isa = PBXGroup;
 			children = (
-				D352CE61205CB3EB00319B07 /* DispatchStore */,
-				D30CC2FA205C1CF8005B5EA1 /* Action */,
 				D3943ED11FA32D5600898233 /* HMReactiveRedux.h */,
 				D3943ED21FA32D5600898233 /* Info.plist */,
+				D352CE64205CB9BE00319B07 /* ReduxStoreType.swift */,
+				D30CC2FA205C1CF8005B5EA1 /* Action */,
+				D352CE61205CB3EB00319B07 /* DispatchStore */,
 				D30CC2F9205C1CF0005B5EA1 /* Preset */,
 				D30CC2FB205C1D06005B5EA1 /* Reducer */,
 				D30CC2F7205C1B17005B5EA1 /* RxStore */,
 				D30CC2F8205C1CE6005B5EA1 /* State */,
-				D352CE64205CB9BE00319B07 /* ReduxStoreType.swift */,
 			);
 			path = HMReactiveRedux;
 			sourceTree = "<group>";
@@ -654,7 +654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D303DE6B1FA4662700E8943C /* RxTreeStore+Stream.swift in Sources */,
-				D350C3511FA3317A0040556F /* StateType.swift in Sources */,
+				D350C3511FA3317A0040556F /* TreeStateType.swift in Sources */,
 				D310A03C2012619F00F96648 /* GeneralRedux+Global.swift in Sources */,
 				D352CE63205CB3FB00319B07 /* GenericDispatchStore.swift in Sources */,
 				D350C3571FA337A60040556F /* RxTreeStore.swift in Sources */,
