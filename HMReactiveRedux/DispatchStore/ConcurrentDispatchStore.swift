@@ -58,10 +58,10 @@ public extension ConcurrentDispatchStore {
     -> ConcurrentDispatchStore<State, Registry, CBValue>
   {
     #if DEBUG
-      let lastActionStore = LastActionDispatchStore(store)
-      return ConcurrentDispatchStore<State, Registry, CBValue>(lastActionStore)
+    let lastActionStore = LastActionDispatchStore(store)
+    return ConcurrentDispatchStore<State, Registry, CBValue>(lastActionStore)
     #else
-      return ConcurrentDispatchStore(store)
+    return ConcurrentDispatchStore(store)
     #endif
   }
 }

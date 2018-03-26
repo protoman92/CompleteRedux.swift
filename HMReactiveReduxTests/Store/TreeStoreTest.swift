@@ -31,11 +31,11 @@ public class State {
 }
 
 #if DEBUG
-  extension TreeState: PingActionCheckerType {
-    public func checkPingActionCleared(_ action: ReduxActionType) -> Bool {
-      return true
-    }
+extension TreeState: PingActionCheckerType {
+  public func checkPingActionCleared(_ action: ReduxActionType) -> Bool {
+    return true
   }
+}
 #endif
 
 public final class TreeStoreTest: XCTestCase {

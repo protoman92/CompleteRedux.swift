@@ -65,7 +65,9 @@ public enum SliderAction: ReduxActionType {
   }
 }
 
-public func mainReducer(_ state: TreeState<Any>, _ action: ReduxActionType) -> TreeState<Any> {
+public func mainReducer(_ state: TreeState<Any>, _ action: ReduxActionType)
+  -> TreeState<Any>
+{
   switch action {
   case let action as ClearAction: return clearReducer(state, action)
   case let action as NumberAction: return numberReducer(state, action)
@@ -75,7 +77,9 @@ public func mainReducer(_ state: TreeState<Any>, _ action: ReduxActionType) -> T
   }
 }
 
-public func clearReducer(_ state: TreeState<Any>, _ action: ClearAction) -> TreeState<Any> {
+public func clearReducer(_ state: TreeState<Any>, _ action: ClearAction)
+  -> TreeState<Any>
+{
   switch action {
   case .triggerClear:
     return state
@@ -89,7 +93,9 @@ public func clearReducer(_ state: TreeState<Any>, _ action: ClearAction) -> Tree
   }
 }
 
-public func numberReducer(_ state: TreeState<Any>, _ action: NumberAction) -> TreeState<Any> {
+public func numberReducer(_ state: TreeState<Any>, _ action: NumberAction)
+  -> TreeState<Any>
+{
   let path = NumberAction.actionPath
 
   switch action {
@@ -111,7 +117,9 @@ public func numberReducer(_ state: TreeState<Any>, _ action: NumberAction) -> Tr
   }
 }
 
-public func stringReducer(_ state: TreeState<Any>, _ action: StringAction) -> TreeState<Any> {
+public func stringReducer(_ state: TreeState<Any>, _ action: StringAction)
+  -> TreeState<Any>
+{
   let path = StringAction.actionPath
 
   switch action {
@@ -120,7 +128,9 @@ public func stringReducer(_ state: TreeState<Any>, _ action: StringAction) -> Tr
   }
 }
 
-public func sliderReducer(_ state: TreeState<Any>, _ action: SliderAction) -> TreeState<Any> {
+public func sliderReducer(_ state: TreeState<Any>, _ action: SliderAction)
+  -> TreeState<Any>
+{
   let path = SliderAction.actionPath
 
   switch action {
@@ -130,27 +140,27 @@ public func sliderReducer(_ state: TreeState<Any>, _ action: SliderAction) -> Tr
 }
 
 #if DEBUG
-  extension TreeState: PingActionCheckerType {
-    public func checkPingActionCleared(_ action: ReduxActionType) -> Bool {
+extension TreeState: PingActionCheckerType {
+  public func checkPingActionCleared(_ action: ReduxActionType) -> Bool {
+    switch action {
+    case let action as ClearAction:
       switch action {
-      case let action as ClearAction:
-        switch action {
-        case .triggerClear:
-          return !stateValue(ClearAction.clearPath)
-            .cast(Bool.self)
-            .getOrElse(false)
-        
-        default:
-          break
-        }
-        
+      case .triggerClear:
+        return !stateValue(ClearAction.clearPath)
+          .cast(Bool.self)
+          .getOrElse(false)
+
       default:
         break
       }
       
-      return true
+    default:
+      break
     }
+
+    return true
   }
+}
 #endif
 
 public final class ViewController: UIViewController {
@@ -168,7 +178,7 @@ public final class ViewController: UIViewController {
 
   fileprivate var dispatchStore: ConcurrentTreeDispatchStore<Any>!
   fileprivate var rxStore: RxTreeStore<Any>!
-  fileprivate let useRx = false
+  fileprivate let useRx = true
 
   deinit {
     let id = String(describing: ViewController.self)
@@ -263,9 +273,11 @@ public final class ViewController: UIViewController {
   }
 
   fileprivate func setupRxStore() {
+    let disposeBag = self.disposeBag
     let initial = TreeState<Any>.empty()
     rxStore = RxTreeStore.createInstance(initial, mainReducer)
 
+    /// Listen to global state.
     rxStore.stateValueStream(NumberAction.actionPath)
       .map({$0.flatMap({$0 as? Int})})
       .mapNonNilOrElse({$0.asOptional()}, 0)
@@ -274,22 +286,34 @@ public final class ViewController: UIViewController {
       .bind(to: counterTF.rx.text)
       .disposed(by: disposeBag)
 
-    rxStore.stateValueStream(StringAction.actionPath)
+    let stringStream = rxStore.stateValueStream(StringAction.actionPath)
       .map({$0.flatMap({$0 as? String})})
       .mapNonNilOrElse({$0.asOptional()}, "Input on the right")
       .map({String(describing: $0)})
       .distinctUntilChanged()
-      .bind(to: stringTF1.rx.text)
-      .disposed(by: disposeBag)
+      .logNext()
+      .share(replay: 1)
 
-    rxStore.stateValueStream(SliderAction.actionPath)
+    stringStream.bind(to: stringTF1.rx.text).disposed(by: disposeBag)
+    stringStream.bind(to: stringTF2.rx.text).disposed(by: disposeBag)
+
+    let sliderStream = rxStore.stateValueStream(SliderAction.actionPath)
       .map({$0.flatMap({$0 as? Double})})
       .mapNonNilOrElse({$0.asOptional()}, 0)
-      .map({String(describing: $0)})
       .distinctUntilChanged()
+      .share(replay: 1)
+
+    sliderStream
+      .map({String(describing: $0)})
       .bind(to: slideTF.rx.text)
       .disposed(by: disposeBag)
 
+    sliderStream
+      .map({Float($0)})
+      .bind(to: valueSL.rx.value)
+      .disposed(by: disposeBag)
+
+    /// Dispatch to global state.
     navigationItem.rightBarButtonItem!.rx.tap.asObservable()
       .map({_ in ClearAction.triggerClear})
       .bind(to: rxStore.actionTrigger())
