@@ -2,8 +2,8 @@
 # platform :ios, '9.0'
 
 def allPods
-		pod 'SwiftFP/Main', git: 'https://github.com/protoman92/SwiftFP.git'
-    pod 'SwiftUtilities/Main+Rx', git: 'https://github.com/protoman92/SwiftUtilities.git'
+  pod 'RxSwift', '~> 4.0'
+  pod 'SwiftFP/Main', git: 'https://github.com/protoman92/SwiftFP.git'
 end
 
 target 'HMReactiveRedux' do
@@ -18,14 +18,16 @@ target 'HMReactiveRedux' do
     inherit! :search_paths
     # Pods for testing
     allPods
-    
+
+    pod 'SwiftUtilities/Main+Rx', git: 'https://github.com/protoman92/SwiftUtilities.git'
     pod 'SwiftUtilitiesTests/Main+Rx', git: 'https://github.com/protoman92/SwiftUtilities.git'
   end
   
   target 'HMReactiveRedux-Demo' do
-      inherit! :search_paths
-      # Pods for demo
-      allPods
+    inherit! :search_paths
+    # Pods for demo
+    allPods
+    pod 'RxCocoa', '~> 4.0'
+    pod 'SwiftUtilities/Main+Rx', git: 'https://github.com/protoman92/SwiftUtilities.git'
   end
-
 end

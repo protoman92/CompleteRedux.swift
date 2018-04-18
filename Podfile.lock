@@ -9,21 +9,30 @@ PODS:
   - SwiftFP (1.0.1):
     - SwiftFP/Main (= 1.0.1)
   - SwiftFP/Main (1.0.1)
-  - SwiftUtilities/Main+Rx (1.4.6):
+  - "SwiftUtilities/Main+Rx (1.4.6)":
     - RxBlocking (~> 4.0)
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
     - SwiftFP (~> 1.0.1)
-  - SwiftUtilitiesTests/Main+Rx (1.4.6):
+  - "SwiftUtilitiesTests/Main+Rx (1.4.6)":
     - RxBlocking (~> 4.0)
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
     - RxTest (~> 4.0)
 
 DEPENDENCIES:
+  - RxCocoa (~> 4.0)
+  - RxSwift (~> 4.0)
   - SwiftFP/Main (from `https://github.com/protoman92/SwiftFP.git`)
-  - SwiftUtilities/Main+Rx (from `https://github.com/protoman92/SwiftUtilities.git`)
-  - SwiftUtilitiesTests/Main+Rx (from `https://github.com/protoman92/SwiftUtilities.git`)
+  - "SwiftUtilities/Main+Rx (from `https://github.com/protoman92/SwiftUtilities.git`)"
+  - "SwiftUtilitiesTests/Main+Rx (from `https://github.com/protoman92/SwiftUtilities.git`)"
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - RxBlocking
+    - RxCocoa
+    - RxSwift
+    - RxTest
 
 EXTERNAL SOURCES:
   SwiftFP:
@@ -53,6 +62,6 @@ SPEC CHECKSUMS:
   SwiftUtilities: f7e2e01683284be61a2e5f2b2e5cfa9096cc6b5d
   SwiftUtilitiesTests: 51ad0d8703fbfa924ade7609453a2b4783f23f29
 
-PODFILE CHECKSUM: a64970eb2d2944d06b3fdd90634a8cc2dca20c34
+PODFILE CHECKSUM: 34fc753df6e12f2e216f4272a31bd36d13162751
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0

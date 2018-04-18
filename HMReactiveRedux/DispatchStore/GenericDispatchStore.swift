@@ -7,7 +7,6 @@
 //
 
 import SwiftFP
-import SwiftUtilities
 
 fileprivate final class StrongReference<T> {
   fileprivate let value: T

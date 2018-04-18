@@ -7,7 +7,6 @@
 //
 
 import SwiftFP
-import SwiftUtilities
 
 /// A simple nested state implementation. All TreeState instances are immutable.
 public struct TreeState<Value> {
@@ -19,8 +18,8 @@ public struct TreeState<Value> {
     values = [:]
     substates = [:]
 
-    // This separator is used to separate identifiers to access inner state.
-    // For example, if the identifier is 'a.b.c' and the separator is '.',
+    // This separator is used to separate paths to access inner state.
+    // For example, if the path is 'a.b.c' and the separator is '.',
     // this state will first access substate 'a', then 'b' and finally 'c'.
     substateSeparator = "."
   }
@@ -41,23 +40,27 @@ extension TreeState: TreeStateType {
     return TreeState.builder().build()
   }
 
-  public func stateValue(_ identifier: String) -> Try<Value> {
+  fileprivate func cloneBuilder() -> Builder {
+    return Builder().with(buildable: self)
+  }
+
+  public func stateValue(_ path: String) -> Try<Value> {
     let separator = substateSeparator
-    let separated = identifier.split(separator: separator).map(String.init)
+    let separated = path.split(separator: separator).map(String.init)
 
     if separated.count == 1, let first = separated.first {
-      return values[first].asTry("No value at \(identifier)")
+      return values[first].asTry("No value at \(path)")
     } else if let first = separated.first {
       let subId = separated.dropFirst().joined(separator: String(separator))
       return substate(first).flatMap({$0.stateValue(subId)})
     } else {
-      return Try.failure("No value at \(identifier)")
+      return Try.failure("No value at \(path)")
     }
   }
 
-  public func map(_ identifier: String, _ valueFn: UpdateFn<Value>) -> TreeState {
+  public func map(_ path: String, _ valueFn: UpdateFn<Value>) -> TreeState {
     let separator = substateSeparator
-    let separated = identifier.split(separator: separator).map(String.init)
+    let separated = path.split(separator: separator).map(String.init)
 
     if separated.count == 1, let first = separated.first {
       return cloneBuilder().updateValueFn(first, valueFn).build()
@@ -84,19 +87,19 @@ public extension TreeState {
 
   /// Get a substate at a particular node.
   ///
-  /// - Parameter identifier: A String value.
+  /// - Parameter path: A String value.
   /// - Returns: A Try TreeState instance.
-  public func substate(_ identifier: String) -> Try<TreeState<Value>> {
+  public func substate(_ path: String) -> Try<TreeState<Value>> {
     let separator = substateSeparator
-    let separated = identifier.split(separator: separator).map(String.init)
+    let separated = path.split(separator: separator).map(String.init)
 
     if separated.count == 1, let first = separated.first {
-      return substates[first].asTry("No substate found at \(identifier)")
+      return substates[first].asTry("No substate found at \(path)")
     } else if let first = separated.first {
       let subId = separated.dropFirst().joined(separator: String(separator))
       return substate(first).flatMap({$0.substate(subId)})
     } else {
-      return Try.failure("No substate found at \(identifier)")
+      return Try.failure("No substate found at \(path)")
     }
   }
 
@@ -104,12 +107,12 @@ public extension TreeState {
   /// nodes in the process.
   ///
   /// - Parameters:
-  ///   - identifier: A String value.
+  ///   - path: A String value.
   ///   - substate: A TreeState instance.
   /// - Returns: A TreeState instance.
-  public func updateSubstate(_ identifier: String, _ substate: TreeState?) -> TreeState {
+  public func updateSubstate(_ path: String, _ substate: TreeState?) -> TreeState {
     let separator = substateSeparator
-    let separated = identifier.split(separator: separator).map(String.init)
+    let separated = path.split(separator: separator).map(String.init)
 
     if separated.count == 1, let first = separated.first {
       return cloneBuilder().updateSubstate(first, substate).build()
@@ -125,23 +128,23 @@ public extension TreeState {
 
   /// Convenience method to remove substate at a node.
   ///
-  /// - Parameter identifier: A String value.
+  /// - Parameter path: A String value.
   /// - Returns: A TreeState instance.
-  public func removeSubstate(_ identifier: String) -> TreeState {
-    return updateSubstate(identifier, nil)
+  public func removeSubstate(_ path: String) -> TreeState {
+    return updateSubstate(path, nil)
   }
 }
 
-extension TreeState: BuildableType {
+extension TreeState {
   public static func builder() -> Builder {
     return Builder()
   }
 
   public final class Builder {
-    fileprivate var state: Buildable
+    fileprivate var state: TreeState<Value>
 
     fileprivate init() {
-      state = Buildable()
+      state = TreeState()
     }
 
     /// Set the current state.
@@ -167,17 +170,17 @@ extension TreeState: BuildableType {
     /// Update a value with an update function.
     ///
     /// - Parameters:
-    ///   - identifier: A String value.
+    ///   - path: A String value.
     ///   - updateFn: An update function.
     /// - Returns: The current Builder instance.
     @discardableResult
-    public func updateValueFn(_ identifier: String, _ updateFn: UpdateFn<Value>) -> Self {
-      let newValue = updateFn(state.stateValue(identifier))
+    public func updateValueFn(_ path: String, _ updateFn: UpdateFn<Value>) -> Self {
+      let newValue = updateFn(state.stateValue(path))
 
       if let value = newValue.value {
-        state.values.updateValue(value, forKey: identifier)
+        state.values.updateValue(value, forKey: path)
       } else {
-        state.values.removeValue(forKey: identifier)
+        state.values.removeValue(forKey: path)
       }
 
       return self
@@ -186,38 +189,38 @@ extension TreeState: BuildableType {
     /// Update the current state with a value.
     ///
     /// - Parameters:
-    ///   - identifier: A String value.
+    ///   - path: A String value.
     ///   - value: A Try Value instance.
     /// - Returns: The current Builder instance.
     @discardableResult
-    public func updateValue(_ identifier: String, _ value: Try<Value>) -> Self {
+    public func updateValue(_ path: String, _ value: Try<Value>) -> Self {
       let valueFn: UpdateFn = {_ in value}
-      return updateValueFn(identifier, valueFn)
+      return updateValueFn(path, valueFn)
     }
 
     /// Update the current state with a value.
     ///
     /// - Parameters:
-    ///   - identifier: A String value.
+    ///   - path: A String value.
     ///   - value: A Value instance.
     /// - Returns: The current Builder instance.
     @discardableResult
-    public func updateValue(_ identifier: String, _ value: Value?) -> Self {
-      return updateValue(identifier, value.asTry())
+    public func updateValue(_ path: String, _ value: Value?) -> Self {
+      return updateValue(path, value.asTry())
     }
 
     /// Update substate.
     ///
     /// - Parameters:
-    ///   - identifier: A String value.
+    ///   - path: A String value.
     ///   - substate: A TreeState instance.
     /// - Returns: The current Builder instance.
     @discardableResult
-    public func updateSubstate(_ identifier: String, _ substate: TreeState?) -> Self {
+    public func updateSubstate(_ path: String, _ substate: TreeState?) -> Self {
       if let substate = substate {
-        state.substates.updateValue(substate, forKey: identifier)
+        state.substates.updateValue(substate, forKey: path)
       } else {
-        state.substates.removeValue(forKey: identifier)
+        state.substates.removeValue(forKey: path)
       }
 
       return self
@@ -232,25 +235,21 @@ extension TreeState: BuildableType {
       state.substateSeparator = substateSeparator
       return self
     }
-  }
-}
 
-extension TreeState.Builder: BuilderType {
-  public typealias Buildable = TreeState
-
-  @discardableResult
-  public func with(buildable: Buildable?) -> Self {
-    if let buildable = buildable {
-      return self
-        .with(currentState: buildable.values)
-        .with(substate: buildable.substates)
-        .with(substateSeparator: buildable.substateSeparator)
-    } else {
-      return self
+    @discardableResult
+    public func with(buildable: TreeState<Value>?) -> Self {
+      if let buildable = buildable {
+        return self
+          .with(currentState: buildable.values)
+          .with(substate: buildable.substates)
+          .with(substateSeparator: buildable.substateSeparator)
+      } else {
+        return self
+      }
     }
-  }
 
-  public func build() -> Buildable {
-    return state
+    public func build() -> TreeState<Value> {
+      return state
+    }
   }
 }

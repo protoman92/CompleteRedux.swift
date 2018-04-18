@@ -6,20 +6,18 @@
 //  Copyright © 2017 Hai Pham. All rights reserved.
 //
 
-import RxCocoa
 import RxSwift
-import SwiftUtilities
 
 /// Use this wrapper to discard completed events.
 internal struct RxReduxObserver<Element> {
-  fileprivate let reduxObserver: BehaviorRelay<E>
+  fileprivate let reduxObserver: BehaviorSubject<E>
 
   public init(_ value: E) {
-    reduxObserver = BehaviorRelay(value: value)
+    reduxObserver = BehaviorSubject(value: value)
   }
   
-  public var value: E {
-    return reduxObserver.value
+  public func value() throws -> E {
+    return try reduxObserver.value()
   }
 }
 
@@ -33,11 +31,15 @@ extension RxReduxObserver: ObserverType {
   typealias E = Element
 
   internal func on(_ event: Event<Element>) {
-    Preconditions.checkRunningOnMainThread(event)
+    #if DEBUG
+    if !Thread.isMainThread {
+      fatalError("Should receive \(event) on main thread")
+    }
+    #endif
 
     switch event {
     case .next(let element):
-      reduxObserver.accept(element)
+      reduxObserver.onNext(element)
 
     case .error(let error):
       debugPrint("Received error: \(error), ignoring.")

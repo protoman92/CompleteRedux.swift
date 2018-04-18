@@ -22,6 +22,6 @@ public final class ReduxObserverTest {
     reduxObserver.on(.next(1))
     
     /// Then
-    XCTAssertEqual(reduxObserver.value, 1)
+    XCTAssertEqual(try! reduxObserver.value(), 1)
   }
 }

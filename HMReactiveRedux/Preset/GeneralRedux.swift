@@ -6,8 +6,6 @@
 //  Copyright © 2017 Hai Pham. All rights reserved.
 //
 
-import SwiftUtilities
-
 /// General Redux actions that are not tied to any specific app/implementation.
 /// We can use these generic actions as building blocks for app-specific redux
 /// deployments.
@@ -28,8 +26,11 @@ public final class GeneralReduxReducer {
       return Progress.displayReducer(state, action)
 
     default:
-      debugException("Unhandled action: \(action)")
+      #if DEBUG
+      fatalError("Unhandled action: \(action)")
+      #else
       return state
+      #endif
     }
   }
 

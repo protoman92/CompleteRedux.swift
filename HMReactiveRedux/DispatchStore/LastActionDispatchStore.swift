@@ -6,8 +6,6 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-import SwiftUtilities
-
 /// Wrapper for a dispatch store to track the last action and perform custom
 /// asserts, such as checking for ping actions.
 public final class LastActionDispatchStore<State, RegistryInfo, CBValue>:
@@ -28,7 +26,11 @@ public final class LastActionDispatchStore<State, RegistryInfo, CBValue>:
   }
 
   convenience public init(_ store: Store) {
-    self.init(store, {debugException($0)})
+    #if DEBUG
+    self.init(store, {fatalError($0)})
+    #else
+    self.init(store, {_ in})
+    #endif
   }
   #else
   public init(_ store: Store) {

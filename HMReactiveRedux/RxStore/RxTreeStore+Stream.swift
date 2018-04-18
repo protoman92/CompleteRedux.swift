@@ -14,10 +14,10 @@ public extension RxTreeStoreType {
   /// Subscribe to this stream to receive notifications for a particular
   /// state value.
   ///
-  /// - Parameter identifier: A String value.
+  /// - Parameter path: A String value.
   /// - Returns: An Observable instance.
-  public func stateValueStream(_ identifier: String) -> Observable<Try<State.Value>> {
-    return stateStream().map({$0.stateValue(identifier)})
+  public func stateValueStream(_ path: String) -> Observable<Try<State.Value>> {
+    return stateStream().map({$0.stateValue(path)})
   }
 
   /// Subscribe to this stream to receive notifications for a state value of
@@ -25,9 +25,9 @@ public extension RxTreeStoreType {
   ///
   /// - Parameters:
   ///   - cls: The T class type.
-  ///   - identifier: A String value.
+  ///   - path: A String value.
   /// - Returns: An Observable instance.
-  public func stateValueStream<T>(_ cls: T.Type, _ identifier: String) -> Observable<Try<T>> {
-    return stateValueStream(identifier).map({$0.flatMap({$0 as? T})})
+  public func stateValueStream<T>(_ cls: T.Type, _ path: String) -> Observable<Try<T>> {
+    return stateValueStream(path).map({$0.flatMap({$0 as? T})})
   }
 }

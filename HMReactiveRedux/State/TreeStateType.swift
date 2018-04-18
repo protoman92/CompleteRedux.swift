@@ -20,18 +20,18 @@ public protocol TreeStateType {
 
   /// Get value at a particular node.
   ///
-  /// - Parameter identifier: A String value.
+  /// - Parameter path: A String value.
   /// - Returns: A Try Value instance.
-  func stateValue(_ identifier: String) -> Try<Value>
+  func stateValue(_ path: String) -> Try<Value>
 
   /// Update the current state using a value function. If the require nodes
   /// do not exist, create it to store this value.
   ///
   /// - Parameters:
-  ///   - identifier: A String value.
+  ///   - path: A String value.
   ///   - valueFn: Value update function.
   /// - Returns: A Self instance.
-  func map(_ identifier: String, _ valueFn: UpdateFunc) -> Self
+  func map(_ path: String, _ valueFn: UpdateFunc) -> Self
 
   /// Get a new blank state.
   ///
@@ -49,30 +49,30 @@ public extension TreeStateType {
   /// Convenience function to update a value at a node.
   ///
   /// - Parameters:
-  ///   - identifier: A String value.
+  ///   - path: A String value.
   ///   - value: A Try Value instance.
   /// - Returns: A Self instance.
-  public func updateValue(_ identifier: String, _ value: Try<Value>) -> Self {
+  public func updateValue(_ path: String, _ value: Try<Value>) -> Self {
     let valueFn: UpdateFunc = {_ in value}
-    return map(identifier, valueFn)
+    return map(path, valueFn)
   }
 
   /// Convenience function to update a value at a node.
   ///
   /// - Parameters:
-  ///   - identifier: A String value.
+  ///   - path: A String value.
   ///   - value: A Value instance.
   /// - Returns: A Self instance.
-  public func updateValue(_ identifier: String, _ value: Value?) -> Self {
-    return updateValue(identifier, value.asTry())
+  public func updateValue(_ path: String, _ value: Value?) -> Self {
+    return updateValue(path, value.asTry())
   }
 
   /// Convenience method to remove value in the current state/a substate.
   ///
-  /// - Parameter identifier: A String value.
+  /// - Parameter path: A String value.
   /// - Returns: A Self instance.
-  public func removeValue(_ identifier: String) -> Self {
-    return updateValue(identifier, Try.failure("Value at \(identifier) will be removed"))
+  public func removeValue(_ path: String) -> Self {
+    return updateValue(path, Try.failure("Value at \(path) will be removed"))
   }
 
   /// Convenience method to update values from a dictionary.
@@ -89,7 +89,7 @@ public extension TreeStateType {
     return state
   }
 
-  /// Convenience method to remove all values with specified identifiers.
+  /// Convenience method to remove all values with specified paths.
   ///
   /// - Parameter keys: A Sequence of keys.
   /// - Returns: A Self instance.
