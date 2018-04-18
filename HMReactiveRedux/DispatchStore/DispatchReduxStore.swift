@@ -6,14 +6,16 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
+import SwiftFP
+
 /// Convenience class to get around Swift's generic constraints. Other stores
 /// should extend from this.
 open class DispatchReduxStore<State, RegistryInfo, CBValue> {
-  public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
+  public var lastState: Try<State> {
     fatalError("Must override this")
   }
-
-  public func lastState() -> State {
+  
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
     fatalError("Must override this")
   }
 

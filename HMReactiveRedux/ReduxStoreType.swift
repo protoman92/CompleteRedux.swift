@@ -6,9 +6,15 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
+import SwiftFP
+
 /// This represents a Redux store that can dispatch events.
 public protocol ReduxStoreType {
   typealias Action = ReduxActionType
+  associatedtype State
+
+  /// Get the last state instance.
+  var lastState: Try<State> { get }
 
   /// Dispatch some actions and notify listeners.
   ///

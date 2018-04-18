@@ -89,12 +89,12 @@ public final class TreeStoreTest: XCTestCase {
 }
 
 public extension TreeStoreTest {
-  public func test_dispatchTreeBasedAction_shouldUpdateState(
-    _ store: ReduxStoreType,
+  public func test_dispatchTreeBasedAction_shouldUpdateState<Store>(
+    _ store: Store,
     _ dispatchAllFn: ([Action]) -> Void,
     _ dispatchFn: (Action) -> Void,
     _ lastStateFn: () -> TreeState<Int>,
-    _ lastValueFn: () -> Try<Int>)
+    _ lastValueFn: () -> Try<Int>) where Store: ReduxStoreType
   {
     /// Setup
     var original = 0
@@ -128,13 +128,8 @@ public extension TreeStoreTest {
 
   public func test_dispatchRxTreeAction_shouldUpdateState() {
     /// Setup
-    let stateObs = scheduler.createObserver(TreeState<Int>.self)
     let substateObs = scheduler.createObserver(TreeState<Int>.self)
     let valueObs = scheduler.createObserver(Try<Int>.self)
-
-    rxStore.stateStream()
-      .subscribe(stateObs)
-      .disposed(by: disposeBag!)
 
     rxStore.substateStream(updateId)
       .mapNonNilOrEmpty({$0.asOptional()})
@@ -149,7 +144,7 @@ public extension TreeStoreTest {
     test_dispatchTreeBasedAction_shouldUpdateState(rxStore!,
                                           {rxStore!.dispatch($0)},
                                           {rxStore!.dispatch($0)},
-                                          {stateObs.nextElements().last!},
+                                          {rxStore.lastState.value!},
                                           {valueObs.nextElements().last!})
 
     XCTAssertTrue(substateObs.nextElements().isEmpty)
@@ -184,7 +179,7 @@ public extension TreeStoreTest {
     test_dispatchTreeBasedAction_shouldUpdateState(treeStore!,
                                           dispatchFn,
                                           {treeStore!.dispatch($0)},
-                                          {treeStore!.lastState()},
+                                          {treeStore!.lastState.value!},
                                           {treeStore!.lastValue(updateId)})
 
     // Add 1 to reflect initial value relay on first subscription.

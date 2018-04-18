@@ -77,6 +77,10 @@ public extension RxTreeStore {
 extension RxTreeStore: RxTreeStoreType {
   public typealias State = TreeState<Value>
 
+  public var lastState: Try<TreeState<Value>> {
+    return Try({try rdStateObserver.value()})
+  }
+
   public func actionTrigger() -> AnyObserver<Action?> {
     return rdActionObserver.asObserver()
   }

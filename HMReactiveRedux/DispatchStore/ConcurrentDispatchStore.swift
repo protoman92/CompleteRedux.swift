@@ -13,6 +13,13 @@ public final class ConcurrentDispatchStore<State, Registry, CBValue>:
   DispatchReduxStore<State, Registry, CBValue>
 {
   public typealias Store = DispatchReduxStore<State, Registry, CBValue>
+
+  override public var lastState: Try<State> {
+    mutex.lock()
+    defer { mutex.unlock() }
+    return store.lastState
+  }
+
   fileprivate let mutex: NSLock
   fileprivate let store: Store
 
@@ -25,12 +32,6 @@ public final class ConcurrentDispatchStore<State, Registry, CBValue>:
     mutex.lock()
     defer { mutex.unlock() }
     store.dispatch(actions)
-  }
-
-  override public func lastState() -> State {
-    mutex.lock()
-    defer { mutex.unlock() }
-    return store.lastState()
   }
 
   override public func register(_ info: Registry, _ callback: @escaping ReduxCallback<CBValue>) {
@@ -86,6 +87,6 @@ public extension ConcurrentDispatchStore where State: TreeStateType {
   public func lastValue(_ path: String) -> Try<State.Value> {
     mutex.lock()
     defer { mutex.unlock() }
-    return store.lastState().stateValue(path)
+    return store.lastState.flatMap({$0.stateValue(path)})
   }
 }

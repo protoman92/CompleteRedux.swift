@@ -23,6 +23,10 @@ fileprivate final class StrongReference<T> {
 ///
 /// The state should be a value data structure to avoid external modifications.
 public final class GenericDispatchStore<State>: DispatchReduxStore<State, String, State> {
+  override public var lastState: Try<State> {
+    return Try.success(state)
+  }
+  
   fileprivate let dispatchQueue: DispatchQueue
   fileprivate let reducer: ReduxReducer<State>
   fileprivate var callbacks: [(String, [ReduxCallback<CBValue>])]
@@ -48,10 +52,6 @@ public final class GenericDispatchStore<State>: DispatchReduxStore<State, String
         callbacks.forEach({$1.forEach({try? $0(newStateRef.value)})})
       }
     }
-  }
-
-  override public func lastState() -> State {
-    return state
   }
 
   override public func register(_ id: String, _ callback: @escaping ReduxCallback<CBValue>) {

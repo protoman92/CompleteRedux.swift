@@ -44,10 +44,10 @@ public final class GenericStoreTest: XCTestCase {
     return GenericState(newValue)
   }
 
-  public func test_dispatchGenericBasedAction_shouldUpdateState(
-    _ store: ReduxStoreType,
+  public func test_dispatchGenericBasedAction_shouldUpdateState<Store>(
+    _ store: Store,
     _ dispatchFn: (ReduxActionType) -> Void,
-    _ lastStateFn: () -> GenericState<Int>)
+    _ lastStateFn: () -> GenericState<Int>) where Store: ReduxStoreType
   {
     /// Setup
     var original = 0
@@ -90,9 +90,8 @@ public final class GenericStoreTest: XCTestCase {
     }
 
     /// When & Then
-    test_dispatchGenericBasedAction_shouldUpdateState(store!,
-                                                      dispatchFn,
-                                                      {store!.lastState()})
+    test_dispatchGenericBasedAction_shouldUpdateState(
+      store!, dispatchFn, {store!.lastState.value!})
 
     // Add 1 to reflect initial value relay on first subscription.
     XCTAssertEqual(actualCallCount, StoreTestParams.callCount + 1)

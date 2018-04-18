@@ -11,9 +11,6 @@ public typealias ReduxCallback<T> = (T) throws -> Void
 /// Represents a dispatch-based Redux store.
 public protocol DispatchReduxStoreType: ReduxStoreType {
 
-  /// The current store' state type.
-  associatedtype State
-
   /// Use this to type-check registery information. For e.g., generic dispatch
   /// store (with custom state) should only define this as String. This must
   /// always contain the registrant's id.
@@ -21,8 +18,6 @@ public protocol DispatchReduxStoreType: ReduxStoreType {
 
   /// Use this to type-check callback values.
   associatedtype CBValue
-
-  func lastState() -> State
 
   /// Register a callback based on registry information.
   ///
