@@ -33,6 +33,4 @@ public final class GeneralReduxReducer {
       #endif
     }
   }
-
-  private init() {}
 }

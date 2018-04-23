@@ -37,6 +37,13 @@
             BlueprintName = "HMReactiveRedux"
             ReferencedContainer = "container:HMReactiveRedux.xcodeproj">
          </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D3943ED61FA32D5600898233"
+            BuildableName = "HMReactiveReduxTests.xctest"
+            BlueprintName = "HMReactiveReduxTests"
+            ReferencedContainer = "container:HMReactiveRedux.xcodeproj">
+         </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
          <TestableReference

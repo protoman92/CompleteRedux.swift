@@ -11,7 +11,7 @@ import SwiftUtilities
 import XCTest
 @testable import HMReactiveRedux
 
-public final class ReduxObserverTest {
+public final class ReduxObserverTest: XCTestCase {
   public func test_reduxObserver_shouldIgnoreErrorAndCompleteEvents() {
     /// Setup
     let reduxObserver = RxReduxObserver<Int>(0)

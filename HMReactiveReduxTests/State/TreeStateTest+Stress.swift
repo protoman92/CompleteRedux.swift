@@ -48,7 +48,7 @@ public final class TreeStateStressTest: XCTestCase {
     }
 
     state = state.removeValues(keys!)
-    XCTAssertTrue(state.isEmpty())
+    XCTAssertTrue(state.isEmpty)
     print(state)
   }
 }

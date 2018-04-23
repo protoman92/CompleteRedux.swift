@@ -118,4 +118,15 @@ public final class TreeStateTest: XCTestCase {
     XCTAssertTrue(state.substate("").isFailure)
     XCTAssertTrue(state.stateValue("").isFailure)
   }
+
+  public func test_isEmpty_shouldWork() {
+    /// Setup
+    var state = TreeState<Int>.empty().updateValue("a.b.c", 1)
+
+    /// When
+    state = state.removeSubstate("a.b")
+
+    /// Then
+    XCTAssertTrue(state.isEmpty)
+  }
 }

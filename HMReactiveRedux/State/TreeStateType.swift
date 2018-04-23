@@ -18,6 +18,9 @@ public protocol TreeStateType {
   /// - Returns: A Self instance.
   static func empty() -> Self
 
+  /// Check if the current State is empty.
+  var isEmpty: Bool { get }
+
   /// Get value at a particular node.
   ///
   /// - Parameter path: A String value.
@@ -37,11 +40,6 @@ public protocol TreeStateType {
   ///
   /// - Returns: A Self instance.
   func clear() -> Self
-
-  /// Check if the current State is empty.
-  ///
-  /// - Returns: A Bool value.
-  func isEmpty() -> Bool
 }
 
 public extension TreeStateType {

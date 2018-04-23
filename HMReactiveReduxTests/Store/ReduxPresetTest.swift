@@ -31,14 +31,14 @@ public final class ReduxPresetTest: XCTestCase {
     /// Setup
     var state = TreeState<Any>.empty()
     state = state.updateValue("a.b.c", 1)
-    assert(!state.isEmpty())
+    assert(!state.isEmpty)
 
     /// When
     let action = GeneralReduxAction.Global.clearAll
     state = GeneralReduxReducer.generalReducer(state, action)
 
     /// Then
-    XCTAssertTrue(state.isEmpty())
+    XCTAssertTrue(state.isEmpty)
   }
 
   public func test_progressActions_shouldWork() {

@@ -32,6 +32,9 @@ extension TreeState: CustomStringConvertible {
 }
 
 extension TreeState: TreeStateType {
+  public var isEmpty: Bool {
+    return values.isEmpty && substates.reduce(true, {$0 && $1.value.isEmpty})
+  }
 
   /// This typealias is for backward-compatibility.
   public typealias UpdateFn<Value> = (Try<Value>) -> Try<Value>
@@ -76,10 +79,6 @@ extension TreeState: TreeStateType {
 
   public func clear() -> TreeState {
     return .empty()
-  }
-
-  public func isEmpty() -> Bool {
-    return values.isEmpty && substates.isEmpty
   }
 }
 
