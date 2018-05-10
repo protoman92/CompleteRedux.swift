@@ -10,7 +10,6 @@
 		49875A8972FAB9416DA00A57 /* Pods_HMReactiveRedux_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8E50928F35E88FA359DD19 /* Pods_HMReactiveRedux_Demo.framework */; };
 		77C06BC3B287EB8510D9ECD2 /* Pods_HMReactiveRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93AD75A808109D388B4F4DDC /* Pods_HMReactiveRedux.framework */; };
 		984BDB27B73C46ABD871C1BA /* Pods_HMReactiveReduxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A27B0C6BE1BCD41C63493B /* Pods_HMReactiveReduxTests.framework */; };
-		D303DE6B1FA4662700E8943C /* RxTreeStore+Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = D303DE6A1FA4662700E8943C /* RxTreeStore+Stream.swift */; };
 		D3040A1E1FA8566B00BE0E14 /* RxReduxObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3040A1D1FA8566B00BE0E14 /* RxReduxObserver.swift */; };
 		D30CC2FD205C329A005B5EA1 /* TreeStateTest+Stress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30CC2FC205C329A005B5EA1 /* TreeStateTest+Stress.swift */; };
 		D30CC2FF205C40F0005B5EA1 /* ReduxPresetTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30CC2FE205C40F0005B5EA1 /* ReduxPresetTest.swift */; };
@@ -80,7 +79,6 @@
 		B44674A6B87D5F37AB34DB3C /* Pods-HMReactiveRedux.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveRedux.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveRedux/Pods-HMReactiveRedux.debug.xcconfig"; sourceTree = "<group>"; };
 		BA132F14BA5FF8ECCC780234 /* Pods-HMReactiveRedux-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveRedux-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		C4359F1890C5103901AC2490 /* Pods-HMReactiveRedux-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMReactiveRedux-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo.debug.xcconfig"; sourceTree = "<group>"; };
-		D303DE6A1FA4662700E8943C /* RxTreeStore+Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxTreeStore+Stream.swift"; sourceTree = "<group>"; };
 		D3040A1D1FA8566B00BE0E14 /* RxReduxObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxReduxObserver.swift; sourceTree = "<group>"; };
 		D30CC2FC205C329A005B5EA1 /* TreeStateTest+Stress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TreeStateTest+Stress.swift"; sourceTree = "<group>"; };
 		D30CC2FE205C40F0005B5EA1 /* ReduxPresetTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxPresetTest.swift; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 			children = (
 				D3040A1D1FA8566B00BE0E14 /* RxReduxObserver.swift */,
 				D350C3561FA337A60040556F /* RxTreeStore.swift */,
-				D303DE6A1FA4662700E8943C /* RxTreeStore+Stream.swift */,
 				D350C3541FA3369D0040556F /* RxTreeStoreType.swift */,
 			);
 			path = RxStore;
@@ -261,10 +258,10 @@
 			isa = PBXGroup;
 			children = (
 				D352CE5F205CB3C800319B07 /* README.md */,
+				D350C3761FA3A1F50040556F /* HMReactiveRedux.podspec */,
 				F4BA7F7E72D7951122BF8008 /* Frameworks */,
 				D3943ED01FA32D5600898233 /* HMReactiveRedux */,
 				D350C3631FA388190040556F /* HMReactiveRedux-Demo */,
-				D350C3761FA3A1F50040556F /* HMReactiveRedux.podspec */,
 				D3943EDB1FA32D5600898233 /* HMReactiveReduxTests */,
 				D9FDB6A1BE36AB53F2F7BD7D /* Pods */,
 				D3943ECF1FA32D5600898233 /* Products */,
@@ -607,7 +604,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D303DE6B1FA4662700E8943C /* RxTreeStore+Stream.swift in Sources */,
 				D350C3511FA3317A0040556F /* TreeStateType.swift in Sources */,
 				D310A03C2012619F00F96648 /* GeneralRedux+Global.swift in Sources */,
 				D352CE63205CB3FB00319B07 /* GenericDispatchStore.swift in Sources */,
@@ -696,7 +692,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.swiften.HMReactiveRedux-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -713,7 +709,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.swiften.HMReactiveRedux-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -775,7 +771,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -830,7 +826,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -858,7 +854,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -883,7 +879,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.swiften.HMReactiveRedux;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -902,7 +898,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.swiften.HMReactiveReduxTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -920,7 +916,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.swiften.HMReactiveReduxTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
