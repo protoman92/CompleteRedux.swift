@@ -2,7 +2,7 @@
 # platform :ios, '9.0'
 
 def allPods
-  pod 'RxSwift', '~> 4.0'
+  pod 'RxSwift'
   pod 'SwiftFP/Main', git: 'https://github.com/protoman92/SwiftFP.git'
 end
 
@@ -27,7 +27,7 @@ target 'HMReactiveRedux' do
     inherit! :search_paths
     # Pods for demo
     allPods
-    pod 'RxCocoa', '~> 4.0'
+    pod 'RxCocoa'
     pod 'SwiftUtilities/Main+Rx', git: 'https://github.com/protoman92/SwiftUtilities.git'
   end
 end

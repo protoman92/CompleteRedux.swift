@@ -23,15 +23,8 @@
 		D312BF5A205E1B8800F366A5 /* GenericStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D312BF59205E1B8800F366A5 /* GenericStoreTest.swift */; };
 		D312BF5C205E20A800F366A5 /* StoreTestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = D312BF5B205E20A800F366A5 /* StoreTestParams.swift */; };
 		D3145E0E2060E8590089261E /* LastActionStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3145E0D2060E8590089261E /* LastActionStoreTest.swift */; };
-		D3145E152060F7390089261E /* GenericDispatchStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3145E142060F7390089261E /* GenericDispatchStoreType.swift */; };
-		D3145E172060F7B30089261E /* TreeDispatchStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3145E162060F7B30089261E /* TreeDispatchStoreType.swift */; };
-		D314CC3420609B4800571F3A /* DispatchReduxStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314CC3320609B4800571F3A /* DispatchReduxStoreType.swift */; };
-		D32FE10A205FFBFD00FC9ADD /* PingActionCheckerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FE109205FFBFD00FC9ADD /* PingActionCheckerType.swift */; };
 		D32FE10C2060067800FC9ADD /* ReduxObserverTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FE10B2060067800FC9ADD /* ReduxObserverTest.swift */; };
-		D350C34F1FA330C10040556F /* ReduxActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C34E1FA330C10040556F /* ReduxActionType.swift */; };
 		D350C3511FA3317A0040556F /* TreeStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3501FA3317A0040556F /* TreeStateType.swift */; };
-		D350C3531FA3325B0040556F /* ReduxReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3521FA3325B0040556F /* ReduxReducer.swift */; };
-		D350C3551FA3369D0040556F /* RxTreeStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3541FA3369D0040556F /* RxTreeStoreType.swift */; };
 		D350C3571FA337A60040556F /* RxTreeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3561FA337A60040556F /* RxTreeStore.swift */; };
 		D350C3591FA345200040556F /* TreeStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C3581FA345200040556F /* TreeStoreTest.swift */; };
 		D350C35B1FA3465C0040556F /* TreeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D350C35A1FA3465C0040556F /* TreeState.swift */; };
@@ -44,12 +37,11 @@
 		D350C3771FA3A1F50040556F /* HMReactiveRedux.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D350C3761FA3A1F50040556F /* HMReactiveRedux.podspec */; };
 		D352CE60205CB3C800319B07 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D352CE5F205CB3C800319B07 /* README.md */; };
 		D352CE63205CB3FB00319B07 /* GenericDispatchStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D352CE62205CB3FB00319B07 /* GenericDispatchStore.swift */; };
-		D352CE65205CB9BE00319B07 /* ReduxStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D352CE64205CB9BE00319B07 /* ReduxStoreType.swift */; };
 		D3943ED81FA32D5600898233 /* HMReactiveRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3943ECE1FA32D5600898233 /* HMReactiveRedux.framework */; };
 		D3943EDF1FA32D5600898233 /* HMReactiveRedux.h in Headers */ = {isa = PBXBuildFile; fileRef = D3943ED11FA32D5600898233 /* HMReactiveRedux.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3D5B55C2060A7D900FA5E83 /* LastActionDispatchStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D5B55B2060A7D900FA5E83 /* LastActionDispatchStore.swift */; };
 		D3D5B5642060AF1B00FA5E83 /* DispatchReduxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D5B5632060AF1B00FA5E83 /* DispatchReduxStore.swift */; };
-		D3D5B56C2060B84000FA5E83 /* ConcurrentDispatchStore+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D5B56B2060B84000FA5E83 /* ConcurrentDispatchStore+Types.swift */; };
+		D3E6FC0C21A570420086862A /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6FC0B21A570420086862A /* Protocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,15 +84,8 @@
 		D312BF59205E1B8800F366A5 /* GenericStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericStoreTest.swift; sourceTree = "<group>"; };
 		D312BF5B205E20A800F366A5 /* StoreTestParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTestParams.swift; sourceTree = "<group>"; };
 		D3145E0D2060E8590089261E /* LastActionStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastActionStoreTest.swift; sourceTree = "<group>"; };
-		D3145E142060F7390089261E /* GenericDispatchStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericDispatchStoreType.swift; sourceTree = "<group>"; };
-		D3145E162060F7B30089261E /* TreeDispatchStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeDispatchStoreType.swift; sourceTree = "<group>"; };
-		D314CC3320609B4800571F3A /* DispatchReduxStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchReduxStoreType.swift; sourceTree = "<group>"; };
-		D32FE109205FFBFD00FC9ADD /* PingActionCheckerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingActionCheckerType.swift; sourceTree = "<group>"; };
 		D32FE10B2060067800FC9ADD /* ReduxObserverTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxObserverTest.swift; sourceTree = "<group>"; };
-		D350C34E1FA330C10040556F /* ReduxActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxActionType.swift; sourceTree = "<group>"; };
 		D350C3501FA3317A0040556F /* TreeStateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeStateType.swift; sourceTree = "<group>"; };
-		D350C3521FA3325B0040556F /* ReduxReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxReducer.swift; sourceTree = "<group>"; };
-		D350C3541FA3369D0040556F /* RxTreeStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxTreeStoreType.swift; sourceTree = "<group>"; };
 		D350C3561FA337A60040556F /* RxTreeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxTreeStore.swift; sourceTree = "<group>"; };
 		D350C3581FA345200040556F /* TreeStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeStoreTest.swift; sourceTree = "<group>"; };
 		D350C35A1FA3465C0040556F /* TreeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeState.swift; sourceTree = "<group>"; };
@@ -115,7 +100,6 @@
 		D350C3761FA3A1F50040556F /* HMReactiveRedux.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HMReactiveRedux.podspec; sourceTree = "<group>"; };
 		D352CE5F205CB3C800319B07 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D352CE62205CB3FB00319B07 /* GenericDispatchStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericDispatchStore.swift; sourceTree = "<group>"; };
-		D352CE64205CB9BE00319B07 /* ReduxStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxStoreType.swift; sourceTree = "<group>"; };
 		D3943ECE1FA32D5600898233 /* HMReactiveRedux.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMReactiveRedux.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3943ED11FA32D5600898233 /* HMReactiveRedux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMReactiveRedux.h; sourceTree = "<group>"; };
 		D3943ED21FA32D5600898233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,7 +107,7 @@
 		D3943EDE1FA32D5600898233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3D5B55B2060A7D900FA5E83 /* LastActionDispatchStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastActionDispatchStore.swift; sourceTree = "<group>"; };
 		D3D5B5632060AF1B00FA5E83 /* DispatchReduxStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchReduxStore.swift; sourceTree = "<group>"; };
-		D3D5B56B2060B84000FA5E83 /* ConcurrentDispatchStore+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConcurrentDispatchStore+Types.swift"; sourceTree = "<group>"; };
+		D3E6FC0B21A570420086862A /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,7 +144,6 @@
 			children = (
 				D3040A1D1FA8566B00BE0E14 /* RxReduxObserver.swift */,
 				D350C3561FA337A60040556F /* RxTreeStore.swift */,
-				D350C3541FA3369D0040556F /* RxTreeStoreType.swift */,
 			);
 			path = RxStore;
 			sourceTree = "<group>";
@@ -183,22 +166,6 @@
 				D310A0392012617400F96648 /* GeneralRedux+Progress.swift */,
 			);
 			path = Preset;
-			sourceTree = "<group>";
-		};
-		D30CC2FA205C1CF8005B5EA1 /* Action */ = {
-			isa = PBXGroup;
-			children = (
-				D350C34E1FA330C10040556F /* ReduxActionType.swift */,
-			);
-			path = Action;
-			sourceTree = "<group>";
-		};
-		D30CC2FB205C1D06005B5EA1 /* Reducer */ = {
-			isa = PBXGroup;
-			children = (
-				D350C3521FA3325B0040556F /* ReduxReducer.swift */,
-			);
-			path = Reducer;
 			sourceTree = "<group>";
 		};
 		D312BF55205E1B2900F366A5 /* State */ = {
@@ -241,15 +208,10 @@
 			isa = PBXGroup;
 			children = (
 				D312BF4D205E0D4E00F366A5 /* ConcurrentDispatchStore.swift */,
-				D3D5B56B2060B84000FA5E83 /* ConcurrentDispatchStore+Types.swift */,
 				D3D5B5632060AF1B00FA5E83 /* DispatchReduxStore.swift */,
-				D314CC3320609B4800571F3A /* DispatchReduxStoreType.swift */,
 				D352CE62205CB3FB00319B07 /* GenericDispatchStore.swift */,
-				D3145E142060F7390089261E /* GenericDispatchStoreType.swift */,
 				D3D5B55B2060A7D900FA5E83 /* LastActionDispatchStore.swift */,
-				D32FE109205FFBFD00FC9ADD /* PingActionCheckerType.swift */,
 				D312BF47205E077000F366A5 /* TreeDispatchStore.swift */,
-				D3145E162060F7B30089261E /* TreeDispatchStoreType.swift */,
 			);
 			path = DispatchStore;
 			sourceTree = "<group>";
@@ -281,13 +243,11 @@
 		D3943ED01FA32D5600898233 /* HMReactiveRedux */ = {
 			isa = PBXGroup;
 			children = (
+				D352CE61205CB3EB00319B07 /* DispatchStore */,
 				D3943ED11FA32D5600898233 /* HMReactiveRedux.h */,
 				D3943ED21FA32D5600898233 /* Info.plist */,
-				D352CE64205CB9BE00319B07 /* ReduxStoreType.swift */,
-				D30CC2FA205C1CF8005B5EA1 /* Action */,
-				D352CE61205CB3EB00319B07 /* DispatchStore */,
 				D30CC2F9205C1CF0005B5EA1 /* Preset */,
-				D30CC2FB205C1D06005B5EA1 /* Reducer */,
+				D3E6FC0B21A570420086862A /* Protocols.swift */,
 				D30CC2F7205C1B17005B5EA1 /* RxStore */,
 				D30CC2F8205C1CE6005B5EA1 /* State */,
 			);
@@ -407,7 +367,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Holmusk;
 				TargetAttributes = {
 					D350C3611FA388190040556F = {
@@ -482,7 +442,8 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-HMReactiveReduxTests/Pods-HMReactiveReduxTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-HMReactiveReduxTests/Pods-HMReactiveReduxTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftFP/SwiftFP.framework",
 				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
@@ -490,10 +451,10 @@
 				"${BUILT_PRODUCTS_DIR}/RxTest/RxTest.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftUtilities/SwiftUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftUtilitiesTests/SwiftUtilitiesTests.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftFP-Main/SwiftFP.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftFP.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
@@ -504,7 +465,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMReactiveReduxTests/Pods-HMReactiveReduxTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HMReactiveReduxTests/Pods-HMReactiveReduxTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		99BF2019B1653BDFFC28C1FA /* [CP] Embed Pods Frameworks */ = {
@@ -513,16 +474,17 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftFP/SwiftFP.framework",
 				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftUtilities/SwiftUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftFP-Main/SwiftFP.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftFP.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
@@ -531,7 +493,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HMReactiveRedux-Demo/Pods-HMReactiveRedux-Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B6F981038F850EE7B1E25A84 /* [CP] Check Pods Manifest.lock */ = {
@@ -605,27 +567,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				D350C3511FA3317A0040556F /* TreeStateType.swift in Sources */,
+				D3E6FC0C21A570420086862A /* Protocols.swift in Sources */,
 				D310A03C2012619F00F96648 /* GeneralRedux+Global.swift in Sources */,
 				D352CE63205CB3FB00319B07 /* GenericDispatchStore.swift in Sources */,
 				D350C3571FA337A60040556F /* RxTreeStore.swift in Sources */,
-				D3145E172060F7B30089261E /* TreeDispatchStoreType.swift in Sources */,
 				D350C35B1FA3465C0040556F /* TreeState.swift in Sources */,
-				D350C3551FA3369D0040556F /* RxTreeStoreType.swift in Sources */,
-				D32FE10A205FFBFD00FC9ADD /* PingActionCheckerType.swift in Sources */,
 				D3040A1E1FA8566B00BE0E14 /* RxReduxObserver.swift in Sources */,
-				D350C3531FA3325B0040556F /* ReduxReducer.swift in Sources */,
-				D350C34F1FA330C10040556F /* ReduxActionType.swift in Sources */,
 				D310A0362012612000F96648 /* GeneralRedux.swift in Sources */,
-				D314CC3420609B4800571F3A /* DispatchReduxStoreType.swift in Sources */,
 				D310A0382012614D00F96648 /* GeneralRedux+Error.swift in Sources */,
 				D312BF4E205E0D4E00F366A5 /* ConcurrentDispatchStore.swift in Sources */,
 				D3D5B55C2060A7D900FA5E83 /* LastActionDispatchStore.swift in Sources */,
-				D3D5B56C2060B84000FA5E83 /* ConcurrentDispatchStore+Types.swift in Sources */,
 				D3D5B5642060AF1B00FA5E83 /* DispatchReduxStore.swift in Sources */,
-				D352CE65205CB9BE00319B07 /* ReduxStoreType.swift in Sources */,
 				D310A03A2012617400F96648 /* GeneralRedux+Progress.swift in Sources */,
 				D312BF48205E077000F366A5 /* TreeDispatchStore.swift in Sources */,
-				D3145E152060F7390089261E /* GenericDispatchStoreType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,13 +640,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 785WJQ47KY;
+				DEVELOPMENT_TEAM = MHY2SWZ976;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = "HMReactiveRedux-Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.swiften.HMReactiveRedux-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -703,13 +657,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 785WJQ47KY;
+				DEVELOPMENT_TEAM = MHY2SWZ976;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = "HMReactiveRedux-Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.swiften.HMReactiveRedux-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -728,6 +682,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -735,6 +690,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -765,13 +721,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -791,6 +747,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -798,6 +755,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -822,11 +780,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -848,13 +806,13 @@
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = HMReactiveRedux/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.swiften.HMReactiveRedux;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -874,12 +832,12 @@
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = HMReactiveRedux/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.swiften.HMReactiveRedux;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -891,14 +849,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 785WJQ47KY;
+				DEVELOPMENT_TEAM = MHY2SWZ976;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = HMReactiveReduxTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.swiften.HMReactiveReduxTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -910,13 +868,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 785WJQ47KY;
+				DEVELOPMENT_TEAM = MHY2SWZ976;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = HMReactiveReduxTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.swiften.HMReactiveReduxTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
