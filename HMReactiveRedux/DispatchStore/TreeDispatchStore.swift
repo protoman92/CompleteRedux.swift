@@ -15,31 +15,31 @@ import SwiftFP
 /// This store is not thread-safe, so we should wrap it with ConcurrentDispatchStore.
 public final class TreeDispatchStore<V>: DispatchReduxStore<TreeState<V>, (String, String), Try<V>> {
   override public var lastState: Try<TreeState<V>> {
-    return genericStore.lastState
+    return self.genericStore.lastState
   }
   
-  fileprivate let genericStore: GenericDispatchStore<TreeDispatchStore.State>
+  private let genericStore: GenericDispatchStore<TreeDispatchStore.State>
 
   public init(_ genericStore: GenericDispatchStore<TreeDispatchStore.State>) {
     self.genericStore = genericStore
   }
 
-  override public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
-    genericStore.dispatch(actions)
+  override public func dispatch(_ action: Action) {
+    self.genericStore.dispatch(action)
   }
 
   override public func unregister<S>(_ ids: S) -> Int where S: Sequence, S.Element == String {
-    return genericStore.unregister(ids)
+    return self.genericStore.unregister(ids)
   }
 
-  override public func register(_ info: Registry, _ callback: @escaping ReduxCallback<CBValue>) {
-    let path = info.1
+  override public func register(_ reg: Registry, _ callback: @escaping ReduxCallback<CBValue>) {
+    let path = reg.1
 
     let genericCallback: ReduxCallback<TreeState<V>> = {
       try callback($0.stateValue(path))
     }
 
-    genericStore.register(info.0, genericCallback)
+    self.genericStore.register(reg.0, genericCallback)
   }
 }
 

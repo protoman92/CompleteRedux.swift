@@ -29,12 +29,16 @@ public enum Action: ReduxActionType, EnumerableType {
     }
   }
 
-  public func treeStateUpdateFn() -> TreeState<Int>.UpdateFn<Int> {
-    switch self {
-    case .add: return {$0.map({$0 + 1})}
-    case .addTwo: return {$0.map({$0 + 2})}
-    case .addThree: return {$0.map({$0 + 3})}
-    case .minus: return {$0.map({$0 - 1})}
+  public func stateUpdateFn() -> (Any) -> Any {
+    return {
+      let value = $0 as! Int
+      
+      switch self {
+      case .add: return value + 1
+      case .addTwo: return value + 2
+      case .addThree: return value + 3
+      case .minus: return value - 1
+      }
     }
   }
 }

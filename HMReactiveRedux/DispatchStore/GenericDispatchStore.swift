@@ -27,41 +27,39 @@ public final class GenericDispatchStore<State>: DispatchReduxStore<State, String
     return Try.success(state)
   }
   
-  fileprivate let dispatchQueue: DispatchQueue
-  fileprivate let reducer: ReduxReducer<State>
-  fileprivate var callbacks: [(String, [ReduxCallback<CBValue>])]
-  fileprivate var state: State
+  private let dispatchQueue: DispatchQueue
+  private let reducer: ReduxReducer<State>
+  private var callbacks: [(String, [ReduxCallback<CBValue>])]
+  private var state: State
 
   public init(_ initialState: State,
               _ reducer: @escaping ReduxReducer<State>,
               _ dispatchQueue: DispatchQueue) {
     self.dispatchQueue = dispatchQueue
     self.reducer = reducer
-    callbacks = []
-    state = initialState
+    self.callbacks = []
+    self.state = initialState
   }
 
-  override public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
-    for action in actions {
-      let newState = reducer(self.state, action)
-      let newStateRef = StrongReference(newState)
-      let callbacks = self.callbacks
-      self.state = newState
+  override public func dispatch(_ action: Action) {
+    let newState = self.reducer(self.state, action)
+    let newStateRef = StrongReference(newState)
+    let callbacks = self.callbacks
+    self.state = newState
 
-      dispatchQueue.async {
-        callbacks.forEach({$1.forEach({try? $0(newStateRef.value)})})
-      }
+    self.dispatchQueue.async {
+      callbacks.forEach({$1.forEach({try? $0(newStateRef.value)})})
     }
   }
 
   override public func register(_ id: String, _ callback: @escaping ReduxCallback<CBValue>) {
     var didAdd = false
 
-    for (ix, (key, value)) in callbacks.enumerated() {
+    for (ix, (key, value)) in self.callbacks.enumerated() {
       if key == id {
         var newValue = value
         newValue.append(callback)
-        callbacks[ix] = (key, newValue)
+        self.callbacks[ix] = (key, newValue)
         didAdd = true
         break
       }
@@ -70,20 +68,20 @@ public final class GenericDispatchStore<State>: DispatchReduxStore<State, String
     if !didAdd {
       var newValue = [ReduxCallback<CBValue>]()
       newValue.append(callback)
-      callbacks.append((id, newValue))
+      self.callbacks.append((id, newValue))
     }
     
     let lastState = StrongReference(state)
 
     /// Relay the last event.
-    dispatchQueue.async {try? callback(lastState.value)}
+    self.dispatchQueue.async {try? callback(lastState.value)}
   }
 
   override public func unregister<S>(_ ids: S) -> Int where S: Sequence, S.Element == String {
     var unregistered = 0
     var newCallbacks = [(String, [ReduxCallback<CBValue>])]()
 
-    for (key, value) in callbacks {
+    for (key, value) in self.callbacks {
       if !ids.contains(key) {
         newCallbacks.append((key, value))
       } else {

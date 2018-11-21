@@ -179,7 +179,7 @@ public final class ViewController: UIViewController {
   fileprivate let disposeBag = DisposeBag()
 
   fileprivate var dispatchStore: ConcurrentTreeDispatchStore<Any>!
-  fileprivate var rxStore: RxTreeStore<Any>!
+  fileprivate var rxStore: RxReduxStore<Any>!
   fileprivate let useRx = true
 
   deinit {
@@ -277,7 +277,7 @@ public final class ViewController: UIViewController {
   fileprivate func setupRxStore() {
     let disposeBag = self.disposeBag
     let initial = TreeState<Any>.empty()
-    rxStore = RxTreeStore.createInstance(initial, mainReducer)
+    rxStore = RxReduxStore.createInstance(initial, mainReducer)
 
     /// Listen to global state.
     rxStore.stateValueStream(NumberAction.actionPath)

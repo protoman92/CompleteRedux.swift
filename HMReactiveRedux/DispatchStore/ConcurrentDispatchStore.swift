@@ -15,35 +15,35 @@ public final class ConcurrentDispatchStore<State, Registry, CBValue>:
   public typealias Store = DispatchReduxStore<State, Registry, CBValue>
 
   override public var lastState: Try<State> {
-    mutex.lock()
-    defer { mutex.unlock() }
-    return store.lastState
+    self.mutex.lock()
+    defer { self.mutex.unlock() }
+    return self.store.lastState
   }
 
-  fileprivate let mutex: NSLock
-  fileprivate let store: Store
+  private let mutex: NSLock
+  private let store: Store
 
   public init(_ store: Store) {
     self.store = store
-    mutex = NSLock()
+    self.mutex = NSLock()
   }
 
-  override public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
-    mutex.lock()
-    defer { mutex.unlock() }
-    store.dispatch(actions)
+  override public func dispatch(_ action: Action) {
+    self.mutex.lock()
+    defer { self.mutex.unlock() }
+    self.store.dispatch(action)
   }
 
   override public func register(_ info: Registry, _ callback: @escaping ReduxCallback<CBValue>) {
-    mutex.lock()
-    defer { mutex.unlock() }
-    store.register(info, callback)
+    self.mutex.lock()
+    defer { self.mutex.unlock() }
+    self.store.register(info, callback)
   }
 
   override public func unregister<S>(_ ids: S) -> Int where S: Sequence, S.Element == String {
-    mutex.lock()
-    defer { mutex.unlock() }
-    return store.unregister(ids)
+    self.mutex.lock()
+    defer { self.mutex.unlock() }
+    return self.store.unregister(ids)
   }
 }
 
@@ -55,7 +55,7 @@ public extension ConcurrentDispatchStore {
   ///
   /// - Parameter store: A DispatchReduxStore instance.
   /// - Returns: A ConcurrentDispatchStore instance.
-  fileprivate static func _createInstance(_ store: DispatchReduxStore<State, Registry, CBValue>)
+  private static func _createInstance(_ store: DispatchReduxStore<State, Registry, CBValue>)
     -> ConcurrentDispatchStore<State, Registry, CBValue>
   {
     #if DEBUG
@@ -85,8 +85,8 @@ public extension ConcurrentTreeDispatchStore {
 
 public extension ConcurrentDispatchStore where State: TreeStateType {
   public func lastValue(_ path: String) -> Try<State.Value> {
-    mutex.lock()
-    defer { mutex.unlock() }
-    return store.lastState.flatMap({$0.stateValue(path)})
+    self.mutex.lock()
+    defer { self.mutex.unlock() }
+    return self.store.lastState.flatMap({$0.stateValue(path)})
   }
 }

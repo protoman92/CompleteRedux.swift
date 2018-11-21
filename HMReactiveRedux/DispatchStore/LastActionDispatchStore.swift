@@ -45,13 +45,10 @@ public final class LastActionDispatchStore<State, RegistryInfo, CBValue>:
   }
   #endif
 
-  override public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
+  override public func dispatch(_ action: Action) {
     let lastAction = self.lastAction
-
-    for action in actions {
-      store.dispatch(action)
-      self.lastAction = action
-    }
+    self.store.dispatch(action)
+    self.lastAction = action
 
     #if DEBUG
     let issueNotifier = self.issueNotifier
@@ -75,10 +72,10 @@ public final class LastActionDispatchStore<State, RegistryInfo, CBValue>:
   }
 
   override public func register(_ info: RegistryInfo, _ callback: @escaping ReduxCallback<CBValue>) {
-    store.register(info, callback)
+    self.store.register(info, callback)
   }
 
   override public func unregister<S>(_ ids: S) -> Int where S: Sequence, S.Element == String {
-    return store.unregister(ids)
+    return self.store.unregister(ids)
   }
 }

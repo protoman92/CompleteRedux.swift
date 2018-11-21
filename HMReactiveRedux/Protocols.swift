@@ -28,65 +28,30 @@ public protocol ReduxStoreType {
   /// Get the last state instance.
   var lastState: Try<State> { get }
   
-  /// Dispatch some actions and notify listeners.
+  /// Dispatch an action and notify listeners.
   ///
-  /// - Parameter actions: A Sequence of Action.
-  func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action
+  /// - Parameter action: An Action instance.
+  func dispatch(_ action: Action)
 }
 
 public extension ReduxStoreType {
   
-  /// Convenience method to dispatch some actions.
+  /// Dispatch some actions and notify listeners.
   ///
   /// - Parameter actions: A Sequence of Action.
-  public func dispatch<S>(_ actions: S) where S: Sequence, S.Element: Action {
-    let mapped: [Action] = actions.map({$0})
-    dispatch(mapped)
-  }
-  
-  /// Convenience method to dispatch some actions.
-  ///
-  /// - Parameter actions: Varargs of Redux actions.
-  public func dispatch(_ actions: Action...) {
-    dispatch(actions)
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
+    actions.forEach({self.dispatch($0)})
   }
 }
 
 /// Classes that implement this protocol should act as a redux-compliant store.
-public protocol RxTreeStoreType: ReduxStoreType where State: TreeStateType {
+public protocol RxReduxStoreType: ReduxStoreType {
   
   /// Trigger an action.
-  func actionTrigger() -> AnyObserver<Action?>
+  func actionTrigger() -> AnyObserver<Action>
   
   /// Subscribe to this stream to receive state notifications.
   func stateStream() -> Observable<State>
-}
-
-public extension RxTreeStoreType {
-  
-  /// Create a state stream that builds up from an initial state.
-  ///
-  /// - Parameters:
-  ///   - actionTrigger: The action trigger Observable.
-  ///   - initialState: The initial state.
-  ///   - mainReducer: A Reducer function.
-  /// - Returns: An Observable instance.
-  public func createState<O>(_ actionTrigger: O,
-                             _ initialState: State,
-                             _ mainReducer: @escaping ReduxReducer<State>)
-    -> Observable<State> where
-    O: ObservableConvertibleType, O.E == ReduxActionType
-  {
-    return actionTrigger.asObservable()
-      .scan(initialState, accumulator: mainReducer)
-  }
-}
-
-public extension RxTreeStoreType {
-  public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
-    let trigger = actionTrigger()
-    actions.forEach({trigger.onNext($0)})
-  }
 }
 
 /// Convenience typealias for a concurrent generic dispatch store.

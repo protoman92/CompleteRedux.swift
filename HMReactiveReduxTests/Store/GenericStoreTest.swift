@@ -30,7 +30,6 @@ public final class GenericStoreTest: XCTestCase {
 
   override public func setUp() {
     super.setUp()
-    continueAfterFailure = true
     let initialState = GenericState(0)
     let queue = DispatchQueue.global(qos: .userInteractive)
     let genericStore = GenericDispatchStore(initialState, reduce, queue)
@@ -79,7 +78,7 @@ public final class GenericStoreTest: XCTestCase {
       actualCallCount += 1
     }
 
-    store!.register(id, {_ in addCallCount()})
+    self.store!.register(id, {_ in addCallCount()})
 
     let dispatchFn: (ReduxActionType) -> Void = {(action: ReduxActionType) in
       let qos = DispatchQoS.QoSClass.randomValue()!
@@ -90,8 +89,8 @@ public final class GenericStoreTest: XCTestCase {
     }
 
     /// When & Then
-    test_dispatchGenericBasedAction_shouldUpdateState(
-      store!, dispatchFn, {store!.lastState.value!})
+    self.test_dispatchGenericBasedAction_shouldUpdateState(
+      self.store!, dispatchFn, {self.store!.lastState.value!})
 
     // Add 1 to reflect initial value relay on first subscription.
     XCTAssertEqual(actualCallCount, StoreTestParams.callCount + 1)

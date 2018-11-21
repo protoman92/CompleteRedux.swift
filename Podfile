@@ -19,6 +19,7 @@ target 'HMReactiveRedux' do
     # Pods for testing
     allPods
 
+    pod 'SafeNest/Main', git: 'https://github.com/protoman92/SafeNest.git'
     pod 'SwiftUtilities/Main+Rx', git: 'https://github.com/protoman92/SwiftUtilities.git'
     pod 'SwiftUtilitiesTests/Main+Rx', git: 'https://github.com/protoman92/SwiftUtilities.git'
   end
@@ -28,6 +29,7 @@ target 'HMReactiveRedux' do
     # Pods for demo
     allPods
     pod 'RxCocoa'
+    pod 'SafeNest/Main', git: 'https://github.com/protoman92/SafeNest.git'
     pod 'SwiftUtilities/Main+Rx', git: 'https://github.com/protoman92/SwiftUtilities.git'
   end
 end
