@@ -25,7 +25,7 @@ public final class RxReduxStoreTest: XCTestCase {
   fileprivate var disposeBag: DisposeBag!
   fileprivate var scheduler: TestScheduler!
   fileprivate var initialState: SafeNest!
-  fileprivate var rxStore: RxReduxStore<SafeNest, Int>!
+  fileprivate var rxStore: RxReduxStore<SafeNest>!
   fileprivate var actionsPerIter: Int!
 
   fileprivate var updateId: String {
@@ -38,7 +38,7 @@ public final class RxReduxStoreTest: XCTestCase {
     self.scheduler = TestScheduler(initialClock: 0)
     self.disposeBag = DisposeBag()
     self.actionsPerIter = 5
-    self.initialState = try! SafeNest().updating(value: 0, at: self.updateId)
+    self.initialState = try! SafeNest().updating(at: self.updateId, value: 0)
     self.rxStore = RxReduxStore.createInstance(initialState!, self.reduce)
   }
 
@@ -46,7 +46,7 @@ public final class RxReduxStoreTest: XCTestCase {
     switch action as? Action {
     case .some(let action):
       let updateFn = action.stateUpdateFn()
-      return try! state.mapping(withMapper: updateFn, at: updateId)
+      return try! state.mapping(at: updateId, withMapper: updateFn)
       
     default:
       return state

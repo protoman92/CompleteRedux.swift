@@ -11,7 +11,7 @@ import SwiftFP
 
 /// A Redux-compliant store. Since this store is used for UI-related work, it
 /// should operation on the main thread.
-public struct RxReduxStore<State, Value> {
+public struct RxReduxStore<State> {
 
   /// Create a redux store that only receives and delivers events on the main
   /// thread.
@@ -22,7 +22,7 @@ public struct RxReduxStore<State, Value> {
   /// - Returns: A RxReduxStore instance.
   public static func createInstance(
     _ initialState: State,
-    _ reducer: @escaping ReduxReducer<State>) -> RxReduxStore<State, Value>
+    _ reducer: @escaping ReduxReducer<State>) -> RxReduxStore<State>
   {
     return RxReduxStore(initialState, reducer)
   }
