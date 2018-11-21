@@ -7,10 +7,9 @@
 //
 
 import SwiftFP
-import SwiftUtilities
 @testable import HMReactiveRedux
 
-public enum Action: ReduxActionType, EnumerableType {
+public enum Action: CaseIterable, ReduxActionType {
   case add
   case addTwo
   case addThree

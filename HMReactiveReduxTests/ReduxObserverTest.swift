@@ -7,7 +7,6 @@
 //
 
 import RxSwift
-import SwiftUtilities
 import XCTest
 @testable import HMReactiveRedux
 
@@ -17,7 +16,7 @@ public final class ReduxObserverTest: XCTestCase {
     let reduxObserver = RxReduxObserver<Int>(0)
     
     /// When
-    reduxObserver.on(.error(Exception("")))
+    reduxObserver.on(.error(self))
     reduxObserver.on(.completed)
     reduxObserver.on(.next(1))
     
@@ -25,3 +24,5 @@ public final class ReduxObserverTest: XCTestCase {
     XCTAssertEqual(try! reduxObserver.value(), 1)
   }
 }
+
+extension ReduxObserverTest: Error {}

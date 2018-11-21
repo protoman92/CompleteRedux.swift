@@ -6,19 +6,19 @@
 //  Copyright © 2017 Hai Pham. All rights reserved.
 //
 
-import RxTest
 import RxSwift
+import RxTest
 import SafeNest
 import SwiftFP
-import SwiftUtilities
-import SwiftUtilitiesTests
 import XCTest
 @testable import HMReactiveRedux
 
-extension DispatchQoS.QoSClass: EnumerableType {
-  public static func allValues() -> [DispatchQoS.QoSClass] {
+extension DispatchQoS.QoSClass: CaseIterable {
+  public static var allCases: [DispatchQoS.QoSClass] {
     return [.background, .userInteractive, .userInitiated, .utility]
   }
+  
+  public typealias AllCases = [DispatchQoS.QoSClass]
 }
 
 public final class RxReduxStoreTest: XCTestCase {
@@ -69,14 +69,14 @@ public extension RxReduxStoreTest {
       var actions = [Action]()
       
       for _ in 0..<self.actionsPerIter! {
-        let action = Action.randomValue()!
+        let action = Action.allValues().randomElement()!
         original = action.stateUpdateFn()(original) as! Int
         actions.append(action)
       }
 
       dispatchAllFn(actions)
 
-      let action1 = Action.randomValue()!
+      let action1 = Action.allValues().randomElement()!
       original = action1.stateUpdateFn()(original) as! Int
       dispatchAllFn([action1])
     }
@@ -104,6 +104,6 @@ public extension RxReduxStoreTest {
     test_dispatchSafeNestAction(self.rxStore!,
                                 {self.rxStore!.dispatch($0)},
                                 {self.rxStore.lastState.value!},
-                                {valueObs.nextElements().last!})
+                                {valueObs.events.map({$0.value.element!}).last!})
   }
 }

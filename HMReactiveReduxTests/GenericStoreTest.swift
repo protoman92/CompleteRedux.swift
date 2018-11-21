@@ -45,7 +45,7 @@ public final class GenericStoreTest: XCTestCase {
 
     /// When
     for _ in 0..<StoreTestParams.callCount {
-      let action = Action.randomValue()!
+      let action = Action.allValues().randomElement()!
       original = action.updateFn()(original)
       dispatchFn(action)
     }
@@ -73,7 +73,7 @@ public final class GenericStoreTest: XCTestCase {
     self.store!.register(id, {_ in addCallCount()})
 
     let dispatchFn: (ReduxActionType) -> Void = {(action: ReduxActionType) in
-      let qos = DispatchQoS.QoSClass.randomValue()!
+      let qos = DispatchQoS.QoSClass.allCases.randomElement()!
 
       DispatchQueue.global(qos: qos).async {
         self.store!.dispatch(action)

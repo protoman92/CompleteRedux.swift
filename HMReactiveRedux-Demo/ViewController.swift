@@ -11,7 +11,6 @@ import RxCocoa
 import RxSwift
 import SafeNest
 import SwiftFP
-import SwiftUtilities
 import UIKit
 
 public enum ClearAction: ReduxActionType {
@@ -138,14 +137,7 @@ public final class ViewController: UIViewController {
   @IBOutlet fileprivate weak var valueSL: UISlider!
 
   fileprivate let disposeBag = DisposeBag()
-
-  fileprivate var dispatchStore: ConcurrentGenericDispatchStore<SafeNest>!
   fileprivate var rxStore: RxReduxStore<SafeNest>!
-
-  deinit {
-    let id = String(describing: ViewController.self)
-    _ = dispatchStore?.unregister(id)
-  }
 
   override public func viewDidLoad() {
     super.viewDidLoad()
@@ -156,37 +148,10 @@ public final class ViewController: UIViewController {
     let deleteBtn = UIBarButtonItem(title: "Clear state",
                                     style: .plain,
                                     target: self,
-                                    action: #selector(self.deleteButtonTapped))
+                                    action: nil)
 
     navigationItem.rightBarButtonItem = deleteBtn
     setupRxStore()
-  }
-
-  @objc func addButtonTapped() {
-    DispatchQueue.global(qos: .background).async {
-      let actionCount = Int.random(0, 100)
-      let actions = (0..<actionCount).map({_ in NumberAction.add})
-      self.dispatchStore!.dispatch(actions)
-    }
-  }
-
-  @objc func minusButtonTapped() {
-    let actionCount = Int.random(0, 100)
-    let actions = (0..<actionCount).map({_ in NumberAction.minus})
-    dispatchStore!.dispatch(actions)
-  }
-
-  @objc func string2Changed() {
-    dispatchStore!.dispatch(StringAction.input(stringTF2!.text!))
-  }
-
-  @objc func sliderChanged() {
-    let value = Double(valueSL!.value).rounded(.toNearestOrAwayFromZero)
-    dispatchStore!.dispatch(SliderAction.input(value))
-  }
-
-  @objc func deleteButtonTapped() {
-    dispatchStore?.dispatch([ClearAction.triggerClear, ClearAction.resetClear])
   }
 
   fileprivate func setupRxStore() {
@@ -196,27 +161,29 @@ public final class ViewController: UIViewController {
 
     /// Listen to global state.
     rxStore.stateStream()
-      .map({$0.value(at: NumberAction.actionPath).cast(Int.self)})
-      .mapNonNilOrElse({$0.asOptional()}, 0)
+      .map({$0.value(at: NumberAction.actionPath).cast(Int.self).getOrElse(0)})
       .map({String(describing: $0)})
       .distinctUntilChanged()
       .bind(to: counterTF.rx.text)
       .disposed(by: disposeBag)
 
     let stringStream = rxStore.stateStream()
-      .map({$0.value(at: StringAction.actionPath).cast(String.self)})
-      .mapNonNilOrElse({$0.asOptional()}, "Input on the right")
+      .map({$0
+        .value(at: StringAction.actionPath)
+        .cast(String.self)
+        .getOrElse("Input on the right")})
       .map({String(describing: $0)})
       .distinctUntilChanged()
-      .logNext()
       .share(replay: 1)
 
     stringStream.bind(to: stringTF1.rx.text).disposed(by: disposeBag)
     stringStream.bind(to: stringTF2.rx.text).disposed(by: disposeBag)
 
     let sliderStream = rxStore.stateStream()
-      .map({$0.value(at: SliderAction.actionPath).cast(Double.self)})
-      .mapNonNilOrElse({$0.asOptional()}, 0)
+      .map({$0
+        .value(at: SliderAction.actionPath)
+        .cast(Double.self)
+        .getOrElse(0)})
       .distinctUntilChanged()
       .share(replay: 1)
 
@@ -247,7 +214,7 @@ public final class ViewController: UIViewController {
       .disposed(by: disposeBag)
 
     stringTF2.rx.text.asObservable()
-      .mapNonNilOrEmpty()
+      .map({$0.getOrElse("")})
       .map(StringAction.input)
       .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)

@@ -7,7 +7,6 @@
 //
 
 import SafeNest
-import SwiftUtilities
 import XCTest
 @testable import HMReactiveRedux
 
