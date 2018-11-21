@@ -36,14 +36,14 @@ public final class GenericStoreTest: XCTestCase {
     self.store = ConcurrentGenericDispatchStore.createInstance(genericStore)
   }
 
-  fileprivate func reduce(_ state: GenericState<Int>,
-                          _ action: ReduxActionType) -> GenericState<Int> {
+  private func reduce(_ state: GenericState<Int>,
+                      _ action: ReduxActionType) -> GenericState<Int> {
     let action = action as! Action
     let newValue = action.updateFn()(state.value)
     return GenericState(newValue)
   }
 
-  public func test_dispatchGenericBasedAction_shouldUpdateState<Store>(
+  private func test_dispatchGenericBasedAction_shouldUpdateState<Store>(
     _ store: Store,
     _ dispatchFn: (ReduxActionType) -> Void,
     _ lastStateFn: () -> GenericState<Int>) where Store: ReduxStoreType

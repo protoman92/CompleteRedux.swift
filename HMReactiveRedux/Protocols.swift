@@ -58,9 +58,6 @@ public protocol RxReduxStoreType: ReduxStoreType {
 public typealias ConcurrentGenericDispatchStore<State> =
   ConcurrentDispatchStore<State, String, State>
 
-public typealias ConcurrentTreeDispatchStore<V> =
-  ConcurrentDispatchStore<TreeState<V>, (String, String), Try<V>>
-
 public typealias ReduxCallback<T> = (T) throws -> Void
 
 /// Represents a dispatch-based Redux store.
@@ -118,12 +115,3 @@ public protocol PingActionCheckerType {
   func checkPingActionCleared(_ action: ReduxActionType) -> Bool
 }
 #endif
-
-/// Represents a Tree-based dispatch store.
-public protocol TreeDispatchStoreType: DispatchReduxStoreType where
-  State == TreeState<Value>,
-  Registry == (String, String),
-  CBValue == Try<Value>
-{
-  associatedtype Value
-}

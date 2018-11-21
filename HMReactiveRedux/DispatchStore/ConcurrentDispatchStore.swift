@@ -74,19 +74,3 @@ public extension ConcurrentGenericDispatchStore {
     return ConcurrentGenericDispatchStore<State>._createInstance(store)
   }
 }
-
-public extension ConcurrentTreeDispatchStore {
-  public static func createInstance<V>(_ store: TreeDispatchStore<V>)
-    -> ConcurrentTreeDispatchStore<V>
-  {
-    return ConcurrentTreeDispatchStore<V>._createInstance(store)
-  }
-}
-
-public extension ConcurrentDispatchStore where State: TreeStateType {
-  public func lastValue(_ path: String) -> Try<State.Value> {
-    self.mutex.lock()
-    defer { self.mutex.unlock() }
-    return self.store.lastState.flatMap({$0.stateValue(path)})
-  }
-}
