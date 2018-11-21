@@ -49,21 +49,14 @@ public final class ConcurrentDispatchStore<State, Registry, CBValue>:
 
 public extension ConcurrentDispatchStore {
 
-  /// Convenience method to create a concurrent dispatch store wrapper. If in
-  /// debug mode, add some wrappers to the generic store to provide debugging
-  /// capabilities.
+  /// Convenience method to create a concurrent dispatch store wrapper.
   ///
   /// - Parameter store: A DispatchReduxStore instance.
   /// - Returns: A ConcurrentDispatchStore instance.
   private static func _createInstance(_ store: DispatchReduxStore<State, Registry, CBValue>)
     -> ConcurrentDispatchStore<State, Registry, CBValue>
   {
-    #if DEBUG
-    let lastActionStore = LastActionDispatchStore(store)
-    return ConcurrentDispatchStore<State, Registry, CBValue>(lastActionStore)
-    #else
     return ConcurrentDispatchStore(store)
-    #endif
   }
 }
 

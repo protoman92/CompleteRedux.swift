@@ -12,18 +12,11 @@ public final class DefaultRedux {
   }
   
   public final class Reducer {
-    public static func reduce<State>(_ state: State, _ action: ReduxActionType) -> State? {
-      switch action as? Action {
-      case .some(.noop):
+    public static func reduce<State>(_ state: State, _ action: Action) -> State? {
+      switch action {
+      case .noop:
         return state
-        
-      default:
-        return nil
       }
     }
-    
-    private init() {}
   }
-  
-  private init() {}
 }

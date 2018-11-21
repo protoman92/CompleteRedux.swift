@@ -17,14 +17,6 @@ public struct GenericState<V> {
   }
 }
 
-#if DEBUG
-extension GenericState: PingActionCheckerType {
-  public func checkPingActionCleared(_ action: ReduxActionType) -> Bool {
-    return true
-  }
-}
-#endif
-
 public final class GenericStoreTest: XCTestCase {
   fileprivate var store: ConcurrentGenericDispatchStore<GenericState<Int>>!
 
