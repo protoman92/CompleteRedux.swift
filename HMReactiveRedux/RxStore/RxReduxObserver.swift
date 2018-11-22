@@ -10,7 +10,7 @@ import RxSwift
 
 /// Use this wrapper to discard error/complete events.
 internal struct RxReduxObserver<Element> {
-  fileprivate let reduxObserver: BehaviorSubject<E>
+  private let reduxObserver: BehaviorSubject<E>
 
   public init(_ value: E) {
     self.reduxObserver = BehaviorSubject(value: value)

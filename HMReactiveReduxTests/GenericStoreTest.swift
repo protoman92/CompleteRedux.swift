@@ -18,7 +18,7 @@ public struct GenericState<V> {
 }
 
 public final class GenericStoreTest: XCTestCase {
-  fileprivate var store: ConcurrentGenericDispatchStore<GenericState<Int>>!
+  private var store: ConcurrentGenericDispatchStore<GenericState<Int>>!
 
   override public func setUp() {
     super.setUp()

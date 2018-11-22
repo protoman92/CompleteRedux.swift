@@ -8,8 +8,8 @@
 
 import SwiftFP
 
-fileprivate final class StrongReference<T> {
-  fileprivate let value: T
+final class StrongReference<T> {
+  public let value: T
 
   public init(_ value: T) {
     self.value = value

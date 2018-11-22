@@ -12,18 +12,18 @@ import RxSwift
 import SafeNest
 
 public final class ViewController: UIViewController {
-  @IBOutlet fileprivate weak var counterTF: UITextField!
-  @IBOutlet fileprivate weak var addBT: UIButton!
-  @IBOutlet fileprivate weak var minusBT: UIButton!
+  @IBOutlet private weak var counterTF: UITextField!
+  @IBOutlet private weak var addBT: UIButton!
+  @IBOutlet private weak var minusBT: UIButton!
 
-  @IBOutlet fileprivate weak var stringTF1: UITextField!
-  @IBOutlet fileprivate weak var stringTF2: UITextField!
+  @IBOutlet private weak var stringTF1: UITextField!
+  @IBOutlet private weak var stringTF2: UITextField!
 
-  @IBOutlet fileprivate weak var slideTF: UITextField!
-  @IBOutlet fileprivate weak var valueSL: UISlider!
+  @IBOutlet private weak var slideTF: UITextField!
+  @IBOutlet private weak var valueSL: UISlider!
 
-  fileprivate let disposeBag = DisposeBag()
-  fileprivate var rxStore: RxReduxStore<SafeNest>!
+  private let disposeBag = DisposeBag()
+  private var rxStore: RxReduxStore<SafeNest>!
 
   override public func viewDidLoad() {
     super.viewDidLoad()
@@ -40,7 +40,7 @@ public final class ViewController: UIViewController {
     setupRxStore()
   }
 
-  fileprivate func setupRxStore() {
+  private func setupRxStore() {
     let disposeBag = self.disposeBag
     let initial = SafeNest()
     rxStore = RxReduxStore.createInstance(initial, DataObjectRedux.reduceMain)

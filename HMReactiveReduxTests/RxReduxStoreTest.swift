@@ -22,13 +22,13 @@ extension DispatchQoS.QoSClass: CaseIterable {
 }
 
 public final class RxReduxStoreTest: XCTestCase {
-  fileprivate var disposeBag: DisposeBag!
-  fileprivate var scheduler: TestScheduler!
-  fileprivate var initialState: SafeNest!
-  fileprivate var rxStore: RxReduxStore<SafeNest>!
-  fileprivate var actionsPerIter: Int!
+  private var disposeBag: DisposeBag!
+  private var scheduler: TestScheduler!
+  private var initialState: SafeNest!
+  private var rxStore: RxReduxStore<SafeNest>!
+  private var actionsPerIter: Int!
 
-  fileprivate var updateId: String {
+  private var updateId: String {
     return "layer1.layer2.layer3.calculation"
   }
 
