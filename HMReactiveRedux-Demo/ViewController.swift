@@ -10,120 +10,6 @@ import HMReactiveRedux
 import RxCocoa
 import RxSwift
 import SafeNest
-import SwiftFP
-import UIKit
-
-public enum ClearAction: ReduxActionType {
-  case triggerClear
-  case resetClear
-  
-  public static var path: String {
-    return "clear"
-  }
-  
-  public static var clearPath: String {
-    return "\(path).value"
-  }
-}
-
-public enum NumberAction: ReduxActionType {
-  case add
-  case minus
-
-  public static var rootPath: String {
-    return "main.number"
-  }
-
-  public static var actionPath: String {
-    return "\(rootPath).action"
-  }
-
-  public static var action2Path: String {
-    return "\(rootPath).action2"
-  }
-}
-
-public enum StringAction: ReduxActionType {
-  case input(String)
-
-  public static var rootPath: String {
-    return "main.string"
-  }
-
-  public static var actionPath: String {
-    return "\(rootPath).action"
-  }
-}
-
-public enum SliderAction: ReduxActionType {
-  case input(Double)
-
-  public static var rootPath: String {
-    return "main.slider"
-  }
-
-  public static var actionPath: String {
-    return "\(rootPath).action"
-  }
-}
-
-public func mainReducer(_ state: SafeNest, _ action: ReduxActionType) -> SafeNest {
-  switch action {
-  case let action as ClearAction: return clearReducer(state, action)
-  case let action as NumberAction: return numberReducer(state, action)
-  case let action as StringAction: return stringReducer(state, action)
-  case let action as SliderAction: return sliderReducer(state, action)
-  default: return state
-  }
-}
-
-public func clearReducer(_ state: SafeNest, _ action: ClearAction) -> SafeNest {
-  switch action {
-  case .triggerClear:
-    return try! state
-      .updating(at: NumberAction.rootPath, value: nil)
-      .updating(at: StringAction.rootPath, value: nil)
-      .updating(at: SliderAction.rootPath, value: nil)
-      .updating(at: ClearAction.clearPath, value: true)
-    
-  case .resetClear:
-    return try! state.updating(at: ClearAction.clearPath, value: nil)
-  }
-}
-
-public func numberReducer(_ state: SafeNest, _ action: NumberAction) -> SafeNest {
-  let path = NumberAction.actionPath
-
-  switch action {
-  case .add:
-    return try! state.mapping(at: path, withMapper: {
-      return $0.cast(Int.self).someOrElse(Optional.some(0)).map({$0 + 1})
-    })
-
-  case .minus:
-    return try! state.mapping(at: path, withMapper: {
-      return $0.cast(Int.self).someOrElse(Optional.some(0)).map({$0 - 1})
-    })
-  }
-}
-
-public func stringReducer(_ state: SafeNest, _ action: StringAction) -> SafeNest {
-  let path = StringAction.actionPath
-
-  switch action {
-  case .input(let string):
-    return try! state.updating(at: path, value: string)
-  }
-}
-
-public func sliderReducer(_ state: SafeNest, _ action: SliderAction) -> SafeNest {
-  let path = SliderAction.actionPath
-
-  switch action {
-  case .input(let value):
-    return try! state.updating(at: path, value: value)
-  }
-}
 
 public final class ViewController: UIViewController {
   @IBOutlet fileprivate weak var counterTF: UITextField!
@@ -157,11 +43,14 @@ public final class ViewController: UIViewController {
   fileprivate func setupRxStore() {
     let disposeBag = self.disposeBag
     let initial = SafeNest()
-    rxStore = RxReduxStore.createInstance(initial, mainReducer)
+    rxStore = RxReduxStore.createInstance(initial, DataObjectRedux.reduceMain)
 
     /// Listen to global state.
     rxStore.stateStream()
-      .map({$0.value(at: NumberAction.actionPath).cast(Int.self).getOrElse(0)})
+      .map({$0
+        .value(at: DataObjectRedux.Path.numberPath)
+        .cast(Int.self)
+        .getOrElse(0)})
       .map({String(describing: $0)})
       .distinctUntilChanged()
       .bind(to: counterTF.rx.text)
@@ -169,7 +58,7 @@ public final class ViewController: UIViewController {
 
     let stringStream = rxStore.stateStream()
       .map({$0
-        .value(at: StringAction.actionPath)
+        .value(at: DataObjectRedux.Path.stringPath)
         .cast(String.self)
         .getOrElse("Input on the right")})
       .map({String(describing: $0)})
@@ -181,7 +70,7 @@ public final class ViewController: UIViewController {
 
     let sliderStream = rxStore.stateStream()
       .map({$0
-        .value(at: SliderAction.actionPath)
+        .value(at: DataObjectRedux.Path.sliderPath)
         .cast(Double.self)
         .getOrElse(0)})
       .distinctUntilChanged()
@@ -199,30 +88,30 @@ public final class ViewController: UIViewController {
 
     /// Dispatch to global state.
     navigationItem.rightBarButtonItem!.rx.tap.asObservable()
-      .map({_ in ClearAction.triggerClear})
+      .map({_ in DataObjectRedux.ClearAction.triggerClear})
       .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)
 
     addBT.rx.tap.asObservable()
-      .map({_ in NumberAction.add})
+      .map({_ in DataObjectRedux.NumberAction.add})
       .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)
 
     minusBT.rx.tap.asObservable()
-      .map({_ in NumberAction.minus})
+      .map({_ in DataObjectRedux.NumberAction.minus})
       .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)
 
     stringTF2.rx.text.asObservable()
       .map({$0.getOrElse("")})
-      .map(StringAction.input)
+      .map(DataObjectRedux.StringAction.input)
       .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)
 
     valueSL.rx.value.asObservable()
       .map({Int($0)})
       .map({Double($0).rounded(.toNearestOrAwayFromZero)})
-      .map(SliderAction.input)
+      .map(DataObjectRedux.SliderAction.input)
       .bind(to: rxStore.actionTrigger())
       .disposed(by: disposeBag)
   }
