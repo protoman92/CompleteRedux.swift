@@ -14,7 +14,7 @@ public final class ReduxPresetTest: XCTestCase {
   public func test_defaultAction_shouldWork() {
     /// Setup
     let initialObject = [String : Int]()
-    var state = SafeNest(initialObject: initialObject)
+    var state = SafeNest.builder().with(initialObject: initialObject).build()
 
     /// When
     state = DefaultRedux.Reducer.reduce(state, DefaultRedux.Action.noop)!

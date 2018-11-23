@@ -38,7 +38,7 @@ public final class RxReduxStoreTest: XCTestCase {
     self.scheduler = TestScheduler(initialClock: 0)
     self.disposeBag = DisposeBag()
     self.actionsPerIter = 5
-    self.initialState = try! SafeNest().updating(at: self.updateId, value: 0)
+    self.initialState = try! SafeNest.builder().build().updating(at: self.updateId, value: 0)
     self.rxStore = RxReduxStore.createInstance(initialState!, self.reduce)
   }
 

@@ -42,7 +42,7 @@ public final class ViewController: UIViewController {
 
   private func setupRxStore() {
     let disposeBag = self.disposeBag
-    let initial = SafeNest()
+    let initial = SafeNest.builder().build()
     rxStore = RxReduxStore.createInstance(initial, DataObjectRedux.reduceMain)
 
     /// Listen to global state.
