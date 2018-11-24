@@ -8,6 +8,10 @@
 
 import SwiftFP
 
+/// Convenience typealias for a concurrent generic dispatch store.
+public typealias ConcurrentGenericDispatchStore<State> =
+  ConcurrentDispatchStore<State, String, State>
+
 /// Wrapper for dispatch store to provide synchronization.
 public final class ConcurrentDispatchStore<State, Registry, CBValue>:
   DispatchReduxStore<State, Registry, CBValue>
@@ -34,7 +38,8 @@ public final class ConcurrentDispatchStore<State, Registry, CBValue>:
     self.store.dispatch(action)
   }
 
-  override public func register(_ info: Registry, _ callback: @escaping ReduxCallback<CBValue>) {
+  override public func register(_ info: Registry,
+                                _ callback: @escaping DispatchCallback<CBValue>) {
     self.mutex.lock()
     defer { self.mutex.unlock() }
     self.store.register(info, callback)

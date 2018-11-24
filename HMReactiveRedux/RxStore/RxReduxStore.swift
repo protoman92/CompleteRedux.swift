@@ -9,6 +9,16 @@
 import RxSwift
 import SwiftFP
 
+/// Classes that implement this protocol should act as a redux-compliant store.
+public protocol RxReduxStoreType: ReduxStoreType {
+  
+  /// Trigger an action.
+  func actionTrigger() -> AnyObserver<Action>
+  
+  /// Subscribe to this stream to receive state notifications.
+  func stateStream() -> Observable<State>
+}
+
 /// A Redux-compliant store. Since this store is used for UI-related work, it
 /// should operation on the main thread.
 public struct RxReduxStore<State> {

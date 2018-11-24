@@ -16,6 +16,11 @@ final class StrongReference<T> {
   }
 }
 
+/// Represents a generic dispatch store with custom state.
+public protocol GenericDispatchStoreType: DispatchReduxStoreType where
+  Registry == String,
+  CBValue == State {}
+
 /// This is a simple dispatch-based Redux store with no rx. It can be used to
 /// build more specialized store implementations. Keep in mind that this store
 /// is not thread-safe, so we can wrap it with ConcurrentDispatchStore for
@@ -29,7 +34,7 @@ public final class GenericDispatchStore<State>: DispatchReduxStore<State, String
   
   private let dispatchQueue: DispatchQueue
   private let reducer: ReduxReducer<State>
-  private var callbacks: [(String, [ReduxCallback<CBValue>])]
+  private var callbacks: [(String, [DispatchCallback<CBValue>])]
   private var state: State
 
   public init(_ initialState: State,
@@ -52,7 +57,8 @@ public final class GenericDispatchStore<State>: DispatchReduxStore<State, String
     }
   }
 
-  override public func register(_ id: String, _ callback: @escaping ReduxCallback<CBValue>) {
+  override public func register(_ id: String,
+                                _ callback: @escaping DispatchCallback<CBValue>) {
     var didAdd = false
 
     for (ix, (key, value)) in self.callbacks.enumerated() {
@@ -66,7 +72,7 @@ public final class GenericDispatchStore<State>: DispatchReduxStore<State, String
     }
 
     if !didAdd {
-      var newValue = [ReduxCallback<CBValue>]()
+      var newValue = [DispatchCallback<CBValue>]()
       newValue.append(callback)
       self.callbacks.append((id, newValue))
     }
@@ -77,9 +83,11 @@ public final class GenericDispatchStore<State>: DispatchReduxStore<State, String
     self.dispatchQueue.async {try? callback(lastState.value)}
   }
 
-  override public func unregister<S>(_ ids: S) -> Int where S: Sequence, S.Element == String {
+  override public func unregister<S>(_ ids: S)
+    -> Int where S: Sequence, S.Element == String
+  {
     var unregistered = 0
-    var newCallbacks = [(String, [ReduxCallback<CBValue>])]()
+    var newCallbacks = [(String, [DispatchCallback<CBValue>])]()
 
     for (key, value) in self.callbacks {
       if !ids.contains(key) {
