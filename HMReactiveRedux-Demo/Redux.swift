@@ -10,6 +10,9 @@ import HMReactiveRedux
 import SafeNest
 
 public final class DataObjectRedux {
+  public typealias Action = ReduxActionType
+  public typealias State = SafeNest
+  
   public final class Path {
     public static var rootPath: String {
       return "main"
@@ -41,69 +44,74 @@ public final class DataObjectRedux {
     }
   }
   
-  public enum NumberAction: ReduxActionType {
+  public enum NumberAction: Action {
     case add
     case minus
   }
   
-  public enum StringAction: ReduxActionType {
+  public enum StringAction: Action {
     case input(String)
   }
   
-  public enum SliderAction: ReduxActionType {
+  public enum SliderAction: Action {
     case input(Double)
+  }
+  
+  public final class Reducer {
+    public static func main(_ state: State, _ action: Action) -> SafeNest {
+      do {
+        switch action {
+        case let action as ClearAction: return try clear(state, action)
+        case let action as NumberAction: return try number(state, action)
+        case let action as StringAction: return try string(state, action)
+        case let action as SliderAction: return try slider(state, action)
+        default: return state
+        }
+      } catch (let e) {
+        fatalError(e.localizedDescription)
+      }
+    }
     
-  }
-  
-  public static func reduceMain(_ state: SafeNest, _ action: ReduxActionType) -> SafeNest {
-    switch action {
-    case let action as ClearAction: return reduceClear(state, action)
-    case let action as NumberAction: return reduceNumber(state, action)
-    case let action as StringAction: return reduceString(state, action)
-    case let action as SliderAction: return reduceSlider(state, action)
-    default: return state
+    static func clear(_ state: State, _ action: ClearAction) throws -> State {
+      switch action {
+      case .triggerClear:
+        return try state
+          .updating(at: Path.numberPath, value: nil)
+          .updating(at: Path.stringPath, value: nil)
+          .updating(at: Path.sliderPath, value: nil)
+          .updating(at: ClearAction.clearPath, value: true)
+        
+      case .resetClear:
+        return try state.updating(at: ClearAction.clearPath, value: nil)
+      }
     }
-  }
-  
-  static func reduceClear(_ state: SafeNest, _ action: ClearAction) -> SafeNest {
-    switch action {
-    case .triggerClear:
-      return try! state
-        .updating(at: Path.numberPath, value: nil)
-        .updating(at: Path.stringPath, value: nil)
-        .updating(at: Path.sliderPath, value: nil)
-        .updating(at: ClearAction.clearPath, value: true)
-      
-    case .resetClear:
-      return try! state.updating(at: ClearAction.clearPath, value: nil)
+    
+    static func number(_ state: State, _ action: NumberAction) throws -> State {
+      switch action {
+      case .add:
+        return try state.mapping(at: Path.numberPath, withMapper: {
+          return $0.cast(Int.self).someOrElse(Optional.some(0)).map({$0 + 1})
+        })
+        
+      case .minus:
+        return try state.mapping(at: Path.numberPath, withMapper: {
+          return $0.cast(Int.self).someOrElse(Optional.some(0)).map({$0 - 1})
+        })
+      }
     }
-  }
-  
-  static func reduceNumber(_ state: SafeNest, _ action: NumberAction) -> SafeNest {
-    switch action {
-    case .add:
-      return try! state.mapping(at: Path.numberPath, withMapper: {
-        return $0.cast(Int.self).someOrElse(Optional.some(0)).map({$0 + 1})
-      })
-      
-    case .minus:
-      return try! state.mapping(at: Path.numberPath, withMapper: {
-        return $0.cast(Int.self).someOrElse(Optional.some(0)).map({$0 - 1})
-      })
+    
+    static func string(_ state: State, _ action: StringAction) throws -> State {
+      switch action {
+      case .input(let string):
+        return try state.updating(at: Path.stringPath, value: string)
+      }
     }
-  }
-  
-  static func reduceString(_ state: SafeNest, _ action: StringAction) -> SafeNest {
-    switch action {
-    case .input(let string):
-      return try! state.updating(at: Path.stringPath, value: string)
-    }
-  }
-  
-  static func reduceSlider(_ state: SafeNest, _ action: SliderAction) -> SafeNest {
-    switch action {
-    case .input(let value):
-      return try! state.updating(at: Path.sliderPath, value: value)
+    
+    static func slider(_ state: State, _ action: SliderAction) throws -> State {
+      switch action {
+      case .input(let value):
+        return try state.updating(at: Path.sliderPath, value: value)
+      }
     }
   }
 }

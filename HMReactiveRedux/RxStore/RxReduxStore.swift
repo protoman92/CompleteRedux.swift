@@ -30,7 +30,7 @@ public struct RxReduxStore<State> {
   ///   - initialState: A State instance.
   ///   - mainReducer: A ReduxReducer instance.
   /// - Returns: A RxReduxStore instance.
-  public static func createInstance(
+  public static func create(
     _ initialState: State,
     _ reducer: @escaping ReduxReducer<State>) -> RxReduxStore<State>
   {
@@ -47,8 +47,7 @@ public struct RxReduxStore<State> {
     self.actionObserver = RxReduxObserver<Action>(DefaultRedux.Action.noop)
     self.stateObserver = BehaviorSubject(value: initialState)
     
-    self.actionObserver.asObservable()
-      .scan(initialState, accumulator: reducer)
+    scanReduce(self.actionObserver.asObservable(), reducer, initialState)
       .subscribe(self.stateObserver)
       .disposed(by: self.disposeBag)
   }

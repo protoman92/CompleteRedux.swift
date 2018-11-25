@@ -39,7 +39,7 @@ public final class RxReduxStoreTest: XCTestCase {
     self.disposeBag = DisposeBag()
     self.actionsPerIter = 5
     self.initialState = try! SafeNest.builder().build().updating(at: self.updateId, value: 0)
-    self.rxStore = RxReduxStore.createInstance(initialState!, self.reduce)
+    self.rxStore = RxReduxStore.create(initialState!, self.reduce)
   }
 
   func reduce(_ state: SafeNest, _ action: ReduxActionType) -> SafeNest {
