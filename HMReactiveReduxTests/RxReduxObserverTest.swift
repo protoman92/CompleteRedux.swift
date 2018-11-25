@@ -1,5 +1,5 @@
 //
-//  ReduxObserverTest.swift
+//  RxReduxObserverTest.swift
 //  HMReactiveReduxTests
 //
 //  Created by Hai Pham on 19/3/18.
@@ -10,7 +10,7 @@ import RxSwift
 import XCTest
 @testable import HMReactiveRedux
 
-public final class ReduxObserverTest: XCTestCase {
+public final class RxReduxObserverTest: XCTestCase {
   public func test_reduxObserver_shouldIgnoreErrorAndCompleteEvents() {
     /// Setup
     let reduxObserver = RxReduxObserver<Int>(0)
@@ -25,4 +25,4 @@ public final class ReduxObserverTest: XCTestCase {
   }
 }
 
-extension ReduxObserverTest: Error {}
+extension RxReduxObserverTest: Error {}

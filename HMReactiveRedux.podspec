@@ -11,14 +11,12 @@ Pod::Spec.new do |s|
   s.source = { :git => "https://github.com/protoman92/HMReactiveRedux-Swift.git", :tag => "#{s.version}"}
   s.dependency 'SwiftFP/Main'
 
-  s.subspec 'Main+Rx' do |mrx|
-    mrx.dependency 'RxSwift', '~> 4.0'
-    mrx.source_files = "HMReactiveRedux/**/*.{swift}"
-    mrx.exclude_files = "HMReactiveRedux/DispatchStore/**/*.{swift}"
+  s.subspec 'Main' do |m|
+    m.source_files = "HMReactiveRedux/*.{*}", "HMReactiveRedux/Preset/*.{*}"
   end
 
-  s.subspec 'Main+Dispatch' do |md|
-    md.source_files = "HMReactiveRedux/**/*.{swift}"
-    md.exclude_files = "HMReactiveRedux/RxStore/**/*.{swift}"
+  s.subspec 'Rx' do |mrx|
+    mrx.dependency 'RxSwift', '~> 4.0'
+    mrx.source_files = "HMReactiveRedux/RxStore/*.{swift}"
   end
 end
