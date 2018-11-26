@@ -13,10 +13,10 @@ import SwiftFP
 public protocol RxReduxStoreType: ReduxStoreType {
   
   /// Trigger an action.
-  func actionTrigger() -> AnyObserver<Action>
+  var actionTrigger: AnyObserver<Action> { get }
   
   /// Subscribe to this stream to receive state notifications.
-  func stateStream() -> Observable<State>
+  var stateStream: Observable<State> { get }
 }
 
 /// A Redux-compliant store. Since this store is used for UI-related work, it
@@ -55,7 +55,17 @@ public struct RxReduxStore<State> {
 
 extension RxReduxStore: ReduxStoreType {
   public func dispatch(_ action: Action) {
-    self.actionTrigger().onNext(action)
+    self.actionTrigger.onNext(action)
+  }
+  
+  public func subscribeState(callback: @escaping (State) -> Void) -> Cancellable {
+    let cancel: Cancellable = {}
+    
+    self.stateObserver
+      .subscribe(onNext: callback)
+      .disposed(by: DisposeBag(disposing: Disposables.create(with: cancel)))
+    
+    return cancel
   }
 }
 
@@ -64,11 +74,11 @@ extension RxReduxStore: RxReduxStoreType {
     return Try({try self.stateObserver.value()})
   }
 
-  public func actionTrigger() -> AnyObserver<Action> {
+  public var actionTrigger: AnyObserver<Action> {
     return self.actionObserver.asObserver()
   }
 
-  public func stateStream() -> Observable<State> {
+  public var stateStream: Observable<State> {
     return self.stateObserver.asObservable()
   }
 }

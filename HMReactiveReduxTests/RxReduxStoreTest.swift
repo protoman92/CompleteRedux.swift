@@ -95,7 +95,7 @@ public extension RxReduxStoreTest {
     /// Setup
     let valueObs = self.scheduler.createObserver(Try<Int>.self)
 
-    self.rxStore.stateStream()
+    self.rxStore.stateStream
       .map({$0.value(at: self.updateId).cast(Int.self)})
       .subscribe(valueObs)
       .disposed(by: self.disposeBag!)

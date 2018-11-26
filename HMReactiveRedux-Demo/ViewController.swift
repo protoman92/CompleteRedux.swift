@@ -46,7 +46,7 @@ public final class ViewController: UIViewController {
     rxStore = RxReduxStore.create(initial, DataObjectRedux.Reducer.main)
 
     /// Listen to global state.
-    rxStore.stateStream()
+    rxStore.stateStream
       .map({$0
         .value(at: DataObjectRedux.Path.numberPath)
         .cast(Int.self)
@@ -56,7 +56,7 @@ public final class ViewController: UIViewController {
       .bind(to: counterTF.rx.text)
       .disposed(by: disposeBag)
 
-    let stringStream = rxStore.stateStream()
+    let stringStream = rxStore.stateStream
       .map({$0
         .value(at: DataObjectRedux.Path.stringPath)
         .cast(String.self)
@@ -68,7 +68,7 @@ public final class ViewController: UIViewController {
     stringStream.bind(to: stringTF1.rx.text).disposed(by: disposeBag)
     stringStream.bind(to: stringTF2.rx.text).disposed(by: disposeBag)
 
-    let sliderStream = rxStore.stateStream()
+    let sliderStream = rxStore.stateStream
       .map({$0
         .value(at: DataObjectRedux.Path.sliderPath)
         .cast(Double.self)
@@ -89,30 +89,30 @@ public final class ViewController: UIViewController {
     /// Dispatch to global state.
     navigationItem.rightBarButtonItem!.rx.tap.asObservable()
       .map({_ in DataObjectRedux.ClearAction.triggerClear})
-      .bind(to: rxStore.actionTrigger())
+      .bind(to: rxStore.actionTrigger)
       .disposed(by: disposeBag)
 
     addBT.rx.tap.asObservable()
       .map({_ in DataObjectRedux.NumberAction.add})
-      .bind(to: rxStore.actionTrigger())
+      .bind(to: rxStore.actionTrigger)
       .disposed(by: disposeBag)
 
     minusBT.rx.tap.asObservable()
       .map({_ in DataObjectRedux.NumberAction.minus})
-      .bind(to: rxStore.actionTrigger())
+      .bind(to: rxStore.actionTrigger)
       .disposed(by: disposeBag)
 
     stringTF2.rx.text.asObservable()
       .map({$0.getOrElse("")})
       .map(DataObjectRedux.StringAction.input)
-      .bind(to: rxStore.actionTrigger())
+      .bind(to: rxStore.actionTrigger)
       .disposed(by: disposeBag)
 
     valueSL.rx.value.asObservable()
       .map({Int($0)})
       .map({Double($0).rounded(.toNearestOrAwayFromZero)})
       .map(DataObjectRedux.SliderAction.input)
-      .bind(to: rxStore.actionTrigger())
+      .bind(to: rxStore.actionTrigger)
       .disposed(by: disposeBag)
   }
 }

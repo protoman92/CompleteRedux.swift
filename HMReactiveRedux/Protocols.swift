@@ -20,9 +20,13 @@ public protocol ReduxActionType {}
 /// state.
 public typealias ReduxReducer<State> = (State, ReduxActionType) -> State
 
+/// Typealias for a dispatch function.
+public typealias ReduxDispatch = (ReduxActionType) -> Void
+
 /// This represents a Redux store that can dispatch events.
 public protocol ReduxStoreType {
   typealias Action = ReduxActionType
+  typealias Cancellable = () -> Void
   associatedtype State
   
   /// Get the last state instance.
@@ -32,6 +36,13 @@ public protocol ReduxStoreType {
   ///
   /// - Parameter action: An Action instance.
   func dispatch(_ action: Action)
+  
+  /// Set up state callback so that every time a new state arrives, call the
+  /// callback function.
+  ///
+  /// - Parameter callback: State callback function.
+  /// - Returns: Cancel function to invalidate the callback
+  func subscribeState(callback: @escaping (State) -> Void) -> Cancellable
 }
 
 public extension ReduxStoreType {
