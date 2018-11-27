@@ -4,7 +4,8 @@ xcode_workspace: HMReactiveRedux.xcworkspace
 xcode_scheme: HMReactiveRedux
 xcode_sdk: iphonesimulator11.2
 before_install:
-  - gem install cocoapods slather xcpretty
+  - gem install cocoapods --pre
+  - gem install slather xcpretty
   - pod repo update
 
 script:
