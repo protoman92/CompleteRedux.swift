@@ -22,7 +22,7 @@ public typealias ReduxReducer<State> = (State, ReduxActionType) -> State
 /// Typealias for a dispatch function.
 public typealias ReduxDispatch = (ReduxActionType) -> Void
 
-/// This represents a Redux store that can dispatch events.
+/// This represents a Redux store that stream state updates.
 public protocol ReduxStoreType {
   typealias Action = ReduxActionType
   typealias Cancellable = () -> Void
@@ -40,12 +40,14 @@ public protocol ReduxStoreType {
   /// callback function.
   ///
   /// - Parameters:
+  ///   - subscriberId: The id of the subscriber.
   ///   - selector: Substate selector.
   ///   - comparer: Substate comparer.
   ///   - callback: State callback function.
   /// - Parameter callback: State callback function.
   /// - Returns: Cancel function to invalidate the callback
-  func subscribeState<SS>(selector: @escaping (State) -> SS,
+  func subscribeState<SS>(subscriberId: String,
+                          selector: @escaping (State) -> SS,
                           comparer: @escaping (SS, SS) -> Bool,
                           callback: @escaping (SS) -> Void) -> Cancellable
 }

@@ -58,7 +58,8 @@ extension RxReduxStore: ReduxStoreType {
     self.actionTrigger.onNext(action)
   }
   
-  public func subscribeState<SS>(selector: @escaping (State) -> SS,
+  public func subscribeState<SS>(subscriberId: String,
+                                 selector: @escaping (State) -> SS,
                                  comparer: @escaping (SS, SS) -> Bool,
                                  callback: @escaping (SS) -> Void)
     -> Cancellable

@@ -27,14 +27,27 @@ public final class ReduxUITests: XCTestCase {
 public extension ReduxUITests {
   public func test_connectViewController_shouldStreamState() {
     /// Setup
+    let iterations = 100
     let vc = ViewController()
     
     /// When
-    self.reduxConnector.connect(viewController: vc)
+    let cancel = self.reduxConnector.connect(viewController: vc)
+    
+    (0..<iterations).forEach({_ in
+      self.store.lastState = Try.success(Store.State())
+    })
+    
+    cancel()
+    
+    (0..<iterations).forEach({_ in
+      self.store.lastState = Try.success(Store.State())
+    })
     
     /// Then
-    XCTAssertEqual(ViewController.mapStateToPropsCount, 0)
+    XCTAssertEqual(ViewController.mapStateToPropsCount, iterations)
     XCTAssertEqual(ViewController.mapDispatchToPropsCount, 1)
+    XCTAssertEqual(vc.setPropCount, iterations)
+    XCTAssertTrue(ViewController.compareState(lhs: Store.State(), rhs: Store.State()))
   }
 }
 
@@ -42,13 +55,24 @@ public extension ReduxUITests {
   public final class Store {
     public struct State {}
     
-    public lazy var lastState: Try<ReduxUITests.Store.State> = Try.failure("")
+    public var lastState: Try<ReduxUITests.Store.State> {
+      didSet {
+        self.subscribers.forEach({(_, value) in _ = self.lastState.map(value)})
+      }
+    }
+    
+    private lazy var subscribers: [String : (State) -> Void] = [:]
+    
+    init() {
+      self.lastState = Try.failure("")
+    }
   }
   
   public final class ViewController: UIViewController {
     public var reduxProps: ReduxProps? {
       didSet {
         self.setPropCount += 1
+        self.reduxProps?.dispatch()
       }
     }
     
@@ -61,10 +85,12 @@ public extension ReduxUITests {
 extension ReduxUITests.Store: ReduxStoreType {
   public func dispatch(_ action: ReduxActionType) {}
   
-  public func subscribeState<SS>(selector: @escaping (State) -> SS,
+  public func subscribeState<SS>(subscriberId: String,
+                                 selector: @escaping (State) -> SS,
                                  comparer: @escaping (SS, SS) -> Bool,
                                  callback: @escaping (SS) -> Void) -> Cancellable {
-    return {}
+    self.subscribers[subscriberId] = {callback(selector($0))}
+    return {self.subscribers.removeValue(forKey: subscriberId)}
   }
 }
 
@@ -73,7 +99,7 @@ extension ReduxUITests.Store.State: Equatable {}
 extension ReduxUITests.ViewController: ReduxConnectableView {
   public typealias State = ReduxUITests.Store.State
   public typealias StateProps = State
-  public typealias DispatchProps = ()
+  public typealias DispatchProps = () -> Void
   
   public static func mapStateToProps(state: State) -> StateProps {
     self.mapStateToPropsCount += 1
@@ -82,6 +108,6 @@ extension ReduxUITests.ViewController: ReduxConnectableView {
   
   public static func mapDispatchToProps(dispatch: @escaping ReduxDispatch) -> DispatchProps {
     self.mapDispatchToPropsCount += 1
-    return ()
+    return {dispatch(DefaultRedux.Action.noop)}
   }
 }

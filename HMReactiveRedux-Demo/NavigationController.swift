@@ -22,7 +22,7 @@ extension NavigationController: UINavigationControllerDelegate {
                             animated: Bool) {
     switch viewController {
     case let vc as ViewController:
-      Dependency.instance.connector.connect(viewController: vc)
+      _ = Dependency.instance.connector.connect(viewController: vc)
       
     default:
       break

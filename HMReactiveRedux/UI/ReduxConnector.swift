@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol ReduxConnectableView {
+public protocol ReduxConnectableView: class {
   associatedtype State
   associatedtype StateProps
   associatedtype DispatchProps
@@ -17,12 +17,19 @@ public protocol ReduxConnectableView {
   static func mapStateToProps(state: State) -> StateProps
   static func mapDispatchToProps(dispatch: @escaping ReduxDispatch) -> DispatchProps
   static func compareState(lhs: StateProps, rhs: StateProps) -> Bool
+  var stateSubscriberId: String { get }
   var reduxProps: ReduxProps? { get set }
 }
 
 public extension ReduxConnectableView where StateProps: Equatable {
   public static func compareState(lhs: StateProps, rhs: StateProps) -> Bool {
     return lhs == rhs
+  }
+}
+
+public extension ReduxConnectableView where Self: UIViewController {
+  public var stateSubscriberId: String {
+    return self.restorationIdentifier ?? String(describing: self)
   }
 }
 
@@ -38,7 +45,8 @@ public struct ReduxConnector<Store: ReduxStoreType> {
   /// Inject state/dispatch props into a compatible view controller.
   ///
   /// - Parameter view: A View instance.
-  public func connect<VC>(viewController vc: VC) where
+  @discardableResult
+  public func connect<VC>(viewController vc: VC) -> Store.Cancellable where
     VC: UIViewController,
     VC: ReduxConnectableView,
     VC.State == Store.State
@@ -46,6 +54,7 @@ public struct ReduxConnector<Store: ReduxStoreType> {
     let dispatchProps = VC.mapDispatchToProps(dispatch: self.store.dispatch)
     
     let cancel = self.store.subscribeState(
+      subscriberId: vc.stateSubscriberId,
       selector: VC.mapStateToProps,
       comparer: VC.compareState,
       callback: {[weak vc] props in vc?.reduxProps = (props, dispatchProps)}
@@ -54,6 +63,7 @@ public struct ReduxConnector<Store: ReduxStoreType> {
     let lifecycleVC = LifecycleViewController()
     lifecycleVC.onDeinit = cancel
     vc.addChild(lifecycleVC)
+    return cancel
   }
 }
 

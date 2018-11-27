@@ -111,6 +111,7 @@ public extension RxReduxStoreTest {
     var callbackCount = 0
     
     let cancel = self.rxStore.subscribeState(
+      subscriberId: "",
       selector: {$0
         .decode(at: "", ofType: Substate.self)
         .getOrElse(Substate(a: nil, b: nil))},
