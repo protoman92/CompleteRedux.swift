@@ -9,16 +9,16 @@ end
 target 'HMReactiveRedux' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  
   allPods
 
   # Pods for HMReactiveRedux
+  target 'HMReactiveReduxUI' do
+    inherit! :search_paths
+  end
 
   target 'HMReactiveReduxTests' do
     inherit! :search_paths
     # Pods for testing
-    allPods
-
     pod 'RxTest'
     pod 'SafeNest/Main', git: 'https://github.com/protoman92/SafeNest.git'
   end
@@ -26,7 +26,6 @@ target 'HMReactiveRedux' do
   target 'HMReactiveRedux-Demo' do
     inherit! :search_paths
     # Pods for demo
-    allPods
     pod 'RxCocoa'
     pod 'SafeNest/Main', git: 'https://github.com/protoman92/SafeNest.git'
   end
