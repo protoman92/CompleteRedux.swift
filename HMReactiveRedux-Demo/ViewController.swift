@@ -87,21 +87,4 @@ extension ViewController {
 
 extension ViewController.StateProps: Equatable {}
 extension ViewController.StateProps: Decodable {}
-
-extension ViewController: ReduxConnectableView {
-  static func mapStateToProps(state: SafeNest) -> StateProps {
-    return state
-      .decode(at: Redux.Path.rootPath, ofType: StateProps.self)
-      .getOrElse(StateProps(number: nil, slider: nil, string: nil))
-  }
-  
-  static func mapDispatchToProps(dispatch: @escaping ReduxDispatch) -> DispatchProps {
-    return DispatchProps(
-      clearAll: {dispatch(Redux.ClearAction.triggerClear)},
-      incrementNumber: {dispatch(Redux.NumberAction.add)},
-      decrementNumber: {dispatch(Redux.NumberAction.minus)},
-      updateSlider: {dispatch(Redux.SliderAction.input($0))},
-      updateString: {dispatch(Redux.StringAction.input($0))}
-    )
-  }
-}
+extension ViewController: ReduxConnectableView {}

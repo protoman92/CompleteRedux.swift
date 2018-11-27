@@ -17,8 +17,8 @@ public final class ReduxUITests: XCTestCase {
   
   override public func setUp() {
     super.setUp()
-    ViewController.mapStateToPropsCount = 0
-    ViewController.mapDispatchToPropsCount = 0
+    ConnectMapper.mapStateToPropsCount = 0
+    ConnectMapper.mapDispatchToPropsCount = 0
     self.store = ReduxUITests.Store()
     self.reduxConnector = ReduxConnector(store: store)
   }
@@ -31,7 +31,8 @@ public extension ReduxUITests {
     let vc = ViewController()
     
     /// When
-    let cancel = self.reduxConnector.connect(viewController: vc)
+    let cancel = self.reduxConnector.connect(viewController: vc,
+                                             mapper: ConnectMapper.self)
     
     (0..<iterations).forEach({_ in
       self.store.lastState = Try.success(Store.State())
@@ -44,10 +45,10 @@ public extension ReduxUITests {
     })
     
     /// Then
-    XCTAssertEqual(ViewController.mapStateToPropsCount, iterations)
-    XCTAssertEqual(ViewController.mapDispatchToPropsCount, 1)
+    XCTAssertEqual(ConnectMapper.mapStateToPropsCount, iterations)
+    XCTAssertEqual(ConnectMapper.mapDispatchToPropsCount, 1)
     XCTAssertEqual(vc.setPropCount, iterations)
-    XCTAssertTrue(ViewController.compareState(lhs: Store.State(), rhs: Store.State()))
+    XCTAssertTrue(ConnectMapper.compareState(lhs: Store.State(), rhs: Store.State()))
   }
 }
 
@@ -76,9 +77,12 @@ public extension ReduxUITests {
       }
     }
     
+    public var setPropCount = 0
+  }
+  
+  public final class ConnectMapper {
     public static var mapStateToPropsCount = 0
     public static var mapDispatchToPropsCount = 0
-    public var setPropCount = 0
   }
 }
 
@@ -94,20 +98,24 @@ extension ReduxUITests.Store: ReduxStoreType {
   }
 }
 
-extension ReduxUITests.Store.State: Equatable {}
-
 extension ReduxUITests.ViewController: ReduxConnectableView {
-  public typealias State = ReduxUITests.Store.State
-  public typealias StateProps = State
+  public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
+}
+
+extension ReduxUITests.ConnectMapper: ReduxConnectorMapper {
+  public typealias State = ReduxUITests.Store.State
+  public typealias View = ReduxUITests.ViewController
   
-  public static func mapStateToProps(state: State) -> StateProps {
+  public static func map(state: State) -> View.StateProps {
     self.mapStateToPropsCount += 1
     return state
   }
   
-  public static func mapDispatchToProps(dispatch: @escaping ReduxDispatch) -> DispatchProps {
+  public static func map(dispatch: @escaping ReduxDispatch) -> View.DispatchProps {
     self.mapDispatchToPropsCount += 1
     return {dispatch(DefaultRedux.Action.noop)}
   }
 }
+
+extension ReduxUITests.Store.State: Equatable {}

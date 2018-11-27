@@ -22,7 +22,8 @@ extension NavigationController: UINavigationControllerDelegate {
                             animated: Bool) {
     switch viewController {
     case let vc as ViewController:
-      _ = Dependency.instance.connector.connect(viewController: vc)
+      _ = Dependency.instance.connector
+        .connect(viewController: vc, mapper: ReduxMapper._ViewController_.self)
       
     default:
       break

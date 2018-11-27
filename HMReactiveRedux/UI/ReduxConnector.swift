@@ -8,28 +8,37 @@
 
 import UIKit
 
+/// A view that conforms to this protocol can receive state/dispatch props
+/// and subscribe to state changes.
 public protocol ReduxConnectableView: class {
-  associatedtype State
   associatedtype StateProps
   associatedtype DispatchProps
   typealias ReduxProps = (state: StateProps, dispatch: DispatchProps)
-  
-  static func mapStateToProps(state: State) -> StateProps
-  static func mapDispatchToProps(dispatch: @escaping ReduxDispatch) -> DispatchProps
-  static func compareState(lhs: StateProps, rhs: StateProps) -> Bool
+
   var stateSubscriberId: String { get }
   var reduxProps: ReduxProps? { get set }
-}
-
-public extension ReduxConnectableView where StateProps: Equatable {
-  public static func compareState(lhs: StateProps, rhs: StateProps) -> Bool {
-    return lhs == rhs
-  }
 }
 
 public extension ReduxConnectableView where Self: UIViewController {
   public var stateSubscriberId: String {
     return self.restorationIdentifier ?? String(describing: self)
+  }
+}
+
+/// Connector mapper that maps state/dispatch to redux props.
+public protocol ReduxConnectorMapper {
+  associatedtype State
+  associatedtype View: ReduxConnectableView
+  
+  static func map(state: State) -> View.StateProps
+  static func map(dispatch: @escaping ReduxDispatch) -> View.DispatchProps
+  static func compareState(lhs: View.StateProps, rhs: View.StateProps) -> Bool
+}
+
+public extension ReduxConnectorMapper where View.StateProps: Equatable {
+  public static func compareState(lhs: View.StateProps,
+                                  rhs: View.StateProps) -> Bool {
+    return lhs == rhs
   }
 }
 
@@ -46,17 +55,19 @@ public struct ReduxConnector<Store: ReduxStoreType> {
   ///
   /// - Parameter view: A View instance.
   @discardableResult
-  public func connect<VC>(viewController vc: VC) -> Store.Cancellable where
+  public func connect<VC, Mapper>(viewController vc: VC, mapper: Mapper.Type)
+    -> Store.Cancellable where
     VC: UIViewController,
-    VC: ReduxConnectableView,
-    VC.State == Store.State
+    Mapper: ReduxConnectorMapper,
+    Mapper.State == Store.State,
+    Mapper.View == VC
   {
-    let dispatchProps = VC.mapDispatchToProps(dispatch: self.store.dispatch)
+    let dispatchProps = Mapper.map(dispatch: self.store.dispatch)
     
     let cancel = self.store.subscribeState(
       subscriberId: vc.stateSubscriberId,
-      selector: VC.mapStateToProps,
-      comparer: VC.compareState,
+      selector: Mapper.map,
+      comparer: Mapper.compareState,
       callback: {[weak vc] props in vc?.reduxProps = (props, dispatchProps)}
     )
     

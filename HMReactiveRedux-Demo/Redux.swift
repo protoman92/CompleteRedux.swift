@@ -9,56 +9,56 @@
 import HMReactiveRedux
 import SafeNest
 
-public final class Redux {
-  public typealias Action = ReduxActionType
-  public typealias State = SafeNest
+final class Redux {
+  typealias Action = ReduxActionType
+  typealias State = SafeNest
   
-  public final class Path {
-    public static var rootPath: String {
+  final class Path {
+    static var rootPath: String {
       return "main"
     }
     
-    public static var numberPath: String {
+    static var numberPath: String {
       return "\(Path.rootPath).number"
     }
     
-    public static var stringPath: String {
+    static var stringPath: String {
       return "\(Path.rootPath).string"
     }
     
-    public static var sliderPath: String {
+    static var sliderPath: String {
       return "\(Path.rootPath).slider"
     }
   }
   
-  public enum ClearAction: ReduxActionType {
+  enum ClearAction: ReduxActionType {
     case triggerClear
     case resetClear
     
-    public static var path: String {
+    static var path: String {
       return "clear"
     }
     
-    public static var clearPath: String {
+    static var clearPath: String {
       return "\(path).value"
     }
   }
   
-  public enum NumberAction: Action {
+  enum NumberAction: Action {
     case add
     case minus
   }
   
-  public enum StringAction: Action {
+  enum StringAction: Action {
     case input(String?)
   }
   
-  public enum SliderAction: Action {
+  enum SliderAction: Action {
     case input(Double)
   }
   
-  public final class Reducer {
-    public static func main(_ state: State, _ action: Action) -> SafeNest {
+  final class Reducer {
+    static func main(_ state: State, _ action: Action) -> SafeNest {
       do {
         switch action {
         case let action as ClearAction: return try clear(state, action)
@@ -112,6 +112,29 @@ public final class Redux {
       case .input(let value):
         return try state.updating(at: Path.sliderPath, value: value)
       }
+    }
+  }
+}
+
+final class ReduxMapper {
+  final class _ViewController_: ReduxConnectorMapper {
+    typealias State = SafeNest
+    typealias View = ViewController
+    
+    static func map(state: SafeNest) -> View.StateProps {
+      return state
+        .decode(at: Redux.Path.rootPath, ofType: View.StateProps.self)
+        .getOrElse(View.StateProps(number: nil, slider: nil, string: nil))
+    }
+    
+    static func map(dispatch: @escaping ReduxDispatch) -> View.DispatchProps {
+      return View.DispatchProps(
+        clearAll: {dispatch(Redux.ClearAction.triggerClear)},
+        incrementNumber: {dispatch(Redux.NumberAction.add)},
+        decrementNumber: {dispatch(Redux.NumberAction.minus)},
+        updateSlider: {dispatch(Redux.SliderAction.input($0))},
+        updateString: {dispatch(Redux.StringAction.input($0))}
+      )
     }
   }
 }
