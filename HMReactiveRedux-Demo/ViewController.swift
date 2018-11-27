@@ -7,7 +7,6 @@
 //
 
 import HMReactiveRedux
-import HMReactiveReduxUI
 import SafeNest
 
 final class ViewController: UIViewController {

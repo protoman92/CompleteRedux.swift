@@ -6,7 +6,7 @@
 //  Copyright © 2018 Holmusk. All rights reserved.
 //
 
-import HMReactiveReduxUI
+import HMReactiveRedux
 import UIKit
 
 final class NavigationController: UINavigationController {
@@ -22,7 +22,7 @@ extension NavigationController: UINavigationControllerDelegate {
                             animated: Bool) {
     switch viewController {
     case let vc as ViewController:
-      Dependency.instance.connector.connect(view: vc)
+      Dependency.instance.connector.connect(viewController: vc)
       
     default:
       break

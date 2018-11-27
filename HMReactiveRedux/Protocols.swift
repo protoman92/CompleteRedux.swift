@@ -6,7 +6,6 @@
 //  Copyright © 2018 Holmusk. All rights reserved.
 //
 
-import RxSwift
 import SwiftFP
 
 /// Classes that implement this protocol should represent possible actions that
