@@ -89,4 +89,8 @@ extension RxReduxStore: RxReduxStoreType {
   public var stateStream: Observable<State> {
     return self.stateObserver.asObservable()
   }
+  
+  var stateTrigger: AnyObserver<State> {
+    return self.stateObserver.asObserver()
+  }
 }

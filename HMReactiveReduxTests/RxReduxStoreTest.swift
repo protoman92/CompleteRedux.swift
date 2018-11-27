@@ -13,14 +13,6 @@ import SwiftFP
 import XCTest
 @testable import HMReactiveRedux
 
-extension DispatchQoS.QoSClass: CaseIterable {
-  public static var allCases: [DispatchQoS.QoSClass] {
-    return [.background, .userInteractive, .userInitiated, .utility]
-  }
-  
-  public typealias AllCases = [DispatchQoS.QoSClass]
-}
-
 public final class RxReduxStoreTest: XCTestCase {
   private var disposeBag: DisposeBag!
   private var scheduler: TestScheduler!
@@ -34,7 +26,6 @@ public final class RxReduxStoreTest: XCTestCase {
 
   override public func setUp() {
     super.setUp()
-    continueAfterFailure = true
     self.scheduler = TestScheduler(initialClock: 0)
     self.disposeBag = DisposeBag()
     self.actionsPerIter = 5
@@ -105,5 +96,34 @@ public extension RxReduxStoreTest {
                                 {self.rxStore!.dispatch($0)},
                                 {self.rxStore.lastState.value!},
                                 {valueObs.events.map({$0.value.element!}).last!})
+  }
+}
+
+public extension RxReduxStoreTest {
+  public struct Substate: Decodable, Equatable {
+    public let a: Int?
+    public let b: Int?
+  }
+  
+  public func test_subscribeStore_shouldStreamAndStop() {
+    /// Setup
+    let iterations = 100
+    var callbackCount = 0
+    
+    let cancel = self.rxStore.subscribeState(
+      selector: {$0
+        .decode(at: "", ofType: Substate.self)
+        .getOrElse(Substate(a: nil, b: nil))},
+      comparer: {(_, _) in false},
+      callback: {_ in callbackCount += 1}
+    )
+    
+    /// When
+    (0..<iterations).forEach({_ in self.rxStore.stateTrigger.onNext(.empty())})
+    cancel()
+    (0..<iterations).forEach({_ in self.rxStore.stateTrigger.onNext(.empty())})
+    
+    /// Then
+    XCTAssertEqual(callbackCount, iterations + 1)
   }
 }
