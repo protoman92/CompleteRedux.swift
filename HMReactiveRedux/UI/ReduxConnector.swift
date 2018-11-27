@@ -25,19 +25,26 @@ public extension ReduxConnectableView where Self: UIViewController {
   }
 }
 
+public extension ReduxConnectableView where Self: UIView {
+  public var stateSubscriberId: String {
+    return self.accessibilityIdentifier ?? String(describing: self)
+  }
+}
+
 /// Connector mapper that maps state/dispatch to redux props.
 public protocol ReduxConnectorMapper {
   associatedtype State
-  associatedtype View: ReduxConnectableView
+  associatedtype StateProps
+  associatedtype DispatchProps
   
-  static func map(state: State) -> View.StateProps
-  static func map(dispatch: @escaping ReduxDispatch) -> View.DispatchProps
-  static func compareState(lhs: View.StateProps, rhs: View.StateProps) -> Bool
+  static func map(state: State) -> StateProps
+  static func map(dispatch: @escaping ReduxDispatch) -> DispatchProps
+  static func compareState(lhs: StateProps, rhs: StateProps) -> Bool
 }
 
-public extension ReduxConnectorMapper where View.StateProps: Equatable {
-  public static func compareState(lhs: View.StateProps,
-                                  rhs: View.StateProps) -> Bool {
+public extension ReduxConnectorMapper where StateProps: Equatable {
+  public static func compareState(lhs: StateProps,
+                                  rhs: StateProps) -> Bool {
     return lhs == rhs
   }
 }
@@ -58,28 +65,60 @@ public struct ReduxConnector<Store: ReduxStoreType> {
   public func connect<VC, Mapper>(viewController vc: VC, mapper: Mapper.Type)
     -> Store.Cancellable where
     VC: UIViewController,
+    VC: ReduxConnectableView,
     Mapper: ReduxConnectorMapper,
     Mapper.State == Store.State,
-    Mapper.View == VC
+    Mapper.StateProps == VC.StateProps,
+    Mapper.DispatchProps == VC.DispatchProps
   {
     let dispatchProps = Mapper.map(dispatch: self.store.dispatch)
     
     let cancel = self.store.subscribeState(
       subscriberId: vc.stateSubscriberId,
       selector: Mapper.map,
-      comparer: Mapper.compareState,
-      callback: {[weak vc] props in vc?.reduxProps = (props, dispatchProps)}
-    )
+      comparer: Mapper.compareState
+    ) { [weak vc] props in vc?.reduxProps = (props, dispatchProps) }
     
     let lifecycleVC = LifecycleViewController()
     lifecycleVC.onDeinit = cancel
     vc.addChild(lifecycleVC)
     return cancel
   }
+  
+  /// Inject state/dispatch props into a compatible view.
+  ///
+  /// - Parameter view: A View instance.
+  public func connect<V, Mapper>(view: V, mapper: Mapper.Type)
+    -> Store.Cancellable where
+    V: UIView,
+    V: ReduxConnectableView,
+    Mapper: ReduxConnectorMapper,
+    Mapper.State == Store.State,
+    Mapper.StateProps == V.StateProps,
+    Mapper.DispatchProps == V.DispatchProps
+  {
+    let dispatchProps = Mapper.map(dispatch: self.store.dispatch)
+    
+    let cancel = self.store.subscribeState(
+      subscriberId: view.stateSubscriberId,
+      selector: Mapper.map,
+      comparer: Mapper.compareState
+    ) { [weak view] props in view?.reduxProps = (props, dispatchProps) }
+    
+    let lifecycleView = LifecycleView()
+    lifecycleView.onDeinit = cancel
+    view.addSubview(lifecycleView)
+    return cancel
+  }
 }
 
 extension ReduxConnector {
   final class LifecycleViewController: UIViewController {
+    deinit { self.onDeinit?() }
+    var onDeinit: (() -> Void)?
+  }
+  
+  final class LifecycleView: UIView {
     deinit { self.onDeinit?() }
     var onDeinit: (() -> Void)?
   }

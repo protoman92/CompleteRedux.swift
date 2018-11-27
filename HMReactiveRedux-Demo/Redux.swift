@@ -119,16 +119,17 @@ final class Redux {
 final class ReduxMapper {
   final class _ViewController_: ReduxConnectorMapper {
     typealias State = SafeNest
-    typealias View = ViewController
+    typealias StateProps = ViewController.StateProps
+    typealias DispatchProps = ViewController.DispatchProps
     
-    static func map(state: SafeNest) -> View.StateProps {
+    static func map(state: SafeNest) -> StateProps {
       return state
-        .decode(at: Redux.Path.rootPath, ofType: View.StateProps.self)
-        .getOrElse(View.StateProps(number: nil, slider: nil, string: nil))
+        .decode(at: Redux.Path.rootPath, ofType: StateProps.self)
+        .getOrElse(StateProps(number: nil, slider: nil, string: nil))
     }
     
-    static func map(dispatch: @escaping ReduxDispatch) -> View.DispatchProps {
-      return View.DispatchProps(
+    static func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
+      return DispatchProps(
         clearAll: {dispatch(Redux.ClearAction.triggerClear)},
         incrementNumber: {dispatch(Redux.NumberAction.add)},
         decrementNumber: {dispatch(Redux.NumberAction.minus)},
