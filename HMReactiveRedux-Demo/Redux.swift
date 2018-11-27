@@ -9,7 +9,7 @@
 import HMReactiveRedux
 import SafeNest
 
-public final class DataObjectRedux {
+public final class Redux {
   public typealias Action = ReduxActionType
   public typealias State = SafeNest
   
@@ -50,7 +50,7 @@ public final class DataObjectRedux {
   }
   
   public enum StringAction: Action {
-    case input(String)
+    case input(String?)
   }
   
   public enum SliderAction: Action {
@@ -90,12 +90,12 @@ public final class DataObjectRedux {
       switch action {
       case .add:
         return try state.mapping(at: Path.numberPath, withMapper: {
-          return $0.cast(Int.self).someOrElse(Optional.some(0)).map({$0 + 1})
+          return $0.cast(Int.self).getOrElse(0) + 1
         })
         
       case .minus:
         return try state.mapping(at: Path.numberPath, withMapper: {
-          return $0.cast(Int.self).someOrElse(Optional.some(0)).map({$0 - 1})
+          return $0.cast(Int.self).getOrElse(0) - 1
         })
       }
     }
@@ -115,4 +115,3 @@ public final class DataObjectRedux {
     }
   }
 }
-
