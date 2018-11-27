@@ -40,9 +40,16 @@ public protocol ReduxStoreType {
   /// Set up state callback so that every time a new state arrives, call the
   /// callback function.
   ///
+  /// - Parameters:
+  ///   - selector: Substate selector.
+  ///   - comparer: Substate comparer.
+  ///   - callback: State callback function.
   /// - Parameter callback: State callback function.
   /// - Returns: Cancel function to invalidate the callback
-  func subscribeState(callback: @escaping (State) -> Void) -> Cancellable
+  func subscribeState<SS>(selector: @escaping (State) -> SS,
+                          comparer: @escaping (SS, SS) -> Bool,
+                          callback: @escaping (SS) -> Void)
+    -> Cancellable where SS: Equatable
 }
 
 public extension ReduxStoreType {

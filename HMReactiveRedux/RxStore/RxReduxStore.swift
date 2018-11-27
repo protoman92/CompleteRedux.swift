@@ -58,12 +58,20 @@ extension RxReduxStore: ReduxStoreType {
     self.actionTrigger.onNext(action)
   }
   
-  public func subscribeState(callback: @escaping (State) -> Void) -> Cancellable {
-    let cancel: Cancellable = {}
+  public func subscribeState<SS>(selector: @escaping (State) -> SS,
+                                 comparer: @escaping (SS, SS) -> Bool,
+                                 callback: @escaping (SS) -> Void)
+    -> Cancellable
+  {
+    let cancelSignal = PublishSubject<Any?>()
+    let cancel: Cancellable = {cancelSignal.onNext(nil)}
     
     self.stateObserver
+      .map(selector)
+      .distinctUntilChanged(comparer)
+      .takeUntil(cancelSignal)
       .subscribe(onNext: callback)
-      .disposed(by: DisposeBag(disposing: Disposables.create(with: cancel)))
+      .disposed(by: self.disposeBag)
     
     return cancel
   }
