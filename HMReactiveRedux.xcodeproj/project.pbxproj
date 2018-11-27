@@ -143,7 +143,6 @@
 				39C85CCA5378BB60CD16B82A /* Pods-HMReactiveReduxTests.debug.xcconfig */,
 				824EA602DB1A606EB5C487E7 /* Pods-HMReactiveReduxTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

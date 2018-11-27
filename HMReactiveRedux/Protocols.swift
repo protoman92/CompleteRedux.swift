@@ -47,8 +47,7 @@ public protocol ReduxStoreType {
   /// - Returns: Cancel function to invalidate the callback
   func subscribeState<SS>(selector: @escaping (State) -> SS,
                           comparer: @escaping (SS, SS) -> Bool,
-                          callback: @escaping (SS) -> Void)
-    -> Cancellable where SS: Equatable
+                          callback: @escaping (SS) -> Void) -> Cancellable
 }
 
 public extension ReduxStoreType {

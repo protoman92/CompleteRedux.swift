@@ -28,9 +28,9 @@ final class ViewController: UIViewController {
 
   override public func viewDidLoad() {
     super.viewDidLoad()
-    counterTF.isEnabled = false
-    stringTF1.isEnabled = false
-    slideTF.isEnabled = false
+    self.counterTF.isEnabled = false
+    self.stringTF1.isEnabled = false
+    self.slideTF.isEnabled = false
 
     navigationItem.rightBarButtonItem =
       UIBarButtonItem(title: "Clear state",
@@ -40,22 +40,12 @@ final class ViewController: UIViewController {
   }
   
   private func didSetReduxProps(_ props: ReduxProps) {
-    guard
-      let counterTF = self.counterTF,
-      let slideTF = self.slideTF,
-      let stringTF1 = self.stringTF1,
-      let stringTF2 = self.stringTF2,
-      let valueSL = self.valueSL
-      else {
-        fatalError()
-    }
-    
     let (stateProps, _) = props
-    counterTF.text = stateProps.number.map(String.init)
-    slideTF.text = stateProps.slider.map(String.init)
-    stringTF1.text = stateProps.string
-    stringTF2.text = stateProps.string
-    valueSL.value = stateProps.slider ?? valueSL.value
+    self.counterTF.text = stateProps.number.map(String.init)
+    self.slideTF.text = stateProps.slider.map(String.init)
+    self.stringTF1.text = stateProps.string
+    self.stringTF2.text = stateProps.string
+    self.valueSL.value = stateProps.slider ?? valueSL.value
   }
   
   @objc func clearAll(_ sender: UIBarButtonItem) {

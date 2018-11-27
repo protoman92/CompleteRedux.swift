@@ -10,13 +10,20 @@ import UIKit
 
 public protocol ReduxConnectableView {
   associatedtype State
-  associatedtype StateProps: Equatable
+  associatedtype StateProps
   associatedtype DispatchProps
   typealias ReduxProps = (state: StateProps, dispatch: DispatchProps)
   
   static func mapStateToProps(state: State) -> StateProps
   static func mapDispatchToProps(dispatch: @escaping ReduxDispatch) -> DispatchProps
+  static func compareState(lhs: StateProps, rhs: StateProps) -> Bool
   var reduxProps: ReduxProps? { get set }
+}
+
+public extension ReduxConnectableView where StateProps: Equatable {
+  public static func compareState(lhs: StateProps, rhs: StateProps) -> Bool {
+    return lhs == rhs
+  }
 }
 
 /// Connect views with state/dispatch props, similar to how React.js performs
@@ -40,7 +47,7 @@ public struct ReduxConnector<Store: ReduxStoreType> {
     
     let cancel = self.store.subscribeState(
       selector: VC.mapStateToProps,
-      comparer: ==,
+      comparer: VC.compareState,
       callback: {[weak vc] props in vc?.reduxProps = (props, dispatchProps)}
     )
     
