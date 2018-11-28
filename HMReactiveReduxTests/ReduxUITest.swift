@@ -30,7 +30,7 @@ public extension ReduxUITests {
   public func test_connectReduxView_shouldStreamState<View>(
     _ view: View,
     _ connect: (View) -> Store.Cancellable) where
-    View: ReduxConnectableViewType,
+    View: ReduxCompatibleViewType,
     View.StateProps == Store.State,
     View.DispatchProps == () -> Void
   {
@@ -142,7 +142,7 @@ public extension ReduxUITests {
 }
 
 extension ReduxUITests {
-  public final class ConnectMapper: ReduxConnectorMapperType {
+  public final class ConnectMapper: ReduxPropMapperType {
     public typealias State = ReduxUITests.Store.State
     public typealias StateProps = State
     public typealias DispatchProps = () -> Void
@@ -182,12 +182,12 @@ extension ReduxUITests {
   }
 }
 
-extension ReduxUITests.ViewController: ReduxConnectableViewType {
+extension ReduxUITests.ViewController: ReduxCompatibleViewType {
   public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
 }
 
-extension ReduxUITests.View: ReduxConnectableViewType {
+extension ReduxUITests.View: ReduxCompatibleViewType {
   public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
 }

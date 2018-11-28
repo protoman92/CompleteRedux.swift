@@ -21,8 +21,8 @@ public protocol ReduxConnectorType {
   func connect<VC, Mapper>(controller vc: VC, mapper: Mapper.Type)
     -> Store.Cancellable where
     VC: UIViewController,
-    VC: ReduxConnectableViewType,
-    Mapper: ReduxConnectorMapperType,
+    VC: ReduxCompatibleViewType,
+    Mapper: ReduxPropMapperType,
     Mapper.State == Store.State,
     Mapper.StateProps == VC.StateProps,
     Mapper.DispatchProps == VC.DispatchProps
@@ -35,8 +35,8 @@ public protocol ReduxConnectorType {
   func connect<V, Mapper>(view: V, mapper: Mapper.Type)
     -> Store.Cancellable where
     V: UIView,
-    V: ReduxConnectableViewType,
-    Mapper: ReduxConnectorMapperType,
+    V: ReduxCompatibleViewType,
+    Mapper: ReduxPropMapperType,
     Mapper.State == Store.State,
     Mapper.StateProps == V.StateProps,
     Mapper.DispatchProps == V.DispatchProps
@@ -53,8 +53,8 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
   public func connect<VC, Mapper>(controller vc: VC, mapper: Mapper.Type)
     -> Store.Cancellable where
     VC: UIViewController,
-    VC: ReduxConnectableViewType,
-    Mapper: ReduxConnectorMapperType,
+    VC: ReduxCompatibleViewType,
+    Mapper: ReduxPropMapperType,
     Mapper.State == Store.State,
     Mapper.StateProps == VC.StateProps,
     Mapper.DispatchProps == VC.DispatchProps
@@ -76,8 +76,8 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
   public func connect<V, Mapper>(view: V, mapper: Mapper.Type)
     -> Store.Cancellable where
     V: UIView,
-    V: ReduxConnectableViewType,
-    Mapper: ReduxConnectorMapperType,
+    V: ReduxCompatibleViewType,
+    Mapper: ReduxPropMapperType,
     Mapper.State == Store.State,
     Mapper.StateProps == V.StateProps,
     Mapper.DispatchProps == V.DispatchProps

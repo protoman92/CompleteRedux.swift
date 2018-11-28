@@ -117,7 +117,7 @@ final class Redux {
 }
 
 final class ReduxMapper {
-  final class _ViewController_: ReduxConnectorMapperType {
+  final class _ViewController_: ReduxPropMapperType {
     typealias State = SafeNest
     typealias StateProps = ViewController.StateProps
     typealias DispatchProps = ViewController.DispatchProps

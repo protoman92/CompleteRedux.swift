@@ -1,5 +1,5 @@
 //
-//  ReduxConnectableView.swift
+//  ReduxCompatibleView.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 11/28/18.
@@ -10,7 +10,7 @@ import UIKit
 
 /// A view that conforms to this protocol can receive state/dispatch props
 /// and subscribe to state changes.
-public protocol ReduxConnectableViewType: class {
+public protocol ReduxCompatibleViewType: class {
   associatedtype StateProps
   associatedtype DispatchProps
   typealias ReduxProps = (state: StateProps, dispatch: DispatchProps)
@@ -19,13 +19,13 @@ public protocol ReduxConnectableViewType: class {
   var reduxProps: ReduxProps? { get set }
 }
 
-public extension ReduxConnectableViewType where Self: UIViewController {
+public extension ReduxCompatibleViewType where Self: UIViewController {
   public var stateSubscriberId: String {
     return self.restorationIdentifier ?? String(describing: self)
   }
 }
 
-public extension ReduxConnectableViewType where Self: UIView {
+public extension ReduxCompatibleViewType where Self: UIView {
   public var stateSubscriberId: String {
     return self.accessibilityIdentifier ?? String(describing: self)
   }
