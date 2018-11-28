@@ -42,11 +42,11 @@ final class ViewController: UIViewController {
   }
   
   private func didSetReduxProps(_ props: VariableProps) {
-    self.counterTF.text = props.state?.number.map(String.init)
-    self.slideTF.text = props.state?.slider.map(String.init)
-    self.stringTF1.text = props.state?.string
-    self.stringTF2.text = props.state?.string
-    self.valueSL.value = props.state?.slider ?? valueSL.value
+    self.counterTF.text = props.nextState?.number.map(String.init)
+    self.slideTF.text = props.nextState?.slider.map(String.init)
+    self.stringTF1.text = props.nextState?.string
+    self.stringTF2.text = props.nextState?.string
+    self.valueSL.value = props.nextState?.slider ?? valueSL.value
   }
   
   @objc func clearAll(_ sender: UIBarButtonItem) {

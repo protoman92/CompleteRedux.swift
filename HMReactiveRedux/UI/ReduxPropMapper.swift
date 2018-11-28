@@ -18,8 +18,7 @@ public protocol ReduxPropMapperType {
 }
 
 public extension ReduxPropMapperType where StateProps: Equatable {
-  public static func compareState(lhs: StateProps?,
-                                  rhs: StateProps?) -> Bool {
+  public static func compareState(lhs: StateProps?, rhs: StateProps?) -> Bool {
     return lhs == rhs
   }
 }

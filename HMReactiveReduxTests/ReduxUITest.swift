@@ -27,7 +27,8 @@ public final class ReduxUITests: XCTestCase {
 public extension ReduxUITests {
   public func test_connectReduxView_shouldStreamState<View>(
     _ view: View,
-    _ connect: (View) -> ReduxUnsubscribe) where
+    _ connect: (View) -> ReduxUnsubscribe,
+    _ checkOthers: @escaping (View) -> Void) where
     View: ReduxCompatibleViewType,
     View.StateProps == Store.State,
     View.DispatchProps == () -> Void
@@ -49,43 +50,51 @@ public extension ReduxUITests {
     })
     
     /// Then
-    XCTAssertTrue(view.staticProps?.connector is ReduxConnector<Store>)
-    XCTAssertEqual(self.store.cancelCount, 1)
-    XCTAssertEqual(self.mapper.mapStateCount, iterations)
-    XCTAssertEqual(self.mapper.mapDispatchCount, 1)
-    XCTAssertTrue(ConnectMapper.compareState(lhs: Store.State(), rhs: Store.State()))
+    DispatchQueue.main.async {
+      XCTAssertTrue(view.staticProps?.connector is ReduxConnector<Store>)
+      XCTAssertEqual(self.store.cancelCount, 1)
+      XCTAssertEqual(self.mapper.mapStateCount, iterations)
+      XCTAssertEqual(self.mapper.mapDispatchCount, 1)
+      XCTAssertFalse(ConnectMapper.compareState(lhs: Store.State(), rhs: Store.State()))
+      checkOthers(view)
+    }
   }
   
   public func test_connectViewController_shouldStreamState() {
     /// Setup
     let vc = ViewController()
     
-    /// When
-    test_connectReduxView_shouldStreamState(vc) {
-      self.connector.connect(controller: $0, mapper: self.mapper)
-    }
-    
-    /// Then
-    XCTAssertEqual(vc.setPropCount, self.mapper.mapStateCount)
+    /// When && Then
+    self.test_connectReduxView_shouldStreamState(
+      vc,
+      {self.connector.connect(controller: $0, mapper: self.mapper)},
+      {XCTAssertEqual($0.setPropCount, self.mapper.mapStateCount)})
   }
   
   public func test_connectView_shouldStreamState() {
     /// Setup
     let view = View()
 
-    /// When
-    test_connectReduxView_shouldStreamState(view) {
-      self.connector.connect(view: $0, mapper: self.mapper)
-    }
-
-    /// Then
-    XCTAssertEqual(view.setPropCount, self.mapper.mapStateCount)
+    /// When && Then
+    self.test_connectReduxView_shouldStreamState(
+      view,
+      {self.connector.connect(view: $0, mapper: self.mapper)},
+      {XCTAssertEqual($0.setPropCount, self.mapper.mapStateCount)})
   }
 }
 
 public extension ReduxUITests {
   public final class Store: ReduxStoreType {
-    public struct State {}
+    public struct State: Equatable {
+      private static var counter = 0
+      
+      private let counter: Int
+      
+      public init() {
+        State.counter += 1
+        self.counter = State.counter
+      }
+    }
     
     public var lastState: Try<ReduxUITests.Store.State> {
       didSet {
@@ -102,13 +111,11 @@ public extension ReduxUITests {
     
     public func dispatch(_ action: ReduxActionType) {}
     
-    public func subscribeState<SS>(subscriberId: String,
-                                   selector: @escaping (State) -> SS,
-                                   comparer: @escaping (SS, SS) -> Bool,
-                                   callback: @escaping (SS) -> Void)
+    public func subscribeState(subscriberId: String,
+                               callback: @escaping (State) -> Void)
       -> ReduxUnsubscribe
     {
-      self.subscribers[subscriberId] = {callback(selector($0))}
+      self.subscribers[subscriberId] = callback
       
       return {
         self.cancelCount += 1
@@ -176,5 +183,3 @@ extension ReduxUITests.View: ReduxCompatibleViewType {
   public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
 }
-
-extension ReduxUITests.Store.State: Equatable {}

@@ -43,15 +43,11 @@ public protocol ReduxStoreType {
   ///
   /// - Parameters:
   ///   - subscriberId: The id of the subscriber.
-  ///   - selector: Substate selector.
-  ///   - comparer: Substate comparer.
   ///   - callback: State callback function.
   /// - Parameter callback: State callback function.
   /// - Returns: Cancel function to invalidate the callback
-  func subscribeState<SS>(subscriberId: String,
-                          selector: @escaping (State) -> SS?,
-                          comparer: @escaping (SS?, SS?) -> Bool,
-                          callback: @escaping (SS?) -> Void)
+  func subscribeState(subscriberId: String,
+                      callback: @escaping (State) -> Void)
     -> ReduxUnsubscribe
 }
 

@@ -56,6 +56,35 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     self.store = store
   }
   
+  private func connect<CV, Mapper>(compatibleView cv: CV, mapper: Mapper)
+    -> ReduxUnsubscribe where
+    CV: ReduxCompatibleViewType,
+    CV.PropsConnector == ReduxConnector,
+    Mapper: ReduxPropMapperType,
+    Mapper.State == State,
+    Mapper.StateProps == CV.StateProps,
+    Mapper.DispatchProps == CV.DispatchProps
+  {
+    let viewId = cv.stateSubscriberId
+    let dispatchProps = mapper.map(dispatch: self.store.dispatch)
+    cv.staticProps = StaticPropsContainer(self, dispatchProps)
+    var previousProps: CV.StateProps? = nil
+    
+    return self.store.subscribeState(subscriberId: viewId) {[weak cv] props in
+      // Since UI operations must happen on the main thread, we dispatch with
+      // the main queue. Setting the previous props here is ok as well since
+      // only the main queue is accessing it.
+      DispatchQueue.main.async {
+        let nextProps = mapper.map(state: props)
+        
+        if !Mapper.compareState(lhs: previousProps, rhs: nextProps) {
+          cv?.variableProps = VariablePropsContainer(previousProps, nextProps)
+          previousProps = nextProps
+        }
+      }
+    }
+  }
+  
   @discardableResult
   public func connect<VC, Mapper>(controller vc: VC, mapper: Mapper)
     -> ReduxUnsubscribe where
@@ -67,15 +96,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     Mapper.StateProps == VC.StateProps,
     Mapper.DispatchProps == VC.DispatchProps
   {
-    let dispatchProps = mapper.map(dispatch: self.store.dispatch)
-    vc.staticProps = StaticPropsContainer(self, dispatchProps)
-    
-    let cancel = self.store.subscribeState(
-      subscriberId: vc.stateSubscriberId,
-      selector: mapper.map,
-      comparer: Mapper.compareState
-    ) {[weak vc] props in vc?.variableProps = VariablePropsContainer(props)}
-    
+    let cancel = self.connect(compatibleView: vc, mapper: mapper)
     let lifecycleVC = LifecycleViewController()
     lifecycleVC.onDeinit = cancel
     vc.addChild(lifecycleVC)
@@ -92,15 +113,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     Mapper.StateProps == V.StateProps,
     Mapper.DispatchProps == V.DispatchProps
   {
-    let dispatchProps = mapper.map(dispatch: self.store.dispatch)
-    view.staticProps = StaticPropsContainer(self, dispatchProps)
-    
-    let cancel = self.store.subscribeState(
-      subscriberId: view.stateSubscriberId,
-      selector: mapper.map,
-      comparer: Mapper.compareState
-    ) {[weak view] props in view?.variableProps = VariablePropsContainer(props)}
-    
+    let cancel = self.connect(compatibleView: view, mapper: mapper)
     let lifecycleView = LifecycleView()
     lifecycleView.onDeinit = cancel
     view.addSubview(lifecycleView)

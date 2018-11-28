@@ -112,10 +112,6 @@ public extension RxReduxStoreTest {
     
     let cancel = self.rxStore.subscribeState(
       subscriberId: "",
-      selector: {$0
-        .decode(at: "", ofType: Substate.self)
-        .getOrElse(Substate(a: nil, b: nil))},
-      comparer: {(_, _) in false},
       callback: {_ in callbackCount += 1}
     )
     
