@@ -27,7 +27,7 @@ public final class ReduxUITests: XCTestCase {
 public extension ReduxUITests {
   public func test_connectReduxView_shouldStreamState<View>(
     _ view: View,
-    _ connect: (View) -> Store.Cancellable) where
+    _ connect: (View) -> ReduxUnsubscribe) where
     View: ReduxCompatibleViewType,
     View.StateProps == Store.State,
     View.DispatchProps == () -> Void
@@ -105,7 +105,9 @@ public extension ReduxUITests {
     public func subscribeState<SS>(subscriberId: String,
                                    selector: @escaping (State) -> SS,
                                    comparer: @escaping (SS, SS) -> Bool,
-                                   callback: @escaping (SS) -> Void) -> Cancellable {
+                                   callback: @escaping (SS) -> Void)
+      -> ReduxUnsubscribe
+    {
       self.subscribers[subscriberId] = {callback(selector($0))}
       
       return {
@@ -164,13 +166,13 @@ extension ReduxUITests {
 }
 
 extension ReduxUITests.ViewController: ReduxCompatibleViewType {
-  public typealias Connector = ReduxConnector<ReduxUITests.Store>
+  public typealias PropsConnector = ReduxConnector<ReduxUITests.Store>
   public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
 }
 
 extension ReduxUITests.View: ReduxCompatibleViewType {
-  public typealias Connector = ReduxConnector<ReduxUITests.Store>
+  public typealias PropsConnector = ReduxConnector<ReduxUITests.Store>
   public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
 }

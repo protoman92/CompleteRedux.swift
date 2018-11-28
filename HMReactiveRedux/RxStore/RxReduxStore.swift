@@ -62,10 +62,10 @@ extension RxReduxStore: ReduxStoreType {
                                  selector: @escaping (State) -> SS?,
                                  comparer: @escaping (SS?, SS?) -> Bool,
                                  callback: @escaping (SS?) -> Void)
-    -> Cancellable
+    -> ReduxUnsubscribe
   {
     let cancelSignal = PublishSubject<Any?>()
-    let cancel: Cancellable = {cancelSignal.onNext(nil)}
+    let cancel: ReduxUnsubscribe = {cancelSignal.onNext(nil)}
     
     self.stateObserver
       .map(selector)

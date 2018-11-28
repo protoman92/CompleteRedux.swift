@@ -10,11 +10,11 @@ import HMReactiveRedux
 import SafeNest
 
 extension UIViewController {
-  typealias Connector = ReduxConnector<RxReduxStore<SafeNest>>
+  typealias PropsConnector = ReduxConnector<RxReduxStore<SafeNest>>
 }
 
 extension UIView {
-  typealias Connector = ReduxConnector<RxReduxStore<SafeNest>>
+  typealias PropsConnector = ReduxConnector<RxReduxStore<SafeNest>>
 }
 
 final class Redux {

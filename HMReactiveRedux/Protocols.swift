@@ -8,6 +8,9 @@
 
 import SwiftFP
 
+/// Function to unsubscribe from a state subscription.
+public typealias ReduxUnsubscribe = () -> Void
+
 /// Classes that implement this protocol should represent possible actions that
 /// can be passed to a reducer.
 ///
@@ -25,7 +28,6 @@ public typealias ReduxDispatch = (ReduxActionType) -> Void
 /// This represents a Redux store that stream state updates.
 public protocol ReduxStoreType {
   typealias Action = ReduxActionType
-  typealias Cancellable = () -> Void
   associatedtype State
   
   /// Get the last state instance.
@@ -49,7 +51,8 @@ public protocol ReduxStoreType {
   func subscribeState<SS>(subscriberId: String,
                           selector: @escaping (State) -> SS?,
                           comparer: @escaping (SS?, SS?) -> Bool,
-                          callback: @escaping (SS?) -> Void) -> Cancellable
+                          callback: @escaping (SS?) -> Void)
+    -> ReduxUnsubscribe
 }
 
 public extension ReduxStoreType {

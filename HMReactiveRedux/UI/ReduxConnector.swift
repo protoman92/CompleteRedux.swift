@@ -11,7 +11,7 @@ import UIKit
 /// Connect views with state/dispatch props, similar to how React.js performs
 /// connect.
 public protocol ReduxConnectorType {
-  associatedtype Store: ReduxStoreType
+  associatedtype State
   
   /// Inject state/dispatch props into a compatible view controller.
   ///
@@ -21,12 +21,12 @@ public protocol ReduxConnectorType {
   /// - Returns: Store cancellable.
   @discardableResult
   func connect<VC, Mapper>(controller vc: VC, mapper: Mapper)
-    -> Store.Cancellable where
+    -> ReduxUnsubscribe where
     VC: UIViewController,
     VC: ReduxCompatibleViewType,
-    VC.Connector == Self,
+    VC.PropsConnector == Self,
     Mapper: ReduxPropMapperType,
-    Mapper.State == Store.State,
+    Mapper.State == State,
     Mapper.StateProps == VC.StateProps,
     Mapper.DispatchProps == VC.DispatchProps
   
@@ -38,17 +38,18 @@ public protocol ReduxConnectorType {
   /// - Returns: Store cancellable.
   @discardableResult
   func connect<V, Mapper>(view: V, mapper: Mapper)
-    -> Store.Cancellable where
+    -> ReduxUnsubscribe where
     V: UIView,
     V: ReduxCompatibleViewType,
-    V.Connector == Self,
+    V.PropsConnector == Self,
     Mapper: ReduxPropMapperType,
-    Mapper.State == Store.State,
+    Mapper.State == State,
     Mapper.StateProps == V.StateProps,
     Mapper.DispatchProps == V.DispatchProps
 }
 
 public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
+  public typealias State = Store.State
   private let store: Store
   
   public init(store: Store) {
@@ -57,12 +58,12 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
   
   @discardableResult
   public func connect<VC, Mapper>(controller vc: VC, mapper: Mapper)
-    -> Store.Cancellable where
+    -> ReduxUnsubscribe where
     VC: UIViewController,
     VC: ReduxCompatibleViewType,
-    VC.Connector == ReduxConnector,
+    VC.PropsConnector == ReduxConnector,
     Mapper: ReduxPropMapperType,
-    Mapper.State == Store.State,
+    Mapper.State == State,
     Mapper.StateProps == VC.StateProps,
     Mapper.DispatchProps == VC.DispatchProps
   {
@@ -82,12 +83,12 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
   }
   
   public func connect<V, Mapper>(view: V, mapper: Mapper)
-    -> Store.Cancellable where
+    -> ReduxUnsubscribe where
     V: UIView,
     V: ReduxCompatibleViewType,
-    V.Connector == ReduxConnector,
+    V.PropsConnector == ReduxConnector,
     Mapper: ReduxPropMapperType,
-    Mapper.State == Store.State,
+    Mapper.State == State,
     Mapper.StateProps == V.StateProps,
     Mapper.DispatchProps == V.DispatchProps
   {
