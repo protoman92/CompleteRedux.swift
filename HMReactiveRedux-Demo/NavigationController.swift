@@ -20,13 +20,6 @@ extension NavigationController: UINavigationControllerDelegate {
   func navigationController(_ navigationController: UINavigationController,
                             willShow viewController: UIViewController,
                             animated: Bool) {
-    switch viewController {
-    case let vc as ViewController:
-      _ = Dependency.instance.connector
-        .connect(viewController: vc, mapper: ReduxMapper._ViewController_.self)
-      
-    default:
-      break
-    }
+    Dependency.shared.deepConnector.connectDeeply(controller: viewController)
   }
 }

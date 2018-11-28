@@ -12,7 +12,7 @@ import SafeNest
 struct Dependency {
   private static var _instance: Dependency?
   
-  static var instance: Dependency {
+  static var shared: Dependency {
     if let instance = self._instance {
       return instance
     } else {
@@ -23,11 +23,13 @@ struct Dependency {
   }
   
   let store: RxReduxStore<SafeNest>
-  let connector: ReduxConnector<RxReduxStore<SafeNest>>
+  let connector: ReduxDeepConnector.Connector
+  let deepConnector: ReduxDeepConnector
   
   private init() {
     let initial = SafeNest.empty()
     self.store = RxReduxStore.create(initial, Redux.Reducer.main)
     self.connector = ReduxConnector(store: self.store)
+    self.deepConnector = ReduxDeepConnector(connector: self.connector)
   }
 }

@@ -117,7 +117,7 @@ final class Redux {
 }
 
 final class ReduxMapper {
-  final class _ViewController_: ReduxConnectorMapper {
+  final class _ViewController_: ReduxConnectorMapperType {
     typealias State = SafeNest
     typealias StateProps = ViewController.StateProps
     typealias DispatchProps = ViewController.DispatchProps
@@ -137,5 +137,30 @@ final class ReduxMapper {
         updateString: {dispatch(Redux.StringAction.input($0))}
       )
     }
+  }
+}
+
+final class ReduxDeepConnector: ReduxDeepConnectorType {
+  typealias Connector = ReduxConnector<RxReduxStore<SafeNest>>
+  
+  private let connector: Connector
+  
+  init(connector: Connector) {
+    self.connector = connector
+  }
+  
+  func connect(controller vc: UIViewController) -> Connector.Store.Cancellable? {
+    switch vc {
+    case let vc as ViewController:
+      return self.connector.connect(controller: vc,
+                                    mapper: ReduxMapper._ViewController_.self)
+      
+    default:
+      return nil
+    }
+  }
+  
+  func connect(view: UIView) -> Connector.Store.Cancellable? {
+    return nil
   }
 }

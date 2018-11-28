@@ -87,4 +87,4 @@ extension ViewController {
 
 extension ViewController.StateProps: Equatable {}
 extension ViewController.StateProps: Decodable {}
-extension ViewController: ReduxConnectableView {}
+extension ViewController: ReduxConnectableViewType {}

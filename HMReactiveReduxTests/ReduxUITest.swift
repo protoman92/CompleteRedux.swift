@@ -14,6 +14,7 @@ import XCTest
 public final class ReduxUITests: XCTestCase {
   private var store: Store!
   private var reduxConnector: ReduxConnector<Store>!
+  private var deepConnector: DeepConnector!
   
   override public func setUp() {
     super.setUp()
@@ -21,6 +22,7 @@ public final class ReduxUITests: XCTestCase {
     ConnectMapper.mapDispatchCount = 0
     self.store = ReduxUITests.Store()
     self.reduxConnector = ReduxConnector(store: store)
+    self.deepConnector = DeepConnector(connector: self.reduxConnector!)
   }
 }
 
@@ -28,7 +30,7 @@ public extension ReduxUITests {
   public func test_connectReduxView_shouldStreamState<View>(
     _ view: View,
     _ connect: (View) -> Store.Cancellable) where
-    View: ReduxConnectableView,
+    View: ReduxConnectableViewType,
     View.StateProps == Store.State,
     View.DispatchProps == () -> Void
   {
@@ -61,7 +63,7 @@ public extension ReduxUITests {
     
     /// When
     test_connectReduxView_shouldStreamState(vc) {
-      self.reduxConnector.connect(viewController: $0, mapper: ConnectMapper.self)
+      self.deepConnector.connectDeeply(controller: $0)!
     }
     
     /// Then
@@ -74,7 +76,7 @@ public extension ReduxUITests {
 
     /// When
     test_connectReduxView_shouldStreamState(view) {
-      self.reduxConnector.connect(view: $0, mapper: ConnectMapper.self)
+      self.deepConnector.connectDeeply(view: $0)!
     }
 
     /// Then
@@ -113,7 +115,9 @@ public extension ReduxUITests {
       }
     }
   }
-  
+}
+
+public extension ReduxUITests {
   public final class ViewController: UIViewController {
     public var reduxProps: ReduxProps? {
       didSet {
@@ -138,7 +142,7 @@ public extension ReduxUITests {
 }
 
 extension ReduxUITests {
-  public final class ConnectMapper: ReduxConnectorMapper {
+  public final class ConnectMapper: ReduxConnectorMapperType {
     public typealias State = ReduxUITests.Store.State
     public typealias StateProps = State
     public typealias DispatchProps = () -> Void
@@ -156,14 +160,34 @@ extension ReduxUITests {
       return {dispatch(DefaultRedux.Action.noop)}
     }
   }
+  
+  public final class DeepConnector: ReduxDeepConnectorType {
+    public typealias Connector = ReduxConnector<Store>
+    
+    private let connector: Connector
+    
+    public init(connector: Connector) {
+      self.connector = connector
+    }
+    
+    public func connect(controller vc: UIViewController) -> Store.Cancellable? {
+      let vc = vc as! ViewController
+      return self.connector.connect(controller: vc, mapper: ConnectMapper.self)
+    }
+    
+    public func connect(view: UIView) -> Store.Cancellable? {
+      let view = view as! View
+      return self.connector.connect(view: view, mapper: ConnectMapper.self)
+    }
+  }
 }
 
-extension ReduxUITests.ViewController: ReduxConnectableView {
+extension ReduxUITests.ViewController: ReduxConnectableViewType {
   public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
 }
 
-extension ReduxUITests.View: ReduxConnectableView {
+extension ReduxUITests.View: ReduxConnectableViewType {
   public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
 }
