@@ -15,14 +15,16 @@ public final class ReduxUITests: XCTestCase {
   private var store: Store!
   private var reduxConnector: ReduxConnector<Store>!
   private var deepConnector: DeepConnector!
+  private var mapper: ConnectMapper!
   
   override public func setUp() {
     super.setUp()
-    ConnectMapper.mapStateCount = 0
-    ConnectMapper.mapDispatchCount = 0
     self.store = ReduxUITests.Store()
     self.reduxConnector = ReduxConnector(store: store)
-    self.deepConnector = DeepConnector(connector: self.reduxConnector!)
+    self.mapper = ConnectMapper()
+    
+    self.deepConnector = DeepConnector(connector: self.reduxConnector!,
+                                       mapper: self.mapper!)
   }
 }
 
@@ -52,8 +54,8 @@ public extension ReduxUITests {
     
     /// Then
     XCTAssertEqual(self.store.cancelCount, 1)
-    XCTAssertEqual(ConnectMapper.mapStateCount, iterations)
-    XCTAssertEqual(ConnectMapper.mapDispatchCount, 1)
+    XCTAssertEqual(self.mapper.mapStateCount, iterations)
+    XCTAssertEqual(self.mapper.mapDispatchCount, 1)
     XCTAssertTrue(ConnectMapper.compareState(lhs: Store.State(), rhs: Store.State()))
   }
   
@@ -67,7 +69,7 @@ public extension ReduxUITests {
     }
     
     /// Then
-    XCTAssertEqual(vc.setPropCount, ConnectMapper.mapStateCount)
+    XCTAssertEqual(vc.setPropCount, self.mapper.mapStateCount)
   }
   
   public func test_connectView_shouldStreamState() {
@@ -80,7 +82,7 @@ public extension ReduxUITests {
     }
 
     /// Then
-    XCTAssertEqual(view.setPropCount, ConnectMapper.mapStateCount)
+    XCTAssertEqual(view.setPropCount, self.mapper.mapStateCount)
   }
 }
 
@@ -147,15 +149,15 @@ extension ReduxUITests {
     public typealias StateProps = State
     public typealias DispatchProps = () -> Void
     
-    public static var mapStateCount = 0
-    public static var mapDispatchCount = 0
+    public var mapStateCount = 0
+    public var mapDispatchCount = 0
     
-    public static func map(state: State) -> StateProps {
+    public func map(state: State) -> StateProps {
       self.mapStateCount += 1
       return state
     }
     
-    public static func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
+    public func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
       self.mapDispatchCount += 1
       return {dispatch(DefaultRedux.Action.noop)}
     }
@@ -165,19 +167,21 @@ extension ReduxUITests {
     public typealias Connector = ReduxConnector<Store>
     
     private let connector: Connector
+    private let mapper: ConnectMapper
     
-    public init(connector: Connector) {
+    public init(connector: Connector, mapper: ConnectMapper) {
       self.connector = connector
+      self.mapper = mapper
     }
     
     public func connect(controller vc: UIViewController) -> Store.Cancellable? {
       let vc = vc as! ViewController
-      return self.connector.connect(controller: vc, mapper: ConnectMapper.self)
+      return self.connector.connect(controller: vc, mapper: self.mapper)
     }
     
     public func connect(view: UIView) -> Store.Cancellable? {
       let view = view as! View
-      return self.connector.connect(view: view, mapper: ConnectMapper.self)
+      return self.connector.connect(view: view, mapper: self.mapper)
     }
   }
 }

@@ -15,10 +15,12 @@ public protocol ReduxConnectorType {
   
   /// Inject state/dispatch props into a compatible view controller.
   ///
-  /// - Parameter view: A View instance.
+  /// - Parameters:
+  ///   - vc: A view controller instance.
+  ///   - mapper: A Redux prop mapper.
   /// - Returns: Store cancellable.
   @discardableResult
-  func connect<VC, Mapper>(controller vc: VC, mapper: Mapper.Type)
+  func connect<VC, Mapper>(controller vc: VC, mapper: Mapper)
     -> Store.Cancellable where
     VC: UIViewController,
     VC: ReduxCompatibleViewType,
@@ -29,10 +31,12 @@ public protocol ReduxConnectorType {
   
   /// Inject state/dispatch props into a compatible view.
   ///
-  /// - Parameter view: A View instance.
+  /// - Parameters:
+  ///   - view: A view instance.
+  ///   - mapper: A Redux prop mapper.
   /// - Returns: Store cancellable.
   @discardableResult
-  func connect<V, Mapper>(view: V, mapper: Mapper.Type)
+  func connect<V, Mapper>(view: V, mapper: Mapper)
     -> Store.Cancellable where
     V: UIView,
     V: ReduxCompatibleViewType,
@@ -50,7 +54,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
   }
   
   @discardableResult
-  public func connect<VC, Mapper>(controller vc: VC, mapper: Mapper.Type)
+  public func connect<VC, Mapper>(controller vc: VC, mapper: Mapper)
     -> Store.Cancellable where
     VC: UIViewController,
     VC: ReduxCompatibleViewType,
@@ -59,11 +63,11 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     Mapper.StateProps == VC.StateProps,
     Mapper.DispatchProps == VC.DispatchProps
   {
-    let dispatchProps = Mapper.map(dispatch: self.store.dispatch)
+    let dispatchProps = mapper.map(dispatch: self.store.dispatch)
     
     let cancel = self.store.subscribeState(
       subscriberId: vc.stateSubscriberId,
-      selector: Mapper.map,
+      selector: mapper.map,
       comparer: Mapper.compareState
     ) { [weak vc] props in vc?.reduxProps = (props, dispatchProps) }
     
@@ -73,7 +77,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     return cancel
   }
   
-  public func connect<V, Mapper>(view: V, mapper: Mapper.Type)
+  public func connect<V, Mapper>(view: V, mapper: Mapper)
     -> Store.Cancellable where
     V: UIView,
     V: ReduxCompatibleViewType,
@@ -82,11 +86,11 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     Mapper.StateProps == V.StateProps,
     Mapper.DispatchProps == V.DispatchProps
   {
-    let dispatchProps = Mapper.map(dispatch: self.store.dispatch)
+    let dispatchProps = mapper.map(dispatch: self.store.dispatch)
     
     let cancel = self.store.subscribeState(
       subscriberId: view.stateSubscriberId,
-      selector: Mapper.map,
+      selector: mapper.map,
       comparer: Mapper.compareState
     ) { [weak view] props in view?.reduxProps = (props, dispatchProps) }
     

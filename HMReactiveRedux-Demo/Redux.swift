@@ -116,30 +116,6 @@ final class Redux {
   }
 }
 
-final class ReduxMapper {
-  final class _ViewController_: ReduxPropMapperType {
-    typealias State = SafeNest
-    typealias StateProps = ViewController.StateProps
-    typealias DispatchProps = ViewController.DispatchProps
-    
-    static func map(state: SafeNest) -> StateProps {
-      return state
-        .decode(at: Redux.Path.rootPath, ofType: StateProps.self)
-        .getOrElse(StateProps(number: nil, slider: nil, string: nil))
-    }
-    
-    static func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
-      return DispatchProps(
-        clearAll: {dispatch(Redux.ClearAction.triggerClear)},
-        incrementNumber: {dispatch(Redux.NumberAction.add)},
-        decrementNumber: {dispatch(Redux.NumberAction.minus)},
-        updateSlider: {dispatch(Redux.SliderAction.input($0))},
-        updateString: {dispatch(Redux.StringAction.input($0))}
-      )
-    }
-  }
-}
-
 final class ReduxDeepConnector: ReduxDeepConnectorType {
   typealias Connector = ReduxConnector<RxReduxStore<SafeNest>>
   
@@ -152,8 +128,7 @@ final class ReduxDeepConnector: ReduxDeepConnectorType {
   func connect(controller vc: UIViewController) -> Connector.Store.Cancellable? {
     switch vc {
     case let vc as ViewController:
-      return self.connector.connect(controller: vc,
-                                    mapper: ReduxMapper._ViewController_.self)
+      return self.connector.connect(controller: vc, mapper: vc)
       
     default:
       return nil

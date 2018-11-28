@@ -12,8 +12,6 @@ import UIKit
 public protocol ReduxDeepConnectorType {
   associatedtype Connector: ReduxConnectorType
   
-  init(connector: Connector)
-  
   /// Select the appropriate view controller types to connect.
   ///
   /// - Parameter vc: A UIViewController instance.
