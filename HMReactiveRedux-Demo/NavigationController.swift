@@ -20,6 +20,12 @@ extension NavigationController: UINavigationControllerDelegate {
   func navigationController(_ navigationController: UINavigationController,
                             willShow viewController: UIViewController,
                             animated: Bool) {
-    Dependency.shared.deepConnector.connectDeeply(controller: viewController)
+    switch viewController {
+    case let vc as ViewController:
+      _ = Dependency.shared.connector.connect(controller: vc, mapper: vc)
+      
+    default:
+      break
+    }
   }
 }

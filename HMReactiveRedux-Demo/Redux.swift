@@ -123,27 +123,3 @@ final class Redux {
     }
   }
 }
-
-final class ReduxDeepConnector: ReduxDeepConnectorType {
-  typealias Connector = ReduxConnector<RxReduxStore<SafeNest>>
-  
-  private let connector: Connector
-  
-  init(connector: Connector) {
-    self.connector = connector
-  }
-  
-  func connect(controller vc: UIViewController) -> Connector.Store.Cancellable? {
-    switch vc {
-    case let vc as ViewController:
-      return self.connector.connect(controller: vc, mapper: vc)
-      
-    default:
-      return nil
-    }
-  }
-  
-  func connect(view: UIView) -> Connector.Store.Cancellable? {
-    return nil
-  }
-}

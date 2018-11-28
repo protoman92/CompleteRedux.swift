@@ -23,13 +23,11 @@ struct Dependency {
   }
   
   let store: RxReduxStore<SafeNest>
-  let connector: ReduxDeepConnector.Connector
-  let deepConnector: ReduxDeepConnector
+  let connector: ReduxConnector<RxReduxStore<SafeNest>>
   
   private init() {
     let initial = SafeNest.empty()
     self.store = RxReduxStore.create(initial, Redux.Reducer.main)
     self.connector = ReduxConnector(store: self.store)
-    self.deepConnector = ReduxDeepConnector(connector: self.connector)
   }
 }

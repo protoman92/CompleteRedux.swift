@@ -13,18 +13,14 @@ import XCTest
 
 public final class ReduxUITests: XCTestCase {
   private var store: Store!
-  private var reduxConnector: ReduxConnector<Store>!
-  private var deepConnector: DeepConnector!
+  private var connector: ReduxConnector<Store>!
   private var mapper: ConnectMapper!
   
   override public func setUp() {
     super.setUp()
     self.store = ReduxUITests.Store()
-    self.reduxConnector = ReduxConnector(store: store)
+    self.connector = ReduxConnector(store: store)
     self.mapper = ConnectMapper()
-    
-    self.deepConnector = DeepConnector(connector: self.reduxConnector!,
-                                       mapper: self.mapper!)
   }
 }
 
@@ -66,7 +62,7 @@ public extension ReduxUITests {
     
     /// When
     test_connectReduxView_shouldStreamState(vc) {
-      self.deepConnector.connectDeeply(controller: $0)!
+      self.connector.connect(controller: $0, mapper: self.mapper)
     }
     
     /// Then
@@ -79,7 +75,7 @@ public extension ReduxUITests {
 
     /// When
     test_connectReduxView_shouldStreamState(view) {
-      self.deepConnector.connectDeeply(view: $0)!
+      self.connector.connect(view: $0, mapper: self.mapper)
     }
 
     /// Then
@@ -163,28 +159,6 @@ extension ReduxUITests {
     public func map(dispatch: @escaping ReduxDispatch) -> DispatchProps? {
       self.mapDispatchCount += 1
       return {dispatch(DefaultRedux.Action.noop)}
-    }
-  }
-  
-  public final class DeepConnector: ReduxDeepConnectorType {
-    public typealias Connector = ReduxConnector<Store>
-    
-    private let connector: Connector
-    private let mapper: ConnectMapper
-    
-    public init(connector: Connector, mapper: ConnectMapper) {
-      self.connector = connector
-      self.mapper = mapper
-    }
-    
-    public func connect(controller vc: UIViewController) -> Store.Cancellable? {
-      let vc = vc as! ViewController
-      return self.connector.connect(controller: vc, mapper: self.mapper)
-    }
-    
-    public func connect(view: UIView) -> Store.Cancellable? {
-      let view = view as! View
-      return self.connector.connect(view: view, mapper: self.mapper)
     }
   }
 }
