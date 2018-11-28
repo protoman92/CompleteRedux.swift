@@ -13,10 +13,10 @@ import UIKit
 public protocol ReduxCompatibleViewType: class {
   associatedtype StateProps
   associatedtype DispatchProps
-  typealias ReduxProps = (state: StateProps, dispatch: DispatchProps)
+  typealias Props = ReduxProps<StateProps, DispatchProps>
   
   var stateSubscriberId: String { get }
-  var reduxProps: ReduxProps? { get set }
+  var reduxProps: Props? { get set }
 }
 
 public extension ReduxCompatibleViewType where Self: UIViewController {

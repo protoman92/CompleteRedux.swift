@@ -12,14 +12,14 @@ public protocol ReduxPropMapperType {
   associatedtype StateProps
   associatedtype DispatchProps
   
-  func map(state: State) -> StateProps
-  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps
-  static func compareState(lhs: StateProps, rhs: StateProps) -> Bool
+  func map(state: State) -> StateProps?
+  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps?
+  static func compareState(lhs: StateProps?, rhs: StateProps?) -> Bool
 }
 
 public extension ReduxPropMapperType where StateProps: Equatable {
-  public static func compareState(lhs: StateProps,
-                                  rhs: StateProps) -> Bool {
+  public static func compareState(lhs: StateProps?,
+                                  rhs: StateProps?) -> Bool {
     return lhs == rhs
   }
 }

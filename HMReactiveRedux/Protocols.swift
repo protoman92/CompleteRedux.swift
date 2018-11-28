@@ -47,9 +47,9 @@ public protocol ReduxStoreType {
   /// - Parameter callback: State callback function.
   /// - Returns: Cancel function to invalidate the callback
   func subscribeState<SS>(subscriberId: String,
-                          selector: @escaping (State) -> SS,
-                          comparer: @escaping (SS, SS) -> Bool,
-                          callback: @escaping (SS) -> Void) -> Cancellable
+                          selector: @escaping (State) -> SS?,
+                          comparer: @escaping (SS?, SS?) -> Bool,
+                          callback: @escaping (SS?) -> Void) -> Cancellable
 }
 
 public extension ReduxStoreType {

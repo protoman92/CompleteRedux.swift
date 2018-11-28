@@ -121,10 +121,10 @@ public extension ReduxUITests {
 
 public extension ReduxUITests {
   public final class ViewController: UIViewController {
-    public var reduxProps: ReduxProps? {
+    public var reduxProps: Props? {
       didSet {
         self.setPropCount += 1
-        self.reduxProps?.dispatch()
+        self.reduxProps?.dispatch?()
       }
     }
     
@@ -132,10 +132,10 @@ public extension ReduxUITests {
   }
   
   public final class View: UIView {
-    public var reduxProps: ReduxProps? {
+    public var reduxProps: Props? {
       didSet {
         self.setPropCount += 1
-        self.reduxProps?.dispatch()
+        self.reduxProps?.dispatch?()
       }
     }
     
@@ -152,12 +152,12 @@ extension ReduxUITests {
     public var mapStateCount = 0
     public var mapDispatchCount = 0
     
-    public func map(state: State) -> StateProps {
+    public func map(state: State) -> StateProps? {
       self.mapStateCount += 1
       return state
     }
     
-    public func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
+    public func map(dispatch: @escaping ReduxDispatch) -> DispatchProps? {
       self.mapDispatchCount += 1
       return {dispatch(DefaultRedux.Action.noop)}
     }

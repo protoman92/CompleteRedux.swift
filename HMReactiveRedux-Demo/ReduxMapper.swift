@@ -12,13 +12,11 @@ import SafeNest
 extension ViewController: ReduxPropMapperType {
   typealias State = SafeNest
   
-  func map(state: State) -> StateProps {
-    return state
-      .decode(at: Redux.Path.rootPath, ofType: StateProps.self)
-      .getOrElse(StateProps(number: nil, slider: nil, string: nil))
+  func map(state: State) -> StateProps? {
+    return state.decode(at: Redux.Path.rootPath, ofType: StateProps.self).value
   }
   
-  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
+  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps? {
     return DispatchProps(
       clearAll: {dispatch(Redux.ClearAction.triggerClear)},
       incrementNumber: {dispatch(Redux.NumberAction.add)},

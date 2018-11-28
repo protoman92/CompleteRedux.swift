@@ -69,7 +69,9 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
       subscriberId: vc.stateSubscriberId,
       selector: mapper.map,
       comparer: Mapper.compareState
-    ) { [weak vc] props in vc?.reduxProps = (props, dispatchProps) }
+    ) {[weak vc] props in
+      vc?.reduxProps = ReduxProps(props, dispatchProps)
+    }
     
     let lifecycleVC = LifecycleViewController()
     lifecycleVC.onDeinit = cancel
@@ -92,7 +94,9 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
       subscriberId: view.stateSubscriberId,
       selector: mapper.map,
       comparer: Mapper.compareState
-    ) { [weak view] props in view?.reduxProps = (props, dispatchProps) }
+    ) {[weak view] props in
+      view?.reduxProps = ReduxProps(props, dispatchProps)
+    }
     
     let lifecycleView = LifecycleView()
     lifecycleView.onDeinit = cancel

@@ -59,9 +59,9 @@ extension RxReduxStore: ReduxStoreType {
   }
   
   public func subscribeState<SS>(subscriberId: String,
-                                 selector: @escaping (State) -> SS,
-                                 comparer: @escaping (SS, SS) -> Bool,
-                                 callback: @escaping (SS) -> Void)
+                                 selector: @escaping (State) -> SS?,
+                                 comparer: @escaping (SS?, SS?) -> Bool,
+                                 callback: @escaping (SS?) -> Void)
     -> Cancellable
   {
     let cancelSignal = PublishSubject<Any?>()
