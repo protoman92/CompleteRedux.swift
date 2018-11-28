@@ -24,6 +24,7 @@ public protocol ReduxConnectorType {
     -> Store.Cancellable where
     VC: UIViewController,
     VC: ReduxCompatibleViewType,
+    VC.Connector == Self,
     Mapper: ReduxPropMapperType,
     Mapper.State == Store.State,
     Mapper.StateProps == VC.StateProps,
@@ -40,6 +41,7 @@ public protocol ReduxConnectorType {
     -> Store.Cancellable where
     V: UIView,
     V: ReduxCompatibleViewType,
+    V.Connector == Self,
     Mapper: ReduxPropMapperType,
     Mapper.State == Store.State,
     Mapper.StateProps == V.StateProps,
@@ -58,20 +60,20 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     -> Store.Cancellable where
     VC: UIViewController,
     VC: ReduxCompatibleViewType,
+    VC.Connector == ReduxConnector,
     Mapper: ReduxPropMapperType,
     Mapper.State == Store.State,
     Mapper.StateProps == VC.StateProps,
     Mapper.DispatchProps == VC.DispatchProps
   {
     let dispatchProps = mapper.map(dispatch: self.store.dispatch)
+    vc.staticProps = StaticPropsContainer(self, dispatchProps)
     
     let cancel = self.store.subscribeState(
       subscriberId: vc.stateSubscriberId,
       selector: mapper.map,
       comparer: Mapper.compareState
-    ) {[weak vc] props in
-      vc?.reduxProps = ReduxProps(props, dispatchProps)
-    }
+    ) {[weak vc] props in vc?.variableProps = VariablePropsContainer(props)}
     
     let lifecycleVC = LifecycleViewController()
     lifecycleVC.onDeinit = cancel
@@ -83,20 +85,20 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     -> Store.Cancellable where
     V: UIView,
     V: ReduxCompatibleViewType,
+    V.Connector == ReduxConnector,
     Mapper: ReduxPropMapperType,
     Mapper.State == Store.State,
     Mapper.StateProps == V.StateProps,
     Mapper.DispatchProps == V.DispatchProps
   {
     let dispatchProps = mapper.map(dispatch: self.store.dispatch)
+    view.staticProps = StaticPropsContainer(self, dispatchProps)
     
     let cancel = self.store.subscribeState(
       subscriberId: view.stateSubscriberId,
       selector: mapper.map,
       comparer: Mapper.compareState
-    ) {[weak view] props in
-      view?.reduxProps = ReduxProps(props, dispatchProps)
-    }
+    ) {[weak view] props in view?.variableProps = VariablePropsContainer(props)}
     
     let lifecycleView = LifecycleView()
     lifecycleView.onDeinit = cancel

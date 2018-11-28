@@ -53,6 +53,7 @@ public extension ReduxUITests {
     })
     
     /// Then
+    XCTAssertTrue(view.staticProps?.connector is ReduxConnector<Store>)
     XCTAssertEqual(self.store.cancelCount, 1)
     XCTAssertEqual(self.mapper.mapStateCount, iterations)
     XCTAssertEqual(self.mapper.mapDispatchCount, 1)
@@ -121,22 +122,24 @@ public extension ReduxUITests {
 
 public extension ReduxUITests {
   public final class ViewController: UIViewController {
-    public var reduxProps: Props? {
-      didSet {
-        self.setPropCount += 1
-        self.reduxProps?.dispatch?()
-      }
+    public var staticProps: StaticProps? {
+      didSet {self.staticProps?.dispatch?()}
+    }
+    
+    public var variableProps: VariableProps? {
+      didSet {self.setPropCount += 1}
     }
     
     public var setPropCount = 0
   }
   
   public final class View: UIView {
-    public var reduxProps: Props? {
-      didSet {
-        self.setPropCount += 1
-        self.reduxProps?.dispatch?()
-      }
+    public var staticProps: StaticProps? {
+      didSet {self.staticProps?.dispatch?()}
+    }
+    
+    public var variableProps: VariableProps? {
+      didSet {self.setPropCount += 1}
     }
     
     public var setPropCount = 0
@@ -187,11 +190,13 @@ extension ReduxUITests {
 }
 
 extension ReduxUITests.ViewController: ReduxCompatibleViewType {
+  public typealias Connector = ReduxConnector<ReduxUITests.Store>
   public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
 }
 
 extension ReduxUITests.View: ReduxCompatibleViewType {
+  public typealias Connector = ReduxConnector<ReduxUITests.Store>
   public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
 }

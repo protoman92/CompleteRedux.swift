@@ -11,12 +11,15 @@ import UIKit
 /// A view that conforms to this protocol can receive state/dispatch props
 /// and subscribe to state changes.
 public protocol ReduxCompatibleViewType: class {
+  associatedtype Connector: ReduxConnectorType
   associatedtype StateProps
   associatedtype DispatchProps
-  typealias Props = ReduxProps<StateProps, DispatchProps>
+  typealias StaticProps = StaticPropsContainer<Connector, DispatchProps>
+  typealias VariableProps = VariablePropsContainer<StateProps>
   
   var stateSubscriberId: String { get }
-  var reduxProps: Props? { get set }
+  var staticProps: StaticProps? { get set }
+  var variableProps: VariableProps? { get set }
 }
 
 public extension ReduxCompatibleViewType where Self: UIViewController {

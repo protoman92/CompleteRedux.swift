@@ -6,13 +6,20 @@
 //  Copyright © 2018 Holmusk. All rights reserved.
 //
 
-/// Container for state/dispatch props.
-public struct ReduxProps<StateProps, DispatchProps> {
-  public let state: StateProps?
+public struct StaticPropsContainer<Connector: ReduxConnectorType, DispatchProps> {
+  public let connector: Connector
   public let dispatch: DispatchProps?
   
-  init(_ state: StateProps?, _ dispatch: DispatchProps?) {
-    self.state = state
+  init(_ connector: Connector, _ dispatch: DispatchProps?) {
+    self.connector = connector
     self.dispatch = dispatch
+  }
+}
+
+public struct VariablePropsContainer<StateProps> {
+  public let state: StateProps?
+  
+  init(_ state: StateProps?) {
+    self.state = state
   }
 }

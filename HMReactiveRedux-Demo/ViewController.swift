@@ -18,10 +18,12 @@ final class ViewController: UIViewController {
   @IBOutlet private weak var slideTF: UITextField!
   @IBOutlet private weak var valueSL: UISlider!
   
-  public var reduxProps: ReduxProps<StateProps, DispatchProps>? {
+  public var staticProps: StaticProps?
+  
+  public var variableProps: VariableProps? {
     didSet {
-      if let props = self.reduxProps {
-        didSetReduxProps(props)
+      if let props = self.variableProps {
+        self.didSetReduxProps(props)
       }
     }
   }
@@ -39,7 +41,7 @@ final class ViewController: UIViewController {
                       action: #selector(self.clearAll))
   }
   
-  private func didSetReduxProps(_ props: Props) {
+  private func didSetReduxProps(_ props: VariableProps) {
     self.counterTF.text = props.state?.number.map(String.init)
     self.slideTF.text = props.state?.slider.map(String.init)
     self.stringTF1.text = props.state?.string
@@ -48,23 +50,23 @@ final class ViewController: UIViewController {
   }
   
   @objc func clearAll(_ sender: UIBarButtonItem) {
-    self.reduxProps?.dispatch?.clearAll()
+    self.staticProps?.dispatch?.clearAll()
   }
   
   @IBAction func incrementNumber(_ sender: UIButton) {
-    self.reduxProps?.dispatch?.incrementNumber()
+    self.staticProps?.dispatch?.incrementNumber()
   }
   
   @IBAction func decrementNumber(_ sender: UIButton) {
-    self.reduxProps?.dispatch?.decrementNumber()
+    self.staticProps?.dispatch?.decrementNumber()
   }
   
   @IBAction func updateString(_ sender: UITextField) {
-    self.reduxProps?.dispatch?.updateString(sender.text)
+    self.staticProps?.dispatch?.updateString(sender.text)
   }
   
   @IBAction func updateSlider(_ sender: UISlider) {
-    self.reduxProps?.dispatch?.updateSlider(Double(sender.value))
+    self.staticProps?.dispatch?.updateSlider(Double(sender.value))
   }
 }
 
