@@ -67,7 +67,8 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
   {
     let viewId = cv.stateSubscriberId
     cv.staticProps = StaticPropsContainer(self)
-    var previous: CV.StateProps? = nil
+    var previous = mapper.map(state: self.store.lastState)
+    var firstTime = true
     
     return self.store.subscribeState(subscriberId: viewId) {[weak cv, weak mapper] state in
       // Since UI operations must happen on the main thread, we dispatch with
@@ -78,9 +79,10 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
           let dispatch = mapper.map(dispatch: self.store.dispatch)
           let next = mapper.map(state: state)
           
-          if !Mapper.compareState(lhs: previous, rhs: next) {
+          if firstTime || !Mapper.compareState(lhs: previous, rhs: next) {
             cv.variableProps = VariablePropsContainer(previous, next, dispatch)
             previous = next
+            firstTime = false
           }
         }
       }

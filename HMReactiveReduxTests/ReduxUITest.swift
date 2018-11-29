@@ -47,7 +47,7 @@ public extension ReduxUITests {
     DispatchQueue.main.async {
       XCTAssertTrue(view.staticProps?.connector is ReduxConnector<Store>)
       XCTAssertEqual(self.store.cancelCount, 1)
-      XCTAssertEqual(self.mapper.mapStateCount, iterations)
+      XCTAssertEqual(self.mapper.mapStateCount, iterations + 1)
       XCTAssertEqual(self.mapper.mapDispatchCount, iterations)
       XCTAssertFalse(ConnectMapper.compareState(lhs: Store.State(), rhs: Store.State()))
       checkOthers(view)
@@ -62,7 +62,7 @@ public extension ReduxUITests {
     self.test_connectReduxView_shouldStreamState(
       vc,
       {self.connector.connect(controller: $0, mapper: self.mapper)},
-      {XCTAssertEqual($0.setPropCount, self.mapper.mapStateCount)})
+      {XCTAssertEqual($0.setPropCount, self.mapper.mapStateCount - 1)})
   }
   
   public func test_connectView_shouldStreamState() {
@@ -73,7 +73,7 @@ public extension ReduxUITests {
     self.test_connectReduxView_shouldStreamState(
       view,
       {self.connector.connect(view: $0, mapper: self.mapper)},
-      {XCTAssertEqual($0.setPropCount, self.mapper.mapStateCount)})
+      {XCTAssertEqual($0.setPropCount, self.mapper.mapStateCount - 1)})
   }
 }
 

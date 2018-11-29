@@ -46,7 +46,7 @@ final class ViewController: UIViewController {
     self.slideTF.text = props.nextState.slider.map(String.init)
     self.stringTF1.text = props.nextState.string
     self.stringTF2.text = props.nextState.string
-    self.valueSL.value = props.nextState.slider ?? valueSL.value
+    self.valueSL.value = props.nextState.slider ?? valueSL.minimumValue
   }
   
   @IBAction func incrementNumber(_ sender: UIButton) {
@@ -68,9 +68,9 @@ final class ViewController: UIViewController {
 
 extension ViewController {
   struct StateProps {
-    public var number: Int? = 0
-    public var slider: Float? = 0
-    public var string: String? = ""
+    public var number: Int? = nil
+    public var slider: Float? = nil
+    public var string: String? = nil
   }
   
   struct DispatchProps {
