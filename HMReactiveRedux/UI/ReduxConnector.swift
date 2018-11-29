@@ -66,20 +66,20 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     Mapper.DispatchProps == CV.DispatchProps
   {
     let viewId = cv.stateSubscriberId
-    let dispatchProps = mapper.map(dispatch: self.store.dispatch)
-    cv.staticProps = StaticPropsContainer(self, dispatchProps)
-    var previousProps: CV.StateProps? = nil
+    cv.staticProps = StaticPropsContainer(self)
+    var previous: CV.StateProps? = nil
     
     return self.store.subscribeState(subscriberId: viewId) {[weak cv] props in
       // Since UI operations must happen on the main thread, we dispatch with
       // the main queue. Setting the previous props here is ok as well since
       // only the main queue is accessing it.
       DispatchQueue.main.async {
-        let nextProps = mapper.map(state: props)
+        let dispatch = mapper.map(dispatch: self.store.dispatch)
+        let next = mapper.map(state: props)
         
-        if !Mapper.compareState(lhs: previousProps, rhs: nextProps) {
-          cv?.variableProps = VariablePropsContainer(previousProps, nextProps)
-          previousProps = nextProps
+        if previous == nil || !Mapper.compareState(lhs: previous, rhs: next) {
+          cv?.variableProps = VariablePropsContainer(previous, next, dispatch)
+          previous = next
         }
       }
     }

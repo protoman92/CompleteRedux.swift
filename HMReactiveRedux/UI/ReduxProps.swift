@@ -6,22 +6,24 @@
 //  Copyright © 2018 Holmusk. All rights reserved.
 //
 
-public struct StaticPropsContainer<Connector: ReduxConnectorType, DispatchProps> {
+public struct StaticPropsContainer<Connector: ReduxConnectorType> {
   public let connector: Connector
-  public let dispatch: DispatchProps?
   
-  init(_ connector: Connector, _ dispatch: DispatchProps?) {
+  init(_ connector: Connector) {
     self.connector = connector
-    self.dispatch = dispatch
   }
 }
 
-public struct VariablePropsContainer<StateProps> {
+public struct VariablePropsContainer<StateProps, DispatchProps> {
   public let previousState: StateProps?
   public let nextState: StateProps?
+  public let dispatch: DispatchProps?
   
-  init(_ previousState: StateProps?, _ nextState: StateProps?) {
+  init(_ previousState: StateProps?,
+       _ nextState: StateProps?,
+       _ dispatch: DispatchProps?) {
     self.previousState = previousState
     self.nextState = nextState
+    self.dispatch = dispatch
   }
 }
