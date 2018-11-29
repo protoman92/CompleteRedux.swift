@@ -49,12 +49,33 @@ final class ViewController: UIViewController {
   }
   
   private func didSetProps(_ props: VariableProps) {
+    let nextState = props.nextState
     self.counterTF.text = props.nextState.number.map(String.init)
     self.slideTF.text = props.nextState.slider.map(String.init)
     self.stringTF1.text = props.nextState.string
     self.stringTF2.text = props.nextState.string
     self.valueSL.value = props.nextState.slider ?? valueSL.minimumValue
-    self.textTable.reloadData()
+    
+    if
+      let prevState = props.previousState,
+      prevState.textIndexes.count != nextState.textIndexes.count
+    {
+      let prevSet = Set(prevState.textIndexes.enumerated().map({[$0, $1]}))
+      let nextSet = Set(nextState.textIndexes.enumerated().map({[$0, $1]}))
+      
+      let additions = nextSet.subtracting(prevSet)
+        .map({IndexPath(row: $0[0], section: 0)})
+      
+      let deletions = prevSet.subtracting(nextSet)
+        .map({IndexPath(row: $0[0], section: 0)})
+      
+      self.textTable.beginUpdates()
+      self.textTable.deleteRows(at: deletions, with: .fade)
+      self.textTable.insertRows(at: additions, with: .fade)
+      self.textTable.endUpdates()
+    } else if props.firstInstance {
+      self.textTable.reloadData()
+    }
   }
   
   @IBAction func incrementNumber(_ sender: UIButton) {
@@ -81,7 +102,7 @@ final class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView,
                  numberOfRowsInSection section: Int) -> Int {
-    return self.variableProps?.nextState.texts?.count ?? 0
+    return self.variableProps?.nextState.textIndexes.count ?? 0
   }
   
   func tableView(_ tableView: UITableView,
@@ -89,7 +110,7 @@ extension ViewController: UITableViewDataSource {
     let cell = tableView
       .dequeueReusableCell(withIdentifier: "TableCell") as! TableCell
 
-    cell.textIndex = indexPath.row
+    cell.textIndex = self.variableProps?.nextState.textIndexes[indexPath.row]
     _ = self.staticProps?.connector.connect(view: cell, mapper: cell)
     return cell
   }
@@ -124,7 +145,8 @@ extension ViewController {
     public var number: Int? = nil
     public var slider: Float? = nil
     public var string: String? = nil
-    public var texts: [String?]? = nil
+    public var textIndexes: [Int] = []
+    public var texts: [String?] = []
   }
   
   struct DispatchProps {

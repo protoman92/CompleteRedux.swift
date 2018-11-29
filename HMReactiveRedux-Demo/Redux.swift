@@ -22,23 +22,12 @@ final class Redux {
   typealias State = SafeNest
   
   final class Path {
-    static var rootPath: String {
-      return "main"
-    }
-    
-    static var numberPath: String {
-      return "\(Path.rootPath).number"
-    }
-    
-    static var stringPath: String {
-      return "\(Path.rootPath).string"
-    }
-    
-    static var sliderPath: String {
-      return "\(Path.rootPath).slider"
-    }
-    
-    static var textPath = "\(Path.rootPath).texts"
+    static let rootPath = "main"
+    static let numberPath = "\(Path.rootPath).number"
+    static let stringPath = "\(Path.rootPath).string"
+    static let sliderPath = "\(Path.rootPath).slider"
+    static let textIndexesPath = "\(Path.rootPath).textIndexes"
+    static let textPath = "\(Path.rootPath).texts"
     
     static func textItemPath(_ textIndex: Int) -> String {
       return "\(textPath).\(textIndex)"
@@ -140,13 +129,13 @@ final class Redux {
         return try state.updating(at: Path.textItemPath(index), value: value)
         
       case .delete(let index):
-        let mapper: State.TypedMapper<[String?], [String?]> = {
-          var arrCopy = $0
-          arrCopy?.remove(at: index)
-          return arrCopy
+        let mapper: State.TypedMapper<[Int], [Int]> = {
+          var copy = $0
+          copy?.remove(at: index)
+          return copy
         }
         
-        return try state.mapping(at: Path.textPath, withMapper: mapper)
+        return try state.mapping(at: Path.textIndexesPath, withMapper: mapper)
       }
     }
   }

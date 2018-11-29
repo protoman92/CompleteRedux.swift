@@ -31,7 +31,8 @@ struct Dependency {
         number: 0,
         slider: 0,
         string: nil,
-        texts: Array(repeating: "", count: 5)
+        textIndexes: (0..<5).map({$0}),
+        texts: (0..<5).map({_ in ""})
       ))
     
     self.store = RxReduxStore.create(initial, Redux.Reducer.main)

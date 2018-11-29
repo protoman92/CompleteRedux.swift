@@ -66,7 +66,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     Mapper.DispatchProps == CV.DispatchProps
   {
     let viewId = cv.stateSubscriberId
-    var previous = mapper.map(state: self.store.lastState)
+    var previous: CV.StateProps? = nil
     var firstTime = true
     
     // If there has been a previous subscription, unsubscribe from it to avoid
@@ -84,7 +84,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
             let next = mapper.map(state: state)
             
             if firstTime || !Mapper.compareState(lhs: previous, rhs: next) {
-              cv.variableProps = VariableReduxProps(previous, next, dispatch)
+              cv.variableProps = VariableReduxProps(firstTime, previous, next, dispatch)
               previous = next
               firstTime = false
             }
