@@ -66,27 +66,34 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     Mapper.DispatchProps == CV.DispatchProps
   {
     let viewId = cv.stateSubscriberId
-    cv.staticProps = StaticPropsContainer(self)
     var previous = mapper.map(state: self.store.lastState)
     var firstTime = true
     
-    return self.store.subscribeState(subscriberId: viewId) {[weak cv, weak mapper] state in
-      // Since UI operations must happen on the main thread, we dispatch with
-      // the main queue. Setting the previous props here is ok as well since
-      // only the main queue is accessing it.
-      DispatchQueue.main.async {
-        if let cv = cv, let mapper = mapper {
-          let dispatch = mapper.map(dispatch: self.store.dispatch)
-          let next = mapper.map(state: state)
-          
-          if firstTime || !Mapper.compareState(lhs: previous, rhs: next) {
-            cv.variableProps = VariablePropsContainer(previous, next, dispatch)
-            previous = next
-            firstTime = false
+    // If there has been a previous subscription, unsubscribe from it to avoid
+    // having parallel subscriptions.
+    cv.staticProps?.unsubscribe()
+    
+    let unsubscribe = self.store
+      .subscribeState(subscriberId: viewId) {[weak cv, weak mapper] state in
+        // Since UI operations must happen on the main thread, we dispatch with
+        // the main queue. Setting the previous props here is ok as well since
+        // only the main queue is accessing it.
+        DispatchQueue.main.async {
+          if let cv = cv, let mapper = mapper {
+            let dispatch = mapper.map(dispatch: self.store.dispatch)
+            let next = mapper.map(state: state)
+            
+            if firstTime || !Mapper.compareState(lhs: previous, rhs: next) {
+              cv.variableProps = VariablePropsContainer(previous, next, dispatch)
+              previous = next
+              firstTime = false
+            }
           }
         }
-      }
     }
+    
+    cv.staticProps = StaticPropsContainer(self, unsubscribe)
+    return unsubscribe
   }
   
   @discardableResult
@@ -107,6 +114,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     return cancel
   }
   
+  @discardableResult
   public func connect<V, Mapper>(view: V, mapper: Mapper)
     -> ReduxUnsubscribe where
     V: UIView,

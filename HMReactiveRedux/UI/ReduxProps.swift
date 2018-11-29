@@ -8,9 +8,11 @@
 
 public struct StaticPropsContainer<Connector: ReduxConnectorType> {
   public let connector: Connector
+  let unsubscribe: ReduxUnsubscribe
   
-  init(_ connector: Connector) {
+  init(_ connector: Connector, _ unsubscribe: @escaping ReduxUnsubscribe) {
     self.connector = connector
+    self.unsubscribe = unsubscribe
   }
 }
 

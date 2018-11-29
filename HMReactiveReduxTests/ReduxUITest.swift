@@ -27,7 +27,7 @@ public final class ReduxUITests: XCTestCase {
 public extension ReduxUITests {
   public func test_connectReduxView_shouldStreamState<View>(
     _ view: View,
-    _ connect: (View) -> ReduxUnsubscribe,
+    _ connect: @escaping (View) -> ReduxUnsubscribe,
     _ checkOthers: @escaping (View) -> Void) where
     View: ReduxCompatibleViewType,
     View.StateProps == Store.State,
@@ -37,20 +37,25 @@ public extension ReduxUITests {
     let iterations = 100
     
     /// When
-    let cancel = connect(view)
+    let unsubscribe = connect(view)
     
     (0..<iterations).forEach({_ in self.store.lastState = .init()})
-    cancel()
+    unsubscribe()
     (0..<iterations).forEach({_ in self.store.lastState = .init()})
     
     /// Then
+    XCTAssertEqual(self.store.cancelCount, 1)
+    
     DispatchQueue.main.async {
       XCTAssertTrue(view.staticProps?.connector is ReduxConnector<Store>)
-      XCTAssertEqual(self.store.cancelCount, 1)
       XCTAssertEqual(self.mapper.mapStateCount, iterations + 1)
       XCTAssertEqual(self.mapper.mapDispatchCount, iterations)
       XCTAssertFalse(ConnectMapper.compareState(lhs: Store.State(), rhs: Store.State()))
       checkOthers(view)
+      
+      // Check if reconnecting would unsubscribe from the previous subscription.
+      _ = connect(view)
+      XCTAssertEqual(self.store.cancelCount, 2)
     }
   }
   
