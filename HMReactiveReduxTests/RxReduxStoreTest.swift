@@ -94,7 +94,7 @@ public extension RxReduxStoreTest {
     /// When & Then
     test_dispatchSafeNestAction(self.rxStore!,
                                 {self.rxStore!.dispatch($0)},
-                                {self.rxStore.lastState.value!},
+                                {self.rxStore.lastState},
                                 {valueObs.events.map({$0.value.element!}).last!})
   }
 }

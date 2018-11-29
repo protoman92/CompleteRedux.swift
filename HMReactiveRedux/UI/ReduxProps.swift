@@ -16,12 +16,12 @@ public struct StaticPropsContainer<Connector: ReduxConnectorType> {
 
 public struct VariablePropsContainer<StateProps, DispatchProps> {
   public let previousState: StateProps?
-  public let nextState: StateProps?
-  public let dispatch: DispatchProps?
+  public let nextState: StateProps
+  public let dispatch: DispatchProps
   
   init(_ previousState: StateProps?,
-       _ nextState: StateProps?,
-       _ dispatch: DispatchProps?) {
+       _ nextState: StateProps,
+       _ dispatch: DispatchProps) {
     self.previousState = previousState
     self.nextState = nextState
     self.dispatch = dispatch

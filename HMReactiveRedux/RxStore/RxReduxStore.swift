@@ -40,12 +40,14 @@ public struct RxReduxStore<State> {
   private let disposeBag: DisposeBag
   private var actionObserver: RxReduxObserver<Action>
   private var stateObserver: BehaviorSubject<State>
+  private let defaultState: State
 
   private init(_ initialState: State,
                _ reducer: @escaping ReduxReducer<State>) {
     self.disposeBag = DisposeBag()
     self.actionObserver = RxReduxObserver<Action>(DefaultRedux.Action.noop)
     self.stateObserver = BehaviorSubject(value: initialState)
+    self.defaultState = initialState
     
     scanReduce(self.actionObserver.asObservable(), reducer, initialState)
       .subscribe(self.stateObserver)
@@ -75,8 +77,12 @@ extension RxReduxStore: ReduxStoreType {
 }
 
 extension RxReduxStore: RxReduxStoreType {
-  public var lastState: Try<State> {
-    return Try({try self.stateObserver.value()})
+  public var lastState: State {
+    do {
+      return try self.stateObserver.value()
+    } catch {
+      return self.defaultState
+    }
   }
 
   public var actionTrigger: AnyObserver<Action> {

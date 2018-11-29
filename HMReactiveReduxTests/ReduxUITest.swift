@@ -39,9 +39,9 @@ public extension ReduxUITests {
     /// When
     let cancel = connect(view)
     
-    (0..<iterations).forEach({_ in self.store.lastState = .success(.init())})
+    (0..<iterations).forEach({_ in self.store.lastState = .init()})
     cancel()
-    (0..<iterations).forEach({_ in self.store.lastState = .success(.init())})
+    (0..<iterations).forEach({_ in self.store.lastState = .init()})
     
     /// Then
     DispatchQueue.main.async {
@@ -90,9 +90,9 @@ public extension ReduxUITests {
       }
     }
     
-    public var lastState: Try<ReduxUITests.Store.State> {
+    public var lastState: ReduxUITests.Store.State {
       didSet {
-        self.subscribers.forEach({(_, value) in _ = self.lastState.map(value)})
+        self.subscribers.forEach({(_, value) in _ = value(self.lastState)})
       }
     }
     
@@ -100,7 +100,7 @@ public extension ReduxUITests {
     public lazy var cancelCount: Int = 0
     
     init() {
-      self.lastState = Try.failure("")
+      self.lastState = State()
     }
     
     public func dispatch(_ action: ReduxActionType) {}
@@ -126,7 +126,7 @@ public extension ReduxUITests {
     public var variableProps: VariableProps? {
       didSet {
         self.setPropCount += 1
-        self.variableProps?.dispatch?()
+        self.variableProps?.dispatch()
       }
     }
     
@@ -139,7 +139,7 @@ public extension ReduxUITests {
     public var variableProps: VariableProps? {
       didSet {
         self.setPropCount += 1
-        self.variableProps?.dispatch?()
+        self.variableProps?.dispatch()
       }
     }
     
@@ -156,12 +156,12 @@ extension ReduxUITests {
     public var mapStateCount = 0
     public var mapDispatchCount = 0
     
-    public func map(state: ReduxState) -> StateProps? {
+    public func map(state: ReduxState) -> StateProps {
       self.mapStateCount += 1
       return state
     }
     
-    public func map(dispatch: @escaping ReduxDispatch) -> DispatchProps? {
+    public func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
       self.mapDispatchCount += 1
       return {dispatch(DefaultRedux.Action.noop)}
     }

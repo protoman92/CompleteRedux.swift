@@ -31,7 +31,7 @@ public protocol ReduxStoreType {
   associatedtype State
   
   /// Get the last state instance.
-  var lastState: Try<State> { get }
+  var lastState: State { get }
   
   /// Dispatch an action and notify listeners.
   ///

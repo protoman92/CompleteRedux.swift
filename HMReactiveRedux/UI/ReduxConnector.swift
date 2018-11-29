@@ -56,10 +56,6 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     self.store = store
   }
   
-  private func clone() -> ReduxConnector<Store> {
-    return ReduxConnector(store: self.store)
-  }
-  
   private func connect<CV, Mapper>(compatibleView cv: CV, mapper: Mapper)
     -> ReduxUnsubscribe where
     CV: ReduxCompatibleViewType,
@@ -70,7 +66,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     Mapper.DispatchProps == CV.DispatchProps
   {
     let viewId = cv.stateSubscriberId
-    cv.staticProps = StaticPropsContainer(self.clone())
+    cv.staticProps = StaticPropsContainer(self)
     var previous: CV.StateProps? = nil
     
     return self.store.subscribeState(subscriberId: viewId) {[weak cv, weak mapper] state in
@@ -78,12 +74,14 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
       // the main queue. Setting the previous props here is ok as well since
       // only the main queue is accessing it.
       DispatchQueue.main.async {
-        let dispatch = mapper?.map(dispatch: self.store.dispatch)
-        let next = mapper?.map(state: state)
-        
-        if previous == nil || !Mapper.compareState(lhs: previous, rhs: next) {
-          cv?.variableProps = VariablePropsContainer(previous, next, dispatch)
-          previous = next
+        if let cv = cv, let mapper = mapper {
+          let dispatch = mapper.map(dispatch: self.store.dispatch)
+          let next = mapper.map(state: state)
+          
+          if !Mapper.compareState(lhs: previous, rhs: next) {
+            cv.variableProps = VariablePropsContainer(previous, next, dispatch)
+            previous = next
+          }
         }
       }
     }

@@ -12,8 +12,8 @@ public protocol ReduxPropMapperType: class {
   associatedtype StateProps
   associatedtype DispatchProps
   
-  func map(state: ReduxState) -> StateProps?
-  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps?
+  func map(state: ReduxState) -> StateProps
+  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps
   static func compareState(lhs: StateProps?, rhs: StateProps?) -> Bool
 }
 
