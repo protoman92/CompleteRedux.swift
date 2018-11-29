@@ -38,8 +38,10 @@ final class Redux {
       return "\(Path.rootPath).slider"
     }
     
-    static func textPath(_ textIndex: Int) -> String {
-      return "\(Path.rootPath).texts.\(textIndex)"
+    static var textPath = "\(Path.rootPath).texts"
+    
+    static func textItemPath(_ textIndex: Int) -> String {
+      return "\(textPath).\(textIndex)"
     }
   }
   
@@ -71,6 +73,7 @@ final class Redux {
   
   enum TextAction: Action {
     case input(Int, String?)
+    case delete(Int)
   }
   
   final class Reducer {
@@ -134,7 +137,16 @@ final class Redux {
     static func text(_ state: State, _ action: TextAction) throws -> State {
       switch action {
       case .input(let index, let value):
-        return try state.updating(at: Path.textPath(index), value: value)
+        return try state.updating(at: Path.textItemPath(index), value: value)
+        
+      case .delete(let index):
+        let mapper: State.TypedMapper<[String?], [String?]> = {
+          var arrCopy = $0
+          arrCopy?.remove(at: index)
+          return arrCopy
+        }
+        
+        return try state.mapping(at: Path.textPath, withMapper: mapper)
       }
     }
   }

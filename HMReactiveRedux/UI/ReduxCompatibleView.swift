@@ -14,8 +14,8 @@ public protocol ReduxCompatibleViewType: class {
   associatedtype PropsConnector: ReduxConnectorType
   associatedtype StateProps
   associatedtype DispatchProps
-  typealias StaticProps = StaticPropsContainer<PropsConnector>
-  typealias VariableProps = VariablePropsContainer<StateProps, DispatchProps>
+  typealias StaticProps = StaticReduxProps<PropsConnector>
+  typealias VariableProps = VariableReduxProps<StateProps, DispatchProps>
   
   var stateSubscriberId: String { get }
   var staticProps: StaticProps? { get set }

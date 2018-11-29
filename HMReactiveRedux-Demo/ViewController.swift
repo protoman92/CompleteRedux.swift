@@ -54,6 +54,7 @@ final class ViewController: UIViewController {
     self.stringTF1.text = props.nextState.string
     self.stringTF2.text = props.nextState.string
     self.valueSL.value = props.nextState.slider ?? valueSL.minimumValue
+    self.textTable.reloadData()
   }
   
   @IBAction func incrementNumber(_ sender: UIButton) {
@@ -80,18 +81,34 @@ final class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView,
                  numberOfRowsInSection section: Int) -> Int {
-    return self.variableProps?.nextState.texts?.count ?? 10
+    return self.variableProps?.nextState.texts?.count ?? 0
   }
   
   func tableView(_ tableView: UITableView,
                  cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView
-      .dequeueReusableCell(withIdentifier: "TableCell")
-      as! TableCell
+      .dequeueReusableCell(withIdentifier: "TableCell") as! TableCell
 
     cell.textIndex = indexPath.row
     _ = self.staticProps?.connector.connect(view: cell, mapper: cell)
     return cell
+  }
+  
+  func tableView(_ tableView: UITableView,
+                 canEditRowAt indexPath: IndexPath) -> Bool {
+    return true
+  }
+  
+  func tableView(_ tableView: UITableView,
+                 commit editingStyle: UITableViewCell.EditingStyle,
+                 forRowAt indexPath: IndexPath) {
+    switch editingStyle {
+    case .delete:
+      self.variableProps?.dispatch.deleteText(indexPath.row)
+      
+    default:
+      break
+    }
   }
 }
 
@@ -115,9 +132,11 @@ extension ViewController {
     let decrementNumber: () -> Void
     let updateSlider: (Double) -> Void
     let updateString: (String?) -> Void
+    let deleteText: (Int) -> Void
   }
 }
 
 extension ViewController.StateProps: Equatable {}
+extension ViewController.StateProps: Encodable {}
 extension ViewController.StateProps: Decodable {}
 extension ViewController: ReduxCompatibleViewType {}

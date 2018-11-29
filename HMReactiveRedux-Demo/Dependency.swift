@@ -26,7 +26,14 @@ struct Dependency {
   let connector: ReduxConnector<RxReduxStore<SafeNest>>
   
   private init() {
-    let initial = SafeNest.empty()
+    let initial = try! SafeNest.empty()
+      .encoding(at: Redux.Path.rootPath, value: ViewController.StateProps(
+        number: 0,
+        slider: 0,
+        string: nil,
+        texts: Array(repeating: "", count: 5)
+      ))
+    
     self.store = RxReduxStore.create(initial, Redux.Reducer.main)
     self.connector = ReduxConnector(store: self.store)
   }

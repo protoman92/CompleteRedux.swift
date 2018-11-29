@@ -6,7 +6,7 @@
 //  Copyright © 2018 Holmusk. All rights reserved.
 //
 
-public struct StaticPropsContainer<Connector: ReduxConnectorType> {
+public struct StaticReduxProps<Connector: ReduxConnectorType> {
   public let connector: Connector
   let unsubscribe: ReduxUnsubscribe
   
@@ -16,7 +16,7 @@ public struct StaticPropsContainer<Connector: ReduxConnectorType> {
   }
 }
 
-public struct VariablePropsContainer<StateProps, DispatchProps> {
+public struct VariableReduxProps<StateProps, DispatchProps> {
   public let previousState: StateProps
   public let nextState: StateProps
   public let dispatch: DispatchProps

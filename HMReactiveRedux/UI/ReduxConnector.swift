@@ -84,7 +84,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
             let next = mapper.map(state: state)
             
             if firstTime || !Mapper.compareState(lhs: previous, rhs: next) {
-              cv.variableProps = VariablePropsContainer(previous, next, dispatch)
+              cv.variableProps = VariableReduxProps(previous, next, dispatch)
               previous = next
               firstTime = false
             }
@@ -92,7 +92,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
         }
     }
     
-    cv.staticProps = StaticPropsContainer(self, unsubscribe)
+    cv.staticProps = StaticReduxProps(self, unsubscribe)
     return unsubscribe
   }
   

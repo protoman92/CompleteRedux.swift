@@ -23,7 +23,8 @@ extension ViewController: ReduxPropMapperType {
       incrementNumber: {dispatch(Redux.NumberAction.add)},
       decrementNumber: {dispatch(Redux.NumberAction.minus)},
       updateSlider: {dispatch(Redux.SliderAction.input($0))},
-      updateString: {dispatch(Redux.StringAction.input($0))}
+      updateString: {dispatch(Redux.StringAction.input($0))},
+      deleteText: {dispatch(Redux.TextAction.delete($0))}
     )
   }
 }
@@ -48,7 +49,7 @@ extension TableCell: ReduxPropMapperType {
   func map(state: ReduxState) -> StateProps {
     return textIndex
       .map({StateProps(
-        text: state.value(at: Redux.Path.textPath($0)).cast(String.self).value)
+        text: state.value(at: Redux.Path.textItemPath($0)).cast(String.self).value)
       })
       .getOrElse(StateProps(text: nil))
   }
