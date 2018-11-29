@@ -18,6 +18,7 @@ final class ViewController: UIViewController {
   @IBOutlet private weak var slideTF: UITextField!
   @IBOutlet private weak var valueSL: UISlider!
   @IBOutlet private weak var clearButton: ConfirmButton!
+  @IBOutlet weak var textTable: UITableView!
   
   public var staticProps: StaticProps? {
     didSet {
@@ -39,6 +40,12 @@ final class ViewController: UIViewController {
     self.counterTF.isEnabled = false
     self.stringTF1.isEnabled = false
     self.slideTF.isEnabled = false
+    
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+      title: "Reload table",
+      style: .plain,
+      target: self,
+      action: #selector(self.reloadTable))
   }
   
   private func didSetProps(_ props: VariableProps) {
@@ -64,6 +71,35 @@ final class ViewController: UIViewController {
   @IBAction func updateSlider(_ sender: UISlider) {
     self.variableProps?.dispatch.updateSlider(Double(sender.value))
   }
+  
+  @objc func reloadTable(_ sender: UIBarButtonItem) {
+    self.textTable.reloadData()
+  }
+}
+
+extension ViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView,
+                 numberOfRowsInSection section: Int) -> Int {
+    return self.variableProps?.nextState.texts?.count ?? 10
+  }
+  
+  func tableView(_ tableView: UITableView,
+                 cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView
+      .dequeueReusableCell(withIdentifier: "TableCell")
+      as! TableCell
+
+    cell.textIndex = indexPath.row
+    _ = self.staticProps?.connector.connect(view: cell, mapper: cell)
+    return cell
+  }
+}
+
+extension ViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView,
+                 heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 48
+  }
 }
 
 extension ViewController {
@@ -71,6 +107,7 @@ extension ViewController {
     public var number: Int? = nil
     public var slider: Float? = nil
     public var string: String? = nil
+    public var texts: [String?]? = nil
   }
   
   struct DispatchProps {

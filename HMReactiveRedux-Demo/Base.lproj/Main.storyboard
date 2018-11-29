@@ -162,8 +162,46 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZCm-s4-cap">
+                                <rect key="frame" x="16" y="224" width="343" height="379"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableCell" id="uGm-B7-iGF" customClass="TableCell" customModule="HMReactiveRedux_Demo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uGm-B7-iGF" id="ATB-OX-fEq">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Put something here?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fyb-G1-SJu">
+                                                    <rect key="frame" x="0.0" y="4" width="343" height="36"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="updateText:" destination="uGm-B7-iGF" eventType="editingChanged" id="NQh-fw-dVL"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="fyb-G1-SJu" secondAttribute="bottom" constant="4" id="A97-Jy-fKo"/>
+                                                <constraint firstItem="fyb-G1-SJu" firstAttribute="top" secondItem="ATB-OX-fEq" secondAttribute="top" constant="4" id="Scr-qA-Qci"/>
+                                                <constraint firstAttribute="trailing" secondItem="fyb-G1-SJu" secondAttribute="trailing" id="ocG-zp-f9c"/>
+                                                <constraint firstItem="fyb-G1-SJu" firstAttribute="leading" secondItem="ATB-OX-fEq" secondAttribute="leading" id="wAS-c0-2RQ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textInput" destination="fyb-G1-SJu" id="0Dc-1w-QTN"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="v1I-tJ-ikD"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="hpM-Zd-cJH"/>
+                                </connections>
+                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kkU-ds-YGw" customClass="ConfirmButton" customModule="HMReactiveRedux_Demo" customModuleProvider="target">
-                                <rect key="frame" x="16" y="227" width="343" height="40"/>
+                                <rect key="frame" x="16" y="611" width="343" height="40"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Clear all data">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -179,19 +217,23 @@
                             <constraint firstItem="3wC-F3-rbQ" firstAttribute="leading" secondItem="a4X-uS-dDx" secondAttribute="trailing" constant="8" id="8Ir-oc-g2U"/>
                             <constraint firstAttribute="trailing" secondItem="3QD-5H-x5G" secondAttribute="trailing" constant="16" id="9Jo-as-bO5"/>
                             <constraint firstItem="3wC-F3-rbQ" firstAttribute="centerY" secondItem="a4X-uS-dDx" secondAttribute="centerY" id="AyA-31-tBg"/>
-                            <constraint firstItem="kkU-ds-YGw" firstAttribute="top" secondItem="3wC-F3-rbQ" secondAttribute="bottom" constant="16" id="BXO-EN-MGZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kkU-ds-YGw" secondAttribute="bottom" constant="16" id="Iew-r7-63x"/>
                             <constraint firstItem="3QD-5H-x5G" firstAttribute="top" secondItem="xhY-xW-q6k" secondAttribute="top" id="Jei-tJ-QCb"/>
+                            <constraint firstItem="ZCm-s4-cap" firstAttribute="trailing" secondItem="3wC-F3-rbQ" secondAttribute="trailing" id="L1b-Ub-7X0"/>
                             <constraint firstItem="a4X-uS-dDx" firstAttribute="top" secondItem="Wk7-SF-W2L" secondAttribute="bottom" constant="8" id="LK2-K9-yrX"/>
-                            <constraint firstItem="kkU-ds-YGw" firstAttribute="leading" secondItem="a4X-uS-dDx" secondAttribute="leading" id="Mew-Gh-IRs"/>
                             <constraint firstItem="3QD-5H-x5G" firstAttribute="leading" secondItem="xhY-xW-q6k" secondAttribute="trailing" constant="8" id="OH8-er-gkK"/>
                             <constraint firstItem="a4X-uS-dDx" firstAttribute="leading" secondItem="xhY-xW-q6k" secondAttribute="leading" id="Rmc-At-H1B"/>
                             <constraint firstItem="3QD-5H-x5G" firstAttribute="height" secondItem="xhY-xW-q6k" secondAttribute="height" id="Syo-4Y-dSk"/>
+                            <constraint firstItem="ZCm-s4-cap" firstAttribute="leading" secondItem="a4X-uS-dDx" secondAttribute="leading" id="ael-uI-7b4"/>
                             <constraint firstItem="xhY-xW-q6k" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="deX-Fm-GJL"/>
-                            <constraint firstItem="kkU-ds-YGw" firstAttribute="trailing" secondItem="3wC-F3-rbQ" secondAttribute="trailing" id="kK8-PW-cl1"/>
+                            <constraint firstItem="ZCm-s4-cap" firstAttribute="top" secondItem="a4X-uS-dDx" secondAttribute="bottom" constant="8" id="fLk-RE-vb2"/>
+                            <constraint firstItem="kkU-ds-YGw" firstAttribute="trailing" secondItem="ZCm-s4-cap" secondAttribute="trailing" id="jGH-Zl-goB"/>
                             <constraint firstItem="Wk7-SF-W2L" firstAttribute="top" secondItem="xhY-xW-q6k" secondAttribute="bottom" constant="8" id="mng-Q4-IiW"/>
                             <constraint firstItem="3QD-5H-x5G" firstAttribute="bottom" secondItem="xhY-xW-q6k" secondAttribute="bottom" id="n1n-4I-JLF"/>
+                            <constraint firstItem="kkU-ds-YGw" firstAttribute="top" secondItem="ZCm-s4-cap" secondAttribute="bottom" constant="8" id="sHZ-h7-weR"/>
                             <constraint firstItem="Wk7-SF-W2L" firstAttribute="leading" secondItem="xhY-xW-q6k" secondAttribute="leading" id="tDK-9x-APJ"/>
                             <constraint firstItem="Wk7-SF-W2L" firstAttribute="height" secondItem="xhY-xW-q6k" secondAttribute="height" id="tQ8-Vs-a9i"/>
+                            <constraint firstItem="kkU-ds-YGw" firstAttribute="leading" secondItem="ZCm-s4-cap" secondAttribute="leading" id="wcp-Gd-3cR"/>
                             <constraint firstItem="3QD-5H-x5G" firstAttribute="trailing" secondItem="Wk7-SF-W2L" secondAttribute="trailing" id="yJ1-8C-UDa"/>
                             <constraint firstItem="a4X-uS-dDx" firstAttribute="height" secondItem="xhY-xW-q6k" secondAttribute="height" id="ydq-35-aRH"/>
                         </constraints>
@@ -206,6 +248,7 @@
                         <outlet property="slideTF" destination="a4X-uS-dDx" id="v71-0e-0jy"/>
                         <outlet property="stringTF1" destination="K8f-Bw-6dw" id="TPc-q0-JCw"/>
                         <outlet property="stringTF2" destination="cSN-nX-zxg" id="lA0-Xo-gxe"/>
+                        <outlet property="textTable" destination="ZCm-s4-cap" id="Eir-8L-rw2"/>
                         <outlet property="valueSL" destination="3wC-F3-rbQ" id="SWo-76-DgG"/>
                     </connections>
                 </viewController>

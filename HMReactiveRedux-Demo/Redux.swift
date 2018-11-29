@@ -37,6 +37,10 @@ final class Redux {
     static var sliderPath: String {
       return "\(Path.rootPath).slider"
     }
+    
+    static func textPath(_ textIndex: Int) -> String {
+      return "\(Path.rootPath).texts.\(textIndex)"
+    }
   }
   
   enum ClearAction: ReduxActionType {
@@ -65,6 +69,10 @@ final class Redux {
     case input(Double)
   }
   
+  enum TextAction: Action {
+    case input(Int, String?)
+  }
+  
   final class Reducer {
     static func main(_ state: State, _ action: Action) -> SafeNest {
       do {
@@ -73,6 +81,7 @@ final class Redux {
         case let action as NumberAction: return try number(state, action)
         case let action as StringAction: return try string(state, action)
         case let action as SliderAction: return try slider(state, action)
+        case let action as TextAction: return try text(state, action)
         default: return state
         }
       } catch (let e) {
@@ -119,6 +128,13 @@ final class Redux {
       switch action {
       case .input(let value):
         return try state.updating(at: Path.sliderPath, value: value)
+      }
+    }
+    
+    static func text(_ state: State, _ action: TextAction) throws -> State {
+      switch action {
+      case .input(let index, let value):
+        return try state.updating(at: Path.textPath(index), value: value)
       }
     }
   }

@@ -41,3 +41,23 @@ extension ConfirmButton: ReduxPropMapperType {
     )
   }
 }
+
+extension TableCell: ReduxPropMapperType {
+  typealias ReduxState = SafeNest
+  
+  func map(state: ReduxState) -> StateProps {
+    return textIndex
+      .map({StateProps(
+        text: state.value(at: Redux.Path.textPath($0)).cast(String.self).value)
+      })
+      .getOrElse(StateProps(text: nil))
+  }
+  
+  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
+    return textIndex
+      .map({index in DispatchProps(
+        updateText: {dispatch(Redux.TextAction.input(index, $0))})
+      })
+      .getOrElse(DispatchProps(updateText: {_ in}))
+  }
+}
