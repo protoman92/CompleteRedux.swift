@@ -36,15 +36,6 @@ final class Redux {
   
   enum ClearAction: ReduxActionType {
     case triggerClear
-    case resetClear
-    
-    static var path: String {
-      return "clear"
-    }
-    
-    static var clearPath: String {
-      return "\(path).value"
-    }
   }
   
   enum NumberAction: Action {
@@ -84,14 +75,7 @@ final class Redux {
     static func clear(_ state: State, _ action: ClearAction) throws -> State {
       switch action {
       case .triggerClear:
-        return try state
-          .updating(at: Path.numberPath, value: nil)
-          .updating(at: Path.stringPath, value: nil)
-          .updating(at: Path.sliderPath, value: nil)
-          .updating(at: ClearAction.clearPath, value: true)
-        
-      case .resetClear:
-        return try state.updating(at: ClearAction.clearPath, value: nil)
+        return try state.updating(at: Path.rootPath, value: nil)
       }
     }
     

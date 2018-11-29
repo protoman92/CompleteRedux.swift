@@ -47,15 +47,17 @@ extension TableCell: ReduxPropMapperType {
   typealias ReduxState = SafeNest
   
   func map(state: ReduxState) -> StateProps {
-    return textIndex
+    return self.textIndex
       .map({StateProps(
-        text: state.value(at: Redux.Path.textItemPath($0)).cast(String.self).value)
+        text: state.value(at: Redux.Path
+          .textItemPath($0))
+          .cast(String.self).value)
       })
       .getOrElse(StateProps(text: nil))
   }
   
   func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
-    return textIndex
+    return self.textIndex
       .map({index in DispatchProps(
         updateText: {dispatch(Redux.TextAction.input(index, $0))})
       })

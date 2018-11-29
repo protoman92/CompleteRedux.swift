@@ -58,10 +58,12 @@ final class ViewController: UIViewController {
     
     if
       let prevState = props.previousState,
-      prevState.textIndexes.count != nextState.textIndexes.count
+      prevState.textIndexes?.count != nextState.textIndexes?.count
     {
-      let prevSet = Set(prevState.textIndexes.enumerated().map({[$0, $1]}))
-      let nextSet = Set(nextState.textIndexes.enumerated().map({[$0, $1]}))
+      let prevIndexes = prevState.textIndexes ?? []
+      let nextIndexes = nextState.textIndexes ?? []
+      let prevSet = Set(prevIndexes.enumerated().map({[$0, $1]}))
+      let nextSet = Set(nextIndexes.enumerated().map({[$0, $1]}))
       
       let additions = nextSet.subtracting(prevSet)
         .map({IndexPath(row: $0[0], section: 0)})
@@ -102,7 +104,7 @@ final class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView,
                  numberOfRowsInSection section: Int) -> Int {
-    return self.variableProps?.nextState.textIndexes.count ?? 0
+    return self.variableProps?.nextState.textIndexes?.count ?? 0
   }
   
   func tableView(_ tableView: UITableView,
@@ -110,7 +112,7 @@ extension ViewController: UITableViewDataSource {
     let cell = tableView
       .dequeueReusableCell(withIdentifier: "TableCell") as! TableCell
 
-    cell.textIndex = self.variableProps?.nextState.textIndexes[indexPath.row]
+    cell.textIndex = self.variableProps?.nextState.textIndexes?[indexPath.row]
     _ = self.staticProps?.connector.connect(view: cell, mapper: cell)
     return cell
   }
@@ -145,8 +147,8 @@ extension ViewController {
     public var number: Int? = nil
     public var slider: Float? = nil
     public var string: String? = nil
-    public var textIndexes: [Int] = []
-    public var texts: [String?] = []
+    public var textIndexes: [Int]? = nil
+    public var texts: [String?]? = nil
   }
   
   struct DispatchProps {
