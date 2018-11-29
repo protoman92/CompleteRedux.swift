@@ -10,19 +10,34 @@ import HMReactiveRedux
 import SafeNest
 
 extension ViewController: ReduxPropMapperType {
-  typealias State = SafeNest
+  typealias ReduxState = SafeNest
   
-  func map(state: State) -> StateProps? {
-    return state.decode(at: Redux.Path.rootPath, ofType: StateProps.self).value
+  func map(state: ReduxState) -> StateProps {
+    return state
+      .decode(at: Redux.Path.rootPath, ofType: StateProps.self)
+      .getOrElse(StateProps())
   }
   
-  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps? {
+  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
     return DispatchProps(
-      clearAll: {dispatch(Redux.ClearAction.triggerClear)},
       incrementNumber: {dispatch(Redux.NumberAction.add)},
       decrementNumber: {dispatch(Redux.NumberAction.minus)},
       updateSlider: {dispatch(Redux.SliderAction.input($0))},
       updateString: {dispatch(Redux.StringAction.input($0))}
+    )
+  }
+}
+
+extension ConfirmButton: ReduxPropMapperType {
+  typealias ReduxState = SafeNest
+  
+  func map(state: ReduxState) -> StateProps {
+    return StateProps()
+  }
+  
+  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
+    return DispatchProps(
+      confirmEdit: {dispatch(Redux.ClearAction.triggerClear)}
     )
   }
 }

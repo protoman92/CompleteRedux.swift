@@ -17,13 +17,19 @@ final class ViewController: UIViewController {
   @IBOutlet private weak var stringTF2: UITextField!
   @IBOutlet private weak var slideTF: UITextField!
   @IBOutlet private weak var valueSL: UISlider!
+  @IBOutlet private weak var clearButton: ConfirmButton!
   
-  public var staticProps: StaticProps?
+  public var staticProps: StaticProps? {
+    didSet {
+      _ = self.staticProps?.connector
+        .connect(view: self.clearButton, mapper: self.clearButton)
+    }
+  }
   
   public var variableProps: VariableProps? {
     didSet {
       if let props = self.variableProps {
-        self.didSetReduxProps(props)
+        self.didSetProps(props)
       }
     }
   }
@@ -33,52 +39,41 @@ final class ViewController: UIViewController {
     self.counterTF.isEnabled = false
     self.stringTF1.isEnabled = false
     self.slideTF.isEnabled = false
-
-    navigationItem.rightBarButtonItem =
-      UIBarButtonItem(title: "Clear state",
-                      style: .plain,
-                      target: self,
-                      action: #selector(self.clearAll))
   }
   
-  private func didSetReduxProps(_ props: VariableProps) {
-    self.counterTF.text = props.nextState?.number.map(String.init)
-    self.slideTF.text = props.nextState?.slider.map(String.init)
-    self.stringTF1.text = props.nextState?.string
-    self.stringTF2.text = props.nextState?.string
-    self.valueSL.value = props.nextState?.slider ?? valueSL.value
-  }
-  
-  @objc func clearAll(_ sender: UIBarButtonItem) {
-    self.staticProps?.dispatch?.clearAll()
+  private func didSetProps(_ props: VariableProps) {
+    self.counterTF.text = props.nextState.number.map(String.init)
+    self.slideTF.text = props.nextState.slider.map(String.init)
+    self.stringTF1.text = props.nextState.string
+    self.stringTF2.text = props.nextState.string
+    self.valueSL.value = props.nextState.slider ?? valueSL.value
   }
   
   @IBAction func incrementNumber(_ sender: UIButton) {
-    self.staticProps?.dispatch?.incrementNumber()
+    self.variableProps?.dispatch.incrementNumber()
   }
   
   @IBAction func decrementNumber(_ sender: UIButton) {
-    self.staticProps?.dispatch?.decrementNumber()
+    self.variableProps?.dispatch.decrementNumber()
   }
   
   @IBAction func updateString(_ sender: UITextField) {
-    self.staticProps?.dispatch?.updateString(sender.text)
+    self.variableProps?.dispatch.updateString(sender.text)
   }
   
   @IBAction func updateSlider(_ sender: UISlider) {
-    self.staticProps?.dispatch?.updateSlider(Double(sender.value))
+    self.variableProps?.dispatch.updateSlider(Double(sender.value))
   }
 }
 
 extension ViewController {
   struct StateProps {
-    public let number: Int?
-    public let slider: Float?
-    public let string: String?
+    public var number: Int? = 0
+    public var slider: Float? = 0
+    public var string: String? = ""
   }
   
   struct DispatchProps {
-    let clearAll: () -> Void
     let incrementNumber: () -> Void
     let decrementNumber: () -> Void
     let updateSlider: (Double) -> Void

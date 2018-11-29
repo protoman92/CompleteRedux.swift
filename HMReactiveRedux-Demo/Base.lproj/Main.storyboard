@@ -162,10 +162,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kkU-ds-YGw">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kkU-ds-YGw" customClass="ConfirmButton" customModule="HMReactiveRedux_Demo" customModuleProvider="target">
                                 <rect key="frame" x="16" y="227" width="343" height="40"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Do some confirmation">
+                                <state key="normal" title="Clear all data">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
@@ -200,6 +200,7 @@
                     <navigationItem key="navigationItem" id="Bja-YP-qX1"/>
                     <connections>
                         <outlet property="addBT" destination="Uaj-eP-HJq" id="nAQ-5f-wpU"/>
+                        <outlet property="clearButton" destination="kkU-ds-YGw" id="ecw-i3-Ad4"/>
                         <outlet property="counterTF" destination="xhY-xW-q6k" id="JMJ-7h-1i7"/>
                         <outlet property="minusBT" destination="6dm-xa-sFG" id="1bn-wL-v9r"/>
                         <outlet property="slideTF" destination="a4X-uS-dDx" id="v71-0e-0jy"/>
