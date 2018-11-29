@@ -149,14 +149,14 @@ public extension ReduxUITests {
 
 extension ReduxUITests {
   public final class ConnectMapper: ReduxPropMapperType {
-    public typealias State = ReduxUITests.Store.State
-    public typealias StateProps = State
+    public typealias ReduxState = ReduxUITests.Store.State
+    public typealias StateProps = ReduxState
     public typealias DispatchProps = () -> Void
     
     public var mapStateCount = 0
     public var mapDispatchCount = 0
     
-    public func map(state: State) -> StateProps? {
+    public func map(state: ReduxState) -> StateProps? {
       self.mapStateCount += 1
       return state
     }

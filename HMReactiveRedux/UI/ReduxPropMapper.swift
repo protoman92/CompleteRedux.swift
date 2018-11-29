@@ -7,12 +7,12 @@
 //
 
 /// Prop mapper that maps state/dispatch to redux props.
-public protocol ReduxPropMapperType {
-  associatedtype State
+public protocol ReduxPropMapperType: class {
+  associatedtype ReduxState
   associatedtype StateProps
   associatedtype DispatchProps
   
-  func map(state: State) -> StateProps?
+  func map(state: ReduxState) -> StateProps?
   func map(dispatch: @escaping ReduxDispatch) -> DispatchProps?
   static func compareState(lhs: StateProps?, rhs: StateProps?) -> Bool
 }

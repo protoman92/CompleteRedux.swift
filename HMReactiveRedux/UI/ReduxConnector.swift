@@ -26,7 +26,7 @@ public protocol ReduxConnectorType {
     VC: ReduxCompatibleViewType,
     VC.PropsConnector == Self,
     Mapper: ReduxPropMapperType,
-    Mapper.State == State,
+    Mapper.ReduxState == State,
     Mapper.StateProps == VC.StateProps,
     Mapper.DispatchProps == VC.DispatchProps
   
@@ -43,7 +43,7 @@ public protocol ReduxConnectorType {
     V: ReduxCompatibleViewType,
     V.PropsConnector == Self,
     Mapper: ReduxPropMapperType,
-    Mapper.State == State,
+    Mapper.ReduxState == State,
     Mapper.StateProps == V.StateProps,
     Mapper.DispatchProps == V.DispatchProps
 }
@@ -56,26 +56,30 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     self.store = store
   }
   
+  private func clone() -> ReduxConnector<Store> {
+    return ReduxConnector(store: self.store)
+  }
+  
   private func connect<CV, Mapper>(compatibleView cv: CV, mapper: Mapper)
     -> ReduxUnsubscribe where
     CV: ReduxCompatibleViewType,
     CV.PropsConnector == ReduxConnector,
     Mapper: ReduxPropMapperType,
-    Mapper.State == State,
+    Mapper.ReduxState == State,
     Mapper.StateProps == CV.StateProps,
     Mapper.DispatchProps == CV.DispatchProps
   {
     let viewId = cv.stateSubscriberId
-    cv.staticProps = StaticPropsContainer(self)
+    cv.staticProps = StaticPropsContainer(self.clone())
     var previous: CV.StateProps? = nil
     
-    return self.store.subscribeState(subscriberId: viewId) {[weak cv] props in
+    return self.store.subscribeState(subscriberId: viewId) {[weak cv, weak mapper] state in
       // Since UI operations must happen on the main thread, we dispatch with
       // the main queue. Setting the previous props here is ok as well since
       // only the main queue is accessing it.
       DispatchQueue.main.async {
-        let dispatch = mapper.map(dispatch: self.store.dispatch)
-        let next = mapper.map(state: props)
+        let dispatch = mapper?.map(dispatch: self.store.dispatch)
+        let next = mapper?.map(state: state)
         
         if previous == nil || !Mapper.compareState(lhs: previous, rhs: next) {
           cv?.variableProps = VariablePropsContainer(previous, next, dispatch)
@@ -92,7 +96,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     VC: ReduxCompatibleViewType,
     VC.PropsConnector == ReduxConnector,
     Mapper: ReduxPropMapperType,
-    Mapper.State == State,
+    Mapper.ReduxState == State,
     Mapper.StateProps == VC.StateProps,
     Mapper.DispatchProps == VC.DispatchProps
   {
@@ -109,7 +113,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     V: ReduxCompatibleViewType,
     V.PropsConnector == ReduxConnector,
     Mapper: ReduxPropMapperType,
-    Mapper.State == State,
+    Mapper.ReduxState == State,
     Mapper.StateProps == V.StateProps,
     Mapper.DispatchProps == V.DispatchProps
   {
