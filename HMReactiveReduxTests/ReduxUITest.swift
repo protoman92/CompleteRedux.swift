@@ -39,15 +39,9 @@ public extension ReduxUITests {
     /// When
     let cancel = connect(view)
     
-    (0..<iterations).forEach({_ in
-      self.store.lastState = Try.success(Store.State())
-    })
-    
+    (0..<iterations).forEach({_ in self.store.lastState = .success(.init())})
     cancel()
-    
-    (0..<iterations).forEach({_ in
-      self.store.lastState = Try.success(Store.State())
-    })
+    (0..<iterations).forEach({_ in self.store.lastState = .success(.init())})
     
     /// Then
     DispatchQueue.main.async {
