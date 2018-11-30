@@ -14,10 +14,8 @@ public protocol ReduxCompatibleViewType: class {
   associatedtype PropsConnector: ReduxPropInjectorType
   associatedtype StateProps
   associatedtype DispatchProps
-  typealias StaticProps = StaticReduxProps<PropsConnector>
-  typealias VariableProps = VariableReduxProps<StateProps, DispatchProps>
-  
-  var stateSubscriberId: String { get }
+  typealias StaticProps = StaticPropsCt<PropsConnector>
+  typealias VariableProps = VariablePropsCt<StateProps, DispatchProps>
   
   /// This prop container includes static dependencies that can be used to
   /// wire up child views/view controllers.
@@ -26,16 +24,3 @@ public protocol ReduxCompatibleViewType: class {
   /// This prop container includes variable state/dispatch props.
   var variableProps: VariableProps? { get set }
 }
-
-public extension ReduxCompatibleViewType where Self: UIViewController {
-  public var stateSubscriberId: String {
-    return self.restorationIdentifier ?? String(describing: self)
-  }
-}
-
-public extension ReduxCompatibleViewType where Self: UIView {
-  public var stateSubscriberId: String {
-    return self.accessibilityIdentifier ?? String(describing: self)
-  }
-}
-

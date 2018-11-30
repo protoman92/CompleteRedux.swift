@@ -49,7 +49,6 @@ final class ViewController: UIViewController {
   }
   
   private func didSetProps(_ props: VariableProps) {
-    print(props.nextState)
     let nextState = props.nextState
     self.counterTF.text = props.nextState.number.map(String.init)
     self.slideTF.text = props.nextState.slider.map(String.init)

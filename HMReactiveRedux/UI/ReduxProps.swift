@@ -6,7 +6,7 @@
 //  Copyright © 2018 Holmusk. All rights reserved.
 //
 
-public struct StaticReduxProps<Connector: ReduxPropInjectorType> {
+public struct StaticPropsCt<Connector: ReduxPropInjectorType> {
   /// The connector instance used to inject redux props into compatible views.
   public let connector: Connector
   
@@ -19,7 +19,7 @@ public struct StaticReduxProps<Connector: ReduxPropInjectorType> {
   }
 }
 
-public struct VariableReduxProps<StateProps, DispatchProps> {
+public struct VariablePropsCt<StateProps, DispatchProps> {
   /// True if this is the first prop event.
   public let firstInstance: Bool
   

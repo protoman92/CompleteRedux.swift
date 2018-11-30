@@ -65,7 +65,12 @@ public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
     Mapper.StateProps == CV.StateProps,
     Mapper.DispatchProps == CV.DispatchProps
   {
-    let viewId = cv.stateSubscriberId
+    // Here we use the view's class name and a timestamp as the subscription
+    // id. We don't even need to store this id because we can simply cancel
+    // with the returned unsubscription callback (so the id can be literally
+    // anything, as long as it is unique).
+    let timestamp = Date().timeIntervalSince1970
+    let viewId = String(describing: cv) + String(describing: timestamp)
     var previous: CV.StateProps? = nil
     var first = true
     
@@ -80,11 +85,11 @@ public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
         // only the main queue is accessing it.
         DispatchQueue.main.async {
           if let cv = cv, let mapper = mapper {
-          let dispatch = mapper.map(dispatch: self.store.dispatch)
-          let next = mapper.map(state: state)
+            let dispatch = mapper.map(dispatch: self.store.dispatch)
+            let next = mapper.map(state: state)
           
             if first || !Mapper.compareState(lhs: previous, rhs: next) {
-              cv.variableProps = VariableReduxProps(first, previous, next, dispatch)
+              cv.variableProps = VariablePropsCt(first, previous, next, dispatch)
               previous = next
               first = false
             }
@@ -92,7 +97,7 @@ public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
         }
     }
     
-    cv.staticProps = StaticReduxProps(self, unsubscribe)
+    cv.staticProps = StaticPropsCt(self, unsubscribe)
     return unsubscribe
   }
   
