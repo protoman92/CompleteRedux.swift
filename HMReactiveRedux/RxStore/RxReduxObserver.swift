@@ -9,21 +9,21 @@
 import RxSwift
 
 /// Use this wrapper to discard error/complete events.
-internal struct RxReduxObserver<Element> {
-  private let reduxObserver: BehaviorSubject<E>
+struct RxReduxObserver<Element> {
+  private let observer: BehaviorSubject<E>
 
   public init(_ value: E) {
-    self.reduxObserver = BehaviorSubject(value: value)
+    self.observer = BehaviorSubject(value: value)
   }
   
   public func value() throws -> E {
-    return try self.reduxObserver.value()
+    return try self.observer.value()
   }
 }
 
 extension RxReduxObserver: ObservableConvertibleType {
   internal func asObservable() -> Observable<E> {
-    return self.reduxObserver.asObservable()
+    return self.observer.asObservable()
   }
 }
 
@@ -39,7 +39,7 @@ extension RxReduxObserver: ObserverType {
 
     switch event {
     case .next(let element):
-      self.reduxObserver.onNext(element)
+      self.observer.onNext(element)
 
     case .error(let error):
       debugPrint("Received error: \(error), ignoring.")

@@ -18,7 +18,12 @@ public protocol ReduxCompatibleViewType: class {
   typealias VariableProps = VariableReduxProps<StateProps, DispatchProps>
   
   var stateSubscriberId: String { get }
+  
+  /// This prop container includes static dependencies that can be used to
+  /// wire up child views/view controllers.
   var staticProps: StaticProps? { get set }
+  
+  /// This prop container includes variable state/dispatch props.
   var variableProps: VariableProps? { get set }
 }
 

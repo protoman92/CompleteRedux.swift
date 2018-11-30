@@ -8,6 +8,13 @@
 
 import RxSwift
 
+/// Scan action and reduce to produce state sequentially.
+///
+/// - Parameters:
+///   - actionStream: A stream of action.
+///   - reducer: The reducer function that maps previous state to next state.
+///   - initialState: Initial state.
+/// - Returns: An Observable instance.
 func scanReduce<State>(_ actionStream: Observable<ReduxActionType>,
                        _ reducer: @escaping ReduxReducer<State>,
                        _ initialState: State) -> Observable<State> {

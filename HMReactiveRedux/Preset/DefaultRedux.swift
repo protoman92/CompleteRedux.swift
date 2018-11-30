@@ -6,6 +6,7 @@
 //  Copyright © 2018 Holmusk. All rights reserved.
 //
 
+/// Default Redux convenience class that contains basic reusable actions..
 public final class DefaultRedux {
   public enum Action: ReduxActionType {
     case noop

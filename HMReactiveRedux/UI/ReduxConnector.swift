@@ -79,15 +79,14 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
         // the main queue. Setting the previous props here is ok as well since
         // only the main queue is accessing it.
         DispatchQueue.main.async {
-          if let cv = cv, let mapper = mapper {
-            let dispatch = mapper.map(dispatch: self.store.dispatch)
-            let next = mapper.map(state: state)
-            
-            if firstTime || !Mapper.compareState(lhs: previous, rhs: next) {
-              cv.variableProps = VariableReduxProps(firstTime, previous, next, dispatch)
-              previous = next
-              firstTime = false
-            }
+          guard let cv = cv, let mapper = mapper else { return }
+          let dispatch = mapper.map(dispatch: self.store.dispatch)
+          let next = mapper.map(state: state)
+          
+          if firstTime || !Mapper.compareState(lhs: previous, rhs: next) {
+            cv.variableProps = VariableReduxProps(firstTime, previous, next, dispatch)
+            previous = next
+            firstTime = false
           }
         }
     }
@@ -133,12 +132,14 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
   }
 }
 
-final class LifecycleViewController: UIViewController {
-  deinit { self.onDeinit?() }
-  var onDeinit: (() -> Void)?
-}
+extension ReduxConnector {
+  final class LifecycleViewController: UIViewController {
+    deinit { self.onDeinit?() }
+    var onDeinit: (() -> Void)?
+  }
 
-final class LifecycleView: UIView {
-  deinit { self.onDeinit?() }
-  var onDeinit: (() -> Void)?
+  final class LifecycleView: UIView {
+    deinit { self.onDeinit?() }
+    var onDeinit: (() -> Void)?
+  }
 }
