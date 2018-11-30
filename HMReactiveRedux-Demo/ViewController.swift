@@ -22,7 +22,7 @@ final class ViewController: UIViewController {
   
   public var staticProps: StaticProps? {
     didSet {
-      _ = self.staticProps?.connector
+      _ = self.staticProps?.injector
         .injectProps(view: self.clearButton, mapper: self.clearButton)
     }
   }
@@ -110,7 +110,7 @@ extension ViewController: UITableViewDataSource {
       .dequeueReusableCell(withIdentifier: "TableCell") as! TableCell
 
     cell.textIndex = self.variableProps?.nextState.textIndexes?[indexPath.row]
-    _ = self.staticProps?.connector.injectProps(view: cell, mapper: cell)
+    _ = self.staticProps?.injector.injectProps(view: cell, mapper: cell)
     return cell
   }
   

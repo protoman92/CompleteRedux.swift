@@ -1,5 +1,5 @@
 //
-//  ReduxConnector.swift
+//  ReduxInjector.swift
 //  HMReactiveRedux
 //
 //  Created by Hai Pham on 11/27/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// Connect views with state/dispatch props, similar to how React.js performs
+/// Inject views with state/dispatch props, similar to how React.js performs
 /// connect.
 public protocol ReduxPropInjectorType {
   associatedtype State
@@ -24,7 +24,7 @@ public protocol ReduxPropInjectorType {
     -> ReduxUnsubscribe where
     VC: UIViewController,
     VC: ReduxCompatibleViewType,
-    VC.PropsConnector == Self,
+    VC.PropInjector == Self,
     Mapper: ReduxPropMapperType,
     Mapper.ReduxState == State,
     Mapper.StateProps == VC.StateProps,
@@ -41,7 +41,7 @@ public protocol ReduxPropInjectorType {
     -> ReduxUnsubscribe where
     V: UIView,
     V: ReduxCompatibleViewType,
-    V.PropsConnector == Self,
+    V.PropInjector == Self,
     Mapper: ReduxPropMapperType,
     Mapper.ReduxState == State,
     Mapper.StateProps == V.StateProps,
@@ -59,7 +59,7 @@ public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
   private func injectProps<CV, Mapper>(compatibleView cv: CV, mapper: Mapper)
     -> ReduxUnsubscribe where
     CV: ReduxCompatibleViewType,
-    CV.PropsConnector == ReduxInjector,
+    CV.PropInjector == ReduxInjector,
     Mapper: ReduxPropMapperType,
     Mapper.ReduxState == State,
     Mapper.StateProps == CV.StateProps,
@@ -106,7 +106,7 @@ public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
     -> ReduxUnsubscribe where
     VC: UIViewController,
     VC: ReduxCompatibleViewType,
-    VC.PropsConnector == ReduxInjector,
+    VC.PropInjector == ReduxInjector,
     Mapper: ReduxPropMapperType,
     Mapper.ReduxState == State,
     Mapper.StateProps == VC.StateProps,
@@ -124,7 +124,7 @@ public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
     -> ReduxUnsubscribe where
     V: UIView,
     V: ReduxCompatibleViewType,
-    V.PropsConnector == ReduxInjector,
+    V.PropInjector == ReduxInjector,
     Mapper: ReduxPropMapperType,
     Mapper.ReduxState == State,
     Mapper.StateProps == V.StateProps,

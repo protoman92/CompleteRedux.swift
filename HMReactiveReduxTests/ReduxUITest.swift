@@ -13,21 +13,21 @@ import XCTest
 
 public final class ReduxUITests: XCTestCase {
   private var store: Store!
-  private var connector: ReduxInjector<Store>!
-  private var mapper: ConnectMapper!
+  private var injector: ReduxInjector<Store>!
+  private var mapper: PropMapper!
   
   override public func setUp() {
     super.setUp()
     self.store = ReduxUITests.Store()
-    self.connector = ReduxInjector(store: store)
-    self.mapper = ConnectMapper()
+    self.injector = ReduxInjector(store: store)
+    self.mapper = PropMapper()
   }
 }
 
 public extension ReduxUITests {
-  public func test_connectReduxView_shouldStreamState<View>(
+  public func test_injectReduxView_shouldStreamState<View>(
     _ view: View,
-    _ connect: @escaping (View) -> ReduxUnsubscribe,
+    _ inject: @escaping (View) -> ReduxUnsubscribe,
     _ checkOthers: @escaping (View) -> Void) where
     View: ReduxCompatibleViewType,
     View.StateProps == Store.State,
@@ -37,7 +37,7 @@ public extension ReduxUITests {
     let iterations = 100
     
     /// When
-    let unsubscribe = connect(view)
+    let unsubscribe = inject(view)
     
     (0..<iterations).forEach({_ in self.store.lastState = .init()})
     unsubscribe()
@@ -47,37 +47,37 @@ public extension ReduxUITests {
     XCTAssertEqual(self.store.cancelCount, 1)
     
     DispatchQueue.main.async {
-      XCTAssertTrue(view.staticProps?.connector is ReduxInjector<Store>)
+      XCTAssertTrue(view.staticProps?.injector is ReduxInjector<Store>)
       XCTAssertEqual(self.mapper.mapStateCount, iterations)
       XCTAssertEqual(self.mapper.mapDispatchCount, iterations)
-      XCTAssertFalse(ConnectMapper.compareState(lhs: Store.State(), rhs: Store.State()))
+      XCTAssertFalse(PropMapper.compareState(lhs: Store.State(), rhs: Store.State()))
       checkOthers(view)
       
-      // Check if reconnecting would unsubscribe from the previous subscription.
-      _ = connect(view)
+      // Check if re-injecting would unsubscribe from the previous subscription.
+      _ = inject(view)
       XCTAssertEqual(self.store.cancelCount, 2)
     }
   }
   
-  public func test_connectViewController_shouldStreamState() {
+  public func test_injectViewController_shouldStreamState() {
     /// Setup
     let vc = ViewController()
     
     /// When && Then
-    self.test_connectReduxView_shouldStreamState(
+    self.test_injectReduxView_shouldStreamState(
       vc,
-      {self.connector.injectProps(controller: $0, mapper: self.mapper)},
+      {self.injector.injectProps(controller: $0, mapper: self.mapper)},
       {XCTAssertEqual($0.setPropCount, self.mapper.mapStateCount)})
   }
   
-  public func test_connectView_shouldStreamState() {
+  public func test_injectingView_shouldStreamState() {
     /// Setup
     let view = View()
 
     /// When && Then
-    self.test_connectReduxView_shouldStreamState(
+    self.test_injectReduxView_shouldStreamState(
       view,
-      {self.connector.injectProps(view: $0, mapper: self.mapper)},
+      {self.injector.injectProps(view: $0, mapper: self.mapper)},
       {XCTAssertEqual($0.setPropCount, self.mapper.mapStateCount)})
   }
 }
@@ -153,7 +153,7 @@ public extension ReduxUITests {
 }
 
 extension ReduxUITests {
-  public final class ConnectMapper: ReduxPropMapperType {
+  public final class PropMapper: ReduxPropMapperType {
     public typealias ReduxState = ReduxUITests.Store.State
     public typealias StateProps = ReduxState
     public typealias DispatchProps = () -> Void
@@ -174,13 +174,13 @@ extension ReduxUITests {
 }
 
 extension ReduxUITests.ViewController: ReduxCompatibleViewType {
-  public typealias PropsConnector = ReduxInjector<ReduxUITests.Store>
+  public typealias PropInjector = ReduxInjector<ReduxUITests.Store>
   public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
 }
 
 extension ReduxUITests.View: ReduxCompatibleViewType {
-  public typealias PropsConnector = ReduxInjector<ReduxUITests.Store>
+  public typealias PropInjector = ReduxInjector<ReduxUITests.Store>
   public typealias StateProps = ReduxUITests.Store.State
   public typealias DispatchProps = () -> Void
 }

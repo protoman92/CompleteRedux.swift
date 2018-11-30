@@ -23,7 +23,7 @@ struct Dependency {
   }
   
   let store: RxReduxStore<SafeNest>
-  let connector: ReduxInjector<RxReduxStore<SafeNest>>
+  let injector: ReduxInjector<RxReduxStore<SafeNest>>
   
   private init() {
     let initial = try! SafeNest.empty()
@@ -37,6 +37,6 @@ struct Dependency {
       ))
     
     self.store = RxReduxStore.create(initial, Redux.Reducer.main)
-    self.connector = ReduxInjector(store: self.store)
+    self.injector = ReduxInjector(store: self.store)
   }
 }

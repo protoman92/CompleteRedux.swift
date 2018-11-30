@@ -22,7 +22,7 @@ extension NavigationController: UINavigationControllerDelegate {
                             animated: Bool) {
     switch viewController {
     case let vc as ViewController:
-      _ = Dependency.shared.connector.injectProps(controller: vc, mapper: vc)
+      _ = Dependency.shared.injector.injectProps(controller: vc, mapper: vc)
       
     default:
       break
