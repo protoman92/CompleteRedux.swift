@@ -18,7 +18,7 @@ final class ViewController: UIViewController {
   @IBOutlet private weak var slideTF: UITextField!
   @IBOutlet private weak var valueSL: UISlider!
   @IBOutlet private weak var clearButton: ConfirmButton!
-  @IBOutlet weak var textTable: UITableView!
+  @IBOutlet private weak var textTable: UITableView!
   
   public var staticProps: StaticProps? {
     didSet {
@@ -56,28 +56,21 @@ final class ViewController: UIViewController {
     self.stringTF2.text = props.nextState.string
     self.valueSL.value = props.nextState.slider ?? valueSL.minimumValue
     
-    if
-      let prevState = props.previousState,
-      prevState.textIndexes?.count != nextState.textIndexes?.count
-    {
-      let prevIndexes = prevState.textIndexes ?? []
-      let nextIndexes = nextState.textIndexes ?? []
-      let prevSet = Set(prevIndexes.enumerated().map({[$0, $1]}))
-      let nextSet = Set(nextIndexes.enumerated().map({[$0, $1]}))
-      
-      let additions = nextSet.subtracting(prevSet)
-        .map({IndexPath(row: $0[0], section: 0)})
-      
-      let deletions = prevSet.subtracting(nextSet)
-        .map({IndexPath(row: $0[0], section: 0)})
-      
-      self.textTable.beginUpdates()
-      self.textTable.deleteRows(at: deletions, with: .fade)
-      self.textTable.insertRows(at: additions, with: .fade)
-      self.textTable.endUpdates()
-    } else if props.firstInstance {
-      self.textTable.reloadData()
-    }
+    let prevIndexes = props.previousState?.textIndexes ?? []
+    let nextIndexes = nextState.textIndexes ?? []
+    let prevSet = Set(prevIndexes.enumerated().map({[$0, $1]}))
+    let nextSet = Set(nextIndexes.enumerated().map({[$0, $1]}))
+    
+    let additions = nextSet.subtracting(prevSet)
+      .map({IndexPath(row: $0[0], section: 0)})
+    
+    let deletions = prevSet.subtracting(nextSet)
+      .map({IndexPath(row: $0[0], section: 0)})
+    
+    self.textTable.beginUpdates()
+    self.textTable.deleteRows(at: deletions, with: .fade)
+    self.textTable.insertRows(at: additions, with: .fade)
+    self.textTable.endUpdates()
   }
   
   @IBAction func incrementNumber(_ sender: UIButton) {
@@ -94,6 +87,10 @@ final class ViewController: UIViewController {
   
   @IBAction func updateSlider(_ sender: UISlider) {
     self.variableProps?.dispatch.updateSlider(Double(sender.value))
+  }
+  
+  @IBAction func addTextItem(_ sender: UIButton) {
+    self.variableProps?.dispatch.addOneText()
   }
   
   @objc func reloadTable(_ sender: UIBarButtonItem) {
@@ -148,7 +145,7 @@ extension ViewController {
     public var slider: Float? = nil
     public var string: String? = nil
     public var textIndexes: [Int]? = nil
-    public var texts: [String?]? = nil
+    public var texts: [String : String?]? = nil
   }
   
   struct DispatchProps {
@@ -157,6 +154,7 @@ extension ViewController {
     let updateSlider: (Double) -> Void
     let updateString: (String?) -> Void
     let deleteText: (Int) -> Void
+    let addOneText: () -> Void
   }
 }
 

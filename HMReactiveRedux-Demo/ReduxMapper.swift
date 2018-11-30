@@ -24,7 +24,8 @@ extension ViewController: ReduxPropMapperType {
       decrementNumber: {dispatch(Redux.NumberAction.minus)},
       updateSlider: {dispatch(Redux.SliderAction.input($0))},
       updateString: {dispatch(Redux.StringAction.input($0))},
-      deleteText: {dispatch(Redux.TextAction.delete($0))}
+      deleteText: {dispatch(Redux.TextAction.delete($0))},
+      addOneText: {dispatch(Redux.TextAction.addItem)}
     )
   }
 }

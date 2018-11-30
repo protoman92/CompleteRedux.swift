@@ -52,6 +52,7 @@ final class Redux {
   }
   
   enum TextAction: Action {
+    case addItem
     case input(Int, String?)
     case delete(Int)
   }
@@ -109,6 +110,13 @@ final class Redux {
     
     static func text(_ state: State, _ action: TextAction) throws -> State {
       switch action {
+      case .addItem:
+        let mapper: State.TypedMapper<[Int], [Int]> = {
+          $0.getOrElse([]) + ($0?.last).map({[$0 + 1]}).getOrElse([0])
+        }
+        
+        return try state.mapping(at: Path.textIndexesPath, withMapper: mapper)
+        
       case .input(let index, let value):
         return try state.updating(at: Path.textItemPath(index), value: value)
         

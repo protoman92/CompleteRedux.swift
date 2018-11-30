@@ -32,7 +32,8 @@ struct Dependency {
         slider: 0,
         string: nil,
         textIndexes: (0..<5).map({$0}),
-        texts: (0..<5).map({_ in ""})
+        texts: (0..<5).map({["\($0)" : ""]})
+          .reduce([:], {$0!.merging($1, uniquingKeysWith: {$1})})
       ))
     
     self.store = RxReduxStore.create(initial, Redux.Reducer.main)
