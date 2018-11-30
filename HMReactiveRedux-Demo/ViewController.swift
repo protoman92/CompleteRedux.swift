@@ -23,7 +23,7 @@ final class ViewController: UIViewController {
   public var staticProps: StaticProps? {
     didSet {
       _ = self.staticProps?.connector
-        .connect(view: self.clearButton, mapper: self.clearButton)
+        .injectProps(view: self.clearButton, mapper: self.clearButton)
     }
   }
   
@@ -49,6 +49,7 @@ final class ViewController: UIViewController {
   }
   
   private func didSetProps(_ props: VariableProps) {
+    print(props.nextState)
     let nextState = props.nextState
     self.counterTF.text = props.nextState.number.map(String.init)
     self.slideTF.text = props.nextState.slider.map(String.init)
@@ -110,7 +111,7 @@ extension ViewController: UITableViewDataSource {
       .dequeueReusableCell(withIdentifier: "TableCell") as! TableCell
 
     cell.textIndex = self.variableProps?.nextState.textIndexes?[indexPath.row]
-    _ = self.staticProps?.connector.connect(view: cell, mapper: cell)
+    _ = self.staticProps?.connector.injectProps(view: cell, mapper: cell)
     return cell
   }
   

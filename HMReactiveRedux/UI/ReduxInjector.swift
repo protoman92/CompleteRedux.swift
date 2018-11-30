@@ -10,7 +10,7 @@ import UIKit
 
 /// Connect views with state/dispatch props, similar to how React.js performs
 /// connect.
-public protocol ReduxConnectorType {
+public protocol ReduxPropInjectorType {
   associatedtype State
   
   /// Inject state/dispatch props into a compatible view controller.
@@ -20,7 +20,7 @@ public protocol ReduxConnectorType {
   ///   - mapper: A Redux prop mapper.
   /// - Returns: Store cancellable.
   @discardableResult
-  func connect<VC, Mapper>(controller vc: VC, mapper: Mapper)
+  func injectProps<VC, Mapper>(controller vc: VC, mapper: Mapper)
     -> ReduxUnsubscribe where
     VC: UIViewController,
     VC: ReduxCompatibleViewType,
@@ -37,7 +37,7 @@ public protocol ReduxConnectorType {
   ///   - mapper: A Redux prop mapper.
   /// - Returns: Store cancellable.
   @discardableResult
-  func connect<V, Mapper>(view: V, mapper: Mapper)
+  func injectProps<V, Mapper>(view: V, mapper: Mapper)
     -> ReduxUnsubscribe where
     V: UIView,
     V: ReduxCompatibleViewType,
@@ -48,7 +48,7 @@ public protocol ReduxConnectorType {
     Mapper.DispatchProps == V.DispatchProps
 }
 
-public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
+public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
   public typealias State = Store.State
   private let store: Store
   
@@ -56,10 +56,10 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
     self.store = store
   }
   
-  private func connect<CV, Mapper>(compatibleView cv: CV, mapper: Mapper)
+  private func injectProps<CV, Mapper>(compatibleView cv: CV, mapper: Mapper)
     -> ReduxUnsubscribe where
     CV: ReduxCompatibleViewType,
-    CV.PropsConnector == ReduxConnector,
+    CV.PropsConnector == ReduxInjector,
     Mapper: ReduxPropMapperType,
     Mapper.ReduxState == State,
     Mapper.StateProps == CV.StateProps,
@@ -67,7 +67,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
   {
     let viewId = cv.stateSubscriberId
     var previous: CV.StateProps? = nil
-    var firstTime = true
+    var first = true
     
     // If there has been a previous subscription, unsubscribe from it to avoid
     // having parallel subscriptions.
@@ -79,14 +79,15 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
         // the main queue. Setting the previous props here is ok as well since
         // only the main queue is accessing it.
         DispatchQueue.main.async {
-          guard let cv = cv, let mapper = mapper else { return }
+          if let cv = cv, let mapper = mapper {
           let dispatch = mapper.map(dispatch: self.store.dispatch)
           let next = mapper.map(state: state)
           
-          if firstTime || !Mapper.compareState(lhs: previous, rhs: next) {
-            cv.variableProps = VariableReduxProps(firstTime, previous, next, dispatch)
-            previous = next
-            firstTime = false
+            if first || !Mapper.compareState(lhs: previous, rhs: next) {
+              cv.variableProps = VariableReduxProps(first, previous, next, dispatch)
+              previous = next
+              first = false
+            }
           }
         }
     }
@@ -96,17 +97,17 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
   }
   
   @discardableResult
-  public func connect<VC, Mapper>(controller vc: VC, mapper: Mapper)
+  public func injectProps<VC, Mapper>(controller vc: VC, mapper: Mapper)
     -> ReduxUnsubscribe where
     VC: UIViewController,
     VC: ReduxCompatibleViewType,
-    VC.PropsConnector == ReduxConnector,
+    VC.PropsConnector == ReduxInjector,
     Mapper: ReduxPropMapperType,
     Mapper.ReduxState == State,
     Mapper.StateProps == VC.StateProps,
     Mapper.DispatchProps == VC.DispatchProps
   {
-    let cancel = self.connect(compatibleView: vc, mapper: mapper)
+    let cancel = self.injectProps(compatibleView: vc, mapper: mapper)
     let lifecycleVC = LifecycleViewController()
     lifecycleVC.onDeinit = cancel
     vc.addChild(lifecycleVC)
@@ -114,17 +115,17 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
   }
   
   @discardableResult
-  public func connect<V, Mapper>(view: V, mapper: Mapper)
+  public func injectProps<V, Mapper>(view: V, mapper: Mapper)
     -> ReduxUnsubscribe where
     V: UIView,
     V: ReduxCompatibleViewType,
-    V.PropsConnector == ReduxConnector,
+    V.PropsConnector == ReduxInjector,
     Mapper: ReduxPropMapperType,
     Mapper.ReduxState == State,
     Mapper.StateProps == V.StateProps,
     Mapper.DispatchProps == V.DispatchProps
   {
-    let cancel = self.connect(compatibleView: view, mapper: mapper)
+    let cancel = self.injectProps(compatibleView: view, mapper: mapper)
     let lifecycleView = LifecycleView()
     lifecycleView.onDeinit = cancel
     view.addSubview(lifecycleView)
@@ -132,7 +133,7 @@ public struct ReduxConnector<Store: ReduxStoreType>: ReduxConnectorType {
   }
 }
 
-extension ReduxConnector {
+extension ReduxInjector {
   final class LifecycleViewController: UIViewController {
     deinit { self.onDeinit?() }
     var onDeinit: (() -> Void)?

@@ -6,9 +6,11 @@
 //  Copyright © 2018 Holmusk. All rights reserved.
 //
 
-public struct StaticReduxProps<Connector: ReduxConnectorType> {
+public struct StaticReduxProps<Connector: ReduxPropInjectorType> {
   /// The connector instance used to inject redux props into compatible views.
   public let connector: Connector
+  
+  /// Remember to unsubscribe before re-injecting again.
   let unsubscribe: ReduxUnsubscribe
   
   init(_ connector: Connector, _ unsubscribe: @escaping ReduxUnsubscribe) {
