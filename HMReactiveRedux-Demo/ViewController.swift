@@ -23,7 +23,7 @@ final class ViewController: UIViewController {
   public var staticProps: StaticProps? {
     didSet {
       _ = self.staticProps?.injector
-        .injectProps(view: self.clearButton, mapper: self.clearButton)
+        .injectProps(view: self.clearButton, outProps: ())
     }
   }
   
@@ -109,8 +109,9 @@ extension ViewController: UITableViewDataSource {
     let cell = tableView
       .dequeueReusableCell(withIdentifier: "TableCell") as! TableCell
 
+    let textIndex = self.variableProps?.nextState.textIndexes?[indexPath.row]
     cell.textIndex = self.variableProps?.nextState.textIndexes?[indexPath.row]
-    _ = self.staticProps?.injector.injectProps(view: cell, mapper: cell)
+    _ = self.staticProps?.injector.injectProps(view: cell, outProps: textIndex!)
     return cell
   }
   
@@ -161,4 +162,7 @@ extension ViewController {
 extension ViewController.StateProps: Equatable {}
 extension ViewController.StateProps: Encodable {}
 extension ViewController.StateProps: Decodable {}
-extension ViewController: ReduxCompatibleViewType {}
+
+extension ViewController: ReduxCompatibleViewType {
+  typealias OutProps = ()
+}

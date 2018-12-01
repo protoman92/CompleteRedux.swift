@@ -12,13 +12,14 @@ import SafeNest
 extension ViewController: ReduxPropMapperType {
   typealias ReduxState = SafeNest
   
-  func map(state: ReduxState) -> StateProps {
+  static func map(state: ReduxState, outProps: OutProps) -> StateProps {
     return state
       .decode(at: Redux.Path.rootPath, ofType: StateProps.self)
       .getOrElse(StateProps())
   }
   
-  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
+  static func map(dispatch: @escaping ReduxDispatch,
+                  outProps: OutProps) -> DispatchProps {
     return DispatchProps(
       incrementNumber: {dispatch(Redux.NumberAction.add)},
       decrementNumber: {dispatch(Redux.NumberAction.minus)},
@@ -33,11 +34,12 @@ extension ViewController: ReduxPropMapperType {
 extension ConfirmButton: ReduxPropMapperType {
   typealias ReduxState = SafeNest
   
-  func map(state: ReduxState) -> StateProps {
+  static func map(state: ReduxState, outProps: OutProps) -> StateProps {
     return StateProps()
   }
   
-  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
+  static func map(dispatch: @escaping ReduxDispatch,
+                  outProps: OutProps) -> DispatchProps {
     return DispatchProps(
       confirmEdit: {dispatch(Redux.ClearAction.triggerClear)}
     )
@@ -47,21 +49,18 @@ extension ConfirmButton: ReduxPropMapperType {
 extension TableCell: ReduxPropMapperType {
   typealias ReduxState = SafeNest
   
-  func map(state: ReduxState) -> StateProps {
-    return self.textIndex
-      .map({StateProps(
-        text: state.value(at: Redux.Path
-          .textItemPath($0))
-          .cast(String.self).value)
-      })
-      .getOrElse(StateProps(text: nil))
+  static func map(state: ReduxState, outProps: OutProps) -> StateProps {
+    return StateProps(
+      text: state.value(at: Redux.Path
+        .textItemPath(outProps))
+        .cast(String.self).value
+    )
   }
   
-  func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
-    return self.textIndex
-      .map({index in DispatchProps(
-        updateText: {dispatch(Redux.TextAction.input(index, $0))})
-      })
-      .getOrElse(DispatchProps(updateText: {_ in}))
+  static func map(dispatch: @escaping ReduxDispatch,
+                  outProps: OutProps) -> DispatchProps {
+    return DispatchProps(
+      updateText: {dispatch(Redux.TextAction.input(outProps, $0))}
+    )
   }
 }

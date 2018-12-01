@@ -33,6 +33,8 @@ final class TableCell: UITableViewCell {
 }
 
 extension TableCell: ReduxCompatibleViewType {
+  typealias OutProps = Int
+  
   struct StateProps: Equatable {
     let text: String?
   }

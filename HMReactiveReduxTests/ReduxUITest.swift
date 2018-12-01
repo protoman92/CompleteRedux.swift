@@ -14,13 +14,12 @@ import XCTest
 public final class ReduxUITests: XCTestCase {
   private var store: Store!
   private var injector: ReduxInjector<Store>!
-  private var mapper: PropMapper!
+  private let iterations = 100
   
   override public func setUp() {
     super.setUp()
     self.store = ReduxUITests.Store()
     self.injector = ReduxInjector(store: store)
-    self.mapper = PropMapper()
   }
 }
 
@@ -30,27 +29,22 @@ public extension ReduxUITests {
     _ inject: @escaping (View) -> ReduxUnsubscribe,
     _ checkOthers: @escaping (View) -> Void) where
     View: ReduxCompatibleViewType,
-    View.StateProps == Store.State,
+    View.StateProps == State,
     View.DispatchProps == () -> Void
   {
     /// Setup
-    let iterations = 100
-    
-    /// When
     let unsubscribe = inject(view)
     
-    (0..<iterations).forEach({_ in self.store.lastState = .init()})
+    /// When
+    (0..<self.iterations).forEach({_ in self.store.lastState = .init()})
     unsubscribe()
-    (0..<iterations).forEach({_ in self.store.lastState = .init()})
+    (0..<self.iterations).forEach({_ in self.store.lastState = .init()})
     
     /// Then
     XCTAssertEqual(self.store.cancelCount, 1)
     
     DispatchQueue.main.async {
       XCTAssertTrue(view.staticProps?.injector is ReduxInjector<Store>)
-      XCTAssertEqual(self.mapper.mapStateCount, iterations)
-      XCTAssertEqual(self.mapper.mapDispatchCount, iterations)
-      XCTAssertFalse(PropMapper.compareState(lhs: Store.State(), rhs: Store.State()))
       checkOthers(view)
       
       // Check if re-injecting would unsubscribe from the previous subscription.
@@ -64,10 +58,11 @@ public extension ReduxUITests {
     let vc = ViewController()
     
     /// When && Then
-    self.test_injectReduxView_shouldStreamState(
-      vc,
-      {self.injector.injectProps(controller: $0, mapper: self.mapper)},
-      {XCTAssertEqual($0.setPropCount, self.mapper.mapStateCount)})
+    self.test_injectReduxView_shouldStreamState(vc,
+      {self.injector.injectProps(controller: $0, outProps: 0)},
+      {XCTAssertEqual($0.setPropCount, self.iterations)})
+    
+    XCTAssertFalse(ViewController.compareState(lhs: State(), rhs: State()))
   }
   
   public func test_injectingView_shouldStreamState() {
@@ -75,27 +70,28 @@ public extension ReduxUITests {
     let view = View()
 
     /// When && Then
-    self.test_injectReduxView_shouldStreamState(
-      view,
-      {self.injector.injectProps(view: $0, mapper: self.mapper)},
-      {XCTAssertEqual($0.setPropCount, self.mapper.mapStateCount)})
+    self.test_injectReduxView_shouldStreamState(view,
+      {self.injector.injectProps(view: $0, outProps: 0)},
+      {XCTAssertEqual($0.setPropCount, self.iterations)})
+    
+    XCTAssertFalse(View.compareState(lhs: State(), rhs: State()))
   }
 }
 
 public extension ReduxUITests {
-  public final class Store: ReduxStoreType {
-    public struct State: Equatable {
-      private static var counter = 0
-      
-      private let counter: Int
-      
-      public init() {
-        State.counter += 1
-        self.counter = State.counter
-      }
-    }
+  public struct State: Equatable {
+    private static var counter = 0
     
-    public var lastState: ReduxUITests.Store.State {
+    private let counter: Int
+    
+    public init() {
+      State.counter += 1
+      self.counter = State.counter
+    }
+  }
+  
+  public final class Store: ReduxStoreType {
+    public var lastState: State {
       didSet {
         self.subscribers.forEach({(_, value) in _ = value(self.lastState)})
       }
@@ -152,35 +148,42 @@ public extension ReduxUITests {
   }
 }
 
-extension ReduxUITests {
-  public final class PropMapper: ReduxPropMapperType {
-    public typealias ReduxState = ReduxUITests.Store.State
-    public typealias StateProps = ReduxState
-    public typealias DispatchProps = () -> Void
-    
-    public var mapStateCount = 0
-    public var mapDispatchCount = 0
-    
-    public func map(state: ReduxState) -> StateProps {
-      self.mapStateCount += 1
-      return state
-    }
-    
-    public func map(dispatch: @escaping ReduxDispatch) -> DispatchProps {
-      self.mapDispatchCount += 1
-      return {dispatch(DefaultRedux.Action.noop)}
-    }
-  }
-}
-
 extension ReduxUITests.ViewController: ReduxCompatibleViewType {
   public typealias PropInjector = ReduxInjector<ReduxUITests.Store>
-  public typealias StateProps = ReduxUITests.Store.State
+  public typealias OutProps = Int
+  public typealias StateProps = ReduxUITests.State
   public typealias DispatchProps = () -> Void
+}
+
+extension ReduxUITests.ViewController: ReduxPropMapperType {
+  public typealias ReduxState = ReduxUITests.State
+  
+  public static func map(state: ReduxState, outProps: OutProps) -> StateProps {
+    return state
+  }
+  
+  public static func map(dispatch: @escaping ReduxDispatch,
+                         outProps: OutProps) -> DispatchProps {
+    return {dispatch(DefaultRedux.Action.noop)}
+  }
 }
 
 extension ReduxUITests.View: ReduxCompatibleViewType {
   public typealias PropInjector = ReduxInjector<ReduxUITests.Store>
-  public typealias StateProps = ReduxUITests.Store.State
+  public typealias OutProps = Int
+  public typealias StateProps = ReduxUITests.State
   public typealias DispatchProps = () -> Void
+}
+
+extension ReduxUITests.View: ReduxPropMapperType {
+  public typealias ReduxState = ReduxUITests.State
+  
+  public static func map(state: ReduxState, outProps: OutProps) -> StateProps {
+    return state
+  }
+  
+  public static func map(dispatch: @escaping ReduxDispatch,
+                         outProps: OutProps) -> DispatchProps {
+    return {dispatch(DefaultRedux.Action.noop)}
+  }
 }

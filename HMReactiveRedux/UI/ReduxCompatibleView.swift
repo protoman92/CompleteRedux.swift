@@ -12,8 +12,20 @@ import UIKit
 /// and subscribe to state changes.
 public protocol ReduxCompatibleViewType: class {
   associatedtype PropInjector: ReduxPropInjectorType
+  
+  /// This props represents data that is directly related to the parent view/
+  /// view controller. For example, when we inject a table view cell, this may
+  /// contain the index of that cell - which will be used to create variable
+  /// props.
+  associatedtype OutProps
+  
+  /// This represents variable state that can be used to update the UI.
   associatedtype StateProps
+  
+  /// This represents a set of actions that can be used to handle user
+  /// interactions.
   associatedtype DispatchProps
+  
   typealias StaticProps = StaticPropsCt<PropInjector>
   typealias VariableProps = VariablePropsCt<StateProps, DispatchProps>
   
@@ -23,4 +35,8 @@ public protocol ReduxCompatibleViewType: class {
   
   /// This prop container includes variable state/dispatch props.
   var variableProps: VariableProps? { get set }
+}
+
+public extension ReduxCompatibleViewType where Self: ReduxPropMapperType {
+  public typealias ReduxView = Self
 }

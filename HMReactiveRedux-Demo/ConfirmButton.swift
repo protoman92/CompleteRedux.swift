@@ -25,6 +25,8 @@ final class ConfirmButton: UIButton {
 }
 
 extension ConfirmButton: ReduxCompatibleViewType {
+  typealias OutProps = ()
+  
   struct StateProps: Equatable {}
   
   struct DispatchProps {

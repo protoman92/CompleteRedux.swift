@@ -17,36 +17,76 @@ public protocol ReduxPropInjectorType {
   ///
   /// - Parameters:
   ///   - vc: A view controller instance.
+  ///   - outProps: An OutProps instance.
   ///   - mapper: A Redux prop mapper.
   /// - Returns: Store cancellable.
   @discardableResult
-  func injectProps<VC, Mapper>(controller vc: VC, mapper: Mapper)
+  func injectProps<VC, MP>(controller: VC, outProps: VC.OutProps, mapper: MP.Type)
     -> ReduxUnsubscribe where
     VC: UIViewController,
-    VC: ReduxCompatibleViewType,
     VC.PropInjector == Self,
-    Mapper: ReduxPropMapperType,
-    Mapper.ReduxState == State,
-    Mapper.StateProps == VC.StateProps,
-    Mapper.DispatchProps == VC.DispatchProps
+    MP: ReduxPropMapperType,
+    MP.ReduxState == State,
+    MP.ReduxView == VC
   
   /// Inject state/dispatch props into a compatible view.
   ///
   /// - Parameters:
   ///   - view: A view instance.
+  ///   - outProps: An OutProps instance.
   ///   - mapper: A Redux prop mapper.
   /// - Returns: Store cancellable.
   @discardableResult
-  func injectProps<V, Mapper>(view: V, mapper: Mapper)
+  func injectProps<V, MP>(view: V, outProps: V.OutProps, mapper: MP.Type)
     -> ReduxUnsubscribe where
     V: UIView,
-    V: ReduxCompatibleViewType,
     V.PropInjector == Self,
-    Mapper: ReduxPropMapperType,
-    Mapper.ReduxState == State,
-    Mapper.StateProps == V.StateProps,
-    Mapper.DispatchProps == V.DispatchProps
+    MP: ReduxPropMapperType,
+    MP.ReduxState == State,
+    MP.ReduxView == V
 }
+
+public extension ReduxPropInjectorType {
+  
+  /// Convenience method to inject props when the controller also conforms to
+  /// the necessary protocols.
+  ///
+  /// - Parameters:
+  ///   - vc: A view controller instance.
+  ///   - outProps: An OutProps instance.
+  /// - Returns: Store cancellable.
+  @discardableResult
+  public func injectProps<VC>(controller vc: VC, outProps: VC.OutProps)
+    -> ReduxUnsubscribe where
+    VC: UIViewController,
+    VC: ReduxPropMapperType,
+    VC.PropInjector == Self,
+    VC.ReduxState == State,
+    VC.ReduxView == VC
+  {
+    return self.injectProps(controller: vc, outProps: outProps, mapper: VC.self)
+  }
+  
+  /// Convenience method to inject props when the view also conforms to the
+  /// necessary protocols.
+  ///
+  /// - Parameters:
+  ///   - view: A view instance.
+  ///   - outProps: An OutProps instance.
+  /// - Returns: Store cancellable.
+  @discardableResult
+  public func injectProps<V>(view: V, outProps: V.OutProps)
+    -> ReduxUnsubscribe where
+    V: UIView,
+    V: ReduxPropMapperType,
+    V.PropInjector == Self,
+    V.ReduxState == State,
+    V.ReduxView == V
+  {
+    return self.injectProps(view: view, outProps: outProps, mapper: V.self)
+  }
+}
+
 
 public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
   public typealias State = Store.State
@@ -56,15 +96,15 @@ public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
     self.store = store
   }
   
-  private func injectProps<CV, Mapper>(compatibleView cv: CV, mapper: Mapper)
+  func injectProps<CV, MP>(_ cv: CV, _ outProps: CV.OutProps, _ mapper: MP.Type)
     -> ReduxUnsubscribe where
-    CV: ReduxCompatibleViewType,
     CV.PropInjector == ReduxInjector,
-    Mapper: ReduxPropMapperType,
-    Mapper.ReduxState == State,
-    Mapper.StateProps == CV.StateProps,
-    Mapper.DispatchProps == CV.DispatchProps
+    MP: ReduxPropMapperType,
+    MP.ReduxState == State,
+    MP.ReduxView == CV
   {
+    let dispatch = self.store.dispatch
+    
     // Here we use the view's class name and a timestamp as the subscription
     // id. We don't even need to store this id because we can simply cancel
     // with the returned unsubscription callback (so the id can be literally
@@ -79,16 +119,16 @@ public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
     cv.staticProps?.unsubscribe()
     
     let unsubscribe = self.store
-      .subscribeState(subscriberId: viewId) {[weak cv, weak mapper] state in
+      .subscribeState(subscriberId: viewId) {[weak cv] state in
         // Since UI operations must happen on the main thread, we dispatch with
         // the main queue. Setting the previous props here is ok as well since
         // only the main queue is accessing it.
         DispatchQueue.main.async {
-          if let cv = cv, let mapper = mapper {
-            let dispatch = mapper.map(dispatch: self.store.dispatch)
-            let next = mapper.map(state: state)
+          if let cv = cv {
+            let dispatch = MP.map(dispatch: dispatch, outProps: outProps)
+            let next = MP.map(state: state, outProps: outProps)
           
-            if first || !Mapper.compareState(lhs: previous, rhs: next) {
+            if first || !MP.compareState(lhs: previous, rhs: next) {
               cv.variableProps = VariablePropsCt(first, previous, next, dispatch)
               previous = next
               first = false
@@ -102,35 +142,31 @@ public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
   }
   
   @discardableResult
-  public func injectProps<VC, Mapper>(controller vc: VC, mapper: Mapper)
+  public func injectProps<VC, MP>(controller: VC, outProps: VC.OutProps, mapper: MP.Type)
     -> ReduxUnsubscribe where
     VC: UIViewController,
-    VC: ReduxCompatibleViewType,
     VC.PropInjector == ReduxInjector,
-    Mapper: ReduxPropMapperType,
-    Mapper.ReduxState == State,
-    Mapper.StateProps == VC.StateProps,
-    Mapper.DispatchProps == VC.DispatchProps
+    MP: ReduxPropMapperType,
+    MP.ReduxState == State,
+    MP.ReduxView == VC
   {
-    let cancel = self.injectProps(compatibleView: vc, mapper: mapper)
+    let cancel = self.injectProps(controller, outProps, mapper)
     let lifecycleVC = LifecycleViewController()
     lifecycleVC.onDeinit = cancel
-    vc.addChild(lifecycleVC)
+    controller.addChild(lifecycleVC)
     return cancel
   }
   
   @discardableResult
-  public func injectProps<V, Mapper>(view: V, mapper: Mapper)
+  public func injectProps<V, MP>(view: V, outProps: V.OutProps, mapper: MP.Type)
     -> ReduxUnsubscribe where
     V: UIView,
-    V: ReduxCompatibleViewType,
     V.PropInjector == ReduxInjector,
-    Mapper: ReduxPropMapperType,
-    Mapper.ReduxState == State,
-    Mapper.StateProps == V.StateProps,
-    Mapper.DispatchProps == V.DispatchProps
+    MP: ReduxPropMapperType,
+    MP.ReduxState == State,
+    MP.ReduxView == V
   {
-    let cancel = self.injectProps(compatibleView: view, mapper: mapper)
+    let cancel = self.injectProps(view, outProps, mapper)
     let lifecycleView = LifecycleView()
     lifecycleView.onDeinit = cancel
     view.addSubview(lifecycleView)
