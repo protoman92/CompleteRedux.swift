@@ -3,7 +3,7 @@
 //  ReactiveRedux
 //
 //  Created by Hai Pham on 12/1/18.
-//  Copyright © 2018 Holmusk. All rights reserved.
+//  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
 /// Subscription that can be unsubscribed from. This allows subscribers to

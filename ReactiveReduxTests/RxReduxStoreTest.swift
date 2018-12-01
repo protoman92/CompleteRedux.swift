@@ -109,11 +109,7 @@ public extension RxReduxStoreTest {
     /// Setup
     let iterations = 100
     var callbackCount = 0
-    
-    let subscription = self.rxStore.subscribeState(
-      subscriberId: "",
-      callback: {_ in callbackCount += 1}
-    )
+    let subscription = self.rxStore.subscribeState("", {_ in callbackCount += 1})
     
     /// When
     (0..<iterations).forEach({_ in self.rxStore.stateTrigger.onNext(.empty())})

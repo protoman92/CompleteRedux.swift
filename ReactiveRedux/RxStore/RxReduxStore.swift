@@ -13,7 +13,7 @@ import SwiftFP
 public protocol RxReduxStoreType: ReduxStoreType {
   
   /// Trigger an action.
-  var actionTrigger: AnyObserver<Action> { get }
+  var actionTrigger: AnyObserver<ReduxActionType> { get }
   
   /// Subscribe to this stream to receive state notifications.
   var stateStream: Observable<State> { get }
@@ -38,14 +38,14 @@ public struct RxReduxStore<State> {
   }
 
   private let disposeBag: DisposeBag
-  private var actionObserver: RxReduxObserver<Action>
+  private var actionObserver: RxReduxObserver<ReduxActionType>
   private var stateObserver: BehaviorSubject<State>
   private let defaultState: State
 
   private init(_ initialState: State,
                _ reducer: @escaping ReduxReducer<State>) {
     self.disposeBag = DisposeBag()
-    self.actionObserver = RxReduxObserver<Action>(DefaultRedux.Action.noop)
+    self.actionObserver = RxReduxObserver(DefaultRedux.Action.noop)
     self.stateObserver = BehaviorSubject(value: initialState)
     self.defaultState = initialState
     
@@ -56,24 +56,23 @@ public struct RxReduxStore<State> {
 }
 
 extension RxReduxStore: ReduxStoreType {
-  public func dispatch(_ action: Action) {
-    self.actionTrigger.onNext(action)
+  public var dispatch: ReduxDispatch {
+    return self.actionTrigger.onNext
   }
   
-  public func subscribeState(subscriberId: String,
-                             callback: @escaping (State) -> Void)
-    -> ReduxSubscription
-  {
-    let cancelSignal = PublishSubject<Any?>()
-    let cancel: () -> Void = {cancelSignal.onNext(nil)}
-    let subscription = ReduxSubscription(cancel)
-    
-    self.stateObserver
-      .takeUntil(cancelSignal)
-      .subscribe(onNext: callback)
-      .disposed(by: self.disposeBag)
-    
-    return subscription
+  public var subscribeState: ReduxSubscribe<State> {
+    return {
+      let cancelSignal = PublishSubject<Any?>()
+      let cancel: () -> Void = {cancelSignal.onNext(nil)}
+      let subscription = ReduxSubscription(cancel)
+      
+      self.stateObserver
+        .takeUntil(cancelSignal)
+        .subscribe(onNext: $1)
+        .disposed(by: self.disposeBag)
+      
+      return subscription
+    }
   }
 }
 
@@ -86,7 +85,7 @@ extension RxReduxStore: RxReduxStoreType {
     }
   }
 
-  public var actionTrigger: AnyObserver<Action> {
+  public var actionTrigger: AnyObserver<ReduxActionType> {
     return self.actionObserver.asObserver()
   }
 

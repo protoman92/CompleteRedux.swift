@@ -97,25 +97,27 @@ public extension ReduxUITests {
       }
     }
     
-    private lazy var subscribers: [String : (State) -> Void] = [:]
-    public lazy var unsubscribeCount: Int = 0
+    private var subscribers = [String : ReduxCallback<State>]()
+    public var unsubscribeCount: Int = 0
     
     init() {
       self.lastState = State()
     }
     
-    public func dispatch(_ action: ReduxActionType) {}
+    public var dispatch: ReduxDispatch {
+      return {_ in}
+    }
     
-    public func subscribeState(subscriberId: String,
-                               callback: @escaping (State) -> Void)
-      -> ReduxSubscription
-    {
-      self.subscribers[subscriberId] = callback
+    public var subscribeState: ReduxSubscribe<State> {
+      return {
+        let subscriberId = $0
+        self.subscribers[subscriberId] = $1
       
-      return ReduxSubscription({
-        self.unsubscribeCount += 1
-        self.subscribers.removeValue(forKey: subscriberId)
-      })
+        return ReduxSubscription({
+          self.unsubscribeCount += 1
+          self.subscribers.removeValue(forKey: subscriberId)
+        })
+      }
     }
   }
 }

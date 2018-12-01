@@ -120,7 +120,7 @@ public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
     cv.staticProps?.subscription.unsubscribe()
     
     let unsubscribe = self.store
-      .subscribeState(subscriberId: viewId) {[weak cv] state in
+      .subscribeState(viewId) {[weak cv] state in
         // Since UI operations must happen on the main thread, we dispatch with
         // the main queue. Setting the previous props here is ok as well since
         // only the main queue is accessing it.

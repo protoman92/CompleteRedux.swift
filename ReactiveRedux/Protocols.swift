@@ -19,32 +19,34 @@ public protocol ReduxActionType {}
 /// state.
 public typealias ReduxReducer<State> = (State, ReduxActionType) -> State
 
-/// Typealias for a dispatch function.
+/// Unique id for a subscriber.
+public typealias ReduxSubscriberId = String
+
+/// Callback for state subscriptions.
+public typealias ReduxCallback<State> = (State) -> Void
+
+/// Typealias for the dispatch function.
 public typealias ReduxDispatch = (ReduxActionType) -> Void
+
+/// Typealias for the state subscribe function. Pass in the subscriber id and
+/// callback function.
+public typealias ReduxSubscribe<State> = (
+  ReduxSubscriberId,
+  @escaping ReduxCallback<State>) -> ReduxSubscription
 
 /// This represents a Redux store that stream state updates.
 public protocol ReduxStoreType {
-  typealias Action = ReduxActionType
   associatedtype State
   
   /// Get the last state instance.
   var lastState: State { get }
   
   /// Dispatch an action and notify listeners.
-  ///
-  /// - Parameter action: An Action instance.
-  func dispatch(_ action: Action)
+  var dispatch: ReduxDispatch { get }
   
   /// Set up state callback so that every time a new state arrives, call the
   /// callback function.
-  ///
-  /// - Parameters:
-  ///   - subscriberId: The id of the subscriber.
-  ///   - callback: State callback function.
-  /// - Parameter callback: State callback function.
-  /// - Returns: A ReduxSubscription.
-  func subscribeState(subscriberId: String,
-                      callback: @escaping (State) -> Void) -> ReduxSubscription
+  var subscribeState: ReduxSubscribe<State> { get }
 }
 
 public extension ReduxStoreType {
@@ -52,7 +54,7 @@ public extension ReduxStoreType {
   /// Dispatch some actions and notify listeners.
   ///
   /// - Parameter actions: A Sequence of Action.
-  public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == Action {
+  public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == ReduxActionType {
     actions.forEach({self.dispatch($0)})
   }
 }
