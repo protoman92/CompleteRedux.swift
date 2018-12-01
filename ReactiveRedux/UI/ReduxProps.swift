@@ -11,11 +11,11 @@ public struct StaticPropsCt<PropInjector: ReduxPropInjectorType> {
   public let injector: PropInjector
   
   /// Remember to unsubscribe before re-injecting again.
-  let unsubscribe: ReduxUnsubscribe
+  let subscription: ReduxSubscription
   
-  init(_ injector: PropInjector, _ unsubscribe: @escaping ReduxUnsubscribe) {
+  init(_ injector: PropInjector, _ subscription: ReduxSubscription) {
     self.injector = injector
-    self.unsubscribe = unsubscribe
+    self.subscription = subscription
   }
 }
 

@@ -26,22 +26,22 @@ public final class ReduxUITests: XCTestCase {
 public extension ReduxUITests {
   public func test_injectReduxView_shouldStreamState<View>(
     _ view: View,
-    _ inject: @escaping (View) -> ReduxUnsubscribe,
+    _ inject: @escaping (View) -> ReduxSubscription,
     _ checkOthers: @escaping (View) -> Void) where
     View: ReduxCompatibleViewType,
     View.StateProps == State,
     View.DispatchProps == () -> Void
   {
     /// Setup
-    let unsubscribe = inject(view)
+    let subscription = inject(view)
     
     /// When
     (0..<self.iterations).forEach({_ in self.store.lastState = .init()})
-    unsubscribe()
+    subscription.unsubscribe()
     (0..<self.iterations).forEach({_ in self.store.lastState = .init()})
     
     /// Then
-    XCTAssertEqual(self.store.cancelCount, 1)
+    XCTAssertEqual(self.store.unsubscribeCount, 1)
     
     DispatchQueue.main.async {
       XCTAssertTrue(view.staticProps?.injector is ReduxInjector<Store>)
@@ -49,7 +49,7 @@ public extension ReduxUITests {
       
       // Check if re-injecting would unsubscribe from the previous subscription.
       _ = inject(view)
-      XCTAssertEqual(self.store.cancelCount, 2)
+      XCTAssertEqual(self.store.unsubscribeCount, 2)
     }
   }
   
@@ -98,7 +98,7 @@ public extension ReduxUITests {
     }
     
     private lazy var subscribers: [String : (State) -> Void] = [:]
-    public lazy var cancelCount: Int = 0
+    public lazy var unsubscribeCount: Int = 0
     
     init() {
       self.lastState = State()
@@ -108,14 +108,14 @@ public extension ReduxUITests {
     
     public func subscribeState(subscriberId: String,
                                callback: @escaping (State) -> Void)
-      -> ReduxUnsubscribe
+      -> ReduxSubscription
     {
       self.subscribers[subscriberId] = callback
       
-      return {
-        self.cancelCount += 1
+      return ReduxSubscription({
+        self.unsubscribeCount += 1
         self.subscribers.removeValue(forKey: subscriberId)
-      }
+      })
     }
   }
 }

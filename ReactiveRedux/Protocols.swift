@@ -8,9 +8,6 @@
 
 import SwiftFP
 
-/// Function to unsubscribe from a state subscription.
-public typealias ReduxUnsubscribe = () -> Void
-
 /// Classes that implement this protocol should represent possible actions that
 /// can be passed to a reducer.
 ///
@@ -45,9 +42,9 @@ public protocol ReduxStoreType {
   ///   - subscriberId: The id of the subscriber.
   ///   - callback: State callback function.
   /// - Parameter callback: State callback function.
-  /// - Returns: Cancel function to invalidate the callback
+  /// - Returns: A ReduxSubscription.
   func subscribeState(subscriberId: String,
-                      callback: @escaping (State) -> Void) -> ReduxUnsubscribe
+                      callback: @escaping (State) -> Void) -> ReduxSubscription
 }
 
 public extension ReduxStoreType {

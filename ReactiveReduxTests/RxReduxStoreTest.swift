@@ -110,14 +110,14 @@ public extension RxReduxStoreTest {
     let iterations = 100
     var callbackCount = 0
     
-    let cancel = self.rxStore.subscribeState(
+    let subscription = self.rxStore.subscribeState(
       subscriberId: "",
       callback: {_ in callbackCount += 1}
     )
     
     /// When
     (0..<iterations).forEach({_ in self.rxStore.stateTrigger.onNext(.empty())})
-    cancel()
+    subscription.unsubscribe()
     (0..<iterations).forEach({_ in self.rxStore.stateTrigger.onNext(.empty())})
     
     /// Then

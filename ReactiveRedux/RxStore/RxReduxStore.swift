@@ -62,17 +62,18 @@ extension RxReduxStore: ReduxStoreType {
   
   public func subscribeState(subscriberId: String,
                              callback: @escaping (State) -> Void)
-    -> ReduxUnsubscribe
+    -> ReduxSubscription
   {
     let cancelSignal = PublishSubject<Any?>()
-    let cancel: ReduxUnsubscribe = {cancelSignal.onNext(nil)}
+    let cancel: () -> Void = {cancelSignal.onNext(nil)}
+    let subscription = ReduxSubscription(cancel)
     
     self.stateObserver
       .takeUntil(cancelSignal)
       .subscribe(onNext: callback)
       .disposed(by: self.disposeBag)
     
-    return cancel
+    return subscription
   }
 }
 
