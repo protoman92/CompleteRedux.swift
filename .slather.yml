@@ -1,6 +1,6 @@
 ci_service: travis_ci
 coverage_service: coveralls
-xcodeproj: HMReactiveRedux.xcodeproj
-scheme: HMReactiveRedux
-source_directory: HMReactiveRedux
-workspace: HMReactiveRedux.xcworkspace
+xcodeproj: ReactiveRedux.xcodeproj
+scheme: ReactiveRedux
+source_directory: ReactiveRedux
+workspace: ReactiveRedux.xcworkspace
