@@ -47,6 +47,8 @@ public protocol ReduxPropMapperType: class {
   static func compareState(lhs: StateProps?, rhs: StateProps?) -> Bool
 }
 
+/// We should make state props conform to Equatable, so that some defaults
+/// can be implemented.
 public extension ReduxPropMapperType where StateProps: Equatable {
   public static func compareState(lhs: StateProps?, rhs: StateProps?) -> Bool {
     return lhs == rhs

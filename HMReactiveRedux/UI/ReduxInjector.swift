@@ -88,6 +88,7 @@ public extension ReduxPropInjectorType {
 }
 
 
+/// Basic redux injector implementation that also handles view lifecycles.
 public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
   public typealias State = Store.State
   private let store: Store
@@ -124,15 +125,13 @@ public struct ReduxInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
         // the main queue. Setting the previous props here is ok as well since
         // only the main queue is accessing it.
         DispatchQueue.main.async {
-          if let cv = cv {
-            let dispatch = MP.map(dispatch: dispatch, outProps: outProps)
-            let next = MP.map(state: state, outProps: outProps)
-          
-            if first || !MP.compareState(lhs: previous, rhs: next) {
-              cv.variableProps = VariablePropsCt(first, previous, next, dispatch)
-              previous = next
-              first = false
-            }
+          let dispatch = MP.map(dispatch: dispatch, outProps: outProps)
+          let next = MP.map(state: state, outProps: outProps)
+        
+          if first || !MP.compareState(lhs: previous, rhs: next) {
+            cv?.variableProps = VariablePropsCt(first, previous, next, dispatch)
+            previous = next
+            first = false
           }
         }
     }
