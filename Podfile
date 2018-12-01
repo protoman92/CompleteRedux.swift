@@ -6,21 +6,21 @@ def allPods
   pod 'SwiftFP/Main', git: 'https://github.com/protoman92/SwiftFP.git'
 end
 
-target 'HMReactiveRedux' do
+target 'ReactiveRedux' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for HMReactiveRedux
+  # Pods for ReactiveRedux
   allPods
   
-  target 'HMReactiveReduxTests' do
+  target 'ReactiveReduxTests' do
     inherit! :search_paths
     # Pods for testing
     pod 'RxTest'
     pod 'SafeNest/Main', git: 'https://github.com/protoman92/SafeNest.git'
   end
   
-  target 'HMReactiveRedux-Demo' do
+  target 'ReactiveRedux-Demo' do
     inherit! :search_paths
     # Pods for demo
     pod 'RxCocoa'

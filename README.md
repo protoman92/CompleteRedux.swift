@@ -1,4 +1,4 @@
-# HMReactiveRedux-Swift
+# ReactiveRedux
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![CocoaPods](https://img.shields.io/cocoapods/v/HMReactiveRedux.svg)
