@@ -1,5 +1,5 @@
 //
-//  ReduxInjector.swift
+//  ReduxPropInjector.swift
 //  ReactiveRedux
 //
 //  Created by Hai Pham on 11/27/18.

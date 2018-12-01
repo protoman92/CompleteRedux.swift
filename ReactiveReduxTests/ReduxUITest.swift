@@ -13,13 +13,13 @@ import XCTest
 
 public final class ReduxUITests: XCTestCase {
   private var store: Store!
-  private var injector: Redux.Injector<Store>!
+  private var injector: Redux.PropInjector<Store>!
   private let iterations = 100
   
   override public func setUp() {
     super.setUp()
     self.store = ReduxUITests.Store()
-    self.injector = Redux.Injector(store: store)
+    self.injector = Redux.PropInjector(store: store)
   }
 }
 
@@ -44,7 +44,7 @@ public extension ReduxUITests {
     XCTAssertEqual(self.store.unsubscribeCount, 1)
     
     DispatchQueue.main.async {
-      XCTAssertTrue(view.staticProps?.injector is Redux.Injector<Store>)
+      XCTAssertTrue(view.staticProps?.injector is Redux.PropInjector<Store>)
       checkOthers(view)
       
       // Check if re-injecting would unsubscribe from the previous subscription.
@@ -151,7 +151,7 @@ public extension ReduxUITests {
 }
 
 extension ReduxUITests.ViewController: ReduxCompatibleViewType {
-  public typealias PropInjector = Redux.Injector<ReduxUITests.Store>
+  public typealias PropInjector = Redux.PropInjector<ReduxUITests.Store>
   public typealias OutProps = Int
   public typealias StateProps = ReduxUITests.State
   public typealias DispatchProps = () -> Void
@@ -171,7 +171,7 @@ extension ReduxUITests.ViewController: ReduxPropMapperType {
 }
 
 extension ReduxUITests.View: ReduxCompatibleViewType {
-  public typealias PropInjector = Redux.Injector<ReduxUITests.Store>
+  public typealias PropInjector = Redux.PropInjector<ReduxUITests.Store>
   public typealias OutProps = Int
   public typealias StateProps = ReduxUITests.State
   public typealias DispatchProps = () -> Void

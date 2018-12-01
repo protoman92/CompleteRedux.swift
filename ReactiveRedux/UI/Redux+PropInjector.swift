@@ -1,5 +1,5 @@
 //
-//  Redux+Injector.swift
+//  Redux+PropInjector.swift
 //  ReactiveRedux
 //
 //  Created by Hai Pham on 12/2/18.
@@ -9,7 +9,7 @@
 public extension Redux {
   
   /// Basic redux injector implementation that also handles view lifecycles.
-  public struct Injector<Store: ReduxStoreType>: ReduxPropInjectorType {
+  public struct PropInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
     public typealias State = Store.State
     private let store: Store
     
@@ -19,7 +19,7 @@ public extension Redux {
     
     func injectProps<CV, MP>(_ cv: CV, _ outProps: CV.OutProps, _ mapper: MP.Type)
       -> Redux.Subscription where
-      CV.PropInjector == Injector,
+      CV.PropInjector == PropInjector,
       MP: ReduxPropMapperType,
       MP.ReduxState == State,
       MP.ReduxView == CV
@@ -61,10 +61,12 @@ public extension Redux {
     }
     
     @discardableResult
-    public func injectProps<VC, MP>(controller: VC, outProps: VC.OutProps, mapper: MP.Type)
+    public func injectProps<VC, MP>(controller: VC,
+                                    outProps: VC.OutProps,
+                                    mapper: MP.Type)
       -> Redux.Subscription where
       VC: UIViewController,
-      VC.PropInjector == Injector,
+      VC.PropInjector == PropInjector,
       MP: ReduxPropMapperType,
       MP.ReduxState == State,
       MP.ReduxView == VC
@@ -77,10 +79,12 @@ public extension Redux {
     }
     
     @discardableResult
-    public func injectProps<V, MP>(view: V, outProps: V.OutProps, mapper: MP.Type)
+    public func injectProps<V, MP>(view: V,
+                                   outProps: V.OutProps,
+                                   mapper: MP.Type)
       -> Redux.Subscription where
       V: UIView,
-      V.PropInjector == Injector,
+      V.PropInjector == PropInjector,
       MP: ReduxPropMapperType,
       MP.ReduxState == State,
       MP.ReduxView == V
@@ -94,7 +98,7 @@ public extension Redux {
   }
 }
 
-extension Redux.Injector {
+extension Redux.PropInjector {
   final class LifecycleViewController: UIViewController {
     deinit { self.onDeinit?() }
     var onDeinit: (() -> Void)?
