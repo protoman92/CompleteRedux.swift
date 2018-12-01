@@ -14,19 +14,19 @@ extension ViewController: ReduxPropMapperType {
   
   static func map(state: ReduxState, outProps: OutProps) -> StateProps {
     return state
-      .decode(at: Redux.Path.rootPath, ofType: StateProps.self)
+      .decode(at: AppRedux.Path.rootPath, ofType: StateProps.self)
       .getOrElse(StateProps())
   }
   
-  static func map(dispatch: @escaping ReduxDispatch,
+  static func map(dispatch: @escaping Redux.Dispatch,
                   outProps: OutProps) -> DispatchProps {
     return DispatchProps(
-      incrementNumber: {dispatch(Redux.NumberAction.add)},
-      decrementNumber: {dispatch(Redux.NumberAction.minus)},
-      updateSlider: {dispatch(Redux.SliderAction.input($0))},
-      updateString: {dispatch(Redux.StringAction.input($0))},
-      deleteText: {dispatch(Redux.TextAction.delete($0))},
-      addOneText: {dispatch(Redux.TextAction.addItem)}
+      incrementNumber: {dispatch(AppRedux.NumberAction.add)},
+      decrementNumber: {dispatch(AppRedux.NumberAction.minus)},
+      updateSlider: {dispatch(AppRedux.SliderAction.input($0))},
+      updateString: {dispatch(AppRedux.StringAction.input($0))},
+      deleteText: {dispatch(AppRedux.TextAction.delete($0))},
+      addOneText: {dispatch(AppRedux.TextAction.addItem)}
     )
   }
 }
@@ -38,10 +38,10 @@ extension ConfirmButton: ReduxPropMapperType {
     return StateProps()
   }
   
-  static func map(dispatch: @escaping ReduxDispatch,
+  static func map(dispatch: @escaping Redux.Dispatch,
                   outProps: OutProps) -> DispatchProps {
     return DispatchProps(
-      confirmEdit: {dispatch(Redux.ClearAction.triggerClear)}
+      confirmEdit: {dispatch(AppRedux.ClearAction.triggerClear)}
     )
   }
 }
@@ -51,16 +51,16 @@ extension TableCell: ReduxPropMapperType {
   
   static func map(state: ReduxState, outProps: OutProps) -> StateProps {
     return StateProps(
-      text: state.value(at: Redux.Path
+      text: state.value(at: AppRedux.Path
         .textItemPath(outProps))
         .cast(String.self).value
     )
   }
   
-  static func map(dispatch: @escaping ReduxDispatch,
+  static func map(dispatch: @escaping Redux.Dispatch,
                   outProps: OutProps) -> DispatchProps {
     return DispatchProps(
-      updateText: {dispatch(Redux.TextAction.input(outProps, $0))}
+      updateText: {dispatch(AppRedux.TextAction.input(outProps, $0))}
     )
   }
 }

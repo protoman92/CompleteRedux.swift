@@ -17,7 +17,7 @@ public final class RxReduxStoreTest: XCTestCase {
   private var disposeBag: DisposeBag!
   private var scheduler: TestScheduler!
   private var initialState: SafeNest!
-  private var rxStore: RxReduxStore<SafeNest>!
+  private var rxStore: Redux.RxStore<SafeNest>!
   private var actionsPerIter: Int!
 
   private var updateId: String {
@@ -30,7 +30,7 @@ public final class RxReduxStoreTest: XCTestCase {
     self.disposeBag = DisposeBag()
     self.actionsPerIter = 5
     self.initialState = try! SafeNest.builder().build().updating(at: self.updateId, value: 0)
-    self.rxStore = RxReduxStore.create(initialState!, self.reduce)
+    self.rxStore = Redux.RxStore.create(initialState!, self.reduce)
   }
 
   func reduce(_ state: SafeNest, _ action: ReduxActionType) -> SafeNest {

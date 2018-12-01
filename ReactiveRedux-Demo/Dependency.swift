@@ -22,12 +22,12 @@ struct Dependency {
     }
   }
   
-  let store: RxReduxStore<SafeNest>
-  let injector: ReduxInjector<RxReduxStore<SafeNest>>
+  let store: Redux.RxStore<SafeNest>
+  let injector: Redux.Injector<Redux.RxStore<SafeNest>>
   
   private init() {
     let initial = try! SafeNest.empty()
-      .encoding(at: Redux.Path.rootPath, value: ViewController.StateProps(
+      .encoding(at: AppRedux.Path.rootPath, value: ViewController.StateProps(
         number: 0,
         slider: 0,
         string: nil,
@@ -36,7 +36,7 @@ struct Dependency {
           .reduce([:], {$0!.merging($1, uniquingKeysWith: {$1})})
       ))
     
-    self.store = RxReduxStore.create(initial, Redux.Reducer.main)
-    self.injector = ReduxInjector(store: self.store)
+    self.store = Redux.RxStore.create(initial, AppRedux.Reducer.main)
+    self.injector = Redux.Injector(store: self.store)
   }
 }

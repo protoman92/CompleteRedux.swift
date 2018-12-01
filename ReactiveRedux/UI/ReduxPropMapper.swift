@@ -35,7 +35,7 @@ public protocol ReduxPropMapperType: class {
   ///   - dispatch: A ReduxDispatch instance.
   ///   - outProps: An OutProps instance.
   /// - Returns: A DispatchProps instance.
-  static func map(dispatch: @escaping ReduxDispatch,
+  static func map(dispatch: @escaping Redux.Dispatch,
                   outProps: OutProps) -> DispatchProps
   
   /// Compare previous/next StateProps.

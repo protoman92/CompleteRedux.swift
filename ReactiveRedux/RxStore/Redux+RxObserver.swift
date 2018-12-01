@@ -8,29 +8,32 @@
 
 import RxSwift
 
-/// Use this wrapper to discard error/complete events.
-struct RxReduxObserver<Element> {
-  private let observer: BehaviorSubject<E>
-
-  public init(_ value: E) {
-    self.observer = BehaviorSubject(value: value)
-  }
+public extension Redux {
   
-  public func value() throws -> E {
-    return try self.observer.value()
+  /// Use this wrapper to discard error/complete events.
+  public struct RxObserver<Element> {
+    private let observer: BehaviorSubject<E>
+
+    init(_ value: E) {
+      self.observer = BehaviorSubject(value: value)
+    }
+    
+    public func value() throws -> E {
+      return try self.observer.value()
+    }
   }
 }
 
-extension RxReduxObserver: ObservableConvertibleType {
-  internal func asObservable() -> Observable<E> {
+extension Redux.RxObserver: ObservableConvertibleType {
+  public func asObservable() -> Observable<E> {
     return self.observer.asObservable()
   }
 }
 
-extension RxReduxObserver: ObserverType {
-  typealias E = Element
+extension Redux.RxObserver: ObserverType {
+  public typealias E = Element
 
-  internal func on(_ event: Event<Element>) {
+  public func on(_ event: Event<Element>) {
     #if DEBUG
     if !Thread.isMainThread {
       fatalError("Should receive \(event) on main thread")
