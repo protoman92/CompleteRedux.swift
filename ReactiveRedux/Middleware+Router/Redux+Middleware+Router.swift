@@ -31,17 +31,18 @@ public extension Redux {
       self.navigate = router.navigate
     }
     
-    public func wrap(_ input: MiddlewareInput<State>) -> DispatchMapper {
-      return {dispatch in
+    public var middleware: Middleware<State> {
+      return {_ in
         {
-          dispatch($0)
-          
-          guard let screen = $0 as? Screen else {
-            return
+          dispatch in
+          {
+            dispatch($0)
+            
+            if let screen = $0 as? Screen {
+              // Force-navigate on the main thread.
+              DispatchQueue.main.async {self.navigate(screen)}
+            }
           }
-          
-          // Force-navigate on the main thread.
-          DispatchQueue.main.async {self.navigate(screen)}
         }
       }
     }

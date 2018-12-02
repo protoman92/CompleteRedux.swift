@@ -16,7 +16,7 @@ final class RootController: UIViewController {
   var variableProps: VariableProps?
   
   @IBAction func goToViewController1(_ sender: UIButton) {
-    self.variableProps?.dispatch.goToViewController1()
+    self.variableProps?.action.goToViewController1()
   }
 }
 
@@ -24,7 +24,7 @@ extension RootController: ReduxCompatibleViewType {
   typealias OutProps = ()
   typealias StateProps = ()
   
-  struct DispatchProps {
+  struct ActionProps {
     let goToViewController1: () -> Void
   }
 }

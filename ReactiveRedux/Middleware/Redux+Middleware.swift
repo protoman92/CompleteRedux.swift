@@ -48,15 +48,4 @@ public extension Redux {
       return DelegateStore(store: enhancedStore)
     }
   }
-  
-  /// Extract middleware from a middleware provider.
-  ///
-  /// - Parameter provider: A middleware provider instance.
-  /// - Returns: A Middleware instance.
-  public static func extractMiddleware<Provider>(_ provider: Provider)
-    -> Middleware<Provider.State> where
-    Provider: ReduxMiddlewareProviderType
-  {
-    return provider.wrap
-  }
 }

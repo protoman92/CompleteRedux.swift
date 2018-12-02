@@ -28,7 +28,7 @@ final class TableCell: UITableViewCell {
   }
   
   @IBAction func updateText(_ sender: UITextField) {
-    self.variableProps?.dispatch.updateText(sender.text)
+    self.variableProps?.action.updateText(sender.text)
   }
 }
 
@@ -39,7 +39,7 @@ extension TableCell: ReduxCompatibleViewType {
     let text: String?
   }
   
-  struct DispatchProps {
+  struct ActionProps {
     let updateText: (String?) -> Void
   }
 }

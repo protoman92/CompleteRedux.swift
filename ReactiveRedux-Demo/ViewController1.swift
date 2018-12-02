@@ -81,27 +81,27 @@ final class ViewController1: UIViewController {
   }
   
   @IBAction func incrementNumber(_ sender: UIButton) {
-    self.variableProps?.dispatch.incrementNumber()
+    self.variableProps?.action.incrementNumber()
   }
   
   @IBAction func decrementNumber(_ sender: UIButton) {
-    self.variableProps?.dispatch.decrementNumber()
+    self.variableProps?.action.decrementNumber()
   }
   
   @IBAction func updateString(_ sender: UITextField) {
-    self.variableProps?.dispatch.updateString(sender.text)
+    self.variableProps?.action.updateString(sender.text)
   }
   
   @IBAction func updateSlider(_ sender: UISlider) {
-    self.variableProps?.dispatch.updateSlider(Double(sender.value))
+    self.variableProps?.action.updateSlider(Double(sender.value))
   }
   
   @IBAction func addTextItem(_ sender: UIButton) {
-    self.variableProps?.dispatch.addOneText()
+    self.variableProps?.action.addOneText()
   }
   
   @objc func goBack(_ sender: UIBarButtonItem) {
-    self.variableProps?.dispatch.goBack()
+    self.variableProps?.action.goBack()
   }
   
   @objc func reloadTable(_ sender: UIBarButtonItem) {
@@ -136,7 +136,7 @@ extension ViewController1: UITableViewDataSource {
                  forRowAt indexPath: IndexPath) {
     switch editingStyle {
     case .delete:
-      self.variableProps?.dispatch.deleteText(indexPath.row)
+      self.variableProps?.action.deleteText(indexPath.row)
       
     default:
       break
@@ -160,7 +160,7 @@ extension ViewController1 {
     public var texts: [String : String?]? = nil
   }
   
-  struct DispatchProps {
+  struct ActionProps {
     let goBack: () -> Void
     let incrementNumber: () -> Void
     let decrementNumber: () -> Void

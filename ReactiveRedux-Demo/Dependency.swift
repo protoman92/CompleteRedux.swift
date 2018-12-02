@@ -27,7 +27,7 @@ struct Dependency {
     let router = ReduxRouter(navController)
     
     self.store = Redux.applyMiddlewares(
-      Redux.RouterMiddleware(router).wrap)(
+      Redux.RouterMiddleware(router).middleware)(
       Redux.RxStore.create(initial, AppRedux.Reducer.main)
     )
     

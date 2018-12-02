@@ -21,7 +21,7 @@ public extension Redux {
     }
   }
 
-  public struct VariableProps<StateProps, DispatchProps> {
+  public struct VariableProps<StateProps, ActionProps> {
 
     /// True if this is the first prop event.
     public let firstInstance: Bool
@@ -32,17 +32,17 @@ public extension Redux {
     /// The next state props.
     public let nextState: StateProps
     
-    /// Dispatch props to store redux actions.
-    public let dispatch: DispatchProps
+    /// Props to store redux actions.
+    public let action: ActionProps
     
     init(_ firstInstance: Bool,
          _ previousState: StateProps?,
          _ nextState: StateProps,
-         _ dispatch: DispatchProps) {
+         _ action: ActionProps) {
       self.firstInstance = firstInstance
       self.previousState = previousState
       self.nextState = nextState
-      self.dispatch = dispatch
+      self.action = action
     }
   }
 }

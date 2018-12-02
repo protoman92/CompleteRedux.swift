@@ -31,7 +31,7 @@ public extension ReduxUITests {
     _ checkOthers: @escaping (View) -> Void) where
     View: ReduxCompatibleViewType,
     View.StateProps == State,
-    View.DispatchProps == () -> Void
+    View.ActionProps == () -> Void
   {
     /// Setup
     let subscription = inject(view)
@@ -135,7 +135,7 @@ public extension ReduxUITests {
     public var variableProps: VariableProps? {
       didSet {
         self.setPropCount += 1
-        self.variableProps?.dispatch()
+        self.variableProps?.action()
       }
     }
     
@@ -148,7 +148,7 @@ public extension ReduxUITests {
     public var variableProps: VariableProps? {
       didSet {
         self.setPropCount += 1
-        self.variableProps?.dispatch()
+        self.variableProps?.action()
       }
     }
     
@@ -160,7 +160,7 @@ extension ReduxUITests.ViewController: ReduxCompatibleViewType {
   public typealias PropInjector = Redux.PropInjector<ReduxUITests.State>
   public typealias OutProps = Int
   public typealias StateProps = ReduxUITests.State
-  public typealias DispatchProps = () -> Void
+  public typealias ActionProps = () -> Void
 }
 
 extension ReduxUITests.ViewController: ReduxPropMapperType {
@@ -171,7 +171,7 @@ extension ReduxUITests.ViewController: ReduxPropMapperType {
   }
   
   public static func map(dispatch: @escaping Redux.Dispatch,
-                         outProps: OutProps) -> DispatchProps {
+                         outProps: OutProps) -> ActionProps {
     return {dispatch(Redux.DefaultAction.noop)}
   }
 }
@@ -180,7 +180,7 @@ extension ReduxUITests.View: ReduxCompatibleViewType {
   public typealias PropInjector = Redux.PropInjector<ReduxUITests.State>
   public typealias OutProps = Int
   public typealias StateProps = ReduxUITests.State
-  public typealias DispatchProps = () -> Void
+  public typealias ActionProps = () -> Void
 }
 
 extension ReduxUITests.View: ReduxPropMapperType {
@@ -191,7 +191,7 @@ extension ReduxUITests.View: ReduxPropMapperType {
   }
   
   public static func map(dispatch: @escaping Redux.Dispatch,
-                         outProps: OutProps) -> DispatchProps {
+                         outProps: OutProps) -> ActionProps {
     return {dispatch(Redux.DefaultAction.noop)}
   }
 }

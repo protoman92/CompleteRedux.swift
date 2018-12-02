@@ -11,8 +11,5 @@ public protocol ReduxMiddlewareProviderType {
   associatedtype State
   
   /// Create a dispatch mapper from some input.
-  ///
-  /// - Parameter input: A middleware input instance.
-  /// - Returns: A Dispatch mapper instance.
-  func wrap(_ input: Redux.MiddlewareInput<State>) -> Redux.DispatchMapper
+  var middleware: Redux.Middleware<State> { get }
 }

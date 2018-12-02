@@ -8,8 +8,8 @@
 
 import UIKit
 
-/// A view that conforms to this protocol can receive state/dispatch props
-/// and subscribe to state changes.
+/// A view that conforms to this protocol can receive state/action props and
+/// subscribe to state changes.
 public protocol ReduxCompatibleViewType: class {
   associatedtype PropInjector: ReduxPropInjectorType
   
@@ -24,16 +24,16 @@ public protocol ReduxCompatibleViewType: class {
   
   /// This represents a set of actions that can be used to handle user
   /// interactions.
-  associatedtype DispatchProps
+  associatedtype ActionProps
   
   typealias StaticProps = Redux.StaticProps<PropInjector>
-  typealias VariableProps = Redux.VariableProps<StateProps, DispatchProps>
+  typealias VariableProps = Redux.VariableProps<StateProps, ActionProps>
   
   /// This prop container includes static dependencies that can be used to
   /// wire up child views/view controllers.
   var staticProps: StaticProps? { get set }
   
-  /// This prop container includes variable state/dispatch props.
+  /// This prop container includes variable state/action props.
   var variableProps: VariableProps? { get set }
 }
 

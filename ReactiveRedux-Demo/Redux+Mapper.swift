@@ -17,8 +17,8 @@ extension RootController: ReduxPropMapperType {
   }
   
   static func map(dispatch: @escaping Redux.Dispatch,
-                  outProps: OutProps) -> DispatchProps {
-    return DispatchProps(
+                  outProps: OutProps) -> ActionProps {
+    return ActionProps(
       goToViewController1: {dispatch(ReduxScreen.viewController1)}
     )
   }
@@ -38,8 +38,8 @@ extension ViewController1: ReduxPropMapperType {
   }
   
   static func map(dispatch: @escaping Redux.Dispatch,
-                  outProps: OutProps) -> DispatchProps {
-    return DispatchProps(
+                  outProps: OutProps) -> ActionProps {
+    return ActionProps(
       goBack: {dispatch(ReduxScreen.back)},
       incrementNumber: {dispatch(AppRedux.NumberAction.add)},
       decrementNumber: {dispatch(AppRedux.NumberAction.minus)},
@@ -59,8 +59,8 @@ extension ConfirmButton: ReduxPropMapperType {
   }
   
   static func map(dispatch: @escaping Redux.Dispatch,
-                  outProps: OutProps) -> DispatchProps {
-    return DispatchProps(
+                  outProps: OutProps) -> ActionProps {
+    return ActionProps(
       confirmEdit: {dispatch(AppRedux.ClearAction.triggerClear)}
     )
   }
@@ -78,8 +78,8 @@ extension TableCell: ReduxPropMapperType {
   }
   
   static func map(dispatch: @escaping Redux.Dispatch,
-                  outProps: OutProps) -> DispatchProps {
-    return DispatchProps(
+                  outProps: OutProps) -> ActionProps {
+    return ActionProps(
       updateText: {dispatch(AppRedux.TextAction.input(outProps, $0))}
     )
   }

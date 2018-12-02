@@ -8,12 +8,12 @@
 
 import UIKit
 
-/// Inject views with state/dispatch props, similar to how React.js performs
+/// Inject views with state/action props, similar to how React.js performs
 /// connect.
 public protocol ReduxPropInjectorType {
   associatedtype State
   
-  /// Inject state/dispatch props into a compatible view controller.
+  /// Inject state/action props into a compatible view controller.
   ///
   /// - Parameters:
   ///   - vc: A view controller instance.
@@ -29,7 +29,7 @@ public protocol ReduxPropInjectorType {
     MP.ReduxState == State,
     MP.ReduxView == VC
   
-  /// Inject state/dispatch props into a compatible view.
+  /// Inject state/action props into a compatible view.
   ///
   /// - Parameters:
   ///   - view: A view instance.

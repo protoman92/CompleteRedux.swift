@@ -7,8 +7,8 @@
 //
 
 /// Prop mapper that maps state/dispatch to redux props. Redux props include
-/// StateProps (information to populate the UI) and DispatchProps (set of
-/// actions to handle UI interactions).
+/// StateProps (information to populate the UI) and ActionProps (set of actions
+/// to handle UI interactions).
 ///
 /// The methods defined here are static because we want to restrict usage of
 /// internal state as much as possible. We should only use whatever data that
@@ -19,7 +19,7 @@ public protocol ReduxPropMapperType: class {
   
   typealias OutProps = ReduxView.OutProps
   typealias StateProps = ReduxView.StateProps
-  typealias DispatchProps = ReduxView.DispatchProps
+  typealias ActionProps = ReduxView.ActionProps
   
   /// Map ReduxState to StateProps.
   ///
@@ -29,14 +29,14 @@ public protocol ReduxPropMapperType: class {
   /// - Returns: A StateProps instance.
   static func map(state: ReduxState, outProps: OutProps) -> StateProps
   
-  /// Map a Redux dispatch to DispatchProps.
+  /// Map a Redux dispatch to action props.
   ///
   /// - Parameters:
   ///   - dispatch: A ReduxDispatch instance.
   ///   - outProps: An OutProps instance.
-  /// - Returns: A DispatchProps instance.
+  /// - Returns: An ActionProps instance.
   static func map(dispatch: @escaping Redux.Dispatch,
-                  outProps: OutProps) -> DispatchProps
+                  outProps: OutProps) -> ActionProps
   
   /// Compare previous/next StateProps.
   ///

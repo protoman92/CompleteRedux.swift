@@ -20,7 +20,7 @@ final class ConfirmButton: UIButton {
   }
   
   @objc func onClick(_ sender: UIButton) {
-    self.variableProps?.dispatch.confirmEdit()
+    self.variableProps?.action.confirmEdit()
   }
 }
 
@@ -29,7 +29,7 @@ extension ConfirmButton: ReduxCompatibleViewType {
   
   struct StateProps: Equatable {}
   
-  struct DispatchProps {
+  struct ActionProps {
     let confirmEdit: () -> Void
   }
 }
