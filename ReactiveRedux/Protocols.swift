@@ -29,13 +29,3 @@ public protocol ReduxStoreType {
   /// callback function.
   var subscribeState: Redux.Subscribe<State> { get }
 }
-
-public extension ReduxStoreType {
-  
-  /// Dispatch some actions and notify listeners.
-  ///
-  /// - Parameter actions: A Sequence of Action.
-  public func dispatch<S>(_ actions: S) where S: Sequence, S.Element == ReduxActionType {
-    actions.forEach({self.dispatch($0)})
-  }
-}

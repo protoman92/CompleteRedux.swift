@@ -18,6 +18,7 @@ public final class ReduxUITests: XCTestCase {
   
   override public func setUp() {
     super.setUp()
+    State.counter = -1
     self.store = ReduxUITests.Store()
     self.injector = Redux.PropInjector(store: store)
   }
@@ -41,6 +42,7 @@ public extension ReduxUITests {
     (0..<self.iterations).forEach({_ in self.store.state = .init()})
     
     /// Then
+    XCTAssertEqual(self.store.lastState().counter, self.iterations * 2)
     XCTAssertEqual(self.store.unsubscribeCount, 1)
     
     DispatchQueue.main.async {
@@ -80,9 +82,9 @@ public extension ReduxUITests {
 
 public extension ReduxUITests {
   public struct State: Equatable {
-    private static var counter = 0
+    public static var counter = -1
     
-    private let counter: Int
+    public let counter: Int
     
     public init() {
       State.counter += 1

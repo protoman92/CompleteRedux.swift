@@ -3,10 +3,11 @@
 //  ReactiveRedux
 //
 //  Created by Hai Pham on 12/2/18.
-//  Copyright © 2018 Holmusk. All rights reserved.
+//  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
 import RxSwift
+import SwiftFP
 
 public extension Redux {
   
@@ -83,13 +84,7 @@ extension Redux.RxStore: ReduxStoreType {
 
 extension Redux.RxStore: RxReduxStoreType {
   public var lastState: Redux.LastState<State> {
-    return {
-      do {
-        return try self.stateObserver.value()
-      } catch {
-        return self.defaultState
-      }
-    }
+    return {Try({try self.stateObserver.value()}).getOrElse(self.defaultState)}
   }
   
   public var actionTrigger: AnyObserver<ReduxActionType> {
