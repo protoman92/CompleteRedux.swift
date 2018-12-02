@@ -27,7 +27,7 @@ public protocol ReduxPropMapperType: class {
   ///   - state: A ReduxState instance.
   ///   - outProps: An OutProps instance.
   /// - Returns: A StateProps instance.
-  static func map(state: ReduxState, outProps: OutProps) -> StateProps
+  static func mapState(state: ReduxState, outProps: OutProps) -> StateProps
   
   /// Map a Redux dispatch to action props.
   ///
@@ -35,8 +35,8 @@ public protocol ReduxPropMapperType: class {
   ///   - dispatch: A ReduxDispatch instance.
   ///   - outProps: An OutProps instance.
   /// - Returns: An ActionProps instance.
-  static func map(dispatch: @escaping Redux.Dispatch,
-                  outProps: OutProps) -> ActionProps
+  static func mapAction(dispatch: @escaping Redux.Dispatch,
+                        outProps: OutProps) -> ActionProps
   
   /// Compare previous/next StateProps.
   ///

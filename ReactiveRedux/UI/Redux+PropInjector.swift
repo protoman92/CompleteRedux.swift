@@ -44,8 +44,8 @@ public extension Redux {
           // with the main queue. Setting the previous props here is ok as well
           // since only the main queue is accessing it.
           DispatchQueue.main.async {
-            let dispatch = MP.map(dispatch: dispatch, outProps: outProps)
-            let next = MP.map(state: state, outProps: outProps)
+            let dispatch = MP.mapAction(dispatch: dispatch, outProps: outProps)
+            let next = MP.mapState(state: state, outProps: outProps)
             
             if first || !MP.compareState(lhs: previous, rhs: next) {
               cv?.variableProps = VariableProps(first, previous, next, dispatch)

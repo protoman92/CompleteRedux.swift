@@ -10,8 +10,8 @@ import RxSwift
 import XCTest
 @testable import ReactiveRedux
 
-public final class RxReduxObserverTest: XCTestCase {
-  public func test_reduxObserver_shouldIgnoreErrorAndCompleteEvents() {
+final class RxReduxObserverTest: XCTestCase {
+  func test_reduxObserver_shouldIgnoreErrorAndCompleteEvents() {
     /// Setup
     let reduxObserver = Redux.RxObserver<Int>(0)
     

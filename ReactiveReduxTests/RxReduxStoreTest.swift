@@ -13,7 +13,7 @@ import SwiftFP
 import XCTest
 @testable import ReactiveRedux
 
-public final class RxReduxStoreTest: XCTestCase {
+final class RxReduxStoreTest: XCTestCase {
   private var disposeBag: DisposeBag!
   private var scheduler: TestScheduler!
   private var initialState: SafeNest!
@@ -24,7 +24,7 @@ public final class RxReduxStoreTest: XCTestCase {
     return "layer1.layer2.layer3.calculation"
   }
 
-  override public func setUp() {
+  override func setUp() {
     super.setUp()
     self.scheduler = TestScheduler(initialClock: 0)
     self.disposeBag = DisposeBag()
@@ -45,8 +45,8 @@ public final class RxReduxStoreTest: XCTestCase {
   }
 }
 
-public extension RxReduxStoreTest {
-  public func test_dispatchSafeNestAction<Store>(
+extension RxReduxStoreTest {
+  func test_dispatchSafeNestAction<Store>(
     _ store: Store,
     _ dispatchFn: (Action) -> Void,
     _ lastStateFn: Redux.LastState<SafeNest>,
@@ -81,7 +81,7 @@ public extension RxReduxStoreTest {
     XCTAssertEqual(currentValue, lastValue)
   }
 
-  public func test_dispatchRxAction_shouldUpdateState() {
+  func test_dispatchRxAction_shouldUpdateState() {
     /// Setup
     let valueObs = self.scheduler.createObserver(Try<Int>.self)
 
@@ -98,13 +98,13 @@ public extension RxReduxStoreTest {
   }
 }
 
-public extension RxReduxStoreTest {
-  public struct Substate: Decodable, Equatable {
-    public let a: Int?
-    public let b: Int?
+extension RxReduxStoreTest {
+  struct Substate: Decodable, Equatable {
+    let a: Int?
+    let b: Int?
   }
   
-  public func test_subscribeStore_shouldStreamAndStop() {
+  func test_subscribeStore_shouldStreamAndStop() {
     /// Setup
     let iterations = 100
     var callbackCount = 0

@@ -9,17 +9,17 @@
 import XCTest
 @testable import ReactiveRedux
 
-public final class ReduxMiddlewareTest: XCTestCase {
+final class ReduxMiddlewareTest: XCTestCase {
   private var store: Redux.RxStore<State>!
   
-  override public func setUp() {
+  override func setUp() {
     super.setUp()
     self.store = Redux.RxStore.create(State(a: -1), {s, a in s.increment()})
   }
 }
 
-public extension ReduxMiddlewareTest {
-  public func test_applyingMiddlewares_shouldWrapBaseStore() {
+extension ReduxMiddlewareTest {
+  func test_applyingMiddlewares_shouldWrapBaseStore() {
     /// Setup
     var data: [Int] = []
     var subscribedValue = 0
@@ -45,11 +45,11 @@ public extension ReduxMiddlewareTest {
   }
 }
 
-public extension ReduxMiddlewareTest {
-  public struct State {
-    public let a: Int
+extension ReduxMiddlewareTest {
+  struct State {
+    let a: Int
     
-    public func increment() -> State {
+    func increment() -> State {
       return State(a: self.a + 1)
     }
   }

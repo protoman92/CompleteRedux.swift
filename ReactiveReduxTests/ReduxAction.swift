@@ -9,17 +9,17 @@
 import SwiftFP
 @testable import ReactiveRedux
 
-public enum Action: CaseIterable, ReduxActionType {
+enum Action: CaseIterable, ReduxActionType {
   case add
   case addTwo
   case addThree
   case minus
 
-  public static func allValues() -> [Action] {
+  static func allValues() -> [Action] {
     return [add, addTwo, addThree, minus]
   }
 
-  public func stateUpdateFn() -> (Any) -> Any {
+  func stateUpdateFn() -> (Any) -> Any {
     return {
       let value = $0 as! Int
       

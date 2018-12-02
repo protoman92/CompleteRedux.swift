@@ -10,8 +10,8 @@ import SafeNest
 import XCTest
 @testable import ReactiveRedux
 
-public final class ReduxPresetTest: XCTestCase {
-  public func test_defaultAction_shouldWork() {
+final class ReduxPresetTest: XCTestCase {
+  func test_defaultAction_shouldWork() {
     /// Setup
     let initialObject = [String : Int]()
     var state = SafeNest.builder().with(initialObject: initialObject).build()
