@@ -25,9 +25,9 @@ public extension ReduxMiddlewareTest {
     var subscribedValue = 0
     
     let wrappedStore = Redux.applyMiddlewares(
-      {input in {data.append(1); input.dispatch($0)}},
-      {input in {data.append(2); input.dispatch($0)}},
-      {input in {data.append(3); input.dispatch($0)}}
+      {input in {dispatch in {data.append(1); dispatch($0)}}},
+      {input in {dispatch in {data.append(2); dispatch($0)}}},
+      {input in {dispatch in {data.append(3); dispatch($0)}}}
     )(self.store)
     
     let subscription = wrappedStore.subscribeState("", {subscribedValue = $0.a})

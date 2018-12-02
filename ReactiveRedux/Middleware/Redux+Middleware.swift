@@ -21,8 +21,11 @@ public extension Redux {
     }
   }
   
+  /// Function that maps one dispatch to another.
+  public typealias DispatchMapper = (@escaping Dispatch) -> Dispatch
+  
   /// Redux store middleware which has access to the store's functionalities.
-  public typealias Middleware<State> = (MiddlewareInput<State>) -> Dispatch
+  public typealias Middleware<State> = (MiddlewareInput<State>) -> DispatchMapper
   
   /// Apply a series of middlewares to a redux store.
   ///
@@ -34,11 +37,25 @@ public extension Redux {
     Store: ReduxStoreType
   {
     return {store in
-      let dispatch = middlewares.reversed().reduce(store.dispatch, {
-        $1(MiddlewareInput(store.lastState, $0))
-      })
+      let combined: Middleware<Store.State> = middlewares.reversed().reduce(
+        {_ in {_ in store.dispatch}},
+        {(a, b) in {input in {b(input)(a(input)($0))}}}
+      )
 
+      let input = MiddlewareInput(store.lastState, store.dispatch)
+      let dispatch = combined(input)(store.dispatch)
       return EnhancedStore(store: store, dispatch: dispatch)
     }
+  }
+  
+  /// Extract middleware from a middleware provider.
+  ///
+  /// - Parameter provider: A middleware provider instance.
+  /// - Returns: A Middleware instance.
+  public static func extractMiddleware<Provider>(_ provider: Provider)
+    -> Middleware<Provider.State> where
+    Provider: ReduxMiddlewareProviderType
+  {
+    return provider.wrap
   }
 }
