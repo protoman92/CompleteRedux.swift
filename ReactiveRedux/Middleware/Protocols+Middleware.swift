@@ -3,7 +3,7 @@
 //  ReactiveRedux
 //
 //  Created by Hai Pham on 12/2/18.
-//  Copyright © 2018 Holmusk. All rights reserved.
+//  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
 /// Middleware provider that can be used to wrap a base store.

@@ -21,7 +21,9 @@ public extension Redux {
   static func scanReduce<State>(_ actionStream: Observable<ReduxActionType>,
                                 _ reducer: @escaping Redux.Reducer<State>,
                                 _ initialState: State) -> Observable<State> {
-    return actionStream.scan(initialState, accumulator: reducer)
+    return actionStream
+      .observeOn(MainScheduler.instance)
+      .scan(initialState, accumulator: reducer)
   }
   
   /// A Redux-compliant store. Since this store is used for UI-related work, it

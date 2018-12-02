@@ -33,7 +33,7 @@ public extension Redux {
   /// - Returns: A Store instance.
   public static func applyMiddlewares<Store>(
     _ middlewares: Middleware<Store.State>...)
-    -> (Store) -> EnhancedStore<Store.State> where
+    -> (Store) -> DelegateStore<Store.State> where
     Store: ReduxStoreType
   {
     return {store in
@@ -44,7 +44,8 @@ public extension Redux {
 
       let input = MiddlewareInput(store.lastState, store.dispatch)
       let dispatch = combined(input)(store.dispatch)
-      return EnhancedStore(store: store, dispatch: dispatch)
+      let enhancedStore = EnhancedStore(store: store, dispatch: dispatch)
+      return DelegateStore(store: enhancedStore)
     }
   }
   

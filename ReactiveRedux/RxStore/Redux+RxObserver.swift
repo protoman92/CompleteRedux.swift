@@ -34,12 +34,6 @@ extension Redux.RxObserver: ObserverType {
   public typealias E = Element
 
   public func on(_ event: Event<Element>) {
-    #if DEBUG
-    if !Thread.isMainThread {
-      fatalError("Should receive \(event) on main thread")
-    }
-    #endif
-
     switch event {
     case .next(let element):
       self.observer.onNext(element)
