@@ -82,11 +82,13 @@ extension Redux.RxStore: ReduxStoreType {
 }
 
 extension Redux.RxStore: RxReduxStoreType {
-  public var lastState: State {
-    do {
-      return try self.stateObserver.value()
-    } catch {
-      return self.defaultState
+  public var lastState: Redux.LastState<State> {
+    return {
+      do {
+        return try self.stateObserver.value()
+      } catch {
+        return self.defaultState
+      }
     }
   }
   

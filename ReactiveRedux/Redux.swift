@@ -19,6 +19,9 @@ public final class Redux {
   /// Callback for state subscriptions.
   public typealias StateCallback<State> = (State) -> Void
   
+  /// Typealias for the state getter function.
+  public typealias LastState<State> = () -> State
+  
   /// Typealias for the dispatch function.
   public typealias Dispatch = (ReduxActionType) -> Void
   

@@ -48,8 +48,8 @@ public final class RxReduxStoreTest: XCTestCase {
 public extension RxReduxStoreTest {
   public func test_dispatchSafeNestAction<Store>(
     _ store: Store,
-    _ dispatchAllFn: ([Action]) -> Void,
-    _ lastStateFn: () -> SafeNest,
+    _ dispatchFn: (Action) -> Void,
+    _ lastStateFn: Redux.LastState<SafeNest>,
     _ lastValueFn: () -> Try<Int>) where Store: ReduxStoreType
   {
     /// Setup
@@ -65,11 +65,10 @@ public extension RxReduxStoreTest {
         actions.append(action)
       }
 
-      dispatchAllFn(actions)
-
+      actions.forEach(dispatchFn)
       let action1 = Action.allValues().randomElement()!
       original = action1.stateUpdateFn()(original) as! Int
-      dispatchAllFn([action1])
+      dispatchFn(action1)
     }
 
     Thread.sleep(forTimeInterval: StoreTestParams.waitTime)
@@ -92,9 +91,9 @@ public extension RxReduxStoreTest {
       .disposed(by: self.disposeBag!)
 
     /// When & Then
-    test_dispatchSafeNestAction(self.rxStore!,
-                                {self.rxStore!.dispatch($0)},
-                                {self.rxStore.lastState},
+    test_dispatchSafeNestAction(self.rxStore,
+                                self.rxStore.dispatch,
+                                self.rxStore.lastState,
                                 {valueObs.events.map({$0.value.element!}).last!})
   }
 }

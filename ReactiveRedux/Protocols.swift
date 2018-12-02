@@ -20,7 +20,7 @@ public protocol ReduxStoreType {
   associatedtype State
   
   /// Get the last state instance.
-  var lastState: State { get }
+  var lastState: Redux.LastState<State> { get }
   
   /// Dispatch an action and notify listeners.
   var dispatch: Redux.Dispatch { get }

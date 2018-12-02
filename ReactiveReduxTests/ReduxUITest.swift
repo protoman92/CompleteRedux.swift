@@ -36,9 +36,9 @@ public extension ReduxUITests {
     let subscription = inject(view)
     
     /// When
-    (0..<self.iterations).forEach({_ in self.store.lastState = .init()})
+    (0..<self.iterations).forEach({_ in self.store.state = .init()})
     subscription.unsubscribe()
-    (0..<self.iterations).forEach({_ in self.store.lastState = .init()})
+    (0..<self.iterations).forEach({_ in self.store.state = .init()})
     
     /// Then
     XCTAssertEqual(self.store.unsubscribeCount, 1)
@@ -91,9 +91,9 @@ public extension ReduxUITests {
   }
   
   public final class Store: ReduxStoreType {
-    public var lastState: State {
+    public var state: State {
       didSet {
-        self.subscribers.forEach({(_, value) in _ = value(self.lastState)})
+        self.subscribers.forEach({(_, value) in _ = value(self.state)})
       }
     }
     
@@ -101,7 +101,11 @@ public extension ReduxUITests {
     public var unsubscribeCount: Int = 0
     
     init() {
-      self.lastState = State()
+      self.state = State()
+    }
+    
+    public var lastState: Redux.LastState<State> {
+      return {self.state}
     }
     
     public var dispatch: Redux.Dispatch {
