@@ -40,4 +40,18 @@ public final class Redux {
       self.unsubscribe = unsubscribe
     }
   }
+  
+  /// This store delegates all its functionalities to another store. It is
+  /// used mainly for its type concreteness.
+  public struct DelegateStore<State>: ReduxStoreType {
+    public let lastState: LastState<State>
+    public let dispatch: Dispatch
+    public let subscribeState: Subscribe<State>
+    
+    public init<S>(store: S) where S: ReduxStoreType, S.State == State {
+      self.lastState = store.lastState
+      self.dispatch = store.dispatch
+      self.subscribeState = store.subscribeState
+    }
+  }
 }

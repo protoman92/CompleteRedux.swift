@@ -22,8 +22,8 @@ struct Dependency {
     }
   }
   
-  let store: Redux.RxStore<SafeNest>
-  let injector: Redux.PropInjector<Redux.RxStore<SafeNest>>
+  let store: Redux.EnhancedStore<SafeNest>
+  let injector: Redux.PropInjector<SafeNest>
   
   private init() {
     let initial = try! SafeNest.empty()
@@ -36,7 +36,10 @@ struct Dependency {
           .reduce([:], {$0!.merging($1, uniquingKeysWith: {$1})})
       ))
     
-    self.store = Redux.RxStore.create(initial, AppRedux.Reducer.main)
+    self.store = Redux.applyMiddlewares()(
+      Redux.RxStore.create(initial, AppRedux.Reducer.main)
+    )
+    
     self.injector = Redux.PropInjector(store: self.store)
   }
 }

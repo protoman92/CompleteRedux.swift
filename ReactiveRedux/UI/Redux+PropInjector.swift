@@ -9,12 +9,11 @@
 public extension Redux {
   
   /// Basic redux injector implementation that also handles view lifecycles.
-  public struct PropInjector<Store: ReduxStoreType>: ReduxPropInjectorType {
-    public typealias State = Store.State
-    private let store: Store
+  public struct PropInjector<State>: ReduxPropInjectorType {
+    private let store: DelegateStore<State>
     
-    public init(store: Store) {
-      self.store = store
+    public init<S>(store: S) where S: ReduxStoreType, S.State == State {
+      self.store = DelegateStore(store: store)
     }
     
     func injectProps<CV, MP>(_ cv: CV, _ outProps: CV.OutProps, _ mapper: MP.Type)
