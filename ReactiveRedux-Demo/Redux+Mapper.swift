@@ -41,12 +41,12 @@ extension ViewController1: ReduxPropMapperType {
                   outProps: OutProps) -> ActionProps {
     return ActionProps(
       goBack: {dispatch(ReduxScreen.back)},
-      incrementNumber: {dispatch(AppRedux.NumberAction.add)},
-      decrementNumber: {dispatch(AppRedux.NumberAction.minus)},
-      updateSlider: {dispatch(AppRedux.SliderAction.input($0))},
-      updateString: {dispatch(AppRedux.StringAction.input($0))},
-      deleteText: {dispatch(AppRedux.TextAction.delete($0))},
-      addOneText: {dispatch(AppRedux.TextAction.addItem)}
+      incrementNumber: {dispatch(AppRedux.Action.addNumber)},
+      decrementNumber: {dispatch(AppRedux.Action.minusNumber)},
+      updateSlider: {dispatch(AppRedux.Action.slider($0))},
+      updateString: {dispatch(AppRedux.Action.string($0))},
+      deleteText: {dispatch(AppRedux.Action.deleteTextItem($0))},
+      addOneText: {dispatch(AppRedux.Action.addTextItem)}
     )
   }
 }
@@ -61,7 +61,7 @@ extension ConfirmButton: ReduxPropMapperType {
   static func map(dispatch: @escaping Redux.Dispatch,
                   outProps: OutProps) -> ActionProps {
     return ActionProps(
-      confirmEdit: {dispatch(AppRedux.ClearAction.triggerClear)}
+      confirmEdit: {dispatch(AppRedux.Action.triggerClear)}
     )
   }
 }
@@ -80,7 +80,7 @@ extension TableCell: ReduxPropMapperType {
   static func map(dispatch: @escaping Redux.Dispatch,
                   outProps: OutProps) -> ActionProps {
     return ActionProps(
-      updateText: {dispatch(AppRedux.TextAction.input(outProps, $0))}
+      updateText: {dispatch(AppRedux.Action.text(outProps, $0))}
     )
   }
 }
