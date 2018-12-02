@@ -9,12 +9,12 @@
 public extension Redux {
 
   /// Enhanced store that can overwrite dispatch from a base store.
-  public struct EnhancedStore<State> {
+  struct EnhancedStore<State> {
     private let _dispatch: Redux.Dispatch
     private let _lastState: () -> State
     private let _subscribe: Redux.Subscribe<State>
     
-    public init<S>(store: S, dispatch: @escaping Dispatch) where
+    init<S>(store: S, dispatch: @escaping Dispatch) where
       S: ReduxStoreType, S.State == State
     {
       self._dispatch = dispatch

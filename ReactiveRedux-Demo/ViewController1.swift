@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ViewController1.swift
 //  ReactiveRedux-Demo
 //
 //  Created by Hai Pham on 27/10/17.
@@ -9,7 +9,7 @@
 import ReactiveRedux
 import SafeNest
 
-final class ViewController: UIViewController {
+final class ViewController1: UIViewController {
   @IBOutlet private weak var counterTF: UITextField!
   @IBOutlet private weak var addBT: UIButton!
   @IBOutlet private weak var minusBT: UIButton!
@@ -40,6 +40,13 @@ final class ViewController: UIViewController {
     self.counterTF.isEnabled = false
     self.stringTF1.isEnabled = false
     self.slideTF.isEnabled = false
+    
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+      title: "Custom back",
+      style: .plain,
+      target: self,
+      action: #selector(self.goBack)
+    )
     
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(
       title: "Reload table",
@@ -93,12 +100,16 @@ final class ViewController: UIViewController {
     self.variableProps?.dispatch.addOneText()
   }
   
+  @objc func goBack(_ sender: UIBarButtonItem) {
+    self.variableProps?.dispatch.goBack()
+  }
+  
   @objc func reloadTable(_ sender: UIBarButtonItem) {
     self.textTable.reloadData()
   }
 }
 
-extension ViewController: UITableViewDataSource {
+extension ViewController1: UITableViewDataSource {
   func tableView(_ tableView: UITableView,
                  numberOfRowsInSection section: Int) -> Int {
     return self.variableProps?.nextState.textIndexes?.count ?? 0
@@ -133,14 +144,14 @@ extension ViewController: UITableViewDataSource {
   }
 }
 
-extension ViewController: UITableViewDelegate {
+extension ViewController1: UITableViewDelegate {
   func tableView(_ tableView: UITableView,
                  heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 48
   }
 }
 
-extension ViewController {
+extension ViewController1 {
   struct StateProps {
     public var number: Int? = nil
     public var slider: Float? = nil
@@ -150,6 +161,7 @@ extension ViewController {
   }
   
   struct DispatchProps {
+    let goBack: () -> Void
     let incrementNumber: () -> Void
     let decrementNumber: () -> Void
     let updateSlider: (Double) -> Void
@@ -159,10 +171,10 @@ extension ViewController {
   }
 }
 
-extension ViewController.StateProps: Equatable {}
-extension ViewController.StateProps: Encodable {}
-extension ViewController.StateProps: Decodable {}
+extension ViewController1.StateProps: Equatable {}
+extension ViewController1.StateProps: Encodable {}
+extension ViewController1.StateProps: Decodable {}
 
-extension ViewController: ReduxCompatibleViewType {
+extension ViewController1: ReduxCompatibleViewType {
   typealias OutProps = ()
 }

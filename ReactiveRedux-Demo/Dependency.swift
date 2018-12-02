@@ -10,24 +10,12 @@ import ReactiveRedux
 import SafeNest
 
 struct Dependency {
-  private static var _instance: Dependency?
-  
-  static var shared: Dependency {
-    if let instance = self._instance {
-      return instance
-    } else {
-      let instance = Dependency()
-      self._instance = instance
-      return instance
-    }
-  }
-  
-  let store: Redux.EnhancedStore<SafeNest>
+  let store: Redux.DelegateStore<SafeNest>
   let injector: Redux.PropInjector<SafeNest>
   
-  private init() {
+  init(_ navController: UINavigationController) {
     let initial = try! SafeNest.empty()
-      .encoding(at: AppRedux.Path.rootPath, value: ViewController.StateProps(
+      .encoding(at: AppRedux.Path.rootPath, value: ViewController1.StateProps(
         number: 0,
         slider: 0,
         string: nil,
@@ -36,7 +24,10 @@ struct Dependency {
           .reduce([:], {$0!.merging($1, uniquingKeysWith: {$1})})
       ))
     
-    self.store = Redux.applyMiddlewares()(
+    let router = ReduxRouter(navController)
+    
+    self.store = Redux.applyMiddlewares(
+      Redux.RouterMiddleware(router).wrap)(
       Redux.RxStore.create(initial, AppRedux.Reducer.main)
     )
     

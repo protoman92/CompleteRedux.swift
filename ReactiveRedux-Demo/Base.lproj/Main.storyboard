@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="-1265" y="100"/>
         </scene>
-        <!--View Controller-->
+        <!--Root Controller-->
         <scene sceneID="9Gr-uT-Zag">
             <objects>
-                <viewController id="hZX-KP-bK8" sceneMemberID="viewController">
+                <viewController id="hZX-KP-bK8" customClass="RootController" customModule="ReactiveRedux_Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DHZ-y3-Fzz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,7 +41,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="hUk-x0-l1F"/>
+                                    <action selector="goToViewController1:" destination="hZX-KP-bK8" eventType="touchDown" id="1Gz-11-cn1"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -54,21 +54,24 @@
                         <viewLayoutGuide key="safeArea" id="eJA-oX-KJG"/>
                     </view>
                     <navigationItem key="navigationItem" id="VDC-gU-Mhm"/>
+                    <connections>
+                        <outlet property="viewController1" destination="rcJ-RD-cUx" id="Vh1-Bc-3Ki"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EmS-mp-8Jk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-535" y="100"/>
         </scene>
-        <!--View Controller-->
+        <!--View Controller1-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ReactiveRedux_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController1" id="BYZ-38-t0r" customClass="ViewController1" customModule="ReactiveRedux_Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" placeholder="Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xhY-xW-q6k">
-                                <rect key="frame" x="16" y="80" width="96" height="40"/>
+                                <rect key="frame" x="16" y="36" width="96" height="40"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="NmJ-lS-a3A"/>
@@ -79,7 +82,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3QD-5H-x5G">
-                                <rect key="frame" x="120" y="80" width="239" height="40"/>
+                                <rect key="frame" x="120" y="36" width="239" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uaj-eP-HJq">
                                         <rect key="frame" x="0.0" y="0.0" width="119.5" height="40"/>
@@ -117,7 +120,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wk7-SF-W2L">
-                                <rect key="frame" x="16" y="128" width="343" height="40"/>
+                                <rect key="frame" x="16" y="84" width="343" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Input on the right" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K8f-Bw-6dw">
                                         <rect key="frame" x="0.0" y="0.0" width="164" height="40"/>
@@ -150,23 +153,23 @@
                                 </constraints>
                             </view>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="3wC-F3-rbQ">
-                                <rect key="frame" x="118" y="181" width="243" height="31"/>
+                                <rect key="frame" x="118" y="137" width="243" height="31"/>
                                 <connections>
                                     <action selector="updateSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="0rN-2Q-fOL"/>
                                 </connections>
                             </slider>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Slider" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a4X-uS-dDx">
-                                <rect key="frame" x="16" y="176" width="96" height="40"/>
+                                <rect key="frame" x="16" y="132" width="96" height="40"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZCm-s4-cap">
-                                <rect key="frame" x="16" y="224" width="343" height="327"/>
+                                <rect key="frame" x="16" y="180" width="343" height="371"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableCell" id="uGm-B7-iGF" customClass="TableCell" customModule="ReactiveRedux_Demo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableCell" id="uGm-B7-iGF" customClass="TableCell" customModule="ReactiveRedux_Demo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uGm-B7-iGF" id="ATB-OX-fEq">

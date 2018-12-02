@@ -1,5 +1,5 @@
 //
-//  ReduxMapper.swift
+//  Redux+Mapper.swift
 //  ReactiveRedux-Demo
 //
 //  Created by Hai Pham on 11/28/18.
@@ -9,7 +9,26 @@
 import ReactiveRedux
 import SafeNest
 
-extension ViewController: ReduxPropMapperType {
+extension RootController: ReduxPropMapperType {
+  typealias ReduxState = SafeNest
+  
+  static func map(state: ReduxState, outProps: OutProps) -> StateProps {
+    return ()
+  }
+  
+  static func map(dispatch: @escaping Redux.Dispatch,
+                  outProps: OutProps) -> DispatchProps {
+    return DispatchProps(
+      goToViewController1: {dispatch(ReduxScreen.viewController1)}
+    )
+  }
+  
+  static func compareState(lhs: StateProps?, rhs: StateProps?) -> Bool {
+    return true
+  }
+}
+
+extension ViewController1: ReduxPropMapperType {
   typealias ReduxState = SafeNest
   
   static func map(state: ReduxState, outProps: OutProps) -> StateProps {
@@ -21,6 +40,7 @@ extension ViewController: ReduxPropMapperType {
   static func map(dispatch: @escaping Redux.Dispatch,
                   outProps: OutProps) -> DispatchProps {
     return DispatchProps(
+      goBack: {dispatch(ReduxScreen.back)},
       incrementNumber: {dispatch(AppRedux.NumberAction.add)},
       decrementNumber: {dispatch(AppRedux.NumberAction.minus)},
       updateSlider: {dispatch(AppRedux.SliderAction.input($0))},
