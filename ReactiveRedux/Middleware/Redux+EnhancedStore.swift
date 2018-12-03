@@ -6,15 +6,15 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-public extension Redux {
+public extension Redux.Store {
 
   /// Enhanced store that can overwrite dispatch from a base store.
   struct EnhancedStore<State> {
-    private let _dispatch: Redux.Dispatch
+    private let _dispatch: Dispatch
     private let _lastState: () -> State
-    private let _subscribe: Redux.Subscribe<State>
+    private let _subscribe: Subscribe<State>
     
-    init<S>(store: S, dispatch: @escaping Dispatch) where
+    init<S>(_ store: S, _ dispatch: @escaping Dispatch) where
       S: ReduxStoreType, S.State == State
     {
       self._dispatch = dispatch
@@ -24,16 +24,16 @@ public extension Redux {
   }
 }
 
-extension Redux.EnhancedStore: ReduxStoreType {
-  public var lastState: Redux.LastState<State> {
+extension Redux.Store.EnhancedStore: ReduxStoreType {
+  public var lastState: Redux.Store.LastState<State> {
     return self._lastState
   }
   
-  public var subscribeState: Redux.Subscribe<State> {
+  public var subscribeState: Redux.Store.Subscribe<State> {
     return self._subscribe
   }
   
-  public var dispatch: Redux.Dispatch {
+  public var dispatch: Redux.Store.Dispatch {
     return self._dispatch
   }
 }

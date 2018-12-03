@@ -6,7 +6,7 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-public extension Redux {
+public extension Redux.Middleware {
 
   /// Screen navigation function.
   public typealias ReduxNavigate<Screen> = (Screen) -> Void
@@ -22,13 +22,13 @@ public extension Redux {
   /// ...
   /// dispatch(Screen.login)
   /// dispatch(Screen.password)
-  public struct RouterMiddleware<State, Screen: ReduxNavigationScreenType>:
+  public struct Router<State, Screen: ReduxNavigationScreenType>:
     ReduxMiddlewareProviderType
   {
-    private let navigate: ReduxNavigate<Screen>
+    private let _navigate: ReduxNavigate<Screen>
     
-    public init<R>(_ router: R) where R: ReduxRouterType, R.Screen == Screen {
-      self.navigate = router.navigate
+    public init<R>(router: R) where R: ReduxRouterType, R.Screen == Screen {
+      self._navigate = router.navigate
     }
     
     public var middleware: Middleware<State> {
@@ -40,7 +40,7 @@ public extension Redux {
             
             if let screen = $0 as? Screen {
               // Force-navigate on the main thread.
-              DispatchQueue.main.async {self.navigate(screen)}
+              DispatchQueue.main.async {self._navigate(screen)}
             }
           }
         }

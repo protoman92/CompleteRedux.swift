@@ -10,11 +10,12 @@ import XCTest
 @testable import ReactiveRedux
 
 final class ReduxMiddlewareTest: XCTestCase {
-  private var store: Redux.RxStore<State>!
+  private var store: Redux.Store.RxStore<State>!
   
   override func setUp() {
     super.setUp()
-    self.store = Redux.RxStore.create(State(a: -1), {s, a in s.increment()})
+    let initState = State(a: -1)
+    self.store = Redux.Store.RxStore.create(initState, {s, a in s.increment()})
   }
 }
 
@@ -24,7 +25,7 @@ extension ReduxMiddlewareTest {
     var data: [Int] = []
     var subscribedValue = 0
     
-    let wrappedStore = Redux.applyMiddlewares(
+    let wrappedStore = Redux.Middleware.applyMiddlewares(
       {input in {dispatch in {data.append(1); dispatch($0)}}},
       {input in {dispatch in {data.append(2); dispatch($0)}}},
       {input in {dispatch in {data.append(3); dispatch($0)}}}
@@ -33,9 +34,9 @@ extension ReduxMiddlewareTest {
     let subscription = wrappedStore.subscribeState("", {subscribedValue = $0.a})
     
     /// When
-    wrappedStore.dispatch(Redux.DefaultAction.noop)
-    wrappedStore.dispatch(Redux.DefaultAction.noop)
-    wrappedStore.dispatch(Redux.DefaultAction.noop)
+    wrappedStore.dispatch(Redux.Preset.Action.noop)
+    wrappedStore.dispatch(Redux.Preset.Action.noop)
+    wrappedStore.dispatch(Redux.Preset.Action.noop)
     
     /// Then
     XCTAssertEqual(data, [1, 2, 3, 1, 2, 3, 1, 2, 3])

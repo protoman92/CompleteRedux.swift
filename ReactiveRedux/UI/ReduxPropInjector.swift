@@ -22,7 +22,7 @@ public protocol ReduxPropInjectorType {
   /// - Returns: A ReduxSubscription instance.
   @discardableResult
   func injectProps<VC, MP>(controller: VC, outProps: VC.OutProps, mapper: MP.Type)
-    -> Redux.Subscription where
+    -> Redux.Store.Subscription where
     VC: UIViewController,
     VC.PropInjector == Self,
     MP: ReduxPropMapperType,
@@ -38,7 +38,7 @@ public protocol ReduxPropInjectorType {
   /// - Returns: A ReduxSubscription instance.
   @discardableResult
   func injectProps<V, MP>(view: V, outProps: V.OutProps, mapper: MP.Type)
-    -> Redux.Subscription where
+    -> Redux.Store.Subscription where
     V: UIView,
     V.PropInjector == Self,
     MP: ReduxPropMapperType,
@@ -57,7 +57,7 @@ public extension ReduxPropInjectorType {
   /// - Returns: A ReduxSubscription instance.
   @discardableResult
   public func injectProps<VC>(controller vc: VC, outProps: VC.OutProps)
-    -> Redux.Subscription where
+    -> Redux.Store.Subscription where
     VC: UIViewController,
     VC: ReduxPropMapperType,
     VC.PropInjector == Self,
@@ -76,7 +76,7 @@ public extension ReduxPropInjectorType {
   /// - Returns: A ReduxSubscription instance.
   @discardableResult
   public func injectProps<V>(view: V, outProps: V.OutProps)
-    -> Redux.Subscription where
+    -> Redux.Store.Subscription where
     V: UIView,
     V: ReduxPropMapperType,
     V.PropInjector == Self,

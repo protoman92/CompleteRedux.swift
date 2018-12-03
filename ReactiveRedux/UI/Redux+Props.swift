@@ -1,28 +1,31 @@
 //
-//  Redux+Props.swift
+//  Redux+UI.swift
 //  ReactiveRedux
 //
-//  Created by Hai Pham on 11/28/18.
+//  Created by Hai Pham on 12/4/18.
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-public extension Redux {
+public extension Redux.UI {
+
+  /// Static props container.
   public struct StaticProps<PropInjector: ReduxPropInjectorType> {
     
     /// The injector instance used to inject redux props into compatible views.
     public let injector: PropInjector
     
     /// Remember to unsubscribe before re-injecting again.
-    let subscription: Redux.Subscription
+    let subscription: Redux.Store.Subscription
     
-    init(_ injector: PropInjector, _ subscription: Redux.Subscription) {
+    init(_ injector: PropInjector, _ subscription: Redux.Store.Subscription) {
       self.injector = injector
       self.subscription = subscription
     }
   }
-
+  
+  /// Variable props container.
   public struct VariableProps<StateProps, ActionProps> {
-
+    
     /// True if this is the first prop event.
     public let firstInstance: Bool
     

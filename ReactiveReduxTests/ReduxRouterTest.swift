@@ -10,16 +10,16 @@ import XCTest
 @testable import ReactiveRedux
 
 final class ReduxRouterTest: XCTestCase {
-  private var store: Redux.DelegateStore<State>!
+  private var store: Redux.Store.DelegateStore<State>!
   private var router: Router!
   
   override func setUp() {
     super.setUp()
     self.router = Router()
 
-    self.store = Redux.applyMiddlewares(
-      Redux.RouterMiddleware(self.router).middleware)(
-      Redux.RxStore.create(State(), {(s, a) in s.increment()})
+    self.store = Redux.Middleware.applyMiddlewares(
+      Redux.Middleware.Router(router: self.router).middleware)(
+      Redux.Store.RxStore.create(State(), {(s, a) in s.increment()})
     )
   }
 }
@@ -30,7 +30,7 @@ extension ReduxRouterTest {
     self.store.dispatch(Screen.login)
     self.store.dispatch(Screen.dashboard)
     self.store.dispatch(Screen.login)
-    self.store.dispatch(Redux.DefaultAction.noop)
+    self.store.dispatch(Redux.Preset.Action.noop)
     
     /// Then
     DispatchQueue.main.async {

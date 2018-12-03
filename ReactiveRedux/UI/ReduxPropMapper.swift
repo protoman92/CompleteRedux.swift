@@ -32,10 +32,10 @@ public protocol ReduxPropMapperType: class {
   /// Map a Redux dispatch to action props.
   ///
   /// - Parameters:
-  ///   - dispatch: A ReduxDispatch instance.
+  ///   - dispatch: A Dispatch instance.
   ///   - outProps: An OutProps instance.
   /// - Returns: An ActionProps instance.
-  static func mapAction(dispatch: @escaping Redux.Dispatch,
+  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
                         outProps: OutProps) -> ActionProps
   
   /// Compare previous/next StateProps.

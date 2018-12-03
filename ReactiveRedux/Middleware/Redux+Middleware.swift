@@ -6,26 +6,27 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-public extension Redux {
+public extension Redux.Middleware {
   
   /// Convenience container to expose basic store functionalities to allow
   /// middlewares.
-  public struct MiddlewareInput<State> {
-    public let lastState: LastState<State>
-    public let dispatch: Dispatch
+  public struct Input<State> {
+    public let lastState: Redux.Store.LastState<State>
+    public let dispatch: Redux.Store.Dispatch
     
-    init(_ lastState: @escaping LastState<State>,
-         _ dispatch: @escaping Dispatch) {
+    init(_ lastState: @escaping Redux.Store.LastState<State>,
+         _ dispatch: @escaping Redux.Store.Dispatch) {
       self.lastState = lastState
       self.dispatch = dispatch
     }
   }
   
   /// Function that maps one dispatch to another.
-  public typealias DispatchMapper = (@escaping Dispatch) -> Dispatch
+  public typealias DispatchMapper =
+    (@escaping Redux.Store.Dispatch) -> Redux.Store.Dispatch
   
   /// Redux store middleware which has access to the store's functionalities.
-  public typealias Middleware<State> = (MiddlewareInput<State>) -> DispatchMapper
+  public typealias Middleware<State> = (Input<State>) -> DispatchMapper
   
   /// Apply a series of middlewares to a redux store.
   ///
@@ -33,7 +34,7 @@ public extension Redux {
   /// - Returns: A Store instance.
   public static func applyMiddlewares<Store>(
     _ middlewares: Middleware<Store.State>...)
-    -> (Store) -> DelegateStore<Store.State> where
+    -> (Store) -> Redux.Store.DelegateStore<Store.State> where
     Store: ReduxStoreType
   {
     return {store in
@@ -42,10 +43,10 @@ public extension Redux {
         {(a, b) in {input in {b(input)(a(input)($0))}}}
       )
 
-      let input = MiddlewareInput(store.lastState, store.dispatch)
+      let input = Input(store.lastState, store.dispatch)
       let dispatch = combined(input)(store.dispatch)
-      let enhancedStore = EnhancedStore(store: store, dispatch: dispatch)
-      return DelegateStore(store: enhancedStore)
+      let enhanced = Redux.Store.EnhancedStore(store, dispatch)
+      return Redux.Store.DelegateStore(enhanced)
     }
   }
 }

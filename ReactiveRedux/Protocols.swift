@@ -20,12 +20,12 @@ public protocol ReduxStoreType {
   associatedtype State
   
   /// Get the last state instance.
-  var lastState: Redux.LastState<State> { get }
+  var lastState: Redux.Store.LastState<State> { get }
   
   /// Dispatch an action and notify listeners.
-  var dispatch: Redux.Dispatch { get }
+  var dispatch: Redux.Store.Dispatch { get }
   
   /// Set up state callback so that every time a new state arrives, call the
   /// callback function.
-  var subscribeState: Redux.Subscribe<State> { get }
+  var subscribeState: Redux.Store.Subscribe<State> { get }
 }

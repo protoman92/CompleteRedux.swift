@@ -6,18 +6,18 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-public extension Redux {
+public extension Redux.UI {
   
   /// Basic redux injector implementation that also handles view lifecycles.
   public struct PropInjector<State>: ReduxPropInjectorType {
-    private let store: DelegateStore<State>
+    private let store: Redux.Store.DelegateStore<State>
     
     public init<S>(store: S) where S: ReduxStoreType, S.State == State {
-      self.store = DelegateStore(store: store)
+      self.store = Redux.Store.DelegateStore(store)
     }
     
-    func injectProps<CV, MP>(_ cv: CV, _ outProps: CV.OutProps, _ mapper: MP.Type)
-      -> Redux.Subscription where
+    func _inject<CV, MP>(_ cv: CV, _ outProps: CV.OutProps, _ mapper: MP.Type)
+      -> Redux.Store.Subscription where
       CV.PropInjector == PropInjector,
       MP: ReduxPropMapperType,
       MP.ReduxState == State,
@@ -63,14 +63,14 @@ public extension Redux {
     public func injectProps<VC, MP>(controller: VC,
                                     outProps: VC.OutProps,
                                     mapper: MP.Type)
-      -> Redux.Subscription where
+      -> Redux.Store.Subscription where
       VC: UIViewController,
       VC.PropInjector == PropInjector,
       MP: ReduxPropMapperType,
       MP.ReduxState == State,
       MP.ReduxView == VC
     {
-      let subscription = self.injectProps(controller, outProps, mapper)
+      let subscription = self._inject(controller, outProps, mapper)
       let lifecycleVC = LifecycleViewController()
       lifecycleVC.onDeinit = subscription.unsubscribe
       controller.addChild(lifecycleVC)
@@ -81,14 +81,14 @@ public extension Redux {
     public func injectProps<V, MP>(view: V,
                                    outProps: V.OutProps,
                                    mapper: MP.Type)
-      -> Redux.Subscription where
+      -> Redux.Store.Subscription where
       V: UIView,
       V.PropInjector == PropInjector,
       MP: ReduxPropMapperType,
       MP.ReduxState == State,
       MP.ReduxView == V
     {
-      let subscription = self.injectProps(view, outProps, mapper)
+      let subscription = self._inject(view, outProps, mapper)
       let lifecycleView = LifecycleView()
       lifecycleView.onDeinit = subscription.unsubscribe
       view.addSubview(lifecycleView)
@@ -97,7 +97,7 @@ public extension Redux {
   }
 }
 
-extension Redux.PropInjector {
+extension Redux.UI.PropInjector {
   final class LifecycleViewController: UIViewController {
     deinit { self.onDeinit?() }
     var onDeinit: (() -> Void)?

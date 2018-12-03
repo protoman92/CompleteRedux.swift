@@ -8,16 +8,20 @@
 
 public extension Redux {
 
-  /// Default Redux convenience class that contains basic reusable actions..
-  public enum DefaultAction: ReduxActionType {
-    case noop
-  }
+  /// Top-level namespace for presets.
+  public final class Preset {
+
+    /// Default Redux convenience class that contains basic reusable actions..
+    public enum Action: ReduxActionType {
+      case noop
+    }
     
-  public final class DefaultReducer {
-    public static func reduce<State>(_ state: State, _ action: DefaultAction) -> State? {
-      switch action {
-      case .noop:
-        return state
+    public final class Reducer {
+      public static func reduce<S>(_ state: S, _ action: Action) -> S {
+        switch action {
+        case .noop:
+          return state
+        }
       }
     }
   }

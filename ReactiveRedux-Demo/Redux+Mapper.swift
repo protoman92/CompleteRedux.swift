@@ -16,7 +16,7 @@ extension RootController: ReduxPropMapperType {
     return ()
   }
   
-  static func mapAction(dispatch: @escaping Redux.Dispatch,
+  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
                         outProps: OutProps) -> ActionProps {
     return ActionProps(
       goToViewController1: {dispatch(ReduxScreen.viewController1)}
@@ -37,7 +37,7 @@ extension ViewController1: ReduxPropMapperType {
       .getOrElse(StateProps())
   }
   
-  static func mapAction(dispatch: @escaping Redux.Dispatch,
+  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
                         outProps: OutProps) -> ActionProps {
     return ActionProps(
       goBack: {dispatch(ReduxScreen.back)},
@@ -58,7 +58,7 @@ extension ConfirmButton: ReduxPropMapperType {
     return StateProps()
   }
   
-  static func mapAction(dispatch: @escaping Redux.Dispatch,
+  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
                         outProps: OutProps) -> ActionProps {
     return ActionProps(
       confirmEdit: {dispatch(AppRedux.Action.triggerClear)}
@@ -77,7 +77,7 @@ extension TableCell: ReduxPropMapperType {
     )
   }
   
-  static func mapAction(dispatch: @escaping Redux.Dispatch,
+  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
                         outProps: OutProps) -> ActionProps {
     return ActionProps(
       updateText: {dispatch(AppRedux.Action.text(outProps, $0))}

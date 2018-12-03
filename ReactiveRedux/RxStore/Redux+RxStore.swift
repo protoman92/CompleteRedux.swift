@@ -9,7 +9,7 @@
 import RxSwift
 import SwiftFP
 
-public extension Redux {
+public extension Redux.Store {
   
   /// Scan action and reduce to produce state sequentially.
   ///
@@ -19,7 +19,7 @@ public extension Redux {
   ///   - initialState: Initial state.
   /// - Returns: An Observable instance.
   static func scanReduce<State>(_ actionStream: Observable<ReduxActionType>,
-                                _ reducer: @escaping Redux.Reducer<State>,
+                                _ reducer: @escaping Reducer<State>,
                                 _ initialState: State) -> Observable<State> {
     return actionStream
       .observeOn(MainScheduler.instance)
@@ -35,70 +35,70 @@ public extension Redux {
     ///
     /// - Parameters:
     ///   - initialState: A State instance.
-    ///   - mainReducer: A ReduxReducer instance.
+    ///   - mainReducer: A Reducer instance.
     /// - Returns: A RxReduxStore instance.
     public static func create(
       _ initialState: State,
-      _ reducer: @escaping Redux.Reducer<State>) -> RxStore<State>
+      _ reducer: @escaping Reducer<State>) -> RxStore<State>
     {
       return RxStore(initialState, reducer)
     }
     
-    private let disposeBag: DisposeBag
-    private var actionObserver: RxObserver<ReduxActionType>
-    private var stateObserver: BehaviorSubject<State>
-    private let defaultState: State
+    private let _disposeBag: DisposeBag
+    private var _actionObserver: RxObserver<ReduxActionType>
+    private var _stateObserver: BehaviorSubject<State>
+    private let _defaultState: State
+    
+    var stateTrigger: AnyObserver<State> {
+      return self._stateObserver.asObserver()
+    }
     
     private init(_ initialState: State,
-                 _ reducer: @escaping Redux.Reducer<State>) {
-      self.disposeBag = DisposeBag()
-      self.actionObserver = RxObserver(Redux.DefaultAction.noop)
-      self.stateObserver = BehaviorSubject(value: initialState)
-      self.defaultState = initialState
+                 _ reducer: @escaping Reducer<State>) {
+      self._disposeBag = DisposeBag()
+      self._actionObserver = RxObserver(Redux.Preset.Action.noop)
+      self._stateObserver = BehaviorSubject(value: initialState)
+      self._defaultState = initialState
       
-      scanReduce(self.actionObserver.asObservable(), reducer, initialState)
-        .subscribe(self.stateObserver)
-        .disposed(by: self.disposeBag)
+      scanReduce(self._actionObserver.asObservable(), reducer, initialState)
+        .subscribe(self._stateObserver)
+        .disposed(by: self._disposeBag)
     }
   }
 }
 
-extension Redux.RxStore: ReduxStoreType {
-  public var dispatch: Redux.Dispatch {
+extension Redux.Store.RxStore: ReduxStoreType {
+  public var dispatch: Redux.Store.Dispatch {
     return self.actionTrigger.onNext
   }
   
-  public var subscribeState: Redux.Subscribe<State> {
+  public var subscribeState: Redux.Store.Subscribe<State> {
     return {
       let cancelSignal = PublishSubject<Any?>()
       let cancel: () -> Void = {cancelSignal.onNext(nil)}
-      let subscription = Redux.Subscription(cancel)
+      let subscription = Redux.Store.Subscription(cancel)
       
-      self.stateObserver
+      self._stateObserver
         .takeUntil(cancelSignal)
         .subscribe(onNext: $1)
-        .disposed(by: self.disposeBag)
+        .disposed(by: self._disposeBag)
       
       return subscription
     }
   }
 }
 
-extension Redux.RxStore: RxReduxStoreType {
-  public var lastState: Redux.LastState<State> {
-    return {Try({try self.stateObserver.value()}).getOrElse(self.defaultState)}
+extension Redux.Store.RxStore: RxReduxStoreType {
+  public var lastState: Redux.Store.LastState<State> {
+    return {Try({try self._stateObserver.value()}).getOrElse(self._defaultState)}
   }
   
   public var actionTrigger: AnyObserver<ReduxActionType> {
-    return self.actionObserver.asObserver()
+    return self._actionObserver.asObserver()
   }
   
   public var stateStream: Observable<State> {
-    return self.stateObserver.asObservable()
-  }
-  
-  var stateTrigger: AnyObserver<State> {
-    return self.stateObserver.asObserver()
+    return self._stateObserver.asObservable()
   }
 }
 

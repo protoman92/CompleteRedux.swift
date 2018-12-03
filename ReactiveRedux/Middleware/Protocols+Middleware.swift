@@ -11,5 +11,5 @@ public protocol ReduxMiddlewareProviderType {
   associatedtype State
   
   /// Create a dispatch mapper from some input.
-  var middleware: Redux.Middleware<State> { get }
+  var middleware: Redux.Middleware.Middleware<State> { get }
 }

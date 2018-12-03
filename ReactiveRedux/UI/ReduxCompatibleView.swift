@@ -26,8 +26,8 @@ public protocol ReduxCompatibleViewType: class {
   /// interactions.
   associatedtype ActionProps
   
-  typealias StaticProps = Redux.StaticProps<PropInjector>
-  typealias VariableProps = Redux.VariableProps<StateProps, ActionProps>
+  typealias StaticProps = Redux.UI.StaticProps<PropInjector>
+  typealias VariableProps = Redux.UI.VariableProps<StateProps, ActionProps>
   
   /// This prop container includes static dependencies that can be used to
   /// wire up child views/view controllers.

@@ -17,7 +17,7 @@ final class ReduxPresetTest: XCTestCase {
     var state = SafeNest.builder().with(initialObject: initialObject).build()
 
     /// When
-    state = Redux.DefaultReducer.reduce(state, Redux.DefaultAction.noop)!
+    state = Redux.Preset.Reducer.reduce(state, Redux.Preset.Action.noop)
 
     /// Then
     XCTAssertEqual(state.object as! [String : Int], initialObject)

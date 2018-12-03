@@ -13,7 +13,7 @@ import XCTest
 final class RxReduxObserverTest: XCTestCase {
   func test_reduxObserver_shouldIgnoreErrorAndCompleteEvents() {
     /// Setup
-    let reduxObserver = Redux.RxObserver<Int>(0)
+    let reduxObserver = Redux.Store.RxObserver<Int>(0)
     
     /// When
     reduxObserver.on(.error(self))
