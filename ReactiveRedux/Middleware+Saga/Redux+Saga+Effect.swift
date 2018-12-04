@@ -32,4 +32,21 @@ public extension Redux.Saga {
       return Output(.just(self._selector(input.lastState())), {_ in})
     }
   }
+  
+  final class PutEffect<State, P>: Effect<State, Any> {
+    private let _actionCreator: (P) -> ReduxActionType
+    private let _dataEffect: Effect<State, P>
+    
+    init(_ dataEffect: Effect<State, P>,
+         _ actionCreator: @escaping (P) -> ReduxActionType) {
+      self._actionCreator = actionCreator
+      self._dataEffect = dataEffect
+    }
+    
+    override func invoke(_ input: Input<State>) -> Output<Any> {
+      return _dataEffect.invoke(input)
+        .map(self._actionCreator)
+        .map(input.dispatchWrapper.dispatch)
+    }
+  }
 }
