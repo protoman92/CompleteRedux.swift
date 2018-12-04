@@ -17,9 +17,9 @@ final class ReduxRouterTest: XCTestCase {
     super.setUp()
     self.router = Router()
 
-    self.store = Redux.Middleware.applyMiddlewares(
-      Redux.Middleware.Router(router: self.router).middleware)(
-      Redux.Store.RxStore.create(State(), {(s, a) in s.increment()})
+    self.store = Redux.Middleware.applyMiddlewares([
+      Redux.Middleware.Router(router: self.router).middleware
+      ])(Redux.Store.RxStore.create(State(), {(s, a) in s.increment()})
     )
   }
 }

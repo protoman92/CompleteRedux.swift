@@ -8,6 +8,7 @@
 
 import ReactiveRedux
 import SafeNest
+import SwiftFP
 
 extension UIViewController {
   typealias PropInjector = Redux.UI.PropInjector<SafeNest>
@@ -42,6 +43,12 @@ final class AppRedux {
     case addTextItem
     case text(Int, String?)
     case deleteTextItem(Int)
+  }
+  
+  final class Getter {
+    static func number(state: State) -> Try<Int> {
+      return state.value(at: Path.numberPath).cast(Int.self)
+    }
   }
   
   final class Reducer {

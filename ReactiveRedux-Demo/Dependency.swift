@@ -26,10 +26,10 @@ struct Dependency {
     
     let router = ReduxRouter(navController)
     
-    self.store = Redux.Middleware.applyMiddlewares(
-      Redux.Middleware.Router(router: router).middleware)(
-      Redux.Store.RxStore.create(initial, AppRedux.Reducer.main)
-    )
+    self.store = Redux.Middleware.applyMiddlewares([
+      Redux.Middleware.Router(router: router).middleware,
+      Redux.Middleware.Saga(effects: AppReduxSaga.sagas()).middleware
+      ])(Redux.Store.RxStore.create(initial, AppRedux.Reducer.main))
     
     self.injector = Redux.UI.PropInjector(store: self.store)
   }

@@ -25,22 +25,31 @@ extension ReduxMiddlewareTest {
     var data: [Int] = []
     var subscribedValue = 0
     
-    let wrappedStore = Redux.Middleware.applyMiddlewares(
-      {input in {dispatch in {data.append(1); dispatch($0)}}},
-      {input in {dispatch in {data.append(2); dispatch($0)}}},
-      {input in {dispatch in {data.append(3); dispatch($0)}}}
-    )(self.store)
+    let middlewares: [Redux.Middleware.Middleware<State>] = [
+      {input in {wrapper in Redux.Store.DispatchWrapper(
+        "\(wrapper.identifier)-1",
+        {data.append(1); wrapper.dispatch($0)})}},
+      {input in {wrapper in Redux.Store.DispatchWrapper(
+        "\(wrapper.identifier)-2",
+        {data.append(2); wrapper.dispatch($0)})}},
+      {input in {wrapper in Redux.Store.DispatchWrapper(
+        "\(wrapper.identifier)-3",
+        {data.append(3); wrapper.dispatch($0)})}}
+    ]
     
-    let subscription = wrappedStore.subscribeState("", {subscribedValue = $0.a})
+    let wrapper = Redux.Middleware.combineMiddlewares(middlewares)(self.store)
+    let newStore = Redux.Middleware.applyMiddlewares(middlewares)(self.store)
+    let subscription = newStore.subscribeState("", {subscribedValue = $0.a})
     
     /// When
-    wrappedStore.dispatch(Redux.Preset.Action.noop)
-    wrappedStore.dispatch(Redux.Preset.Action.noop)
-    wrappedStore.dispatch(Redux.Preset.Action.noop)
+    newStore.dispatch(Redux.Preset.Action.noop)
+    newStore.dispatch(Redux.Preset.Action.noop)
+    newStore.dispatch(Redux.Preset.Action.noop)
     
     /// Then
+    XCTAssertEqual(wrapper.identifier, "root-3-2-1")
     XCTAssertEqual(data, [1, 2, 3, 1, 2, 3, 1, 2, 3])
-    XCTAssertEqual(wrappedStore.lastState().a, 3)
+    XCTAssertEqual(newStore.lastState().a, 3)
     XCTAssertEqual(subscribedValue, 3)
     subscription.unsubscribe()
   }

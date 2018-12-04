@@ -33,12 +33,13 @@ public extension Redux.Middleware {
     
     public var middleware: Middleware<State> {
       return {_ in
-        {
-          dispatch in
-          {
-            dispatch($0)
+        {wrapper in
+          let newWrapperId = "\(wrapper.identifier)-router"
+          
+          return Redux.Store.DispatchWrapper(newWrapperId) {action in
+            wrapper.dispatch(action)
             
-            if let screen = $0 as? Screen {
+            if let screen = action as? Screen {
               // Force-navigate on the main thread.
               DispatchQueue.main.async {self._navigate(screen)}
             }
