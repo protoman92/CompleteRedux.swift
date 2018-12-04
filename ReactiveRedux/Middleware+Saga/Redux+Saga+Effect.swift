@@ -49,4 +49,30 @@ public extension Redux.Saga {
         .map(input.dispatchWrapper.dispatch)
     }
   }
+  
+  final class TakeLatestEffect<State, Action, P, R>: Effect<State, R> where
+    Action: ReduxActionType
+  {
+    private let _paramExtractor: (Action) -> P?
+    private let _effectCreator: (P) -> Effect<State, R>
+    
+    init(_ actionType: Action.Type,
+         _ paramType: P.Type,
+         _ paramExtractor: @escaping (Action) -> P?,
+         _ outputCreator: @escaping (P) -> Effect<State, R>) {
+      self._paramExtractor = paramExtractor
+      self._effectCreator = outputCreator
+    }
+    
+    override func invoke(_ input: Input<State>) -> Output<R> {
+      let paramStream = PublishSubject<P>()
+
+      return Output
+        .init(paramStream, {($0 as? Action)
+          .flatMap(self._paramExtractor)
+          .map(paramStream.onNext)})
+        .map(self._effectCreator)
+        .switchMap({$0.invoke(input)})
+    }
+  }
 }
