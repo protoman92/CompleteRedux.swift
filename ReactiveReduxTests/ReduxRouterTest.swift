@@ -10,32 +10,34 @@ import XCTest
 @testable import ReactiveRedux
 
 final class ReduxRouterTest: XCTestCase {
-  private var store: Redux.Store.DelegateStore<State>!
+  private var dispatch: Redux.Store.Dispatch!
+  private var dispatchCount: Int!
   private var router: Router!
   
   override func setUp() {
     super.setUp()
+    let input = Redux.Middleware.Input({()})
+    let wrapper = Redux.Store.DispatchWrapper("", {_ in self.dispatchCount += 1})
     self.router = Router()
+    self.dispatchCount = 0
 
-    self.store = Redux.Middleware.applyMiddlewares([
-      Redux.Middleware.Router(router: self.router).middleware
-      ])(Redux.Store.RxStore.create(State(), {(s, a) in s.increment()})
-    )
+    self.dispatch = Redux.Middleware.Router.Provider(router: self.router)
+      .middleware(input)(wrapper).dispatch
   }
 }
 
 extension ReduxRouterTest {
   func test_navigateWithRouter_shouldWork() {
     /// Setup && When
-    self.store.dispatch(Screen.login)
-    self.store.dispatch(Screen.dashboard)
-    self.store.dispatch(Screen.login)
-    self.store.dispatch(Redux.Preset.Action.noop)
+    self.dispatch(Screen.login)
+    self.dispatch(Screen.dashboard)
+    self.dispatch(Screen.login)
+    self.dispatch(Redux.Preset.Action.noop)
     
     /// Then
     DispatchQueue.main.async {
       XCTAssertEqual(self.router.history, [.login, .dashboard, .login])
-      XCTAssertEqual(self.store.lastState().a, 4)
+      XCTAssertEqual(self.dispatchCount, 4)
     }
   }
 }
@@ -53,14 +55,6 @@ extension ReduxRouterTest {
     
     func navigate(_ screen: ReduxRouterTest.Screen) {
       self.history.append(screen)
-    }
-  }
-  
-  struct State {
-    var a = -1
-    
-    func increment() -> State {
-      return State(a: self.a + 1)
     }
   }
 }
