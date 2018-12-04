@@ -20,4 +20,16 @@ public extension Redux.Saga {
       return Output(.empty(), {_ in})
     }
   }
+  
+  final class SelectEffect<State, R>: Effect<State, R> {
+    private let _selector: (State) -> R
+    
+    init(_ selector: @escaping (State) -> R) {
+      self._selector = selector
+    }
+    
+    override func invoke(_ input: Input<State>) -> Output<R> {
+      return Output(.just(self._selector(input.lastState())), {_ in})
+    }
+  }
 }
