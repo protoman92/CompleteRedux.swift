@@ -42,6 +42,7 @@ final class AppRedux {
     case slider(Double)
     case addTextItem
     case text(Int, String?)
+    case texts([String])
     case deleteTextItem(Int)
   }
   
@@ -85,6 +86,17 @@ final class AppRedux {
             
           case .text(let index, let value):
             return try state.updating(at: Path.textItemPath(index), value: value)
+            
+          case .texts(let texts):
+            let textIndexes = texts.enumerated().map({$0.offset})
+            
+            let textDict = texts.enumerated()
+              .map({["\($0.offset)" : $0.element]})
+              .reduce([:], {$0.merging($1, uniquingKeysWith: {$1})})
+            
+            return try state
+              .updating(at: Path.textIndexesPath, value: textIndexes)
+              .updating(at: Path.textPath, value: textDict)
             
           case .deleteTextItem(let index):
             let mapper: State.TypedMapper<[Int], [Int]> = {

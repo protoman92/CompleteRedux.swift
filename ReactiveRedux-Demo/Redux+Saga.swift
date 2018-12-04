@@ -20,11 +20,12 @@ final class AppReduxSaga {
   }
   
   static func autocompleteSaga(_ input: String) -> Redux.Saga.Effect<State, Any> {
-    let number = Redux.Saga.Effects.select(selector: AppRedux.Getter.number)
+    let callEffect = Redux.Saga.Effects.callWithObservable(
+      paramEffect: Redux.Saga.Effects.just(input, forState: State.self),
+      callCreator: Api.performAutocomplete)
     
-    return Redux.Saga.Effects.put(dataEffect: number, actionCreator: {
-      return AppRedux.Action.string(String(describing: $0.getOrElse(0)))
-    })
+    return Redux.Saga.Effects.put(paramEffect: callEffect,
+                                  actionCreator: AppRedux.Action.texts)
   }
   
   static func sagas() -> [Redux.Saga.Effect<State, Any>] {
