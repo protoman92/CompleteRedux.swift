@@ -14,4 +14,10 @@ public extension Redux.Saga {
       return Output(.error(Redux.Saga.Error.unimplemented), {_ in})
     }
   }
+  
+  final class EmptyEffect<State, R>: Effect<State, R> {
+    override func invoke(_ input: Input<State>) -> Output<R> {
+      return Output(.empty(), {_ in})
+    }
+  }
 }
