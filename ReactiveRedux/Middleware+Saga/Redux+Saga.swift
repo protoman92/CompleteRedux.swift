@@ -58,6 +58,10 @@ extension Redux.Saga {
       return self.with(source: self.source.map(fn).flatMap({$0.source}))
     }
     
+    func flatMap<R>(_ fn: @escaping (T) throws -> Observable<R>) -> Output<R> {
+      return self.with(source: self.source.flatMap(fn))
+    }
+    
     func switchMap<R>(_ fn: @escaping (T) throws -> Output<R>) -> Output<R> {
       return self.with(source: self.source.map(fn).flatMapLatest({$0.source}))
     }

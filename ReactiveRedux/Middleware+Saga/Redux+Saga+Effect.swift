@@ -21,6 +21,18 @@ public extension Redux.Saga {
     }
   }
   
+  final class JustEffect<State, R>: Effect<State, R> {
+    private let value: R
+    
+    init(_ value: R) {
+      self.value = value
+    }
+    
+    override func invoke(_ input: Input<State>) -> Output<R> {
+      return Output(.just(self.value), {_ in})
+    }
+  }
+  
   final class SelectEffect<State, R>: Effect<State, R> {
     private let _selector: (State) -> R
     
@@ -35,18 +47,33 @@ public extension Redux.Saga {
   
   final class PutEffect<State, P>: Effect<State, Any> {
     private let _actionCreator: (P) -> ReduxActionType
-    private let _dataEffect: Effect<State, P>
+    private let _paramEffect: Effect<State, P>
     
-    init(_ dataEffect: Effect<State, P>,
+    init(_ paramEffect: Effect<State, P>,
          _ actionCreator: @escaping (P) -> ReduxActionType) {
       self._actionCreator = actionCreator
-      self._dataEffect = dataEffect
+      self._paramEffect = paramEffect
     }
     
     override func invoke(_ input: Input<State>) -> Output<Any> {
-      return _dataEffect.invoke(input)
+      return _paramEffect.invoke(input)
         .map(self._actionCreator)
         .map(input.dispatchWrapper.dispatch)
+    }
+  }
+  
+  final class CallEffect<State, P, R>: Effect<State, R> {
+    private let _paramEffect: Effect<State, P>
+    private let _callCreator: (P) -> Observable<R>
+    
+    init(_ paramEffect: Effect<State, P>,
+         _ callCreator: @escaping (P) -> Observable<R>) {
+      self._paramEffect = paramEffect
+      self._callCreator = callCreator
+    }
+    
+    override func invoke(_ input: Input<State>) -> Output<R> {
+      return self._paramEffect.invoke(input).flatMap(self._callCreator)
     }
   }
   
