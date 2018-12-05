@@ -82,6 +82,38 @@ final class ReduxSagaEffectTest: XCTestCase {
     XCTAssertEqual(dispatchCount, 1)
     [value1, value2, value3].forEach({XCTAssertEqual($0.value, 100)})
   }
+  
+  func test_putEffect_shouldDispatchPutEffect() {
+    /// Setup
+    enum Action: ReduxActionType { case input(Int) }
+    var dispatchCount = 0
+    var actions: [ReduxActionType] = []
+    let dispatch: Redux.Store.Dispatch = {dispatchCount += 1; actions.append($0)}
+    let paramEffect = Redux.Saga.Effect<State, Int>.just(200)
+
+    let effect = Redux.Saga.Effect<State, Any>
+      .put(paramEffect, actionCreator: Action.input)
+    
+    let output = effect.invoke(withState: (), dispatch: dispatch)
+    
+    /// When
+    dispatch(Redux.Preset.Action.noop)
+    output.onAction(Redux.Preset.Action.noop)
+    _ = output.nextValue(timeoutInSeconds: 2)
+    
+    /// Then
+    XCTAssertEqual(dispatchCount, 2)
+    XCTAssertEqual(actions.count, 2)
+    XCTAssert(actions[0] is Redux.Preset.Action)
+    XCTAssert(actions[1] is Action)
+    let action = actions[1] as! Action
+    
+    if case let .input(value) = action {
+      XCTAssertEqual(value, 200)
+    } else {
+      XCTFail("Should not have reached here")
+    }
+  }
 }
 
 extension ReduxSagaEffectTest {

@@ -64,7 +64,7 @@ extension ReduxSagaTest {
     {
       self.invokeCount += 1
       
-      return Redux.Saga.Output(.empty()) {
+      return Redux.Saga.Output(.just(input.lastState())) {
         self.onActionCount += 1
         self.pastActions.append($0)
       }
