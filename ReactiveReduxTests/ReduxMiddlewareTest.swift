@@ -53,6 +53,14 @@ extension ReduxMiddlewareTest {
     XCTAssertEqual(subscribedValue, 3)
     subscription.unsubscribe()
   }
+  
+  func test_wrappingWithNoMiddlewares_shouldReturnBaseDispatch() {
+    /// Setup && When
+    let wrapper = Redux.Middleware.combineMiddlewares([])(self.store)
+    
+    /// Then
+    XCTAssertEqual(wrapper.identifier, "root")
+  }
 }
 
 extension ReduxMiddlewareTest {

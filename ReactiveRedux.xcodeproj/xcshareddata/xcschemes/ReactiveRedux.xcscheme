@@ -37,13 +37,6 @@
             BlueprintName = "ReactiveRedux"
             ReferencedContainer = "container:ReactiveRedux.xcodeproj">
          </BuildableReference>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D3943ED61FA32D5600898233"
-            BuildableName = "ReactiveReduxTests.xctest"
-            BlueprintName = "ReactiveReduxTests"
-            ReferencedContainer = "container:ReactiveRedux.xcodeproj">
-         </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
          <TestableReference

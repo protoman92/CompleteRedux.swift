@@ -134,8 +134,8 @@ final class ReduxSagaEffectTest: XCTestCase {
       })
     }
     
-    let api2: (Int) -> Observable<Int> = {_ in
-      .error(Redux.Saga.Error.unimplemented)
+    let api2: (Int, @escaping (Try<Int>) -> Void) -> Void = {_, callback in
+      callback(Try.failure(Redux.Saga.Error.unimplemented))
     }
 
     let paramEffect = Effect<State, Int>.just(300)

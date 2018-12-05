@@ -29,6 +29,11 @@ final class ReduxSagaTest: XCTestCase {
 }
 
 extension ReduxSagaTest {
+  func test_sagaError_shouldHaveDescriptions() {
+    /// Setup && When && Then
+    XCTAssertNotNil(Redux.Saga.Error.unimplemented.errorDescription)
+  }
+  
   func test_receivingAction_shouldInvokeSagaEffects() {
     /// Setup && When
     self.dispatch(Redux.Preset.Action.noop)

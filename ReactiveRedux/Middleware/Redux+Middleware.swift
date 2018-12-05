@@ -63,9 +63,9 @@ public extension Redux.Middleware {
         })
       
         return combined(input)(rootWrapper)
-      } else {
-        return rootWrapper
       }
+      
+      return rootWrapper
     }
   }
   
