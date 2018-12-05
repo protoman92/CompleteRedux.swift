@@ -140,6 +140,18 @@ extension Redux.Saga {
     }
   }
   
+  /// Effect whose output takes all actions that pass some conditions, then
+  /// flattens and emits all values. Contrast this with take latest.
+  final class TakeEveryEffect<State, Action, P, R>:
+    TakeEffect<State, Action, P, R> where Action: ReduxActionType
+  {
+    init(_ actionType: Action.Type,
+         _ paramExtractor: @escaping (Action) -> P?,
+         _ outputCreator: @escaping (P) -> E<State, R>) {
+      super.init(actionType, paramExtractor, outputCreator, {$0.flatMap({$0})})
+    }
+  }
+  
   /// Effect whose output switches to the latest action every time one arrives.
   /// This is best used for cases whereby we are only interested in the latest
   /// value, such as in an autocomplete implementation. We define the type of

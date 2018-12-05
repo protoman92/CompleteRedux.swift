@@ -17,6 +17,7 @@ extension Redux.Saga.Effect {
   typealias Put = Redux.Saga.PutEffect
   typealias Select = Redux.Saga.SelectEffect
   typealias Sequentialize = Redux.Saga.SequentializeEffect
+  typealias TakeEvery = Redux.Saga.TakeEveryEffect
   typealias TakeLatest = Redux.Saga.TakeLatestEffect
   
   /// Create an empty effect.
@@ -92,6 +93,22 @@ extension Redux.Saga.Effect {
         return Disposables.create()
       })
     }
+  }
+  
+  /// Create a take every effect.
+  ///
+  /// - Parameters:
+  ///   - actionType: The type of action to filter.
+  ///   - paramExtractor: The param extractor function.
+  ///   - effectCreator: The effect creator function.
+  /// - Returns: An Effect instance.
+  public static func takeEvery<Action, P>(
+    actionType: Action.Type,
+    paramExtractor: @escaping (Action) -> P?,
+    effectCreator: @escaping (P) -> E<State, R>)
+    -> E<State, R> where Action: ReduxActionType
+  {
+    return TakeEvery(actionType, paramExtractor, effectCreator)
   }
   
   /// Create a take latest effect.
