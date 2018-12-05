@@ -164,14 +164,22 @@ final class ReduxSagaEffectTest: XCTestCase {
     }
     
     let effect2 = Effect<State, Int>.just(2)
-    let sequentialized = Redux.Saga.Effect.sequentialize(effect1, effect2)
-    let output = sequentialized.invoke(withState: (), dispatch: dispatch)
+    let sequence1 = Redux.Saga.Effect.sequentialize(effect1, effect2)
+    let sequence2 = effect1.then(effect2, selector: +)
+    let sequence3 = effect1.then(effect2)
+    let output1 = sequence1.invoke(withState: (), dispatch: dispatch)
+    let output2 = sequence2.invoke(withState: (), dispatch: dispatch)
+    let output3 = sequence3.invoke(withState: (), dispatch: dispatch)
     
     /// When
-    let value = output.nextValue(timeoutInSeconds: 3)
+    let value1 = output1.nextValue(timeoutInSeconds: 3)
+    let value2 = output2.nextValue(timeoutInSeconds: 3)
+    let value3 = output3.nextValue(timeoutInSeconds: 3)
     
     /// Then
-    XCTAssertEqual(value.value, 2)
+    XCTAssertEqual(value1.value, 2)
+    XCTAssertEqual(value2.value, 3)
+    XCTAssertEqual(value3.value, 2)
   }
 }
 

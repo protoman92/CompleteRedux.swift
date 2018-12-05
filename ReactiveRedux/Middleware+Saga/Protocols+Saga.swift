@@ -20,6 +20,30 @@ extension ReduxSagaEffectType {
   {
     return self.invoke(Redux.Saga.Input({state}, dispatch))
   }
+  
+  /// Trigger another effect in sequence and combining emissions with a
+  /// selector function.
+  ///
+  /// - Parameters:
+  ///   - effect2: An Effect instance.
+  ///   - selector: The selector function.
+  /// - Returns: An Effect instance.
+  public func then<E, U>(_ effect2: E, selector: @escaping (R, E.R) throws -> U)
+    -> Redux.Saga.Effect<State, U> where
+    E: ReduxSagaEffectType, E.State == State
+  {
+    return Redux.Saga.Effect.sequentialize(self, effect2, selector: selector)
+  }
+  
+  /// Trigger another event and ignore emission from this effect.
+  ///
+  /// - Parameter effect2: An Effect instance.
+  /// - Returns: An Effect instance.
+  public func then<E>(_ effect2: E) -> Redux.Saga.Effect<State, E.R> where
+    E: ReduxSagaEffectType, E.State == State
+  {
+    return self.then(effect2, selector: {$1})
+  }
 }
 
 /// Implement this protocol to represent a take effect (e.g. take latest or
