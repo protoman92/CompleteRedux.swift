@@ -86,35 +86,6 @@ extension Redux.Saga {
     }
   }
   
-  /// Effect whose output switches to the latest action every time one arrives.
-  /// This is best used for cases whereby we are only interested in the latest
-  /// value, such as in an autocomplete implementation. We define the type of
-  /// action and param extractor to filter out actions we are not interested in.
-  final class TakeLatestEffect<State, Action, P, R>: Effect<State, R> where
-    Action: ReduxActionType
-  {
-    private let _paramExtractor: (Action) -> P?
-    private let _effectCreator: (P) -> E<State, R>
-    
-    init(_ actionType: Action.Type,
-         _ paramExtractor: @escaping (Action) -> P?,
-         _ outputCreator: @escaping (P) -> E<State, R>) {
-      self._paramExtractor = paramExtractor
-      self._effectCreator = outputCreator
-    }
-    
-    override func invoke(_ input: Input<State>) -> Output<R> {
-      let paramStream = PublishSubject<P>()
-
-      return Output
-        .init(paramStream, {($0 as? Action)
-          .flatMap(self._paramExtractor)
-          .map(paramStream.onNext)})
-        .map(self._effectCreator)
-        .switchMap({$0.invoke(input)})
-    }
-  }
-  
   /// Effect whose output is the result of sequentializing the outputs of two
   /// effects. Use this effect to make sure one effect happens after another.
   final class SequentializeEffect<E1, E2, U>: Effect<E2.State, U> where
@@ -137,6 +108,49 @@ extension Redux.Saga {
     override func invoke(_ input: Input<State>) -> Output<U> {
       return self.effect1.invoke(input).flatMap({result1 in
         self.effect2.invoke(input).map({try self.combineFunc(result1, $0)})})
+    }
+  }
+}
+
+extension Redux.Saga {
+  class TakeEffect<State, Action, P, R>: Effect<State, R> where
+    Action: ReduxActionType
+  {
+    private let _paramExtractor: (Action) -> P?
+    private let _effectCreator: (P) -> E<State, R>
+    private let _outputFlattener: (Output<Output<R>>) -> Output<R>
+    
+    init(_ actionType: Action.Type,
+         _ paramExtractor: @escaping (Action) -> P?,
+         _ outputCreator: @escaping (P) -> E<State, R>,
+         _ outputFlattener: @escaping (Output<Output<R>>) -> Output<R>) {
+      self._paramExtractor = paramExtractor
+      self._effectCreator = outputCreator
+      self._outputFlattener = outputFlattener
+    }
+    
+    override func invoke(_ input: Input<State>) -> Output<R> {
+      let paramStream = PublishSubject<P>()
+      
+      return self._outputFlattener(Output
+        .init(paramStream, {($0 as? Action)
+          .flatMap(self._paramExtractor)
+          .map(paramStream.onNext)})
+        .map({self._effectCreator($0).invoke(input)}))
+    }
+  }
+  
+  /// Effect whose output switches to the latest action every time one arrives.
+  /// This is best used for cases whereby we are only interested in the latest
+  /// value, such as in an autocomplete implementation. We define the type of
+  /// action and param extractor to filter out actions we are not interested in.
+  final class TakeLatestEffect<State, Action, P, R>:
+    TakeEffect<State, Action, P, R> where Action: ReduxActionType
+  {
+    init(_ actionType: Action.Type,
+         _ paramExtractor: @escaping (Action) -> P?,
+         _ outputCreator: @escaping (P) -> E<State, R>) {
+      super.init(actionType, paramExtractor, outputCreator, {$0.switchMap({$0})})
     }
   }
 }

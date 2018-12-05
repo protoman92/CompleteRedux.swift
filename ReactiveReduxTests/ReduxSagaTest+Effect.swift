@@ -16,7 +16,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// Setup
     var dispatchCount = 0
     let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
-    let effect = Redux.Saga.Effect<State, Int>()
+    let effect = Effect<State, Int>()
     let output = effect.invoke(withState: (), dispatch: dispatch)
     
     /// When
@@ -34,7 +34,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// Setup
     var dispatchCount = 0
     let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
-    let effect = Redux.Saga.Effect<State, Int>.empty()
+    let effect = Effect<State, Int>.empty()
     let output = effect.invoke(withState: (), dispatch: dispatch)
     
     /// When
@@ -51,7 +51,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// Setup
     var dispatchCount = 0
     let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
-    let effect = Redux.Saga.Effect<State, Int>.just(10)
+    let effect = Effect<State, Int>.just(10)
     let output = effect.invoke(withState: (), dispatch: dispatch)
     
     /// When
@@ -70,7 +70,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// Setup
     var dispatchCount = 0
     let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
-    let effect = Redux.Saga.Effect<State, Int>.select({_ in 100})
+    let effect = Effect<State, Int>.select({_ in 100})
     let output = effect.invoke(withState: (), dispatch: dispatch)
     
     /// When
@@ -91,9 +91,9 @@ final class ReduxSagaEffectTest: XCTestCase {
     var dispatchCount = 0
     var actions: [ReduxActionType] = []
     let dispatch: Redux.Store.Dispatch = {dispatchCount += 1; actions.append($0)}
-    let paramEffect = Redux.Saga.Effect<State, Int>.just(200)
+    let paramEffect = Effect<State, Int>.just(200)
 
-    let effect = Redux.Saga.Effect<State, Any>
+    let effect = Effect<State, Any>
       .put(paramEffect, actionCreator: Action.input)
     
     let output = effect.invoke(withState: (), dispatch: dispatch)
@@ -136,9 +136,9 @@ final class ReduxSagaEffectTest: XCTestCase {
       .error(Redux.Saga.Error.unimplemented)
     }
 
-    let paramEffect = Redux.Saga.Effect<State, Int>.just(300)
-    let effect1 = Redux.Saga.Effect.call(param: paramEffect, callCreator: api1)
-    let effect2 = Redux.Saga.Effect.call(param: paramEffect, callCreator: api2)
+    let paramEffect = Effect<State, Int>.just(300)
+    let effect1 = Effect.call(param: paramEffect, callCreator: api1)
+    let effect2 = Effect.call(param: paramEffect, callCreator: api2)
     let output1 = effect1.invoke(withState: (), dispatch: dispatch)
     let output2 = effect2.invoke(withState: (), dispatch: dispatch)
     
@@ -150,46 +150,47 @@ final class ReduxSagaEffectTest: XCTestCase {
     XCTAssertEqual(value1.value, 300)
     XCTAssertTrue(value2.isFailure)
   }
-  
-  func test_takeLatestEffect_shouldTakeLatestAction() {
-    /// Setup
-    enum Action: ReduxActionType {
-      case a
-      case b
-      
-      var payload: Int? {
-        switch self {
-        case .a: return 1
-        case .b: return nil
-        }
+}
+
+extension ReduxSagaEffectTest {
+  enum TakeAction: ReduxActionType {
+    case a
+    case b
+    
+    var payload: Int? {
+      switch self {
+      case .a: return 1
+      case .b: return nil
       }
     }
-    
+  }
+  
+  func test_takeEffect_shouldAppropriateActions(
+    creator: (@escaping (Int) -> Effect<State, Int>) -> Effect<State, Int>,
+    outputValues: [Int])
+  {
+    /// Setup
     var dispatchCount = 0
     let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
     
-    let callEffectCreator: (Int) -> Redux.Saga.Effect<State, Int> = {
-      Redux.Saga.Effect.call(param: .just($0)) {
+    let callEffectCreator: (Int) -> Effect<State, Int> = {
+      Effect.call(param: .just($0)) {
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
         return Observable.just($0).delay(2, scheduler: scheduler)
       }
     }
     
-    let effect = Redux.Saga.Effect.takeLatest(
-      actionType: Action.self,
-      paramExtractor: {$0.payload},
-      effectCreator: callEffectCreator)
-    
+    let effect = creator(callEffectCreator)
     let output = effect.invoke(withState: (), dispatch: dispatch)
-    var outputValues: [Int] = []
+    var values: [Int] = []
     
     /// When
-    output.subscribe({outputValues.append($0)})
-    output.onAction(Action.a)
-    output.onAction(Action.b)
-    output.onAction(Action.a)
+    output.subscribe({values.append($0)})
+    output.onAction(TakeAction.a)
+    output.onAction(TakeAction.b)
+    output.onAction(TakeAction.a)
     output.onAction(Redux.Preset.Action.noop)
-    output.onAction(Action.a)
+    output.onAction(TakeAction.a)
     
     /// Then
     let waitTime = UInt64(pow(10 as Double, 9) * 3)
@@ -197,17 +198,26 @@ final class ReduxSagaEffectTest: XCTestCase {
     let deadline = DispatchTime(uptimeNanoseconds: timeout)
     let dispatchGroup = DispatchGroup()
     dispatchGroup.enter()
-
+    
     DispatchQueue.global(qos: .background).asyncAfter(deadline: deadline) {
-      print("TESTSET")
       dispatchGroup.leave()
     }
     
     dispatchGroup.wait()
-    XCTAssertEqual(outputValues, [1])
+    XCTAssertEqual(values, outputValues)
+  }
+  
+  func test_takeLatestEffect_shouldTakeLatestAction() {
+    self.test_takeEffect_shouldAppropriateActions(
+      creator: {Effect.takeLatest(
+        actionType: TakeAction.self,
+        paramExtractor: {$0.payload},
+        effectCreator: $0)},
+      outputValues: [1])
   }
 }
 
 extension ReduxSagaEffectTest {
   typealias State = ()
+  typealias Effect = Redux.Saga.Effect
 }
