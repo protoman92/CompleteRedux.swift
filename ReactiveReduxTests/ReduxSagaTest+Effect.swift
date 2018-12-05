@@ -150,6 +150,62 @@ final class ReduxSagaEffectTest: XCTestCase {
     XCTAssertEqual(value1.value, 300)
     XCTAssertTrue(value2.isFailure)
   }
+  
+  func test_takeLatestEffect_shouldTakeLatestAction() {
+    /// Setup
+    enum Action: ReduxActionType {
+      case a
+      case b
+      
+      var payload: Int? {
+        switch self {
+        case .a: return 1
+        case .b: return nil
+        }
+      }
+    }
+    
+    var dispatchCount = 0
+    let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
+    
+    let callEffectCreator: (Int) -> Redux.Saga.Effect<State, Int> = {
+      Redux.Saga.Effect.call(param: .just($0)) {
+        let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
+        return Observable.just($0).delay(2, scheduler: scheduler)
+      }
+    }
+    
+    let effect = Redux.Saga.Effect.takeLatest(
+      actionType: Action.self,
+      paramExtractor: {$0.payload},
+      effectCreator: callEffectCreator)
+    
+    let output = effect.invoke(withState: (), dispatch: dispatch)
+    var outputValues: [Int] = []
+    
+    /// When
+    output.subscribe({outputValues.append($0)})
+    output.onAction(Action.a)
+    output.onAction(Action.b)
+    output.onAction(Action.a)
+    output.onAction(Redux.Preset.Action.noop)
+    output.onAction(Action.a)
+    
+    /// Then
+    let waitTime = UInt64(pow(10 as Double, 9) * 3)
+    let timeout = DispatchTime.now().uptimeNanoseconds + waitTime
+    let deadline = DispatchTime(uptimeNanoseconds: timeout)
+    let dispatchGroup = DispatchGroup()
+    dispatchGroup.enter()
+
+    DispatchQueue.global(qos: .background).asyncAfter(deadline: deadline) {
+      print("TESTSET")
+      dispatchGroup.leave()
+    }
+    
+    dispatchGroup.wait()
+    XCTAssertEqual(outputValues, [1])
+  }
 }
 
 extension ReduxSagaEffectTest {
