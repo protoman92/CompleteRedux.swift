@@ -9,18 +9,28 @@
 import RxSwift
 
 public extension Redux.Saga {
+
+  /// Base class for a side effect. Subclasses must override the main invocation
+  /// method to customize the saga output.
   public class Effect<State, R> {
     func invoke(_ input: Input<State>) -> Output<R> {
       return Output(.error(Redux.Saga.Error.unimplemented), {_ in})
     }
+    
+    func invoke(withState state: State,
+                dispatch: @escaping Redux.Store.Dispatch) -> Output<R> {
+      return self.invoke(Input({state}, dispatch))
+    }
   }
   
+  /// Empty effect whose output does not emit anything.
   final class EmptyEffect<State, R>: Effect<State, R> {
     override func invoke(_ input: Input<State>) -> Output<R> {
       return Output(.empty(), {_ in})
     }
   }
   
+  /// Effect whose output simply emits some specified element.
   final class JustEffect<State, R>: Effect<State, R> {
     private let value: R
     
@@ -33,6 +43,8 @@ public extension Redux.Saga {
     }
   }
   
+  /// Effect whose output selects some value from a redux store's managed state.
+  /// The extracted value can then be fed to other effects that require params.
   final class SelectEffect<State, R>: Effect<State, R> {
     private let _selector: (State) -> R
     
@@ -45,38 +57,44 @@ public extension Redux.Saga {
     }
   }
   
+  /// Effect whose output puts some external value into the redux store's
+  /// managed state.
   final class PutEffect<State, P>: Effect<State, Any> {
     private let _actionCreator: (P) -> ReduxActionType
-    private let _paramEffect: Effect<State, P>
+    private let _param: Effect<State, P>
     
-    init(_ paramEffect: Effect<State, P>,
+    init(_ param: Effect<State, P>,
          _ actionCreator: @escaping (P) -> ReduxActionType) {
       self._actionCreator = actionCreator
-      self._paramEffect = paramEffect
+      self._param = param
     }
     
     override func invoke(_ input: Input<State>) -> Output<Any> {
-      return _paramEffect.invoke(input)
-        .map(self._actionCreator)
-        .map(input.dispatchWrapper.dispatch)
+      return _param.invoke(input).map(self._actionCreator).map(input.dispatch)
     }
   }
   
+  /// Effect whose output performs some asynchronous work and then emit the
+  /// result.
   final class CallEffect<State, P, R>: Effect<State, R> {
-    private let _paramEffect: Effect<State, P>
+    private let _param: Effect<State, P>
     private let _callCreator: (P) -> Observable<R>
     
-    init(_ paramEffect: Effect<State, P>,
+    init(_ param: Effect<State, P>,
          _ callCreator: @escaping (P) -> Observable<R>) {
-      self._paramEffect = paramEffect
+      self._param = param
       self._callCreator = callCreator
     }
     
     override func invoke(_ input: Input<State>) -> Output<R> {
-      return self._paramEffect.invoke(input).flatMap(self._callCreator)
+      return self._param.invoke(input).flatMap(self._callCreator)
     }
   }
   
+  /// Effect whose output switches to the latest action every time one arrives.
+  /// This is best used for cases whereby we are only interested in the latest
+  /// value, such as in an autocomplete implementation. We define the type of
+  /// action and param extractor to filter out actions we are not interested in.
   final class TakeLatestEffect<State, Action, P, R>: Effect<State, R> where
     Action: ReduxActionType
   {
@@ -84,7 +102,6 @@ public extension Redux.Saga {
     private let _effectCreator: (P) -> Effect<State, R>
     
     init(_ actionType: Action.Type,
-         _ paramType: P.Type,
          _ paramExtractor: @escaping (Action) -> P?,
          _ outputCreator: @escaping (P) -> Effect<State, R>) {
       self._paramExtractor = paramExtractor

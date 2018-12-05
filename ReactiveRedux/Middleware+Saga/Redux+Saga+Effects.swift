@@ -19,41 +19,72 @@ public extension Redux.Saga {
     typealias Select = Redux.Saga.SelectEffect
     typealias TakeLatest = Redux.Saga.TakeLatestEffect
     
+    /// Create an empty effect.
+    ///
+    /// - Returns: An Effect instance.
     public static func empty<State, R>() -> Effect<State, R> {
       return Empty()
     }
     
+    /// Create a just effect.
+    ///
+    /// - Parameters:
+    ///   - value: The value to form the effect with.
+    ///   - type: Type of state to help the compiler.
+    /// - Returns: An Effect instance.
     public static func just<State, R>(
       _ value: R, forState type: State.Type) -> Effect<State, R>
     {
       return Just(value)
     }
     
+    /// Create a select effect.
+    ///
+    /// - Parameter selector: The state selector function.
+    /// - Returns: An Effect instance.
     public static func select<State, R>(
-      selector: @escaping (State) -> R) -> Effect<State, R>
+      _ selector: @escaping (State) -> R) -> Effect<State, R>
     {
       return SelectEffect(selector)
     }
     
+    /// Create a put effect.
+    ///
+    /// - Parameters:
+    ///   - param: The parameter to put into redux state.
+    ///   - actionCreator: The action creator function.
+    /// - Returns: An Effect instance.
     public static func put<State, P>(
-      paramEffect: Effect<State, P>,
+      _ param: Effect<State, P>,
       actionCreator: @escaping (P) -> ReduxActionType) -> Effect<State, Any>
     {
-      return Put(paramEffect, actionCreator)
+      return Put(param, actionCreator)
     }
     
-    public static func callWithObservable<State, P, R>(
-      paramEffect: Effect<State, P>,
+    /// Create a call effect with an Observable.
+    ///
+    /// - Parameters:
+    ///   - param: The parameter to call with.
+    ///   - callCreator: The call creator function.
+    /// - Returns: An Effect instance.
+    public static func call<State, P, R>(
+      param: Effect<State, P>,
       callCreator: @escaping (P) -> Observable<R>) -> Effect<State, R>
     {
-      return Call(paramEffect, callCreator)
+      return Call(param, callCreator)
     }
     
-    public static func callWithCallback<State, P, R>(
-      paramEffect: Effect<State, P>,
+    /// Create a call effect with a callback-style async function.
+    ///
+    /// - Parameters:
+    ///   - param: The parameter to call with.
+    ///   - callCreator: The call creator function.
+    /// - Returns: An Effect instance.
+    public static func call<State, P, R>(
+      param: Effect<State, P>,
       callCreator: @escaping (P, (Try<R>) -> Void) -> Void) -> Effect<State, R>
     {
-      return callWithObservable(paramEffect: paramEffect) {(param) in
+      return call(param: param) {(param) in
         return Observable.create({obs in
           callCreator(param, {
             do {
@@ -69,14 +100,20 @@ public extension Redux.Saga {
       }
     }
     
+    /// Create a take latest effect.
+    ///
+    /// - Parameters:
+    ///   - actionType: The type of action to filter.
+    ///   - paramExtractor: The param extractor function.
+    ///   - effectCreator: The effect creator function.
+    /// - Returns: An Effect instance.
     public static func takeLatest<State, Action, P, R>(
       actionType: Action.Type,
-      paramType: P.Type,
       paramExtractor: @escaping (Action) -> P?,
       effectCreator: @escaping (P) -> Effect<State, R>)
       -> Effect<State, R> where Action: ReduxActionType
     {
-      return TakeLatest(actionType, paramType, paramExtractor, effectCreator)
+      return TakeLatest(actionType, paramExtractor, effectCreator)
     }
   }
 }

@@ -24,17 +24,19 @@ extension Redux.Saga {
     }
   }
   
+  /// Input for each saga effect.
   public struct Input<State> {
     public let lastState: Redux.Store.LastState<State>
-    public let dispatchWrapper: Redux.Store.DispatchWrapper
+    public let dispatch: Redux.Store.Dispatch
     
     init(_ lastState: @escaping Redux.Store.LastState<State>,
-         _ dispatchWrapper: Redux.Store.DispatchWrapper) {
+         _ dispatch: @escaping Redux.Store.Dispatch) {
       self.lastState = lastState
-      self.dispatchWrapper = dispatchWrapper
+      self.dispatch = dispatch
     }
   }
   
+  /// Output for each saga effect. This is simply a wrapper for Observable.
   struct Output<T> {
     let onAction: Redux.Store.Dispatch
     private let source: Observable<T>
