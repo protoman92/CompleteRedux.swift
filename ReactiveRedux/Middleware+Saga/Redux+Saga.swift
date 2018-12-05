@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import SwiftFP
 
 extension Redux.Saga {
   public enum Error: LocalizedError {
@@ -74,6 +75,32 @@ extension Redux.Saga {
     
     func subscribe(_ callback: @escaping (T) -> Void) {
       self.source.subscribe(onNext: callback).disposed(by: self.disposeBag)
+    }
+    
+    func nextValue(timeoutInNanoseconds nano: Double = 0) -> Try<T> {
+      let dispatchGroup = DispatchGroup()
+      var value: Try<T> = Try.failure("No value found")
+      dispatchGroup.enter()
+      
+      self.source.take(1)
+        .subscribe(
+          onNext: {value = Try.success($0); dispatchGroup.leave()},
+          onError: {value = Try.failure($0); dispatchGroup.leave()})
+        .disposed(by: self.disposeBag)
+
+      let dispatchTimeout = DispatchTime(uptimeNanoseconds:
+        DispatchTime.now().uptimeNanoseconds + UInt64(nano))
+      
+      _ = dispatchGroup.wait(timeout: dispatchTimeout)
+      return value
+    }
+    
+    func nextValue(timeoutInMilliseconds millis: Double = 0) -> Try<T> {
+      return self.nextValue(timeoutInNanoseconds: millis * pow(10, 6))
+    }
+    
+    func nextValue(timeoutInSeconds seconds: Double = 0) -> Try<T> {
+      return self.nextValue(timeoutInMilliseconds: seconds * pow(10, 3))
     }
   }
 }
