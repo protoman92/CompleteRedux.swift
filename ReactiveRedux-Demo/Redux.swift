@@ -28,6 +28,7 @@ final class AppRedux {
     static let sliderPath = "\(Path.rootPath).slider"
     static let textIndexesPath = "\(Path.rootPath).textIndexes"
     static let textPath = "\(Path.rootPath).texts"
+    static let progressPath = "\(Path.rootPath).progress"
     
     static func textItemPath(_ textIndex: Int) -> String {
       return "\(textPath).\(textIndex)"
@@ -44,6 +45,7 @@ final class AppRedux {
     case text(Int, String?)
     case texts([String])
     case deleteTextItem(Int)
+    case progress(Bool)
   }
   
   final class Getter {
@@ -106,6 +108,9 @@ final class AppRedux {
             }
             
             return try state.mapping(at: Path.textIndexesPath, withMapper: mapper)
+            
+          case .progress(let enabled):
+            return try state.updating(at: Path.progressPath, value: enabled)
           }
           
         default: return state

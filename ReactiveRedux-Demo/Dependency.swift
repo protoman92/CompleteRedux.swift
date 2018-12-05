@@ -21,7 +21,8 @@ struct Dependency {
         string: nil,
         textIndexes: (0..<5).map({$0}),
         texts: (0..<5).map({["\($0)" : ""]})
-          .reduce([:], {$0!.merging($1, uniquingKeysWith: {$1})})
+          .reduce([:], {$0!.merging($1, uniquingKeysWith: {$1})}),
+        progress: false
       ))
     
     let router = ReduxRouter(navController)

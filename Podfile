@@ -23,6 +23,7 @@ target 'ReactiveRedux' do
   target 'ReactiveRedux-Demo' do
     inherit! :search_paths
     # Pods for demo
+    pod 'MRProgress'
     pod 'RxCocoa'
     pod 'SafeNest/Main', git: 'https://github.com/protoman92/SafeNest.git'
   end

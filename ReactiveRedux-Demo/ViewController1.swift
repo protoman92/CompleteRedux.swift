@@ -6,6 +6,7 @@
 //  Copyright © 2017 Hai Pham. All rights reserved.
 //
 
+import MRProgress
 import ReactiveRedux
 import SafeNest
 
@@ -62,6 +63,14 @@ final class ViewController1: UIViewController {
     self.stringTF1.text = props.nextState.string
     self.stringTF2.text = props.nextState.string
     self.valueSL.value = props.nextState.slider ?? valueSL.minimumValue
+    
+    if props.nextState.progress.getOrElse(false) &&
+      props.nextState.progress != props.previousState?.progress
+    {
+      MRProgressOverlayView.showOverlayAdded(to: self.view, animated: true)
+    } else {
+      MRProgressOverlayView.dismissOverlay(for: self.view, animated: true)
+    }
     
     let prevIndexes = props.previousState?.textIndexes ?? []
     let nextIndexes = nextState.textIndexes ?? []
@@ -158,6 +167,7 @@ extension ViewController1 {
     public var string: String? = nil
     public var textIndexes: [Int]? = nil
     public var texts: [String : String?]? = nil
+    public var progress: Bool? = nil
   }
   
   struct ActionProps {

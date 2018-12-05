@@ -121,6 +121,7 @@ extension Redux.Saga {
 }
 
 extension Redux.Saga {
+
   /// Take effects are streams that filter actions and pluck out the appropriate
   /// ones to perform additional work on.
   class TakeEffect<State, Action, P, R>: Effect<State, R> where

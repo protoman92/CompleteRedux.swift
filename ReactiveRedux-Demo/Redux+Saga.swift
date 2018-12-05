@@ -20,17 +20,27 @@ final class AppReduxSaga {
   }
   
   static func autocompleteSaga(_ input: String) -> Redux.Saga.Effect<State, Any> {
-    let call = Redux.Saga.Effect.call(
+    let progressOn = Redux.Saga.Effect<State, Any>
+      .put(.just(true), actionCreator: AppRedux.Action.progress)
+    
+    let callAutocomplete = Redux.Saga.Effect.call(
       param: Redux.Saga.Effect<State, String>.just(input),
       callCreator: Api.performAutocomplete)
     
-    return Redux.Saga.Effect<State, Any>
-      .put(call, actionCreator: AppRedux.Action.texts)
+    let combined = Redux.Saga.Effect.sequentialize(progressOn, callAutocomplete)
+    
+    let putResult = Redux.Saga.Effect<State, Any>
+      .put(combined, actionCreator: AppRedux.Action.texts)
+    
+    let progressOff = Redux.Saga.Effect<State, Any>
+      .put(.just(false), actionCreator: AppRedux.Action.progress)
+    
+    return Redux.Saga.Effect.sequentialize(putResult, progressOff)
   }
   
   static func sagas() -> [Redux.Saga.Effect<State, Any>] {
     return [
-      Redux.Saga.Effect.takeEvery(
+      Redux.Saga.Effect.takeLatest(
         actionType: AppRedux.Action.self,
         paramExtractor: extractAutocompleteInput,
         effectCreator: autocompleteSaga)

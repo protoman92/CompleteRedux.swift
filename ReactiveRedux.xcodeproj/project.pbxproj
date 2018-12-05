@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39C4D726DE20BAAC95849061 /* Pods_ReactiveRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC74624543FF4735929F4529 /* Pods_ReactiveRedux.framework */; };
+		40BB5F601F185DCE65E2E193 /* Pods_ReactiveRedux_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7188E416446D00E2D8D2514 /* Pods_ReactiveRedux_Demo.framework */; };
 		4D8ED33EEF40195B2FE118F3 /* Pods_ReactiveReduxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4743F17965BA82F9C43F262E /* Pods_ReactiveReduxTests.framework */; };
+		5C52DEC7FFFC57CB1AC72904 /* Pods_ReactiveReduxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10D7B80555F855173C650EE /* Pods_ReactiveReduxTests.framework */; };
 		C6163FC73DED92CBCFD4859A /* Pods_ReactiveRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA6F1B1ADED3B93542CE858 /* Pods_ReactiveRedux.framework */; };
 		CA5B8141327E2CC4CEC46373 /* Pods_ReactiveRedux_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B831732E07573134E3505A /* Pods_ReactiveRedux_Demo.framework */; };
 		D3040A1E1FA8566B00BE0E14 /* Redux+RxObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3040A1D1FA8566B00BE0E14 /* Redux+RxObserver.swift */; };
@@ -159,6 +162,7 @@
 			files = (
 				D381794921AD015D007B33A6 /* ReactiveRedux.framework in Frameworks */,
 				CA5B8141327E2CC4CEC46373 /* Pods_ReactiveRedux_Demo.framework in Frameworks */,
+				40BB5F601F185DCE65E2E193 /* Pods_ReactiveRedux_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6163FC73DED92CBCFD4859A /* Pods_ReactiveRedux.framework in Frameworks */,
+				39C4D726DE20BAAC95849061 /* Pods_ReactiveRedux.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +181,7 @@
 			files = (
 				D3943ED81FA32D5600898233 /* ReactiveRedux.framework in Frameworks */,
 				4D8ED33EEF40195B2FE118F3 /* Pods_ReactiveReduxTests.framework in Frameworks */,
+				5C52DEC7FFFC57CB1AC72904 /* Pods_ReactiveReduxTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +529,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftFP/SwiftFP.framework",
 				"${BUILT_PRODUCTS_DIR}/SafeNest/SafeNest.framework",
+				"${BUILT_PRODUCTS_DIR}/MRProgress/MRProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -533,6 +540,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftFP.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SafeNest.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MRProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
