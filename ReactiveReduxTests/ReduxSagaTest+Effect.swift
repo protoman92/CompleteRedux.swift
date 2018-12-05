@@ -12,6 +12,8 @@ import XCTest
 @testable import ReactiveRedux
 
 final class ReduxSagaEffectTest: XCTestCase {
+  private let timeout: Double = 5
+  
   func test_baseEffect_shouldThrowUnimplementedError() {
     /// Setup
     var dispatchCount = 0
@@ -22,7 +24,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// When
     dispatch(Redux.Preset.Action.noop)
     output.onAction(Redux.Preset.Action.noop)
-    let value = output.nextValue(timeoutInSeconds: 2)
+    let value = output.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
     XCTAssertEqual(dispatchCount, 1)
@@ -40,7 +42,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// When
     dispatch(Redux.Preset.Action.noop)
     output.onAction(Redux.Preset.Action.noop)
-    let value = output.nextValue(timeoutInSeconds: 2)
+    let value = output.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
     XCTAssertEqual(dispatchCount, 1)
@@ -57,9 +59,9 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// When
     dispatch(Redux.Preset.Action.noop)
     output.onAction(Redux.Preset.Action.noop)
-    let value1 = output.nextValue(timeoutInSeconds: 2)
-    let value2 = output.nextValue(timeoutInSeconds: 2)
-    let value3 = output.nextValue(timeoutInSeconds: 2)
+    let value1 = output.nextValue(timeoutInSeconds: self.timeout)
+    let value2 = output.nextValue(timeoutInSeconds: self.timeout)
+    let value3 = output.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
     XCTAssertEqual(dispatchCount, 1)
@@ -76,9 +78,9 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// When
     dispatch(Redux.Preset.Action.noop)
     output.onAction(Redux.Preset.Action.noop)
-    let value1 = output.nextValue(timeoutInSeconds: 2)
-    let value2 = output.nextValue(timeoutInSeconds: 2)
-    let value3 = output.nextValue(timeoutInSeconds: 2)
+    let value1 = output.nextValue(timeoutInSeconds: self.timeout)
+    let value2 = output.nextValue(timeoutInSeconds: self.timeout)
+    let value3 = output.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
     XCTAssertEqual(dispatchCount, 1)
@@ -91,19 +93,18 @@ final class ReduxSagaEffectTest: XCTestCase {
     var dispatchCount = 0
     var actions: [ReduxActionType] = []
     let dispatch: Redux.Store.Dispatch = {dispatchCount += 1; actions.append($0)}
-    let paramEffect = Effect<State, Int>.just(200)
 
-    let effect = Effect<State, Any>.put(
-      paramEffect,
-      actionCreator: Action.input,
-      dispatchQueue: DispatchQueue.global(qos: .default))
+    let effect = Effect<State, Int>.just(200)
+      .asInput(for: {.put($0,
+        actionCreator: Action.input,
+        dispatchQueue: DispatchQueue.global(qos: .default))})
     
     let output = effect.invoke(withState: (), dispatch: dispatch)
     
     /// When
     dispatch(Redux.Preset.Action.noop)
     output.onAction(Redux.Preset.Action.noop)
-    _ = output.nextValue(timeoutInSeconds: 2)
+    _ = output.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
     XCTAssertEqual(dispatchCount, 2)
@@ -139,14 +140,14 @@ final class ReduxSagaEffectTest: XCTestCase {
     }
 
     let paramEffect = Effect<State, Int>.just(300)
-    let effect1 = Effect.call(param: paramEffect, callCreator: api1)
-    let effect2 = Effect.call(param: paramEffect, callCreator: api2)
+    let effect1 = Effect.call(with: paramEffect, callCreator: api1)
+    let effect2 = Effect.call(with: paramEffect, callCreator: api2)
     let output1 = effect1.invoke(withState: (), dispatch: dispatch)
     let output2 = effect2.invoke(withState: (), dispatch: dispatch)
     
     /// When
-    let value1 = output1.nextValue(timeoutInSeconds: 3)
-    let value2 = output2.nextValue(timeoutInSeconds: 3)
+    let value1 = output1.nextValue(timeoutInSeconds: self.timeout)
+    let value2 = output2.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
     XCTAssertEqual(value1.value, 300)
@@ -158,7 +159,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     var dispatchCount = 0
     let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
     
-    let effect1 = Effect<State, Int>.call(param: .just(1)) {
+    let effect1 = Effect<State, Int>.call(with: .just(1)) {
       let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
       return Observable.just($0).delay(2, scheduler: scheduler)
     }
@@ -172,9 +173,9 @@ final class ReduxSagaEffectTest: XCTestCase {
     let output3 = sequence3.invoke(withState: (), dispatch: dispatch)
     
     /// When
-    let value1 = output1.nextValue(timeoutInSeconds: 3)
-    let value2 = output2.nextValue(timeoutInSeconds: 3)
-    let value3 = output3.nextValue(timeoutInSeconds: 3)
+    let value1 = output1.nextValue(timeoutInSeconds: self.timeout)
+    let value2 = output2.nextValue(timeoutInSeconds: self.timeout)
+    let value3 = output3.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
     XCTAssertEqual(value1.value, 2)
@@ -205,7 +206,7 @@ extension ReduxSagaEffectTest {
     let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
     
     let callEffectCreator: (Int) -> Effect<State, Int> = {
-      Effect.call(param: .just($0)) {
+      Effect.call(with: .just($0)) {
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
         return Observable.just($0).delay(2, scheduler: scheduler)
       }
