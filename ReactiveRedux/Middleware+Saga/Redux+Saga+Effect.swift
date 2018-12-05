@@ -61,9 +61,9 @@ public extension Redux.Saga {
   /// managed state.
   final class PutEffect<State, P>: Effect<State, Any> {
     private let _actionCreator: (P) -> ReduxActionType
-    private let _param: Effect<State, P>
+    private let _param: E<State, P>
     
-    init(_ param: Effect<State, P>,
+    init(_ param: E<State, P>,
          _ actionCreator: @escaping (P) -> ReduxActionType) {
       self._actionCreator = actionCreator
       self._param = param
@@ -77,10 +77,10 @@ public extension Redux.Saga {
   /// Effect whose output performs some asynchronous work and then emit the
   /// result.
   final class CallEffect<State, P, R>: Effect<State, R> {
-    private let _param: Effect<State, P>
+    private let _param: E<State, P>
     private let _callCreator: (P) -> Observable<R>
     
-    init(_ param: Effect<State, P>,
+    init(_ param: E<State, P>,
          _ callCreator: @escaping (P) -> Observable<R>) {
       self._param = param
       self._callCreator = callCreator
@@ -99,11 +99,11 @@ public extension Redux.Saga {
     Action: ReduxActionType
   {
     private let _paramExtractor: (Action) -> P?
-    private let _effectCreator: (P) -> Effect<State, R>
+    private let _effectCreator: (P) -> E<State, R>
     
     init(_ actionType: Action.Type,
          _ paramExtractor: @escaping (Action) -> P?,
-         _ outputCreator: @escaping (P) -> Effect<State, R>) {
+         _ outputCreator: @escaping (P) -> E<State, R>) {
       self._paramExtractor = paramExtractor
       self._effectCreator = outputCreator
     }

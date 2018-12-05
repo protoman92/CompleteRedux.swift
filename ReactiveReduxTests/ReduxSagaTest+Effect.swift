@@ -32,7 +32,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// Setup
     var dispatchCount = 0
     let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
-    let effect: Redux.Saga.Effect<State, Int> = Redux.Saga.Effects.empty()
+    let effect = Redux.Saga.Effect<State, Int>.empty()
     let output = effect.invoke(withState: (), dispatch: dispatch)
     
     /// When

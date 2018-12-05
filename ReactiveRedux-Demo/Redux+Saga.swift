@@ -20,16 +20,17 @@ final class AppReduxSaga {
   }
   
   static func autocompleteSaga(_ input: String) -> Redux.Saga.Effect<State, Any> {
-    let call = Redux.Saga.Effects.call(
-      param: Redux.Saga.Effects.just(input, forState: State.self),
+    let call = Redux.Saga.Effect.call(
+      param: Redux.Saga.Effect<State, String>.just(input),
       callCreator: Api.performAutocomplete)
     
-    return Redux.Saga.Effects.put(call, actionCreator: AppRedux.Action.texts)
+    return Redux.Saga.Effect<State, Any>.put(
+      call, actionCreator: AppRedux.Action.texts)
   }
   
   static func sagas() -> [Redux.Saga.Effect<State, Any>] {
     return [
-      Redux.Saga.Effects.takeLatest(
+      Redux.Saga.Effect.takeLatest(
         actionType: AppRedux.Action.self,
         paramExtractor: extractAutocompleteInput,
         effectCreator: autocompleteSaga)
