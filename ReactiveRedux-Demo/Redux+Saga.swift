@@ -24,8 +24,8 @@ final class AppReduxSaga {
       param: Redux.Saga.Effect<State, String>.just(input),
       callCreator: Api.performAutocomplete)
     
-    return Redux.Saga.Effect<State, Any>.put(
-      call, actionCreator: AppRedux.Action.texts)
+    return Redux.Saga.Effect<State, Any>
+      .put(call, actionCreator: AppRedux.Action.texts)
   }
   
   static func sagas() -> [Redux.Saga.Effect<State, Any>] {

@@ -38,7 +38,7 @@ extension Redux.Saga {
   }
   
   /// Output for each saga effect. This is simply a wrapper for Observable.
-  struct Output<T> {
+  public struct Output<T> {
     let onAction: Redux.Store.Dispatch
     private let source: Observable<T>
     private let disposeBag: DisposeBag

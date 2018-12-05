@@ -9,13 +9,14 @@
 import RxSwift
 import SwiftFP
 
-public extension Redux.Saga.Effect {
+extension Redux.Saga.Effect {
   public typealias E = Redux.Saga.Effect
   typealias Call = Redux.Saga.CallEffect
   typealias Empty = Redux.Saga.EmptyEffect
   typealias Just = Redux.Saga.JustEffect
   typealias Put = Redux.Saga.PutEffect
   typealias Select = Redux.Saga.SelectEffect
+  typealias Sequentialize = Redux.Saga.SequentializeEffect
   typealias TakeLatest = Redux.Saga.TakeLatestEffect
   
   /// Create an empty effect.
@@ -107,5 +108,39 @@ public extension Redux.Saga.Effect {
     -> E<State, R> where Action: ReduxActionType
   {
     return TakeLatest(actionType, paramExtractor, effectCreator)
+  }
+  
+  /// Create a sequentialize effect.
+  ///
+  /// - Parameters:
+  ///   - effect1: The first effect.
+  ///   - effect2: The second effect that must happen after the first.
+  ///   - selector: The result combine function.
+  /// - Returns: An Effect instance.
+  public static func sequentialize<E1, E2, U>(
+    _ effect1: E1,
+    _ effect2: E2,
+    selector: @escaping (E1.R, E2.R) throws -> U) -> E<E2.State, U> where
+    E1: ReduxSagaEffectType,
+    E2: ReduxSagaEffectType,
+    E1.State == E2.State
+  {
+    return Sequentialize(effect1, effect2, selector)
+  }
+  
+  /// Convenience function to sequentialize effects into an effect whose result
+  /// is simply that of the second effect.
+  ///
+  /// - Parameters:
+  ///   - effect1: The first effect.
+  ///   - effect2: The second effect that must happen after the first.
+  /// - Returns: An Effect instance.
+  public static func sequentialize<E1, E2>(_ effect1: E1, _ effect2: E2)
+    -> E<E2.State, E2.R> where
+    E1: ReduxSagaEffectType,
+    E2: ReduxSagaEffectType,
+    E1.State == E2.State
+  {
+    return sequentialize(effect1, effect2, selector: {$1})
   }
 }
