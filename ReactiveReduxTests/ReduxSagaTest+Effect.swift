@@ -6,6 +6,8 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
+import SwiftFP
+import RxSwift
 import XCTest
 @testable import ReactiveRedux
 
@@ -113,6 +115,40 @@ final class ReduxSagaEffectTest: XCTestCase {
     } else {
       XCTFail("Should not have reached here")
     }
+  }
+  
+  func test_callEffect_shouldPerformAsyncWork() {
+    /// Setup
+    var dispatchCount = 0
+    let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
+    
+    let api1: (Int, @escaping (Try<Int>) -> Void) -> Void = {param, callback in
+      let delayTime = UInt64(2 * pow(10 as Double, 9))
+      let finalTime = DispatchTime.now().uptimeNanoseconds + delayTime
+
+      DispatchQueue.global(qos: .background).asyncAfter(
+        deadline: DispatchTime(uptimeNanoseconds: finalTime),
+        execute: {callback(Try.success(param))
+      })
+    }
+    
+    let api2: (Int) -> Observable<Int> = {_ in
+      .error(Redux.Saga.Error.unimplemented)
+    }
+
+    let paramEffect = Redux.Saga.Effect<State, Int>.just(300)
+    let effect1 = Redux.Saga.Effect.call(param: paramEffect, callCreator: api1)
+    let effect2 = Redux.Saga.Effect.call(param: paramEffect, callCreator: api2)
+    let output1 = effect1.invoke(withState: (), dispatch: dispatch)
+    let output2 = effect2.invoke(withState: (), dispatch: dispatch)
+    
+    /// When
+    let value1 = output1.nextValue(timeoutInSeconds: 3)
+    let value2 = output2.nextValue(timeoutInSeconds: 3)
+    
+    /// Then
+    XCTAssertEqual(value1.value, 300)
+    XCTAssertTrue(value2.isFailure)
   }
 }
 

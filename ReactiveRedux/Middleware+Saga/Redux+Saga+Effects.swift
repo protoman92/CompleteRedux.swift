@@ -75,7 +75,7 @@ public extension Redux.Saga.Effect {
   /// - Returns: An Effect instance.
   public static func call<P>(
     param: E<State, P>,
-    callCreator: @escaping (P, (Try<R>) -> Void) -> Void) -> E<State, R>
+    callCreator: @escaping (P, @escaping (Try<R>) -> Void) -> Void) -> E<State, R>
   {
     return call(param: param) {(param) in
       return Observable.create({obs in
