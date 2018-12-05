@@ -93,8 +93,10 @@ final class ReduxSagaEffectTest: XCTestCase {
     let dispatch: Redux.Store.Dispatch = {dispatchCount += 1; actions.append($0)}
     let paramEffect = Effect<State, Int>.just(200)
 
-    let effect = Effect<State, Any>
-      .put(paramEffect, actionCreator: Action.input)
+    let effect = Effect<State, Any>.put(
+      paramEffect,
+      actionCreator: Action.input,
+      dispatchQueue: DispatchQueue.global(qos: .default))
     
     let output = effect.invoke(withState: (), dispatch: dispatch)
     

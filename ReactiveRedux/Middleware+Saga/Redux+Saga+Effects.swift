@@ -48,12 +48,14 @@ extension Redux.Saga.Effect {
   /// - Parameters:
   ///   - param: The parameter to put into redux state.
   ///   - actionCreator: The action creator function.
+  ///   - dispatchQueue: The queue on which to dispatch the action.
   /// - Returns: An Effect instance.
   public static func put<P>(
     _ param: E<State, P>,
-    actionCreator: @escaping (P) -> ReduxActionType) -> E<State, Any>
+    actionCreator: @escaping (P) -> ReduxActionType,
+    dispatchQueue: DispatchQueue = .main) -> E<State, Any>
   {
-    return Put(param, actionCreator)
+    return Put(param, actionCreator, dispatchQueue)
   }
   
   /// Create a call effect with an Observable.
@@ -101,6 +103,7 @@ extension Redux.Saga.Effect {
   ///   - actionType: The type of action to filter.
   ///   - paramExtractor: The param extractor function.
   ///   - effectCreator: The effect creator function.
+  ///   - eventQueue: The queue on which events will be delivered.
   /// - Returns: An Effect instance.
   public static func takeEvery<Action, P>(
     actionType: Action.Type,
@@ -117,6 +120,7 @@ extension Redux.Saga.Effect {
   ///   - actionType: The type of action to filter.
   ///   - paramExtractor: The param extractor function.
   ///   - effectCreator: The effect creator function.
+  ///   - eventQueue: The queue on which events will be delivered.
   /// - Returns: An Effect instance.
   public static func takeLatest<Action, P>(
     actionType: Action.Type,

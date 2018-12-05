@@ -30,7 +30,7 @@ final class AppReduxSaga {
   
   static func sagas() -> [Redux.Saga.Effect<State, Any>] {
     return [
-      Redux.Saga.Effect.takeLatest(
+      Redux.Saga.Effect.takeEvery(
         actionType: AppRedux.Action.self,
         paramExtractor: extractAutocompleteInput,
         effectCreator: autocompleteSaga)

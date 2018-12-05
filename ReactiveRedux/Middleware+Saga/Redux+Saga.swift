@@ -27,8 +27,8 @@ extension Redux.Saga {
   
   /// Input for each saga effect.
   public struct Input<State> {
-    public let lastState: Redux.Store.LastState<State>
-    public let dispatch: Redux.Store.Dispatch
+    let lastState: Redux.Store.LastState<State>
+    let dispatch: Redux.Store.Dispatch
     
     init(_ lastState: @escaping Redux.Store.LastState<State>,
          _ dispatch: @escaping Redux.Store.Dispatch) {
@@ -71,6 +71,10 @@ extension Redux.Saga {
     
     func printValue() -> Output<T> {
       return self.with(source: source.do(onNext: {print($0)}))
+    }
+    
+    func observeOn(_ scheduler: SchedulerType) -> Output<T> {
+      return self.with(source: self.source.observeOn(scheduler))
     }
     
     func subscribe(_ callback: @escaping (T) -> Void) {
