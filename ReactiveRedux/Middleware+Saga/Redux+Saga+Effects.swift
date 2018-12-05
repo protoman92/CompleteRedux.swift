@@ -134,13 +134,14 @@ extension Redux.Saga.Effect {
   ///   - effect2: The second effect that must happen after the first.
   ///   - selector: The result combine function.
   /// - Returns: An Effect instance.
-  public static func sequentialize<E1, E2, U>(
+  public static func sequentialize<E1, E2>(
     _ effect1: E1,
     _ effect2: E2,
-    selector: @escaping (E1.R, E2.R) throws -> U) -> E<E2.State, U> where
+    selector: @escaping (E1.R, E2.R) throws -> R) -> E<E2.State, R> where
     E1: ReduxSagaEffectType,
     E2: ReduxSagaEffectType,
-    E1.State == E2.State
+    E1.State == State,
+    E2.State == State
   {
     return Sequentialize(effect1, effect2, selector)
   }
@@ -156,7 +157,9 @@ extension Redux.Saga.Effect {
     -> E<E2.State, E2.R> where
     E1: ReduxSagaEffectType,
     E2: ReduxSagaEffectType,
-    E1.State == E2.State
+    E1.State == State,
+    E2.State == State,
+    E2.R == R
   {
     return sequentialize(effect1, effect2, selector: {$1})
   }

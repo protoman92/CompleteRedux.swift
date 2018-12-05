@@ -150,6 +150,27 @@ final class ReduxSagaEffectTest: XCTestCase {
     XCTAssertEqual(value1.value, 300)
     XCTAssertTrue(value2.isFailure)
   }
+  
+  func test_sequentializeEffect_shouldEnsureExecutionOrder() {
+    /// Setup
+    var dispatchCount = 0
+    let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
+    
+    let effect1 = Effect<State, Int>.call(param: .just(1)) {
+      let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
+      return Observable.just($0).delay(2, scheduler: scheduler)
+    }
+    
+    let effect2 = Effect<State, Int>.just(2)
+    let sequentialized = Redux.Saga.Effect.sequentialize(effect1, effect2)
+    let output = sequentialized.invoke(withState: (), dispatch: dispatch)
+    
+    /// When
+    let value = output.nextValue(timeoutInSeconds: 3)
+    
+    /// Then
+    XCTAssertEqual(value.value, 2)
+  }
 }
 
 extension ReduxSagaEffectTest {
