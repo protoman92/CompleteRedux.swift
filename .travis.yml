@@ -5,11 +5,14 @@ xcode_scheme: ReactiveRedux
 xcode_sdk: iphonesimulator11.2
 before_install:
   - gem install cocoapods --pre
-  - gem install slather xcpretty
+  - gem install slather --pre
+  - gem install xcpretty
   - pod repo update
 
 script:
   - set -o pipefail && xcodebuild clean test -sdk iphonesimulator -workspace ReactiveRedux.xcworkspace -scheme ReactiveRedux -destination 'platform=iOS Simulator,name=iPhone 7' | xcpretty
   - pod lib lint --quick
 
-after_success: slather
+after_success:
+  - slather coverage --workspace ReactiveRedux.xcworkspace
+  - bash <(curl -s https://codecov.io/bash) -f xml_report/cobertura.xml -X coveragepy -X gcov -X xcode

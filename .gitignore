@@ -38,5 +38,6 @@ pod-publish
 Pods
 *.lock
 .DS_Store
+xml_report
 
 # End of https://www.gitignore.io/api/xcode

@@ -1,6 +1,7 @@
-ci_service: travis_ci
-coverage_service: coveralls
+coverage_service: cobertura_xml
 xcodeproj: ReactiveRedux.xcodeproj
 scheme: ReactiveRedux
 source_directory: ReactiveRedux
-workspace: ReactiveRedux.xcworkspace
+output_directory: xml_report
+ignore:
+  - ReactiveReduxTests/**
