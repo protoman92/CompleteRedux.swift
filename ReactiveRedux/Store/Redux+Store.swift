@@ -34,7 +34,7 @@ public extension Redux.Store {
   public struct Subscription {
     public let unsubscribe: () -> Void
     
-    init(_ unsubscribe: @escaping () -> Void) {
+    public init(_ unsubscribe: @escaping () -> Void) {
       self.unsubscribe = unsubscribe
     }
   }
