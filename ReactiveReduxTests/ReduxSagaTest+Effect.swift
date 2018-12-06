@@ -51,19 +51,27 @@ final class ReduxSagaEffectTest: XCTestCase {
       callback(Try.failure(Redux.Saga.Error.unimplemented))
     }
     
+    let api3: (Int) -> Observable<Int> = {_ in
+      .error(Redux.Saga.Error.unimplemented)
+    }
+    
     let paramEffect = Effect<State, Int>.just(300)
     let effect1 = paramEffect.call(api1)
     let effect2 = paramEffect.call(api2)
+    let effect3 = paramEffect.call(api3)
     let output1 = effect1.invoke(withState: (), dispatch: dispatch)
     let output2 = effect2.invoke(withState: (), dispatch: dispatch)
+    let output3 = effect3.invoke(withState: (), dispatch: dispatch)
     
     /// When
     let value1 = output1.nextValue(timeoutInSeconds: self.timeout)
     let value2 = output2.nextValue(timeoutInSeconds: self.timeout)
+    let value3 = output3.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
     XCTAssertEqual(value1.value, 300)
     XCTAssertTrue(value2.isFailure)
+    XCTAssertTrue(value3.isFailure)
   }
   
   func test_delayEffect_shouldDelayEmission() {
