@@ -32,6 +32,59 @@ final class ReduxSagaEffectTest: XCTestCase {
     XCTAssertEqual(value.error as? Redux.Saga.Error, .unimplemented)
   }
   
+  func test_callEffect_shouldPerformAsyncWork() {
+    /// Setup
+    var dispatchCount = 0
+    let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
+    
+    let api1: (Int, @escaping (Try<Int>) -> Void) -> Void = {param, callback in
+      let delayTime = UInt64(2 * pow(10 as Double, 9))
+      let finalTime = DispatchTime.now().uptimeNanoseconds + delayTime
+      
+      DispatchQueue.global(qos: .background).asyncAfter(
+        deadline: DispatchTime(uptimeNanoseconds: finalTime),
+        execute: {callback(Try.success(param))
+      })
+    }
+    
+    let api2: (Int, @escaping (Try<Int>) -> Void) -> Void = {_, callback in
+      callback(Try.failure(Redux.Saga.Error.unimplemented))
+    }
+    
+    let paramEffect = Effect<State, Int>.just(300)
+    let effect1 = paramEffect.call(api1)
+    let effect2 = paramEffect.call(api2)
+    let output1 = effect1.invoke(withState: (), dispatch: dispatch)
+    let output2 = effect2.invoke(withState: (), dispatch: dispatch)
+    
+    /// When
+    let value1 = output1.nextValue(timeoutInSeconds: self.timeout)
+    let value2 = output2.nextValue(timeoutInSeconds: self.timeout)
+    
+    /// Then
+    XCTAssertEqual(value1.value, 300)
+    XCTAssertTrue(value2.isFailure)
+  }
+  
+  func test_delayEffect_shouldDelayEmission() {
+    /// Setup
+    var dispatchCount = 0
+    let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
+    
+    let output = Redux.Saga.Effect<State, Int>.just(400)
+      .delay(bySeconds: 2, usingQueue: .global(qos: .background))
+      .invoke(withState: (), dispatch: dispatch)
+    
+    /// When
+    dispatch(Redux.Preset.Action.noop)
+    output.onAction(Redux.Preset.Action.noop)
+    let value = output.nextValue(timeoutInSeconds: self.timeout)
+    
+    /// Then
+    XCTAssertEqual(dispatchCount, 1)
+    XCTAssertEqual(value.value, 400)
+  }
+  
   func test_emptyEffect_shouldNotEmitAnything() {
     /// Setup
     var dispatchCount = 0
@@ -68,23 +121,16 @@ final class ReduxSagaEffectTest: XCTestCase {
     [value1, value2, value3].forEach({XCTAssertEqual($0.value, 10)})
   }
   
-  func test_selectEffect_shouldEmitOnlySelectedStateValue() {
+  func test_mapEffect_shouldMapInnerValue() {
     /// Setup
-    var dispatchCount = 0
-    let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
-    let effect = Effect<State, Int>.select({_ in 100})
-    let output = effect.invoke(withState: (), dispatch: dispatch)
+    let effect = Effect<State, Int>.just(1).map({$0 * 10})
+    let output = effect.invoke(withState: (), dispatch: {_ in})
     
     /// When
-    dispatch(Redux.Preset.Action.noop)
-    output.onAction(Redux.Preset.Action.noop)
-    let value1 = output.nextValue(timeoutInSeconds: self.timeout)
-    let value2 = output.nextValue(timeoutInSeconds: self.timeout)
-    let value3 = output.nextValue(timeoutInSeconds: self.timeout)
+    let value = output.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
-    XCTAssertEqual(dispatchCount, 1)
-    [value1, value2, value3].forEach({XCTAssertEqual($0.value, 100)})
+    XCTAssertEqual(value.value, 10)
   }
   
   func test_putEffect_shouldDispatchPutEffect() {
@@ -93,7 +139,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     var dispatchCount = 0
     var actions: [ReduxActionType] = []
     let dispatch: Redux.Store.Dispatch = {dispatchCount += 1; actions.append($0)}
-
+    
     let effect = Effect<State, Int>.just(200)
       .put(Action.input, dispatchQueue: DispatchQueue.global(qos: .default))
     
@@ -118,38 +164,23 @@ final class ReduxSagaEffectTest: XCTestCase {
     }
   }
   
-  func test_callEffect_shouldPerformAsyncWork() {
+  func test_selectEffect_shouldEmitOnlySelectedStateValue() {
     /// Setup
     var dispatchCount = 0
     let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
-    
-    let api1: (Int, @escaping (Try<Int>) -> Void) -> Void = {param, callback in
-      let delayTime = UInt64(2 * pow(10 as Double, 9))
-      let finalTime = DispatchTime.now().uptimeNanoseconds + delayTime
-
-      DispatchQueue.global(qos: .background).asyncAfter(
-        deadline: DispatchTime(uptimeNanoseconds: finalTime),
-        execute: {callback(Try.success(param))
-      })
-    }
-    
-    let api2: (Int, @escaping (Try<Int>) -> Void) -> Void = {_, callback in
-      callback(Try.failure(Redux.Saga.Error.unimplemented))
-    }
-
-    let paramEffect = Effect<State, Int>.just(300)
-    let effect1 = paramEffect.call(api1)
-    let effect2 = paramEffect.call(api2)
-    let output1 = effect1.invoke(withState: (), dispatch: dispatch)
-    let output2 = effect2.invoke(withState: (), dispatch: dispatch)
+    let effect = Effect<State, Int>.select({_ in 100})
+    let output = effect.invoke(withState: (), dispatch: dispatch)
     
     /// When
-    let value1 = output1.nextValue(timeoutInSeconds: self.timeout)
-    let value2 = output2.nextValue(timeoutInSeconds: self.timeout)
+    dispatch(Redux.Preset.Action.noop)
+    output.onAction(Redux.Preset.Action.noop)
+    let value1 = output.nextValue(timeoutInSeconds: self.timeout)
+    let value2 = output.nextValue(timeoutInSeconds: self.timeout)
+    let value3 = output.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
-    XCTAssertEqual(value1.value, 300)
-    XCTAssertTrue(value2.isFailure)
+    XCTAssertEqual(dispatchCount, 1)
+    [value1, value2, value3].forEach({XCTAssertEqual($0.value, 100)})
   }
   
   func test_sequentializeEffect_shouldEnsureExecutionOrder() {
@@ -168,37 +199,6 @@ final class ReduxSagaEffectTest: XCTestCase {
     
     /// Then
     XCTAssertEqual(value.value, 2)
-  }
-  
-  func test_mapEffect_shouldMapInnerValue() {
-    /// Setup
-    let effect = Effect<State, Int>.just(1).map({$0 * 10})
-    let output = effect.invoke(withState: (), dispatch: {_ in})
-    
-    /// When
-    let value = output.nextValue(timeoutInSeconds: self.timeout)
-    
-    /// Then
-    XCTAssertEqual(value.value, 10)
-  }
-  
-  func test_delayEffect_shouldDelayEmission() {
-    /// Setup
-    var dispatchCount = 0
-    let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
-    
-    let output = Redux.Saga.Effect<State, Int>.just(400)
-      .delay(bySeconds: 2, usingQueue: .global(qos: .background))
-      .invoke(withState: (), dispatch: dispatch)
-    
-    /// When
-    dispatch(Redux.Preset.Action.noop)
-    output.onAction(Redux.Preset.Action.noop)
-    let value = output.nextValue(timeoutInSeconds: self.timeout)
-    
-    /// Then
-    XCTAssertEqual(dispatchCount, 1)
-    XCTAssertEqual(value.value, 400)
   }
 }
 

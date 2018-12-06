@@ -22,44 +22,6 @@ extension Redux.Saga.Effect {
   typealias TakeEvery = Redux.Saga.TakeEveryEffect
   typealias TakeLatest = Redux.Saga.TakeLatestEffect
   
-  /// Create an empty effect.
-  ///
-  /// - Returns: An Effect instance.
-  public static func empty() -> E<State, R> {
-    return Empty()
-  }
-  
-  /// Create a just effect.
-  ///
-  /// - Parameter value: The value to form the effect with.
-  /// - Returns: An Effect instance.
-  public static func just(_ value: R) -> E<State, R> {
-    return Just(value)
-  }
-  
-  /// Create a select effect.
-  ///
-  /// - Parameter selector: The state selector function.
-  /// - Returns: An Effect instance.
-  public static func select(_ selector: @escaping (State) -> R) -> E<State, R> {
-    return Select(selector)
-  }
-  
-  /// Create a put effect.
-  ///
-  /// - Parameters:
-  ///   - param: The parameter to put into redux state.
-  ///   - actionCreator: The action creator function.
-  ///   - dispatchQueue: The queue on which to dispatch the action.
-  /// - Returns: An Effect instance.
-  public static func put<P>(
-    _ param: E<State, P>,
-    actionCreator: @escaping (P) -> ReduxActionType,
-    dispatchQueue: DispatchQueue = .main) -> E<State, Any>
-  {
-    return Put(param, actionCreator, dispatchQueue)
-  }
-  
   /// Create a call effect with an Observable.
   ///
   /// - Parameters:
@@ -97,6 +59,77 @@ extension Redux.Saga.Effect {
         return Disposables.create()
       })
     }
+  }
+  
+  /// Create an empty effect.
+  ///
+  /// - Returns: An Effect instance.
+  public static func empty() -> E<State, R> {
+    return Empty()
+  }
+  
+  /// Create a just effect.
+  ///
+  /// - Parameter value: The value to form the effect with.
+  /// - Returns: An Effect instance.
+  public static func just(_ value: R) -> E<State, R> {
+    return Just(value)
+  }
+  
+  /// Create a map effect.
+  ///
+  /// - Parameters:
+  ///   - source: The source effect.
+  ///   - mapper: The mapper function.
+  /// - Returns: An Effect instance.
+  public static func map<E1, R2>(
+    _ source: E1,
+    withMapper mapper: @escaping (E1.R) throws -> R2) -> E<State, R2> where
+    E1: ReduxSagaEffectType, E1.State == State
+  {
+    return Map(source, mapper)
+  }
+  
+  /// Create a put effect.
+  ///
+  /// - Parameters:
+  ///   - param: The parameter to put into redux state.
+  ///   - actionCreator: The action creator function.
+  ///   - dispatchQueue: The queue on which to dispatch the action.
+  /// - Returns: An Effect instance.
+  public static func put<P>(
+    _ param: E<State, P>,
+    actionCreator: @escaping (P) -> ReduxActionType,
+    dispatchQueue: DispatchQueue = .main) -> E<State, Any>
+  {
+    return Put(param, actionCreator, dispatchQueue)
+  }
+  
+  /// Create a select effect.
+  ///
+  /// - Parameter selector: The state selector function.
+  /// - Returns: An Effect instance.
+  public static func select(_ selector: @escaping (State) -> R) -> E<State, R> {
+    return Select(selector)
+  }
+  
+  /// Create a sequentialize effect.
+  ///
+  /// - Parameters:
+  ///   - effect1: The first effect.
+  ///   - effect2: The second effect that must happen after the first.
+  ///   - selector: The result combine function.
+  /// - Returns: An Effect instance.
+  public static func sequentialize<E1, E2>(
+    _ effect1: E1,
+    _ effect2: E2,
+    selector: @escaping (E1.R, E2.R) throws -> R) -> E<E2.State, R> where
+    E1: ReduxSagaEffectType,
+    E2: ReduxSagaEffectType,
+    E1.State == State,
+    E2.State == State
+  {
+    return Sequentialize(effect1, effect2, selector)
   }
   
   /// Create a delay effect.
@@ -146,38 +179,5 @@ extension Redux.Saga.Effect {
     -> E<State, R> where Action: ReduxActionType
   {
     return TakeLatest(paramExtractor, effectCreator, outputTransformer)
-  }
-  
-  /// Create a sequentialize effect.
-  ///
-  /// - Parameters:
-  ///   - effect1: The first effect.
-  ///   - effect2: The second effect that must happen after the first.
-  ///   - selector: The result combine function.
-  /// - Returns: An Effect instance.
-  public static func sequentialize<E1, E2>(
-    _ effect1: E1,
-    _ effect2: E2,
-    selector: @escaping (E1.R, E2.R) throws -> R) -> E<E2.State, R> where
-    E1: ReduxSagaEffectType,
-    E2: ReduxSagaEffectType,
-    E1.State == State,
-    E2.State == State
-  {
-    return Sequentialize(effect1, effect2, selector)
-  }
-  
-  /// Create a map effect.
-  ///
-  /// - Parameters:
-  ///   - source: The source effect.
-  ///   - mapper: The mapper function.
-  /// - Returns: An Effect instance.
-  public static func map<E1, R2>(
-    _ source: E1,
-    withMapper mapper: @escaping (E1.R) throws -> R2) -> E<State, R2> where
-    E1: ReduxSagaEffectType, E1.State == State
-  {
-    return Map(source, mapper)
   }
 }

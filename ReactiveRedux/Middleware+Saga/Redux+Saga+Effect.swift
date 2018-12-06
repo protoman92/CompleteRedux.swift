@@ -22,6 +22,44 @@ extension Redux.Saga {
     }
   }
   
+  /// Effect whose output performs some asynchronous work and then emit the
+  /// result.
+  final class CallEffect<State, P, R>: Effect<State, R> {
+    private let _param: E<State, P>
+    private let _callCreator: (P) -> Observable<R>
+    
+    init(_ param: E<State, P>,
+         _ callCreator: @escaping (P) -> Observable<R>) {
+      self._param = param
+      self._callCreator = callCreator
+    }
+    
+    override func invoke(_ input: Input<State>) -> Output<R> {
+      return self._param.invoke(input).flatMap(self._callCreator)
+    }
+  }
+  
+  /// Effect whose output delays emission by some period of time.
+  final class DelayEffect<State, R>: Effect<State, R> {
+    private let sourceEffect: Effect<State, R>
+    private let delayTime: TimeInterval
+    private let dispatchQueue: DispatchQueue
+    
+    init(_ sourceEffect: Effect<State, R>,
+         _ delayTime: TimeInterval,
+         _ dispatchQueue: DispatchQueue) {
+      self.sourceEffect = sourceEffect
+      self.delayTime = delayTime
+      self.dispatchQueue = dispatchQueue
+    }
+    
+    override func invoke(_ input: Input<State>) -> Output<R> {
+      return self.sourceEffect.invoke(input).delay(
+        bySeconds: self.delayTime,
+        usingQueue: self.dispatchQueue)
+    }
+  }
+  
   /// Empty effect whose output does not emit anything.
   final class EmptyEffect<State, R>: Effect<State, R> {
     override func invoke(_ input: Input<State>) -> Output<R> {
@@ -39,20 +77,6 @@ extension Redux.Saga {
     
     override func invoke(_ input: Input<State>) -> Output<R> {
       return Output(.just(self.value), {_ in})
-    }
-  }
-  
-  /// Effect whose output selects some value from a redux store's managed state.
-  /// The extracted value can then be fed to other effects that require params.
-  final class SelectEffect<State, R>: Effect<State, R> {
-    private let _selector: (State) -> R
-    
-    init(_ selector: @escaping (State) -> R) {
-      self._selector = selector
-    }
-    
-    override func invoke(_ input: Input<State>) -> Output<R> {
-      return Output(.just(self._selector(input.lastState())), {_ in})
     }
   }
   
@@ -81,20 +105,17 @@ extension Redux.Saga {
     }
   }
   
-  /// Effect whose output performs some asynchronous work and then emit the
-  /// result.
-  final class CallEffect<State, P, R>: Effect<State, R> {
-    private let _param: E<State, P>
-    private let _callCreator: (P) -> Observable<R>
+  /// Effect whose output selects some value from a redux store's managed state.
+  /// The extracted value can then be fed to other effects that require params.
+  final class SelectEffect<State, R>: Effect<State, R> {
+    private let _selector: (State) -> R
     
-    init(_ param: E<State, P>,
-         _ callCreator: @escaping (P) -> Observable<R>) {
-      self._param = param
-      self._callCreator = callCreator
+    init(_ selector: @escaping (State) -> R) {
+      self._selector = selector
     }
     
     override func invoke(_ input: Input<State>) -> Output<R> {
-      return self._param.invoke(input).flatMap(self._callCreator)
+      return Output(.just(self._selector(input.lastState())), {_ in})
     }
   }
   
@@ -135,27 +156,6 @@ extension Redux.Saga {
     
     override func invoke(_ input: Input<E1.State>) -> Output<R2> {
       return self.source.invoke(input).map(self.mapper)
-    }
-  }
-  
-  /// Effect whose output delays emission by some period of time.
-  final class DelayEffect<State, R>: Effect<State, R> {
-    private let sourceEffect: Effect<State, R>
-    private let delayTime: TimeInterval
-    private let dispatchQueue: DispatchQueue
-    
-    init(_ sourceEffect: Effect<State, R>,
-         _ delayTime: TimeInterval,
-         _ dispatchQueue: DispatchQueue) {
-      self.sourceEffect = sourceEffect
-      self.delayTime = delayTime
-      self.dispatchQueue = dispatchQueue
-    }
-    
-    override func invoke(_ input: Input<State>) -> Output<R> {
-      return self.sourceEffect.invoke(input).delay(
-        bySeconds: self.delayTime,
-        usingQueue: self.dispatchQueue)
     }
   }
 }
