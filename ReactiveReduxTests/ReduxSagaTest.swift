@@ -48,6 +48,21 @@ extension ReduxSagaTest {
     XCTAssertEqual(self.testEffect.pastActions as! [Redux.Preset.Action],
                    [.noop, .noop, .noop, .noop])
   }
+  
+  func test_transformingOut_shouldWork() {
+    /// Setup
+    let output = Redux.Saga.Output
+      .init(.just(0), {_ in})
+      .map({$0 + 1})
+      .debounce(forSeconds: 1)
+      .printValue()
+    
+    /// When
+    let value = output.nextValue(timeoutInSeconds: 10)
+    
+    /// Then
+    XCTAssertEqual(value.value, 1)
+  }
 }
 
 extension ReduxSagaTest {
