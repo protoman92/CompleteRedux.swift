@@ -64,10 +64,10 @@ final class ViewController1: UIViewController {
     self.stringTF2.text = props.nextState.string
     self.valueSL.value = props.nextState.slider ?? valueSL.minimumValue
     
-    if props.nextState.progress.getOrElse(false) &&
-      props.nextState.progress != props.previousState?.progress
-    {
-      MRProgressOverlayView.showOverlayAdded(to: self.view, animated: true)
+    if props.nextState.progress.getOrElse(false) {
+      if props.nextState.progress != props.previousState?.progress {
+        MRProgressOverlayView.showOverlayAdded(to: self.view, animated: true)
+      }
     } else {
       MRProgressOverlayView.dismissOverlay(for: self.view, animated: true)
     }
