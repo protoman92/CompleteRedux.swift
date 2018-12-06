@@ -96,7 +96,7 @@ extension Redux.Saga {
       self.source.subscribe(onNext: callback).disposed(by: self.disposeBag)
     }
     
-    func nextValue(timeoutInNanoseconds nano: Double) -> Try<T> {
+    public func nextValue(timeoutInNanoseconds nano: Double) -> Try<T> {
       let dispatchGroup = DispatchGroup()
       var value: Try<T> = Try.failure("No value found")
       dispatchGroup.enter()
@@ -114,11 +114,11 @@ extension Redux.Saga {
       return value
     }
     
-    func nextValue(timeoutInMilliseconds millis: Double) -> Try<T> {
+    public func nextValue(timeoutInMilliseconds millis: Double) -> Try<T> {
       return self.nextValue(timeoutInNanoseconds: millis * pow(10, 6))
     }
     
-    func nextValue(timeoutInSeconds seconds: Double) -> Try<T> {
+    public func nextValue(timeoutInSeconds seconds: Double) -> Try<T> {
       return self.nextValue(timeoutInMilliseconds: seconds * pow(10, 3))
     }
   }
