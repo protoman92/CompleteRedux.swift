@@ -119,6 +119,21 @@ extension Redux.Saga {
     }
   }
   
+  /// Effect whose output maps the value from that of a source to another value.
+  final class MapEffect<E1, R2>: Effect<E1.State, R2> where E1: ReduxSagaEffectType {
+    private let source: E1
+    private let mapper: (E1.R) throws -> R2
+    
+    init(_ source: E1, _ mapper: @escaping (E1.R) throws -> R2) {
+      self.source = source
+      self.mapper = mapper
+    }
+    
+    override func invoke(_ input: Input<E1.State>) -> Output<R2> {
+      return self.source.invoke(input).map(self.mapper)
+    }
+  }
+  
   /// Effect whose output delays emission by some period of time.
   final class DelayEffect<State, R>: Effect<State, R> {
     private let sourceEffect: Effect<State, R>
@@ -134,8 +149,9 @@ extension Redux.Saga {
     }
     
     override func invoke(_ input: Input<State>) -> Output<R> {
-      return self.sourceEffect.invoke(input)
-        .delay(forSeconds: self.delayTime, usingQueue: self.dispatchQueue)
+      return self.sourceEffect.invoke(input).delay(
+        forSeconds: self.delayTime,
+        usingQueue: self.dispatchQueue)
     }
   }
 }

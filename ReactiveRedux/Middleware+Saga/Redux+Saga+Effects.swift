@@ -15,6 +15,7 @@ extension Redux.Saga.Effect {
   typealias Delay = Redux.Saga.DelayEffect
   typealias Empty = Redux.Saga.EmptyEffect
   typealias Just = Redux.Saga.JustEffect
+  typealias Map = Redux.Saga.MapEffect
   typealias Put = Redux.Saga.PutEffect
   typealias Select = Redux.Saga.SelectEffect
   typealias Sequentialize = Redux.Saga.SequentializeEffect
@@ -166,21 +167,17 @@ extension Redux.Saga.Effect {
     return Sequentialize(effect1, effect2, selector)
   }
   
-  /// Convenience function to sequentialize effects into an effect whose result
-  /// is simply that of the second effect.
+  /// Create a map effect.
   ///
   /// - Parameters:
-  ///   - effect1: The first effect.
-  ///   - effect2: The second effect that must happen after the first.
+  ///   - source: The source effect.
+  ///   - mapper: The mapper function.
   /// - Returns: An Effect instance.
-  public static func sequentialize<E1, E2>(_ effect1: E1, _ effect2: E2)
-    -> E<E2.State, E2.R> where
-    E1: ReduxSagaEffectType,
-    E2: ReduxSagaEffectType,
-    E1.State == State,
-    E2.State == State,
-    E2.R == R
+  public static func map<E1, R2>(
+    _ source: E1,
+    withMapper mapper: @escaping (E1.R) throws -> R2) -> E<State, R2> where
+    E1: ReduxSagaEffectType, E1.State == State
   {
-    return sequentialize(effect1, effect2, selector: {$1})
+    return Map(source, mapper)
   }
 }

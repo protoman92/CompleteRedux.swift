@@ -51,6 +51,16 @@ extension ReduxSagaEffectType {
     return self.then(effect2, selector: {$1})
   }
   
+  /// Map the output value to another value.
+  ///
+  /// - Parameter mapper: The mapper function.
+  /// - Returns: An Effect instance.
+  public func map<R2>(_ mapper: @escaping (R) throws -> R2)
+    -> Redux.Saga.Effect<State, R2>
+  {
+    return Redux.Saga.Effect<State, R>.map(self, withMapper: mapper)
+  }
+  
   /// Feed the current effect as input to create another effect.
   ///
   /// - Parameter effectCreator: The effect creator function.

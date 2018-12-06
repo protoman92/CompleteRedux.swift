@@ -42,7 +42,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// When
     dispatch(Redux.Preset.Action.noop)
     output.onAction(Redux.Preset.Action.noop)
-    let value = output.nextValue(timeoutInSeconds: self.timeout)
+    let value = output.nextValue(timeoutInSeconds: self.timeout / 2)
     
     /// Then
     XCTAssertEqual(dispatchCount, 1)
@@ -156,31 +156,32 @@ final class ReduxSagaEffectTest: XCTestCase {
   
   func test_sequentializeEffect_shouldEnsureExecutionOrder() {
     /// Setup
-    var dispatchCount = 0
-    let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
-    
     let effect1 = Effect<State, Int>.call(with: .just(1)) {
       let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
       return Observable.just($0).delay(2, scheduler: scheduler)
     }
     
     let effect2 = Effect<State, Int>.just(2)
-    let sequence1 = Redux.Saga.Effect.sequentialize(effect1, effect2)
-    let sequence2 = effect1.then(effect2, selector: +)
-    let sequence3 = effect1.then(effect2)
-    let output1 = sequence1.invoke(withState: (), dispatch: dispatch)
-    let output2 = sequence2.invoke(withState: (), dispatch: dispatch)
-    let output3 = sequence3.invoke(withState: (), dispatch: dispatch)
+    let sequence = effect1.then(effect2)
+    let output = sequence.invoke(withState: (), dispatch: {_ in})
     
     /// When
-    let value1 = output1.nextValue(timeoutInSeconds: self.timeout)
-    let value2 = output2.nextValue(timeoutInSeconds: self.timeout)
-    let value3 = output3.nextValue(timeoutInSeconds: self.timeout)
+    let value = output.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
-    XCTAssertEqual(value1.value, 2)
-    XCTAssertEqual(value2.value, 3)
-    XCTAssertEqual(value3.value, 2)
+    XCTAssertEqual(value.value, 2)
+  }
+  
+  func test_mapEffect_shouldMapInnerValue() {
+    /// Setup
+    let effect = Effect<State, Int>.just(1).map({$0 * 10})
+    let output = effect.invoke(withState: (), dispatch: {_ in})
+    
+    /// When
+    let value = output.nextValue(timeoutInSeconds: self.timeout)
+    
+    /// Then
+    XCTAssertEqual(value.value, 10)
   }
   
   func test_delayEffect_shouldDelayEmission() {
