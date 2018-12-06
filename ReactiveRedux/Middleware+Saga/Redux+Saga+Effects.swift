@@ -12,6 +12,7 @@ import SwiftFP
 extension Redux.Saga.Effect {
   public typealias E = Redux.Saga.Effect
   typealias Call = Redux.Saga.CallEffect
+  typealias Delay = Redux.Saga.DelayEffect
   typealias Empty = Redux.Saga.EmptyEffect
   typealias Just = Redux.Saga.JustEffect
   typealias Put = Redux.Saga.PutEffect
@@ -95,6 +96,21 @@ extension Redux.Saga.Effect {
         return Disposables.create()
       })
     }
+  }
+  
+  /// Create a delay effect.
+  ///
+  /// - Parameters:
+  ///   - source: The source effect to be delayed.
+  ///   - sec: The time in seconds to delay by.
+  ///   - queue: The dispatch queue to delay on.
+  /// - Returns: An Effect instance.
+  public static func delay(
+    _ source: E<State, R>,
+    forSeconds sec: TimeInterval,
+    usingQueue queue: DispatchQueue = .global(qos: .default)) -> E<State, R>
+  {
+    return Delay(source, sec, queue)
   }
   
   /// Create a take every effect.

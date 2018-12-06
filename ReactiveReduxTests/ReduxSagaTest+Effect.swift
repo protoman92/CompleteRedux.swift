@@ -12,7 +12,7 @@ import XCTest
 @testable import ReactiveRedux
 
 final class ReduxSagaEffectTest: XCTestCase {
-  private let timeout: Double = 5
+  private let timeout: Double = 10
   
   func test_baseEffect_shouldThrowUnimplementedError() {
     /// Setup
@@ -181,6 +181,25 @@ final class ReduxSagaEffectTest: XCTestCase {
     XCTAssertEqual(value1.value, 2)
     XCTAssertEqual(value2.value, 3)
     XCTAssertEqual(value3.value, 2)
+  }
+  
+  func test_delayEffect_shouldDelayEmission() {
+    /// Setup
+    var dispatchCount = 0
+    let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
+    
+    let output = Redux.Saga.Effect<State, Int>.just(400)
+      .asInput(for: {.delay($0, forSeconds: 2)})
+      .invoke(withState: (), dispatch: dispatch)
+    
+    /// When
+    dispatch(Redux.Preset.Action.noop)
+    output.onAction(Redux.Preset.Action.noop)
+    let value = output.nextValue(timeoutInSeconds: self.timeout)
+    
+    /// Then
+    XCTAssertEqual(dispatchCount, 1)
+    XCTAssertEqual(value.value, 400)
   }
 }
 

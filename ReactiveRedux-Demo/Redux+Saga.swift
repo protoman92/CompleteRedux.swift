@@ -23,6 +23,7 @@ final class AppReduxSaga {
     return Redux.Saga.Effect<State, Any>
       .put(.just(true), actionCreator: AppRedux.Action.progress)
       .then(.call(with: .just(input), callCreator: Api.performAutocomplete))
+      .asInput(for: {.delay($0, forSeconds: 2)})
       .asInput(for: {.put($0, actionCreator: AppRedux.Action.texts)})
       .then(.put(.just(false), actionCreator: AppRedux.Action.progress))
   }

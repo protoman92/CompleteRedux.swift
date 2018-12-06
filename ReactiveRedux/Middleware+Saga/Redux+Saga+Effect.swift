@@ -118,6 +118,26 @@ extension Redux.Saga {
         self.effect2.invoke(input).map({try self.combineFunc(result1, $0)})})
     }
   }
+  
+  /// Effect whose output delays emission by some period of time.
+  final class DelayEffect<State, R>: Effect<State, R> {
+    private let sourceEffect: Effect<State, R>
+    private let delayTime: TimeInterval
+    private let dispatchQueue: DispatchQueue
+    
+    init(_ sourceEffect: Effect<State, R>,
+         _ delayTime: TimeInterval,
+         _ dispatchQueue: DispatchQueue) {
+      self.sourceEffect = sourceEffect
+      self.delayTime = delayTime
+      self.dispatchQueue = dispatchQueue
+    }
+    
+    override func invoke(_ input: Input<State>) -> Output<R> {
+      return self.sourceEffect.invoke(input)
+        .delay(forSeconds: self.delayTime, usingQueue: self.dispatchQueue)
+    }
+  }
 }
 
 extension Redux.Saga {
