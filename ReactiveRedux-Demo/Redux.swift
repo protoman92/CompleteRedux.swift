@@ -11,11 +11,11 @@ import SafeNest
 import SwiftFP
 
 extension UIViewController {
-  typealias PropInjector = Redux.UI.PropInjector<SafeNest>
+  typealias ReduxState = SafeNest
 }
 
 extension UIView {
-  typealias PropInjector = Redux.UI.PropInjector<SafeNest>
+  typealias ReduxState = SafeNest
 }
 
 final class AppRedux {

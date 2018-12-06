@@ -9,15 +9,16 @@
 public extension Redux.UI {
 
   /// Static props container.
-  public struct StaticProps<PropInjector: ReduxPropInjectorType> {
+  public struct StaticProps<State> {
     
     /// The injector instance used to inject redux props into compatible views.
-    public let injector: PropInjector
+    public let injector: Redux.UI.PropInjector<State>
     
     /// Remember to unsubscribe before re-injecting again.
     let subscription: Redux.Store.Subscription
     
-    init(_ injector: PropInjector, _ subscription: Redux.Store.Subscription) {
+    init(_ injector: Redux.UI.PropInjector<State>,
+         _ subscription: Redux.Store.Subscription) {
       self.injector = injector
       self.subscription = subscription
     }

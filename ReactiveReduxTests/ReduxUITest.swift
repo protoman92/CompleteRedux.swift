@@ -157,15 +157,13 @@ extension ReduxUITests {
 }
 
 extension ReduxUITests.ViewController: ReduxCompatibleViewType {
-  typealias PropInjector = Redux.UI.PropInjector<ReduxUITests.State>
+  typealias ReduxState = ReduxUITests.State
   typealias OutProps = Int
   typealias StateProps = ReduxUITests.State
   typealias ActionProps = () -> Void
 }
 
 extension ReduxUITests.ViewController: ReduxPropMapperType {
-  typealias ReduxState = ReduxUITests.State
-  
   static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
     return state
   }
@@ -177,15 +175,13 @@ extension ReduxUITests.ViewController: ReduxPropMapperType {
 }
 
 extension ReduxUITests.View: ReduxCompatibleViewType {
-  typealias PropInjector = Redux.UI.PropInjector<ReduxUITests.State>
+  typealias ReduxState = ReduxUITests.State
   typealias OutProps = Int
   typealias StateProps = ReduxUITests.State
   typealias ActionProps = () -> Void
 }
 
 extension ReduxUITests.View: ReduxPropMapperType {
-  typealias ReduxState = ReduxUITests.State
-  
   static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
     return state
   }

@@ -18,10 +18,9 @@ public extension Redux.UI {
     
     func _inject<CV, MP>(_ cv: CV, _ outProps: CV.OutProps, _ mapper: MP.Type)
       -> Redux.Store.Subscription where
-      CV.PropInjector == PropInjector,
       MP: ReduxPropMapperType,
-      MP.ReduxState == State,
-      MP.ReduxView == CV
+      MP.ReduxView == CV,
+      CV.ReduxState == State
     {
       let dispatch = self.store.dispatch
       
@@ -68,15 +67,12 @@ public extension Redux.UI {
     }
     
     @discardableResult
-    public func injectProps<VC, MP>(controller: VC,
-                                    outProps: VC.OutProps,
-                                    mapper: MP.Type)
+    public func injectProps<VC, MP>(controller: VC, outProps: VC.OutProps, mapper: MP.Type)
       -> Redux.Store.Subscription where
-      VC: UIViewController,
-      VC.PropInjector == PropInjector,
       MP: ReduxPropMapperType,
-      MP.ReduxState == State,
-      MP.ReduxView == VC
+      MP.ReduxView == VC,
+      VC: UIViewController,
+      VC.ReduxState == State
     {
       let subscription = self._inject(controller, outProps, mapper)
       let lifecycleVC = LifecycleViewController()
@@ -86,15 +82,12 @@ public extension Redux.UI {
     }
     
     @discardableResult
-    public func injectProps<V, MP>(view: V,
-                                   outProps: V.OutProps,
-                                   mapper: MP.Type)
+    public func injectProps<V, MP>(view: V, outProps: V.OutProps, mapper: MP.Type)
       -> Redux.Store.Subscription where
-      V: UIView,
-      V.PropInjector == PropInjector,
       MP: ReduxPropMapperType,
-      MP.ReduxState == State,
-      MP.ReduxView == V
+      MP.ReduxView == V,
+      V: UIView,
+      V.ReduxState == State
     {
       let subscription = self._inject(view, outProps, mapper)
       let lifecycleView = LifecycleView()

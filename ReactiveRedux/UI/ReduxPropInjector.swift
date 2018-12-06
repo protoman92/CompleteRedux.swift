@@ -23,11 +23,10 @@ public protocol ReduxPropInjectorType {
   @discardableResult
   func injectProps<VC, MP>(controller: VC, outProps: VC.OutProps, mapper: MP.Type)
     -> Redux.Store.Subscription where
-    VC: UIViewController,
-    VC.PropInjector == Self,
     MP: ReduxPropMapperType,
-    MP.ReduxState == State,
-    MP.ReduxView == VC
+    MP.ReduxView == VC,
+    VC: UIViewController,
+    VC.ReduxState == State
   
   /// Inject state/action props into a compatible view.
   ///
@@ -39,11 +38,10 @@ public protocol ReduxPropInjectorType {
   @discardableResult
   func injectProps<V, MP>(view: V, outProps: V.OutProps, mapper: MP.Type)
     -> Redux.Store.Subscription where
-    V: UIView,
-    V.PropInjector == Self,
     MP: ReduxPropMapperType,
-    MP.ReduxState == State,
-    MP.ReduxView == V
+    MP.ReduxView == V,
+    V: UIView,
+    V.ReduxState == State
 }
 
 public extension ReduxPropInjectorType {
@@ -60,7 +58,6 @@ public extension ReduxPropInjectorType {
     -> Redux.Store.Subscription where
     VC: UIViewController,
     VC: ReduxPropMapperType,
-    VC.PropInjector == Self,
     VC.ReduxState == State,
     VC.ReduxView == VC
   {
@@ -79,7 +76,6 @@ public extension ReduxPropInjectorType {
     -> Redux.Store.Subscription where
     V: UIView,
     V: ReduxPropMapperType,
-    V.PropInjector == Self,
     V.ReduxState == State,
     V.ReduxView == V
   {

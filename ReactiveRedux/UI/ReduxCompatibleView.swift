@@ -11,7 +11,9 @@ import UIKit
 /// A view that conforms to this protocol can receive state/action props and
 /// subscribe to state changes.
 public protocol ReduxCompatibleViewType: class {
-  associatedtype PropInjector: ReduxPropInjectorType
+
+  /// The app's global state type. This helps define the prop injector.
+  associatedtype ReduxState
   
   /// This props represents data that is directly related to the parent view/
   /// view controller. For example, when we inject a table view cell, this may
@@ -26,7 +28,7 @@ public protocol ReduxCompatibleViewType: class {
   /// interactions.
   associatedtype ActionProps
   
-  typealias StaticProps = Redux.UI.StaticProps<PropInjector>
+  typealias StaticProps = Redux.UI.StaticProps<ReduxState>
   typealias VariableProps = Redux.UI.VariableProps<StateProps, ActionProps>
   
   /// This prop container includes static dependencies that can be used to

@@ -14,9 +14,9 @@
 /// internal state as much as possible. We should only use whatever data that
 /// are passed in via parameters to create props (e.g. state, outProps).
 public protocol ReduxPropMapperType: class {
-  associatedtype ReduxState
   associatedtype ReduxView: ReduxCompatibleViewType
   
+  typealias ReduxState = ReduxView.ReduxState
   typealias OutProps = ReduxView.OutProps
   typealias StateProps = ReduxView.StateProps
   typealias ActionProps = ReduxView.ActionProps

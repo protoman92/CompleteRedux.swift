@@ -29,8 +29,6 @@ extension RootController: ReduxPropMapperType {
 }
 
 extension ViewController1: ReduxPropMapperType {
-  typealias ReduxState = SafeNest
-  
   static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
     return state
       .decode(at: AppRedux.Path.rootPath, ofType: StateProps.self)
@@ -52,8 +50,6 @@ extension ViewController1: ReduxPropMapperType {
 }
 
 extension ConfirmButton: ReduxPropMapperType {
-  typealias ReduxState = SafeNest
-  
   static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
     return StateProps()
   }
@@ -66,9 +62,7 @@ extension ConfirmButton: ReduxPropMapperType {
   }
 }
 
-extension TableCell: ReduxPropMapperType {
-  typealias ReduxState = SafeNest
-  
+extension TableCell: ReduxPropMapperType {  
   static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
     return StateProps(
       text: state.value(at: AppRedux.Path
