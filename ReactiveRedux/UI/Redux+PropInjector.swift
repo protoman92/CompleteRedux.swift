@@ -38,25 +38,33 @@ public extension Redux.UI {
       // having parallel subscriptions.
       cv.staticProps?.subscription.unsubscribe()
       
-      let unsubscribe = self.store
-        .subscribeState(viewId) {[weak cv] state in
-          // Since UI operations must happen on the main thread, we dispatch
-          // with the main queue. Setting the previous props here is ok as well
-          // since only the main queue is accessing it.
-          DispatchQueue.main.async {
-            let dispatch = MP.mapAction(dispatch: dispatch, outProps: outProps)
-            let next = MP.mapState(state: state, outProps: outProps)
-            
-            if first || !MP.compareState(lhs: previous, rhs: next) {
-              cv?.variableProps = VariableProps(first, previous, next, dispatch)
-              previous = next
-              first = false
-            }
+      let setProps: (CV?, State) -> Void = {cv, state in
+        // Since UI operations must happen on the main thread, we dispatch
+        // with the main queue. Setting the previous props here is ok as well
+        // since only the main queue is accessing it.
+        DispatchQueue.main.async {
+          let dispatch = MP.mapAction(dispatch: dispatch, outProps: outProps)
+          let next = MP.mapState(state: state, outProps: outProps)
+          
+          if first || !MP.compareState(lhs: previous, rhs: next) {
+            cv?.variableProps = VariableProps(first, previous, next, dispatch)
+            previous = next
+            first = false
           }
+        }
       }
       
-      cv.staticProps = StaticProps(self, unsubscribe)
-      return unsubscribe
+      // When injection is first invoked, immediately set props based on the
+      // last store state, in case the store implemention does not relay last
+      // state to a subscriber on subscription (so at least the injection is
+      // triggered once).
+      setProps(cv, self.store.lastState())
+      
+      let subscription = self.store
+        .subscribeState(viewId) {[weak cv] state in setProps(cv, state)}
+      
+      cv.staticProps = StaticProps(self, subscription)
+      return subscription
     }
     
     @discardableResult

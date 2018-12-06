@@ -62,7 +62,7 @@ extension ReduxUITests {
     /// When && Then
     self.test_injectReduxView_shouldStreamState(vc,
       {self.injector.injectProps(controller: $0, outProps: 0)},
-      {XCTAssertEqual($0.setPropCount, self.iterations)})
+      {XCTAssertEqual($0.setPropCount, self.iterations + 1)})
     
     XCTAssertFalse(ViewController.compareState(lhs: State(), rhs: State()))
   }
@@ -74,7 +74,7 @@ extension ReduxUITests {
     /// When && Then
     self.test_injectReduxView_shouldStreamState(view,
       {self.injector.injectProps(view: $0, outProps: 0)},
-      {XCTAssertEqual($0.setPropCount, self.iterations)})
+      {XCTAssertEqual($0.setPropCount, self.iterations + 1)})
     
     XCTAssertFalse(View.compareState(lhs: State(), rhs: State()))
   }
