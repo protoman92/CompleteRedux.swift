@@ -108,7 +108,7 @@ extension Redux.Saga.Effect {
   /// - Returns: An Effect instance.
   public static func delay(
     _ source: E<State, R>,
-    forSeconds sec: TimeInterval,
+    bySeconds sec: TimeInterval,
     usingQueue queue: DispatchQueue = .global(qos: .default)) -> E<State, R>
   {
     return Delay(source, sec, queue)

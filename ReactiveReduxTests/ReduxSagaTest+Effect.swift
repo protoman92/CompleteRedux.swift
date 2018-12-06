@@ -95,9 +95,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     let dispatch: Redux.Store.Dispatch = {dispatchCount += 1; actions.append($0)}
 
     let effect = Effect<State, Int>.just(200)
-      .asInput(for: {.put($0,
-        actionCreator: Action.input,
-        dispatchQueue: DispatchQueue.global(qos: .default))})
+      .put(Action.input, dispatchQueue: DispatchQueue.global(qos: .default))
     
     let output = effect.invoke(withState: (), dispatch: dispatch)
     
@@ -140,8 +138,8 @@ final class ReduxSagaEffectTest: XCTestCase {
     }
 
     let paramEffect = Effect<State, Int>.just(300)
-    let effect1 = Effect.call(with: paramEffect, callCreator: api1)
-    let effect2 = Effect.call(with: paramEffect, callCreator: api2)
+    let effect1 = paramEffect.call(api1)
+    let effect2 = paramEffect.call(api2)
     let output1 = effect1.invoke(withState: (), dispatch: dispatch)
     let output2 = effect2.invoke(withState: (), dispatch: dispatch)
     
@@ -190,7 +188,7 @@ final class ReduxSagaEffectTest: XCTestCase {
     let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
     
     let output = Redux.Saga.Effect<State, Int>.just(400)
-      .asInput(for: {.delay($0, forSeconds: 2)})
+      .delay(bySeconds: 2, usingQueue: .global(qos: .background))
       .invoke(withState: (), dispatch: dispatch)
     
     /// When

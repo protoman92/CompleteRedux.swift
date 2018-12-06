@@ -54,7 +54,7 @@ extension ReduxSagaTest {
     let output = Redux.Saga.Output
       .init(.just(0), {_ in})
       .map({$0 + 1})
-      .debounce(forSeconds: 1)
+      .debounce(bySeconds: 1)
       .printValue()
     
     /// When

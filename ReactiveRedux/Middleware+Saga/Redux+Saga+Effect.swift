@@ -16,6 +16,10 @@ extension Redux.Saga {
     public func invoke(_ input: Input<State>) -> Output<R> {
       return Output(.error(Redux.Saga.Error.unimplemented), {_ in})
     }
+    
+    public func asEffect() -> Effect<State, R> {
+      return self
+    }
   }
   
   /// Empty effect whose output does not emit anything.
@@ -150,7 +154,7 @@ extension Redux.Saga {
     
     override func invoke(_ input: Input<State>) -> Output<R> {
       return self.sourceEffect.invoke(input).delay(
-        forSeconds: self.delayTime,
+        bySeconds: self.delayTime,
         usingQueue: self.dispatchQueue)
     }
   }
