@@ -100,35 +100,35 @@ extension Redux.Saga.Effect {
   /// Create a take every effect.
   ///
   /// - Parameters:
-  ///   - actionType: The type of action to filter.
   ///   - paramExtractor: The param extractor function.
   ///   - effectCreator: The effect creator function.
-  ///   - eventQueue: The queue on which events will be delivered.
+  ///   - outputTransformer: The output transformer to add functionalities.
   /// - Returns: An Effect instance.
   public static func takeEvery<Action, P>(
-    actionType: Action.Type,
     paramExtractor: @escaping (Action) -> P?,
-    effectCreator: @escaping (P) -> E<State, R>)
+    effectCreator: @escaping (P) -> E<State, R>,
+    outputTransformer: @escaping (Redux.Saga.Output<P>)
+    -> Redux.Saga.Output<P> = {$0})
     -> E<State, R> where Action: ReduxActionType
   {
-    return TakeEvery(actionType, paramExtractor, effectCreator)
+    return TakeEvery(paramExtractor, effectCreator, outputTransformer)
   }
   
   /// Create a take latest effect.
   ///
   /// - Parameters:
-  ///   - actionType: The type of action to filter.
   ///   - paramExtractor: The param extractor function.
   ///   - effectCreator: The effect creator function.
-  ///   - eventQueue: The queue on which events will be delivered.
+  ///   - outputTransformer: The output transformer to add functionalities.
   /// - Returns: An Effect instance.
   public static func takeLatest<Action, P>(
-    actionType: Action.Type,
     paramExtractor: @escaping (Action) -> P?,
-    effectCreator: @escaping (P) -> E<State, R>)
+    effectCreator: @escaping (P) -> E<State, R>,
+    outputTransformer: @escaping (Redux.Saga.Output<P>)
+    -> Redux.Saga.Output<P> = {$0})
     -> E<State, R> where Action: ReduxActionType
   {
-    return TakeLatest(actionType, paramExtractor, effectCreator)
+    return TakeLatest(paramExtractor, effectCreator, outputTransformer)
   }
   
   /// Create a sequentialize effect.

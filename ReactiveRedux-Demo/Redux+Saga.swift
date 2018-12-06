@@ -30,9 +30,9 @@ final class AppReduxSaga {
   static func sagas() -> [Redux.Saga.Effect<State, Any>] {
     return [
       Redux.Saga.Effect.takeLatest(
-        actionType: AppRedux.Action.self,
         paramExtractor: extractAutocompleteInput,
-        effectCreator: autocompleteSaga)
+        effectCreator: autocompleteSaga,
+        outputTransformer: {$0.debounce(forSeconds: 0.5)})
     ]
   }
 }

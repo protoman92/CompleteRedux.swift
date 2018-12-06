@@ -129,25 +129,28 @@ extension Redux.Saga {
   {
     private let _paramExtractor: (Action) -> P?
     private let _effectCreator: (P) -> E<State, R>
+    private let _outputTransformer: (Output<P>) -> Output<P>
     private let _outputFlattener: (Output<Output<R>>) -> Output<R>
     
-    init(_ actionType: Action.Type,
-         _ paramExtractor: @escaping (Action) -> P?,
-         _ outputCreator: @escaping (P) -> E<State, R>,
+    init(_ paramExtractor: @escaping (Action) -> P?,
+         _ effectCreator: @escaping (P) -> E<State, R>,
+         _ outputTransformer: @escaping (Output<P>) -> Output<P>,
          _ outputFlattener: @escaping (Output<Output<R>>) -> Output<R>) {
       self._paramExtractor = paramExtractor
-      self._effectCreator = outputCreator
+      self._effectCreator = effectCreator
+      self._outputTransformer = outputTransformer
       self._outputFlattener = outputFlattener
     }
     
     override func invoke(_ input: Input<State>) -> Output<R> {
       let paramStream = PublishSubject<P>()
       
-      return self._outputFlattener(Output
-        .init(paramStream, {($0 as? Action)
-          .flatMap(self._paramExtractor)
-          .map(paramStream.onNext)})
-        .map({self._effectCreator($0).invoke(input)}))
+      return self._outputFlattener(
+        self._outputTransformer(
+          Output.init(paramStream, {($0 as? Action)
+            .flatMap(self._paramExtractor)
+            .map(paramStream.onNext)}))
+          .map({self._effectCreator($0).invoke(input)}))
     }
   }
   
@@ -156,10 +159,13 @@ extension Redux.Saga {
   final class TakeEveryEffect<State, Action, P, R>:
     TakeEffect<State, Action, P, R> where Action: ReduxActionType
   {
-    init(_ actionType: Action.Type,
-         _ paramExtractor: @escaping (Action) -> P?,
-         _ outputCreator: @escaping (P) -> E<State, R>) {
-      super.init(actionType, paramExtractor, outputCreator, {$0.flatMap({$0})})
+    init(_ paramExtractor: @escaping (Action) -> P?,
+         _ outputCreator: @escaping (P) -> E<State, R>,
+         _ outputTransformer: @escaping (Output<P>) -> Output<P>) {
+      super.init(paramExtractor,
+                 outputCreator,
+                 outputTransformer,
+                 {$0.flatMap({$0})})
     }
   }
   
@@ -170,10 +176,13 @@ extension Redux.Saga {
   final class TakeLatestEffect<State, Action, P, R>:
     TakeEffect<State, Action, P, R> where Action: ReduxActionType
   {
-    init(_ actionType: Action.Type,
-         _ paramExtractor: @escaping (Action) -> P?,
-         _ outputCreator: @escaping (P) -> E<State, R>) {
-      super.init(actionType, paramExtractor, outputCreator, {$0.switchMap({$0})})
+    init(_ paramExtractor: @escaping (Action) -> P?,
+         _ outputCreator: @escaping (P) -> E<State, R>,
+         _ outputTransformer: @escaping (Output<P>) -> Output<P>) {
+      super.init(paramExtractor,
+                 outputCreator,
+                 outputTransformer,
+                 {$0.switchMap({$0})})
     }
   }
 }

@@ -242,8 +242,7 @@ extension ReduxSagaEffectTest {
   func test_takeEveryEffect_shouldTakeAllAction() {
     self.test_takeEffect_shouldTakeAppropriateActions(
       creator: {Effect.takeEvery(
-        actionType: TakeAction.self,
-        paramExtractor: {$0.payload},
+        paramExtractor: {(a: TakeAction) in a.payload},
         effectCreator: $0)},
       outputValues: [1, 1, 1])
   }
@@ -251,8 +250,7 @@ extension ReduxSagaEffectTest {
   func test_takeLatestEffect_shouldTakeLatestAction() {
     self.test_takeEffect_shouldTakeAppropriateActions(
       creator: {Effect.takeLatest(
-        actionType: TakeAction.self,
-        paramExtractor: {$0.payload},
+        paramExtractor: {(a: TakeAction) in a.payload},
         effectCreator: $0)},
       outputValues: [1])
   }

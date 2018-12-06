@@ -69,6 +69,15 @@ extension Redux.Saga {
       return self.with(source: self.source.map(fn).flatMapLatest({$0.source}))
     }
     
+    public func debounce(
+      forSeconds sec: TimeInterval,
+      usingQueue dispatchQueue: DispatchQueue = .global(qos: .default))
+      -> Output<T>
+    {
+      let scheduler = ConcurrentDispatchQueueScheduler(queue: dispatchQueue)
+      return self.with(source: self.source.debounce(sec, scheduler: scheduler))
+    }
+    
     func printValue() -> Output<T> {
       return self.with(source: source.do(onNext: {print($0)}))
     }
