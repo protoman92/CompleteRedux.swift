@@ -190,8 +190,7 @@ final class ReduxSagaEffectTest: XCTestCase {
       return Observable.just($0).delay(2, scheduler: scheduler)
     }
     
-    let effect2 = Effect<State, Int>.just(2)
-    let sequence = effect1.then(effect2)
+    let sequence = effect1.then(2)
     let output = sequence.invoke(withState: (), dispatch: {_ in})
     
     /// When

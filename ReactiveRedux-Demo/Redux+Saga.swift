@@ -20,18 +20,18 @@ final class AppReduxSaga {
   }
   
   static func autocompleteSaga(_ input: String) -> Redux.Saga.Effect<State, Any> {
-    return Redux.Saga.Effect<State, Any>
-      .put(.just(true), actionCreator: AppRedux.Action.progress)
-      .then(.just(input)).call(Api.performAutocomplete)
+    return Redux.Saga.Effect<State, Bool>
+      .just(true).put(AppRedux.Action.progress)
+      .then(input).call(Api.performAutocomplete)
       .map({$0.map({String($0.suffix(10))})})
       .delay(bySeconds: 2)
       .put(AppRedux.Action.texts)
-      .then(.just(false)).put(AppRedux.Action.progress)
+      .then(false).put(AppRedux.Action.progress)
   }
   
   static func sagas() -> [Redux.Saga.Effect<State, Any>] {
     return [
-      Redux.Saga.Effect.takeLatest(
+      Redux.Saga.Effect.takeEvery(
         paramExtractor: extractAutocompleteInput,
         effectCreator: autocompleteSaga,
         outputTransformer: {$0.debounce(bySeconds: 0.5)})

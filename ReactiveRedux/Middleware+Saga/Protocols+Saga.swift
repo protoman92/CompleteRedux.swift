@@ -133,6 +133,14 @@ extension ReduxSagaEffectType {
   {
     return self.then(effect2, selector: {$1})
   }
+  
+  /// Convenience function to change emissions to another static value.
+  ///
+  /// - Parameter value: The value to change to.
+  /// - Returns: An Effect instance.
+  public func then<R2>(_ value: R2) -> Redux.Saga.Effect<State, R2> {
+    return self.then(.just(value))
+  }
 }
 
 /// Implement this protocol to represent a take effect (e.g. take latest or
