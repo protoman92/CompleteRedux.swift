@@ -10,7 +10,9 @@ Redux implementations for iOS clients. This library provides:
 - A Rx-enabled store.
 - Middleware support and default middleware providers (e.g. router middleware);
 - Prop injection for a Redux-compatible view/view controller;
-  
+- A side effect model (Saga) to handle asynchronous work;
+
 For a deeper look into how this works, check out the sample app and some articles I wrote:
 
 - [Redux for Swift (Part 1)](https://medium.com/@swiften.svc/redux-for-swift-part-1-e084a8c304eb)
+- [Redux for Swift (Part 2)](https://medium.com/@swiften.svc/redux-for-swift-part-2-52bc9f306b56)
