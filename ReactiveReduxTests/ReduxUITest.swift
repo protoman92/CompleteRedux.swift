@@ -78,6 +78,30 @@ extension ReduxUITests {
     
     XCTAssertFalse(View.compareState(lhs: State(), rhs: State()))
   }
+  
+  func test_reduxViewDeinit_shouldUnsubscribe() {
+    /// Setup
+    let dispatchGroup = DispatchGroup()
+    dispatchGroup.enter()
+    dispatchGroup.enter()
+    var vc: ViewController? = ViewController()
+    var view: View? = View()
+    vc!.onDeinit = dispatchGroup.leave
+    view!.onDeinit = dispatchGroup.leave
+    _ = self.injector.injectProps(controller: vc!, outProps: 0)
+    _ = self.injector.injectProps(view: view!, outProps: 0)
+    let waitTime = UInt64(pow(10 as Double, 9) * 10)
+    let timeout = DispatchTime.now().uptimeNanoseconds + waitTime
+    
+    /// When
+    DispatchQueue.main.async { vc = nil; view = nil }
+    _ = dispatchGroup.wait(timeout: DispatchTime(uptimeNanoseconds: timeout))
+    
+    /// Then
+    DispatchQueue.main.async {
+      XCTAssertEqual(self.store.unsubscribeCount, 2)
+    }
+  }
 }
 
 extension ReduxUITests {
@@ -130,7 +154,10 @@ extension ReduxUITests {
 
 extension ReduxUITests {
   final class ViewController: UIViewController {
+    deinit { self.onDeinit?() }
+    
     var staticProps: StaticProps?
+    var onDeinit: (() -> Void)?
     
     var variableProps: VariableProps? {
       didSet {
@@ -143,7 +170,10 @@ extension ReduxUITests {
   }
   
   final class View: UIView {
+    deinit { self.onDeinit?() }
+    
     var staticProps: StaticProps?
+    var onDeinit: (() -> Void)?
     
     var variableProps: VariableProps? {
       didSet {
