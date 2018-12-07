@@ -16,3 +16,4 @@ For a deeper look into how this works, check out the sample app and some article
 
 - [Redux for Swift (Part 1): The Basics](https://medium.com/@swiften.svc/redux-for-swift-part-1-e084a8c304eb)
 - [Redux for Swift (Part 2): Automatic Subscription](https://medium.com/@swiften.svc/redux-for-swift-part-2-52bc9f306b56)
+- [Redux for Swift (Part 3): OutProps](https://medium.com/@swiften.svc/redux-for-swift-part-3-outprops-3e754965581a)
