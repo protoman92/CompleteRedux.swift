@@ -13,6 +13,8 @@ extension Redux.Saga {
   /// Base class for a side effect. Subclasses must override the main invocation
   /// method to customize the saga output.
   public class Effect<State, R>: ReduxSagaEffectType {
+    init() {}
+    
     public func invoke(_ input: Input<State>) -> Output<R> {
       return Output(.error(Redux.Saga.Error.unimplemented), {_ in})
     }

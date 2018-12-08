@@ -11,6 +11,16 @@ import XCTest
 @testable import ReactiveRedux
 
 final class ReduxPresetTest: XCTestCase {
+  override func setUp() {
+    super.setUp()
+    _ = Redux()
+    _ = Redux.Middleware()
+    _ = Redux.Preset()
+    _ = Redux.Saga()
+    _ = Redux.Store()
+    _ = Redux.UI()
+  }
+  
   func test_defaultAction_shouldWork() {
     /// Setup
     let initialObject = [String : Int]()
