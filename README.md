@@ -14,6 +14,7 @@ Redux implementations for iOS clients. This library provides:
 
 For a deeper look into how this works, check out the sample app and some articles I wrote:
 
-- [Redux for Swift (Part 1): The Basics](https://medium.com/@swiften.svc/redux-for-swift-part-1-e084a8c304eb)
-- [Redux for Swift (Part 2): Automatic Subscription](https://medium.com/@swiften.svc/redux-for-swift-part-2-52bc9f306b56)
+- [Redux for Swift (Part 1): The Basics](https://medium.com/@swiften.svc/redux-for-swift-part-1-the-basics-842278cf4b93)
+- [Redux for Swift (Part 2): Automatic Subscription](https://medium.com/@swiften.svc/redux-for-swift-part-2-automatic-subscription-954a7c241c39)
 - [Redux for Swift (Part 3): OutProps](https://medium.com/@swiften.svc/redux-for-swift-part-3-outprops-3e754965581a)
+- [Redux for Swift (Part 4): Routing and Navigation](https://medium.com/@swiften.svc/redux-for-swift-part-4-routing-and-navigation-3f445892d70e)
