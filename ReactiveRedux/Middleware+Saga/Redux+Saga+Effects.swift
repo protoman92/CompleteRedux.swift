@@ -12,6 +12,7 @@ import SwiftFP
 extension Redux.Saga.Effect {
   public typealias E = Redux.Saga.Effect
   typealias Call = Redux.Saga.CallEffect
+  typealias CatchError = Redux.Saga.CatchErrorEffect
   typealias Delay = Redux.Saga.DelayEffect
   typealias Empty = Redux.Saga.EmptyEffect
   typealias Just = Redux.Saga.JustEffect
@@ -43,7 +44,8 @@ extension Redux.Saga.Effect {
   /// - Returns: An Effect instance.
   public static func call<P>(
     with param: E<State, P>,
-    callCreator: @escaping (P, @escaping (Try<R>) -> Void) -> Void) -> E<State, R>
+    callCreator: @escaping (P, @escaping (Try<R>) -> Void) -> Void)
+    -> E<State, R>
   {
     return call(with: param) {(param) in
       return Observable.create({obs in
@@ -59,6 +61,19 @@ extension Redux.Saga.Effect {
         return Disposables.create()
       })
     }
+  }
+  
+  /// Create a catch error effect.
+  ///
+  /// - Parameters:
+  ///   - source: The source effect.
+  ///   - catcher: The error catcher function.
+  /// - Returns: An Effect instance.
+  public static func catchError(
+    _ source: E<State, R>,
+    catcher: @escaping (Swift.Error) throws -> E<State, R>) -> E<State, R>
+  {
+    return CatchError(source, catcher)
   }
   
   /// Create an empty effect.

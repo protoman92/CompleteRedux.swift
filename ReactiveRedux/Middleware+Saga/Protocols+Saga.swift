@@ -69,6 +69,28 @@ extension ReduxSagaEffectType {
       .asInput(for: {.call(with: $0, callCreator: callCreator)})
   }
   
+  /// Invoke a catch error effect on the current effect.
+  ///
+  /// - Parameter catcher: The error catcher function.
+  /// - Returns: An Effect instance.
+  public func catchError(
+    _ catcher: @escaping (Swift.Error) throws -> Redux.Saga.Effect<State, R>)
+    -> Redux.Saga.Effect<State, R>
+  {
+    return self.asEffect().asInput(for: {.catchError($0, catcher: catcher)})
+  }
+  
+  /// Convenience method to catch error and return a fallback value instead of
+  /// an effect.
+  ///
+  /// - Parameter catcher: The error catcher function.
+  /// - Returns: An Effect instance.
+  public func catchError(_ catcher: @escaping (Swift.Error) throws -> R)
+    -> Redux.Saga.Effect<State, R>
+  {
+    return self.catchError({.just(try catcher($0))})
+  }
+  
   /// Invoke a map effect on the current effect.
   ///
   /// - Parameter mapper: The mapper function.

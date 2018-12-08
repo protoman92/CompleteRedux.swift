@@ -74,6 +74,29 @@ final class ReduxSagaEffectTest: XCTestCase {
     XCTAssertTrue(value3.isFailure)
   }
   
+  func test_catchErrorEffect_shouldReturnFallback() {
+    /// Setup
+    let source = Redux.Saga.Effect<State, Int>.call(with: .just(1)) {_ in
+      let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
+
+      return Observable
+        .error(Redux.Saga.Error.unimplemented)
+        .delay(2, scheduler: scheduler)
+    }
+    
+    let caught = source.catchError({_ in 100})
+    let output1 = source.invoke(withState: (), dispatch: {_ in})
+    let output2 = caught.invoke(withState: (), dispatch: {_ in})
+    
+    /// When
+    let value1 = output1.nextValue(timeoutInSeconds: self.timeout)
+    let value2 = output2.nextValue(timeoutInSeconds: self.timeout)
+    
+    /// Then
+    XCTAssertTrue(value1.isFailure)
+    XCTAssertEqual(value2.value, 100)
+  }
+  
   func test_delayEffect_shouldDelayEmission() {
     /// Setup
     var dispatchCount = 0

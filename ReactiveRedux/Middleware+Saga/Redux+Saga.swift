@@ -40,7 +40,7 @@ extension Redux.Saga {
   /// Output for each saga effect. This is simply a wrapper for Observable.
   public struct Output<T> {
     let onAction: Redux.Store.Dispatch
-    private let source: Observable<T>
+    let source: Observable<T>
     private let disposeBag: DisposeBag
     
     init(_ source: Observable<T>, _ onAction: @escaping Redux.Store.Dispatch) {
@@ -67,6 +67,10 @@ extension Redux.Saga {
     
     func switchMap<R>(_ fn: @escaping (T) throws -> Output<R>) -> Output<R> {
       return self.with(source: self.source.map(fn).flatMapLatest({$0.source}))
+    }
+    
+    func catchError(_ fn: @escaping (Swift.Error) throws -> Output<T>) -> Output<T> {
+      return self.with(source: self.source.catchError({try fn($0).source}))
     }
     
     func delay(bySeconds sec: TimeInterval,

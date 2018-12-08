@@ -41,6 +41,24 @@ extension Redux.Saga {
     }
   }
   
+  /// Effect whose output catches error from another output and return some
+  /// fallback effect.
+  final class CatchErrorEffect<State, R>: Effect<State, R> {
+    private let _source: Effect<State, R>
+    private let _catcher: (Swift.Error) throws -> Effect<State, R>
+    
+    init(_ source: Effect<State, R>,
+         _ catcher: @escaping (Swift.Error) throws -> Effect<State, R>) {
+      self._source = source
+      self._catcher = catcher
+    }
+    
+    override func invoke(_ input: Input<State>) -> Output<R> {
+      return self._source.invoke(input)
+        .catchError({try self._catcher($0).invoke(input)})
+    }
+  }
+  
   /// Effect whose output delays emission by some period of time.
   final class DelayEffect<State, R>: Effect<State, R> {
     private let sourceEffect: Effect<State, R>
@@ -79,6 +97,21 @@ extension Redux.Saga {
     
     override func invoke(_ input: Input<State>) -> Output<R> {
       return Output(.just(self.value), {_ in})
+    }
+  }
+  
+  /// Effect whose output maps the value from that of a source to another value.
+  final class MapEffect<E1, R2>: Effect<E1.State, R2> where E1: ReduxSagaEffectType {
+    private let source: E1
+    private let mapper: (E1.R) throws -> R2
+    
+    init(_ source: E1, _ mapper: @escaping (E1.R) throws -> R2) {
+      self.source = source
+      self.mapper = mapper
+    }
+    
+    override func invoke(_ input: Input<E1.State>) -> Output<R2> {
+      return self.source.invoke(input).map(self.mapper)
     }
   }
   
@@ -143,21 +176,6 @@ extension Redux.Saga {
     override func invoke(_ input: Input<State>) -> Output<U> {
       return self.effect1.invoke(input).flatMap({result1 in
         self.effect2.invoke(input).map({try self.combineFunc(result1, $0)})})
-    }
-  }
-  
-  /// Effect whose output maps the value from that of a source to another value.
-  final class MapEffect<E1, R2>: Effect<E1.State, R2> where E1: ReduxSagaEffectType {
-    private let source: E1
-    private let mapper: (E1.R) throws -> R2
-    
-    init(_ source: E1, _ mapper: @escaping (E1.R) throws -> R2) {
-      self.source = source
-      self.mapper = mapper
-    }
-    
-    override func invoke(_ input: Input<E1.State>) -> Output<R2> {
-      return self.source.invoke(input).map(self.mapper)
     }
   }
 }
