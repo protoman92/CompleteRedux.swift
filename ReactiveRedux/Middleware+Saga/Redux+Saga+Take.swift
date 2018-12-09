@@ -12,7 +12,7 @@ extension Redux.Saga {
   
   /// Take effects are streams that filter actions and pluck out the appropriate
   /// ones to perform additional work on.
-  class TakeEffect<State, Action, P, R>: Effect<State, R> where
+  public class TakeEffect<State, Action, P, R>: Effect<State, R> where
     Action: ReduxActionType
   {
     private let _paramExtractor: (Action) -> P?
@@ -30,7 +30,7 @@ extension Redux.Saga {
       self._outputFlattener = outputFlattener
     }
     
-    override func invoke(_ input: Input<State>) -> Output<R> {
+    override public func invoke(_ input: Input<State>) -> Output<R> {
       let paramStream = PublishSubject<P>()
       
       return self._outputFlattener(
@@ -44,7 +44,7 @@ extension Redux.Saga {
   
   /// Effect whose output takes all actions that pass some conditions, then
   /// flattens and emits all values. Contrast this with take latest.
-  final class TakeEveryEffect<State, Action, P, R>:
+  public final class TakeEveryEffect<State, Action, P, R>:
     TakeEffect<State, Action, P, R> where Action: ReduxActionType
   {
     init(_ paramExtractor: @escaping (Action) -> P?,
@@ -59,9 +59,10 @@ extension Redux.Saga {
   
   /// Effect whose output switches to the latest action every time one arrives.
   /// This is best used for cases whereby we are only interested in the latest
-  /// value, such as in an autocomplete implementation. We define the type of
-  /// action and param extractor to filter out actions we are not interested in.
-  final class TakeLatestEffect<State, Action, P, R>:
+  /// value, such as in an autocomplete search implementation. We define the
+  /// type of action and param extractor to filter out actions we are not
+  /// interested in.
+  public final class TakeLatestEffect<State, Action, P, R>:
     TakeEffect<State, Action, P, R> where Action: ReduxActionType
   {
     init(_ paramExtractor: @escaping (Action) -> P?,

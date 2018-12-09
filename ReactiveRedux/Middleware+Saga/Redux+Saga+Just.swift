@@ -9,14 +9,14 @@
 extension Redux.Saga {
 
   /// Effect whose output simply emits some specified element.
-  final class JustEffect<State, R>: Effect<State, R> {
+  public final class JustEffect<State, R>: Effect<State, R> {
     private let value: R
     
     init(_ value: R) {
       self.value = value
     }
     
-    override func invoke(_ input: Input<State>) -> Output<R> {
+    override public func invoke(_ input: Input<State>) -> Output<R> {
       return Output(.just(self.value), {_ in})
     }
   }

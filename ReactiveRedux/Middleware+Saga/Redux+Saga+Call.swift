@@ -13,17 +13,17 @@ extension Redux.Saga {
 
   /// Effect whose output performs some asynchronous work and then emit the
   /// result.
-  final class CallEffect<State, P, R>: Effect<State, R> {
+  public final class CallEffect<State, P, R>: Effect<State, R> {
     private let _param: Redux.Saga.Effect<State, P>
     private let _callCreator: (P) -> Observable<R>
     
-    init(_ param: Redux.Saga.Effect<State, P>,
-         _ callCreator: @escaping (P) -> Observable<R>) {
+    public init(_ param: Redux.Saga.Effect<State, P>,
+                _ callCreator: @escaping (P) -> Observable<R>) {
       self._param = param
       self._callCreator = callCreator
     }
     
-    override func invoke(_ input: Input<State>) -> Output<R> {
+    override public func invoke(_ input: Input<State>) -> Output<R> {
       return self._param.invoke(input).flatMap(self._callCreator)
     }
   }

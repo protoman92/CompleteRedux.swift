@@ -8,17 +8,19 @@
 
 extension Redux.Saga {
   
-  /// Effect whose output maps the value from that of a source to another value.
-  final class MapEffect<E1, R2>: Effect<E1.State, R2> where E1: ReduxSagaEffectType {
-    private let source: E1
-    private let mapper: (E1.R) throws -> R2
+  /// Effect whose output maps the value emissions from that of a source to
+  /// other values of possible different types.
+  public final class MapEffect<State, R1, R2>: Effect<State, R2> {
+    private let source: Redux.Saga.Effect<State, R1>
+    private let mapper: (R1) throws -> R2
     
-    init(_ source: E1, _ mapper: @escaping (E1.R) throws -> R2) {
+    init(_ source: Redux.Saga.Effect<State, R1>,
+         _ mapper: @escaping (R1) throws -> R2) {
       self.source = source
       self.mapper = mapper
     }
     
-    override func invoke(_ input: Input<E1.State>) -> Output<R2> {
+    override public func invoke(_ input: Input<State>) -> Output<R2> {
       return self.source.invoke(input).map(self.mapper)
     }
   }
@@ -33,6 +35,7 @@ extension ReduxSagaEffectType {
   public func map<R2>(_ mapper: @escaping (R) throws -> R2)
     -> Redux.Saga.Effect<State, R2>
   {
-    return self.asInput(for: {.map($0, withMapper: mapper)})
+    return self.asEffect()
+      .asInput(for: {Redux.Saga.Effect.map($0, withMapper: mapper)})
   }
 }

@@ -9,7 +9,7 @@
 extension Redux.Saga {
 
   /// Effect whose output delays emission by some period of time.
-  final class DelayEffect<State, R>: Effect<State, R> {
+  public final class DelayEffect<State, R>: Effect<State, R> {
     private let sourceEffect: Effect<State, R>
     private let delayTime: TimeInterval
     private let dispatchQueue: DispatchQueue
@@ -22,7 +22,7 @@ extension Redux.Saga {
       self.dispatchQueue = dispatchQueue
     }
     
-    override func invoke(_ input: Input<State>) -> Output<R> {
+    override public func invoke(_ input: Input<State>) -> Output<R> {
       return self.sourceEffect.invoke(input).delay(
         bySeconds: self.delayTime,
         usingQueue: self.dispatchQueue)

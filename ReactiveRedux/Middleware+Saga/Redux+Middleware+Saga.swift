@@ -7,6 +7,8 @@
 //
 
 public extension Redux.Middleware {
+
+  /// Top-level namespace for Saga middleware.
   public final class Saga {
 
     /// Hook up sagas by subscribing for inner values and dispatching action

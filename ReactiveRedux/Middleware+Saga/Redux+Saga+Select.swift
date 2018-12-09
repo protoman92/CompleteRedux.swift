@@ -8,16 +8,16 @@
 
 extension Redux.Saga {
   
-  /// Effect whose output selects some value from a redux store's managed state.
-  /// The extracted value can then be fed to other effects that require params.
-  final class SelectEffect<State, R>: Effect<State, R> {
+  /// Effect whose output selects some value from a Redux store's managed state.
+  /// The extracted value can then be fed to other effects.
+  public final class SelectEffect<State, R>: Effect<State, R> {
     private let _selector: (State) -> R
     
     init(_ selector: @escaping (State) -> R) {
       self._selector = selector
     }
     
-    override func invoke(_ input: Input<State>) -> Output<R> {
+    override public func invoke(_ input: Input<State>) -> Output<R> {
       return Output(.just(self._selector(input.lastState())), {_ in})
     }
   }

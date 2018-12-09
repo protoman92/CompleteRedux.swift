@@ -8,9 +8,9 @@
 
 extension Redux.Saga {
   
-  /// Empty effect whose output does not emit anything.
-  final class EmptyEffect<State, R>: Effect<State, R> {
-    override func invoke(_ input: Input<State>) -> Output<R> {
+  /// Empty effect whose output does not stream anything.
+  public final class EmptyEffect<State, R>: Effect<State, R> {
+    override public func invoke(_ input: Input<State>) -> Output<R> {
       return Output(.empty(), {_ in})
     }
   }

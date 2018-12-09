@@ -8,9 +8,9 @@
 
 extension Redux.Saga {
 
-  /// Effect whose output catches error from another output and return some
-  /// fallback effect.
-  final class CatchErrorEffect<State, R>: Effect<State, R> {
+  /// Effect whose output catches error from another effect's output and return
+  /// some fallback effect.
+  public final class CatchErrorEffect<State, R>: Effect<State, R> {
     private let _source: Effect<State, R>
     private let _catcher: (Swift.Error) throws -> Effect<State, R>
     
@@ -20,7 +20,7 @@ extension Redux.Saga {
       self._catcher = catcher
     }
     
-    override func invoke(_ input: Input<State>) -> Output<R> {
+    override public func invoke(_ input: Input<State>) -> Output<R> {
       return self._source.invoke(input)
         .catchError({try self._catcher($0).invoke(input)})
     }

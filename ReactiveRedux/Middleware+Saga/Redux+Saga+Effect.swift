@@ -10,8 +10,9 @@ import RxSwift
 
 extension Redux.Saga {
 
-  /// Base class for a side effect. Subclasses must override the main invocation
-  /// method to customize the saga output.
+  /// Base class for a side effect that is able to produce an output stream
+  /// based on the current state of the Redux store. Subclasses must override
+  /// the main invocation method to customize the saga output.
   public class Effect<State, R>: ReduxSagaEffectType {
     init() {}
     

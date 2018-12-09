@@ -10,11 +10,11 @@ import RxSwift
 
 extension Redux.Saga {
   
-  /// Effect whose output puts some external value into the redux store's
+  /// Effect whose output puts some external value into the Redux store's
   /// managed state. We may also want to specify the dispatch queue on which
   /// to dispatch the action so that specific order (e.g. serial) may be
   /// achieved.
-  final class PutEffect<State, P>: Effect<State, Any> {
+  public final class PutEffect<State, P>: Effect<State, Any> {
     private let _actionCreator: (P) -> ReduxActionType
     private let _param: Redux.Saga.Effect<State, P>
     private let _dispatchQueue: DispatchQueue
@@ -27,7 +27,7 @@ extension Redux.Saga {
       self._dispatchQueue = dispatchQueue
     }
     
-    override func invoke(_ input: Input<State>) -> Output<Any> {
+    override public func invoke(_ input: Input<State>) -> Output<Any> {
       return _param.invoke(input)
         .map(self._actionCreator)
         .observeOn(ConcurrentDispatchQueueScheduler(queue: self._dispatchQueue))

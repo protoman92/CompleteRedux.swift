@@ -10,24 +10,20 @@ extension Redux.Saga {
   
   /// Effect whose output is the result of sequentializing the outputs of two
   /// effects. Use this effect to make sure one effect happens after another.
-  final class SequentializeEffect<E1, E2, U>: Effect<E2.State, U> where
-    E1: ReduxSagaEffectType,
-    E2: ReduxSagaEffectType,
-    E1.State == E2.State
-  {
-    private let effect1: E1
-    private let effect2: E2
-    private let combineFunc: (E1.R, E2.R) throws -> U
+  public final class SequentializeEffect<State, R1, R2, U>: Effect<State, U> {
+    private let effect1: Redux.Saga.Effect<State, R1>
+    private let effect2: Redux.Saga.Effect<State, R2>
+    private let combineFunc: (R1, R2) throws -> U
     
-    init(_ effect1: E1,
-         _ effect2: E2,
-         _ combineFunc: @escaping (E1.R, E2.R) throws -> U) {
+    init(_ effect1: Redux.Saga.Effect<State, R1>,
+         _ effect2: Redux.Saga.Effect<State, R2>,
+         _ combineFunc: @escaping (R1, R2) throws -> U) {
       self.effect1 = effect1
       self.effect2 = effect2
       self.combineFunc = combineFunc
     }
     
-    override func invoke(_ input: Input<State>) -> Output<U> {
+    override public func invoke(_ input: Input<State>) -> Output<U> {
       return self.effect1.invoke(input).flatMap({result1 in
         self.effect2.invoke(input).map({try self.combineFunc(result1, $0)})})
     }
@@ -48,10 +44,11 @@ extension ReduxSagaEffectType {
     selector: @escaping (R, R2) throws -> U)
     -> Redux.Saga.Effect<State, U>
   {
-    return self.asInput(for: {.sequentialize($0, effect2, selector: selector)})
+    return self.asEffect()
+      .asInput(for: {.sequentialize($0, effect2, selector: selector)})
   }
   
-  /// Trigger another event and ignore emission from this effect.
+  /// Trigger another effect and ignore emission from this one.
   ///
   /// - Parameter effect2: An Effect instance.
   /// - Returns: An Effect instance.

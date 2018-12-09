@@ -20,7 +20,7 @@ public protocol ReduxSagaEffectConvertibleType {
 /// Implement this protocol to represent a Redux saga effect.
 public protocol ReduxSagaEffectType: ReduxSagaEffectConvertibleType {
   
-  /// Create an output stream from a redux store's internal functionalities.
+  /// Create an output stream from a Redux store's internal functionalities.
   ///
   /// - Parameter input: A Saga Input instance.
   /// - Returns: A Saga Output instance.
@@ -39,9 +39,9 @@ extension ReduxSagaEffectType {
   ///
   /// - Parameter effectCreator: The effect creator function.
   /// - Returns: An Effect instance.
-  public func asInput<R>(
-    for effectCreator: (Self) throws -> Redux.Saga.Effect<State, R>)
-    rethrows -> Redux.Saga.Effect<State, R>
+  public func asInput<R2>(
+    for effectCreator: (Self) throws -> Redux.Saga.Effect<State, R2>) rethrows
+    -> Redux.Saga.Effect<State, R2>
   {
     return try effectCreator(self)
   }
