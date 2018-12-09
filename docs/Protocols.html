@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Protocols  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Section/Protocols" class="dashAnchor"></a>
+    <a title="Protocols  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">ReactiveRedux Docs</a> (84% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">ReactiveRedux Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Protocols  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/Redux.html">Redux</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Redux/Store.html">– Store</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Redux/Middleware.html">– Middleware</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Redux/UI.html">– UI</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Redux/Saga.html">– Saga</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Redux/Preset.html">– Preset</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ReduxCompatibleViewType.html">ReduxCompatibleViewType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ReduxMiddlewareProviderType.html">ReduxMiddlewareProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols.html#/s:13ReactiveRedux0B20NavigationScreenTypeP">ReduxNavigationScreenType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ReduxPropInjectorType.html">ReduxPropInjectorType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ReduxPropMapperType.html">ReduxPropMapperType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ReduxRouterType.html">ReduxRouterType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ReduxSagaEffectConvertibleType.html">ReduxSagaEffectConvertibleType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ReduxSagaEffectType.html">ReduxSagaEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ReduxSagaTakeEffectType.html">ReduxSagaTakeEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ReduxStoreType.html">ReduxStoreType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/RxReduxStoreType.html">RxReduxStoreType</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Protocols</h1>
+            <p>The following protocols are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B20NavigationScreenTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/ReduxNavigationScreenType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B20NavigationScreenTypeP">ReduxNavigationScreenType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implement this protocol to represent a navigatable screen. Usually we would
+use an enum such as the following:</p>
+<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Screen</span><span class="p">:</span> <span class="kt">ReduxNavigationScreenType</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="n">login</span>
+  <span class="k">case</span> <span class="n">dashboard</span>
+<span class="p">}</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxNavigationScreenType</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B10RouterTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/ReduxRouterType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B10RouterTypeP">ReduxRouterType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implement this protocol to handle in-app navigations. We can pass in the
+top navigation controller and, depending on the screen, go to the page
+associated with that screen or replace the whole stack:</p>
+<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Screen</span><span class="p">:</span> <span class="kt">ReduxNavigationScreenType</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="n">login</span>
+  <span class="k">case</span> <span class="n">dashboard</span>
+<span class="p">}</span>
+
+<span class="kd">struct</span> <span class="kt">NavigationRouter</span><span class="p">:</span> <span class="kt">ReduxRouterType</span> <span class="p">{</span>
+  <span class="kd">private</span> <span class="k">let</span> <span class="nv">controller</span><span class="p">:</span> <span class="kt">UINavigationController</span>
+
+  <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">controller</span><span class="p">:</span> <span class="kt">UINavigationController</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">controller</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">navigate</span><span class="p">(</span><span class="n">_</span> <span class="nv">screen</span><span class="p">:</span> <span class="kt">Screen</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="n">screen</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="o">.</span><span class="nv">login</span><span class="p">:</span>
+        <span class="c1">// Go to login screen using nav controller.</span>
+      <span class="k">case</span> <span class="o">.</span><span class="nv">dashboard</span><span class="p">:</span>
+        <span class="c1">// Go to dashboard screen using nav controller.</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+                        <a href="Protocols/ReduxRouterType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxRouterType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/ReduxSagaEffectConvertibleType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP">ReduxSagaEffectConvertibleType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implement this protocol to convert to an effect instance.</p>
+
+                        <a href="Protocols/ReduxSagaEffectConvertibleType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxSagaEffectConvertibleType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B14SagaEffectTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/ReduxSagaEffectType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B14SagaEffectTypeP">ReduxSagaEffectType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implement this protocol to represent a Redux saga effect.</p>
+
+                        <a href="Protocols/ReduxSagaEffectType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxSagaEffectType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/ReduxSagaEffectConvertibleType.html">ReduxSagaEffectConvertibleType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B18SagaTakeEffectTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/ReduxSagaTakeEffectType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B18SagaTakeEffectTypeP">ReduxSagaTakeEffectType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implement this protocol to represent a take effect (e.g. take latest or
+take every).</p>
+
+                        <a href="Protocols/ReduxSagaTakeEffectType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxSagaTakeEffectType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/ReduxSagaEffectType.html">ReduxSagaEffectType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B22MiddlewareProviderTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/ReduxMiddlewareProviderType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B22MiddlewareProviderTypeP">ReduxMiddlewareProviderType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Middleware provider that can be used to wrap a base store.</p>
+
+                        <a href="Protocols/ReduxMiddlewareProviderType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxMiddlewareProviderType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B10ActionTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/ReduxActionType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Classes that implement this protocol should represent possible actions that
+can be passed to a reducer.</p>
+
+<p>Ideally, an app should define an enum for this purpose, so that it can pass
+data as enum arguments.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxActionType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B9StoreTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/ReduxStoreType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B9StoreTypeP">ReduxStoreType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This represents a Redux store that can dispatch actions to mutate internal
+state and broadcast state updates to subscribers.</p>
+
+                        <a href="Protocols/ReduxStoreType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxStoreType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux02RxB9StoreTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/RxReduxStoreType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux02RxB9StoreTypeP">RxReduxStoreType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Classes that implement this protocol should act as a Redux-compliant store.</p>
+
+                        <a href="Protocols/RxReduxStoreType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">RxReduxStoreType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/ReduxStoreType.html">ReduxStoreType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B18CompatibleViewTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/ReduxCompatibleViewType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B18CompatibleViewTypeP">ReduxCompatibleViewType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A view that conforms to this protocol can receive state/action props and
+subscribe to state changes.</p>
+
+                        <a href="Protocols/ReduxCompatibleViewType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxCompatibleViewType</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B16PropInjectorTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/ReduxPropInjectorType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B16PropInjectorTypeP">ReduxPropInjectorType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Inject views with state/action props, similar to how React.js performs
+connect.</p>
+
+                        <a href="Protocols/ReduxPropInjectorType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxPropInjectorType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B14PropMapperTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/ReduxPropMapperType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B14PropMapperTypeP">ReduxPropMapperType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Prop mapper that maps state/dispatch to Redux props. Redux props include
+StateProps (information to populate the UI) and ActionProps (set of actions
+to handle UI interactions).</p>
+
+<p>The methods defined here are static because we want to restrict usage of
+internal state as much as possible. We should only use whatever data that
+are passed in via parameters to create props (e.g. state, outProps).</p>
+
+                        <a href="Protocols/ReduxPropMapperType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxPropMapperType</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ReduxPropInjectorType Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/ReduxPropInjectorType" class="dashAnchor"></a>
+    <a title="ReduxPropInjectorType Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">ReactiveRedux Docs</a> (84% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">ReactiveRedux Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ReduxPropInjectorType Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Redux.html">Redux</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Redux/Store.html">– Store</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Redux/Middleware.html">– Middleware</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Redux/UI.html">– UI</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Redux/Saga.html">– Saga</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Redux/Preset.html">– Preset</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxCompatibleViewType.html">ReduxCompatibleViewType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxMiddlewareProviderType.html">ReduxMiddlewareProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:13ReactiveRedux0B20NavigationScreenTypeP">ReduxNavigationScreenType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxPropInjectorType.html">ReduxPropInjectorType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxPropMapperType.html">ReduxPropMapperType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxRouterType.html">ReduxRouterType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxSagaEffectConvertibleType.html">ReduxSagaEffectConvertibleType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxSagaEffectType.html">ReduxSagaEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxSagaTakeEffectType.html">ReduxSagaTakeEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxStoreType.html">ReduxStoreType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RxReduxStoreType.html">RxReduxStoreType</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ReduxPropInjectorType</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxPropInjectorType</span></code></pre>
+
+                </div>
+              </div>
+            <p>Inject views with state/action props, similar to how React.js performs
+connect.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B16PropInjectorTypeP5StateQa"></a>
+                    <a name="//apple_ref/swift/Alias/State" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B16PropInjectorTypeP5StateQa">State</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The app-specific state type.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">State</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps10controller03outG06mapperAA0B0C5StoreC12SubscriptionVqd___03OutG0Qyd__qd_0_mtSo16UIViewControllerCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0R0Rtzr0_lF"></a>
+                    <a name="//apple_ref/swift/Method/injectProps(controller:outProps:mapper:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps10controller03outG06mapperAA0B0C5StoreC12SubscriptionVqd___03OutG0Qyd__qd_0_mtSo16UIViewControllerCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0R0Rtzr0_lF">injectProps(controller:outProps:mapper:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Inject state/action props into a compatible view controller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="n">injectProps</span><span class="o">&lt;</span><span class="kt">VC</span><span class="p">,</span> <span class="kt">MP</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="kt">VC</span><span class="p">,</span> <span class="nv">outProps</span><span class="p">:</span> <span class="kt">VC</span><span class="o">.</span><span class="kt">OutProps</span><span class="p">,</span> <span class="nv">mapper</span><span class="p">:</span> <span class="kt">MP</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Store</span><span class="o">.</span><span class="kt">Subscription</span> <span class="k">where</span> <span class="kt">VC</span> <span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">VC</span> <span class="o">==</span> <span class="kt">MP</span><span class="o">.</span><span class="kt">ReduxView</span><span class="p">,</span> <span class="kt">MP</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ReduxPropMapperType.html">ReduxPropMapperType</a></span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt"><a href="../Protocols/ReduxPropInjectorType.html#/s:13ReactiveRedux0B16PropInjectorTypeP5StateQa">State</a></span> <span class="o">==</span> <span class="kt">VC</span><span class="o">.</span><span class="kt">ReduxState</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>vc</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A view controller instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>outProps</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An OutProps instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mapper</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A Redux prop mapper.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A ReduxSubscription instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps4view03outG06mapperAA0B0C5StoreC12SubscriptionVqd___03OutG0Qyd__qd_0_mtSo6UIViewCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0Q0Rtzr0_lF"></a>
+                    <a name="//apple_ref/swift/Method/injectProps(view:outProps:mapper:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps4view03outG06mapperAA0B0C5StoreC12SubscriptionVqd___03OutG0Qyd__qd_0_mtSo6UIViewCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0Q0Rtzr0_lF">injectProps(view:outProps:mapper:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Inject state/action props into a compatible view.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="n">injectProps</span><span class="o">&lt;</span><span class="kt">V</span><span class="p">,</span> <span class="kt">MP</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">view</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">outProps</span><span class="p">:</span> <span class="kt">V</span><span class="o">.</span><span class="kt">OutProps</span><span class="p">,</span> <span class="nv">mapper</span><span class="p">:</span> <span class="kt">MP</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Store</span><span class="o">.</span><span class="kt">Subscription</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt">UIView</span><span class="p">,</span> <span class="kt">V</span> <span class="o">==</span> <span class="kt">MP</span><span class="o">.</span><span class="kt">ReduxView</span><span class="p">,</span> <span class="kt">MP</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ReduxPropMapperType.html">ReduxPropMapperType</a></span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt"><a href="../Protocols/ReduxPropInjectorType.html#/s:13ReactiveRedux0B16PropInjectorTypeP5StateQa">State</a></span> <span class="o">==</span> <span class="kt">V</span><span class="o">.</span><span class="kt">ReduxState</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>view</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A view instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>outProps</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An OutProps instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mapper</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A Redux prop mapper.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A ReduxSubscription instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B16PropInjectorTypePAAE11injectProps10controller03outG0AA0B0C5StoreC12SubscriptionVqd___03OutG0AA0b14CompatibleViewE0PQyd__tSo16UIViewControllerCRbd__AA0bc6MapperE0Rd__0bN0AaSPQyd__Rsd__0B5StateAOQyd__0R0RtzlF"></a>
+                    <a name="//apple_ref/swift/Method/injectProps(controller:outProps:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B16PropInjectorTypePAAE11injectProps10controller03outG0AA0B0C5StoreC12SubscriptionVqd___03OutG0AA0b14CompatibleViewE0PQyd__tSo16UIViewControllerCRbd__AA0bc6MapperE0Rd__0bN0AaSPQyd__Rsd__0B5StateAOQyd__0R0RtzlF">injectProps(controller:outProps:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convenience method to inject props when the controller also conforms to
+the necessary protocols.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="n">injectProps</span><span class="o">&lt;</span><span class="kt">VC</span><span class="o">&gt;</span><span class="p">(</span><span class="n">controller</span> <span class="nv">vc</span><span class="p">:</span> <span class="kt">VC</span><span class="p">,</span> <span class="nv">outProps</span><span class="p">:</span> <span class="kt">VC</span><span class="o">.</span><span class="kt">OutProps</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Store</span><span class="o">.</span><span class="kt">Subscription</span> <span class="k">where</span>
+  <span class="kt">VC</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
+  <span class="kt">VC</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ReduxPropMapperType.html">ReduxPropMapperType</a></span><span class="p">,</span>
+  <span class="kt">VC</span><span class="o">.</span><span class="kt">ReduxState</span> <span class="o">==</span> <span class="kt"><a href="../Protocols/ReduxPropInjectorType.html#/s:13ReactiveRedux0B16PropInjectorTypeP5StateQa">State</a></span><span class="p">,</span>
+  <span class="kt">VC</span><span class="o">.</span><span class="kt">ReduxView</span> <span class="o">==</span> <span class="kt">VC</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>vc</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A view controller instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>outProps</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An OutProps instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A ReduxSubscription instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B16PropInjectorTypePAAE11injectProps4view03outG0AA0B0C5StoreC12SubscriptionVqd___03OutG0AA0b14CompatibleViewE0PQyd__tSo6UIViewCRbd__AA0bc6MapperE0Rd__0bN0AaSPQyd__Rsd__0B5StateAOQyd__0Q0RtzlF"></a>
+                    <a name="//apple_ref/swift/Method/injectProps(view:outProps:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B16PropInjectorTypePAAE11injectProps4view03outG0AA0B0C5StoreC12SubscriptionVqd___03OutG0AA0b14CompatibleViewE0PQyd__tSo6UIViewCRbd__AA0bc6MapperE0Rd__0bN0AaSPQyd__Rsd__0B5StateAOQyd__0Q0RtzlF">injectProps(view:outProps:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convenience method to inject props when the view also conforms to the
+necessary protocols.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="n">injectProps</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">view</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">outProps</span><span class="p">:</span> <span class="kt">V</span><span class="o">.</span><span class="kt">OutProps</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Store</span><span class="o">.</span><span class="kt">Subscription</span> <span class="k">where</span>
+  <span class="kt">V</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">,</span>
+  <span class="kt">V</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ReduxPropMapperType.html">ReduxPropMapperType</a></span><span class="p">,</span>
+  <span class="kt">V</span><span class="o">.</span><span class="kt">ReduxState</span> <span class="o">==</span> <span class="kt"><a href="../Protocols/ReduxPropInjectorType.html#/s:13ReactiveRedux0B16PropInjectorTypeP5StateQa">State</a></span><span class="p">,</span>
+  <span class="kt">V</span><span class="o">.</span><span class="kt">ReduxView</span> <span class="o">==</span> <span class="kt">V</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>view</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A view instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>outProps</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An OutProps instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A ReduxSubscription instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

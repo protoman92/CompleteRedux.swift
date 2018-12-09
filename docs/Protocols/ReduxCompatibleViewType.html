@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ReduxCompatibleViewType Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/ReduxCompatibleViewType" class="dashAnchor"></a>
+    <a title="ReduxCompatibleViewType Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">ReactiveRedux Docs</a> (84% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">ReactiveRedux Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ReduxCompatibleViewType Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Redux.html">Redux</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Redux/Store.html">– Store</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Redux/Middleware.html">– Middleware</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Redux/UI.html">– UI</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Redux/Saga.html">– Saga</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Redux/Preset.html">– Preset</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxCompatibleViewType.html">ReduxCompatibleViewType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxMiddlewareProviderType.html">ReduxMiddlewareProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:13ReactiveRedux0B20NavigationScreenTypeP">ReduxNavigationScreenType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxPropInjectorType.html">ReduxPropInjectorType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxPropMapperType.html">ReduxPropMapperType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxRouterType.html">ReduxRouterType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxSagaEffectConvertibleType.html">ReduxSagaEffectConvertibleType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxSagaEffectType.html">ReduxSagaEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxSagaTakeEffectType.html">ReduxSagaTakeEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxStoreType.html">ReduxStoreType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RxReduxStoreType.html">RxReduxStoreType</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ReduxCompatibleViewType</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReduxCompatibleViewType</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>A view that conforms to this protocol can receive state/action props and
+subscribe to state changes.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B18CompatibleViewTypeP0B5StateQa"></a>
+                    <a name="//apple_ref/swift/Alias/ReduxState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B18CompatibleViewTypeP0B5StateQa">ReduxState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The app&rsquo;s global state type. This helps define the prop injector.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">ReduxState</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B18CompatibleViewTypeP8OutPropsQa"></a>
+                    <a name="//apple_ref/swift/Alias/OutProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B18CompatibleViewTypeP8OutPropsQa">OutProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This props represents data that is directly related to the parent view/
+view controller. For example, when we inject a table view cell, this may
+contain the index of that cell - which will be used to create variable
+props.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">OutProps</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B18CompatibleViewTypeP10StatePropsQa"></a>
+                    <a name="//apple_ref/swift/Alias/StateProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B18CompatibleViewTypeP10StatePropsQa">StateProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This represents variable state that can be used to update the UI.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">StateProps</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B18CompatibleViewTypeP11ActionPropsQa"></a>
+                    <a name="//apple_ref/swift/Alias/ActionProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B18CompatibleViewTypeP11ActionPropsQa">ActionProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This represents a set of actions that can be used to handle user
+interactions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">ActionProps</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B18CompatibleViewTypeP11StaticPropsa"></a>
+                    <a name="//apple_ref/swift/Alias/StaticProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B18CompatibleViewTypeP11StaticPropsa">StaticProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">StaticProps</span> <span class="o">=</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">UI</span><span class="o">.</span><span class="kt">StaticProps</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxCompatibleViewType.html#/s:13ReactiveRedux0B18CompatibleViewTypeP0B5StateQa">ReduxState</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B18CompatibleViewTypeP13VariablePropsa"></a>
+                    <a name="//apple_ref/swift/Alias/VariableProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B18CompatibleViewTypeP13VariablePropsa">VariableProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">VariableProps</span> <span class="o">=</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">UI</span><span class="o">.</span><span class="kt">VariableProps</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxCompatibleViewType.html#/s:13ReactiveRedux0B18CompatibleViewTypeP10StatePropsQa">StateProps</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/ReduxCompatibleViewType.html#/s:13ReactiveRedux0B18CompatibleViewTypeP11ActionPropsQa">ActionProps</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B18CompatibleViewTypeP11staticPropsAA0B0C2UIC06StaticG0Vy__0B5StateQzGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/staticProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B18CompatibleViewTypeP11staticPropsAA0B0C2UIC06StaticG0Vy__0B5StateQzGSgvp">staticProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This prop container includes static dependencies that can be used to
+wire up child views/view controllers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">staticProps</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ReduxCompatibleViewType.html#/s:13ReactiveRedux0B18CompatibleViewTypeP11StaticPropsa">StaticProps</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B18CompatibleViewTypeP13variablePropsAA0B0C2UIC08VariableG0Vy__05StateG0Qz06ActionG0QzGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/variableProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B18CompatibleViewTypeP13variablePropsAA0B0C2UIC08VariableG0Vy__05StateG0Qz06ActionG0QzGSgvp">variableProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This prop container includes variable state/action props.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">variableProps</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ReduxCompatibleViewType.html#/s:13ReactiveRedux0B18CompatibleViewTypeP13VariablePropsa">VariableProps</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B18CompatibleViewTypePA2A0b10PropMapperE0RzrlE0bD0a"></a>
+                    <a name="//apple_ref/swift/Alias/ReduxView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B18CompatibleViewTypePA2A0b10PropMapperE0RzrlE0bD0a">ReduxView</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ReduxView</span> <span class="o">=</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

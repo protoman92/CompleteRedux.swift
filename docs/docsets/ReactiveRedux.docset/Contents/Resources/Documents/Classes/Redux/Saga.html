@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Saga Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Saga" class="dashAnchor"></a>
+    <a title="Saga Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../index.html">ReactiveRedux Docs</a> (84% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../index.html">ReactiveRedux Reference</a>
+        <img id="carat" src="../../img/carat.png" />
+        Saga Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Classes/Redux.html">Redux</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Redux/Store.html">– Store</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Redux/Middleware.html">– Middleware</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Redux/UI.html">– UI</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Redux/Saga.html">– Saga</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Redux/Preset.html">– Preset</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ReduxCompatibleViewType.html">ReduxCompatibleViewType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ReduxMiddlewareProviderType.html">ReduxMiddlewareProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols.html#/s:13ReactiveRedux0B20NavigationScreenTypeP">ReduxNavigationScreenType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ReduxPropInjectorType.html">ReduxPropInjectorType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ReduxPropMapperType.html">ReduxPropMapperType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ReduxRouterType.html">ReduxRouterType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ReduxSagaEffectConvertibleType.html">ReduxSagaEffectConvertibleType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ReduxSagaEffectType.html">ReduxSagaEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ReduxSagaTakeEffectType.html">ReduxSagaTakeEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ReduxStoreType.html">ReduxStoreType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/RxReduxStoreType.html">RxReduxStoreType</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Saga</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Saga</span></code></pre>
+
+                </div>
+              </div>
+            <p>Top-level namespace for Saga-related functionalities.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC10CallEffectC"></a>
+                    <a name="//apple_ref/swift/Class/CallEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC10CallEffectC">CallEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output performs some asynchronous work and then emit the
+result.</p>
+
+                        <a href="../../Classes/Redux/Saga/CallEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">CallEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">P</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC16CatchErrorEffectC"></a>
+                    <a name="//apple_ref/swift/Class/CatchErrorEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC16CatchErrorEffectC">CatchErrorEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output catches error from another effect&rsquo;s output and return
+some fallback effect.</p>
+
+                        <a href="../../Classes/Redux/Saga/CatchErrorEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">CatchErrorEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC11DelayEffectC"></a>
+                    <a name="//apple_ref/swift/Class/DelayEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC11DelayEffectC">DelayEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output delays emission by some period of time.</p>
+
+                        <a href="../../Classes/Redux/Saga/DelayEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">DelayEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC6EffectC"></a>
+                    <a name="//apple_ref/swift/Class/Effect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC6EffectC">Effect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Base class for a side effect that is able to produce an output stream
+based on the current state of the Redux store. Subclasses must override
+the main invocation method to customize the saga output.</p>
+
+                        <a href="../../Classes/Redux/Saga/Effect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Effect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ReduxSagaEffectType.html">ReduxSagaEffectType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC11EmptyEffectC"></a>
+                    <a name="//apple_ref/swift/Class/EmptyEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC11EmptyEffectC">EmptyEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Empty effect whose output does not stream anything.</p>
+
+                        <a href="../../Classes/Redux/Saga/EmptyEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">EmptyEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC10JustEffectC"></a>
+                    <a name="//apple_ref/swift/Class/JustEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC10JustEffectC">JustEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output simply emits some specified element.</p>
+
+                        <a href="../../Classes/Redux/Saga/JustEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">JustEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC9MapEffectC"></a>
+                    <a name="//apple_ref/swift/Class/MapEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC9MapEffectC">MapEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output maps the value emissions from that of a source to
+other values of possible different types.</p>
+
+                        <a href="../../Classes/Redux/Saga/MapEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">MapEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R1</span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC9PutEffectC"></a>
+                    <a name="//apple_ref/swift/Class/PutEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC9PutEffectC">PutEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output puts some external value into the Redux store&rsquo;s
+managed state. We may also want to specify the dispatch queue on which
+to dispatch the action so that specific order (e.g. serial) may be
+achieved.</p>
+
+                        <a href="../../Classes/Redux/Saga/PutEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PutEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">P</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">Any</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC12SelectEffectC"></a>
+                    <a name="//apple_ref/swift/Class/SelectEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC12SelectEffectC">SelectEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output selects some value from a Redux store&rsquo;s managed state.
+The extracted value can then be fed to other effects.</p>
+
+                        <a href="../../Classes/Redux/Saga/SelectEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">SelectEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC19SequentializeEffectC"></a>
+                    <a name="//apple_ref/swift/Class/SequentializeEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC19SequentializeEffectC">SequentializeEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output is the result of sequentializing the outputs of two
+effects. Use this effect to make sure one effect happens after another.</p>
+
+                        <a href="../../Classes/Redux/Saga/SequentializeEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">SequentializeEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R1</span><span class="p">,</span> <span class="kt">R2</span><span class="p">,</span> <span class="kt">U</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">U</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC11TakeOptionsV"></a>
+                    <a name="//apple_ref/swift/Struct/TakeOptions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC11TakeOptionsV">TakeOptions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Setup options for a take-related effect.</p>
+
+                        <a href="../../Classes/Redux/Saga/TakeOptions.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TakeOptions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC10TakeEffectC"></a>
+                    <a name="//apple_ref/swift/Class/TakeEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC10TakeEffectC">TakeEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Take effects are streams that filter actions and pluck out the appropriate
+ones to perform additional work on.</p>
+
+                        <a href="../../Classes/Redux/Saga/TakeEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">TakeEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">Action</span><span class="p">,</span> <span class="kt">P</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="k">where</span>
+  <span class="kt">Action</span><span class="p">:</span> <span class="kt"><a href="../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC15TakeEveryEffectC"></a>
+                    <a name="//apple_ref/swift/Class/TakeEveryEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC15TakeEveryEffectC">TakeEveryEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output takes all actions that pass some conditions, then
+flattens and emits all values. Contrast this with take latest.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">TakeEveryEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">Action</span><span class="p">,</span> <span class="kt">P</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span><span class="p">:</span>
+  <span class="kt"><a href="../../Classes/Redux/Saga/TakeEffect.html">TakeEffect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">Action</span><span class="p">,</span> <span class="kt">P</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Action</span><span class="p">:</span> <span class="kt"><a href="../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC16TakeLatestEffectC"></a>
+                    <a name="//apple_ref/swift/Class/TakeLatestEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC16TakeLatestEffectC">TakeLatestEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output switches to the latest action every time one arrives.
+This is best used for cases whereby we are only interested in the latest
+value, such as in an autocomplete search implementation. We define the
+type of action and param extractor to filter out actions we are not
+interested in.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">TakeLatestEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">Action</span><span class="p">,</span> <span class="kt">P</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span><span class="p">:</span>
+  <span class="kt"><a href="../../Classes/Redux/Saga/TakeEffect.html">TakeEffect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">Action</span><span class="p">,</span> <span class="kt">P</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Action</span><span class="p">:</span> <span class="kt"><a href="../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC5ErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/Error" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC5ErrorO">Error</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Errors specific to Redux Saga.</p>
+
+                        <a href="../../Classes/Redux/Saga/Error.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Error</span> <span class="p">:</span> <span class="kt">LocalizedError</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC5InputV"></a>
+                    <a name="//apple_ref/swift/Struct/Input" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC5InputV">Input</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Input for each saga effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Input</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC6OutputV"></a>
+                    <a name="//apple_ref/swift/Struct/Output" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC6OutputV">Output</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Output for each saga effect. This is simply a wrapper for Observable.</p>
+
+                        <a href="../../Classes/Redux/Saga/Output.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Output</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
