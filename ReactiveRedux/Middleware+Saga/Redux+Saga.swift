@@ -83,11 +83,12 @@ extension Redux.Saga {
       return self.with(source: self.source.delay(sec, scheduler: scheduler))
     }
     
-    public func debounce(
+    func debounce(
       bySeconds sec: TimeInterval,
       usingQueue dispatchQueue: DispatchQueue = .global(qos: .default))
       -> Output<T>
     {
+      guard sec > 0 else { return self }
       let scheduler = ConcurrentDispatchQueueScheduler(queue: dispatchQueue)
       return self.with(source: self.source.debounce(sec, scheduler: scheduler))
     }

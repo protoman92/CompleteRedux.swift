@@ -302,6 +302,41 @@ extension ReduxSagaEffectTest {
         effectCreator: $0)},
       outputValues: [1])
   }
+  
+  func test_takeEffectDebounce_shouldThrottleEmissions() {
+    /// Setup
+    let options = Redux.Saga.TakeOptions.builder().with(debounce: 2).build()
+    
+    let effect = Redux.Saga.Effect<State, Int>.takeEvery(
+      paramExtractor: {(_: TakeAction) in 1},
+      effectCreator: {.just($0)},
+      options: options)
+    
+    let output = effect.invoke(withState: (), dispatch: {_ in})
+    var values = [Int]()
+    
+    /// When
+    output.subscribe({values.append($0)})
+    output.onAction(TakeAction.a)
+    output.onAction(TakeAction.a)
+    output.onAction(TakeAction.a)
+    output.onAction(TakeAction.a)
+    output.onAction(TakeAction.a)
+    
+    /// Then
+    let waitTime = UInt64(pow(10 as Double, 9) * 3)
+    let timeout = DispatchTime.now().uptimeNanoseconds + waitTime
+    let deadline = DispatchTime(uptimeNanoseconds: timeout)
+    let dispatchGroup = DispatchGroup()
+    dispatchGroup.enter()
+    
+    DispatchQueue.global(qos: .background).asyncAfter(deadline: deadline) {
+      dispatchGroup.leave()
+    }
+    
+    dispatchGroup.wait()
+    XCTAssertEqual(values, [1])
+  }
 }
 
 extension ReduxSagaEffectTest {

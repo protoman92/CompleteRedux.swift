@@ -34,7 +34,7 @@ final class AppReduxSaga {
       Redux.Saga.Effect.takeEvery(
         paramExtractor: extractAutocompleteInput,
         effectCreator: autocompleteSaga,
-        outputTransformer: {$0.debounce(bySeconds: 0.5)})
+        options: Redux.Saga.TakeOptions.builder().with(debounce: 0.5).build())
     ]
   }
 }

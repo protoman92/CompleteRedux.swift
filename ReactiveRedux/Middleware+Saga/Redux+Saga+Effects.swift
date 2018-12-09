@@ -157,18 +157,16 @@ extension Redux.Saga.Effect {
   /// - Parameters:
   ///   - paramExtractor: The param extractor function.
   ///   - effectCreator: The effect creator function.
-  ///   - outputTransformer: The output transformer to add functionalities.
+  ///   - options: Additional take options.
   /// - Returns: An Effect instance.
   public static func takeEvery<Action, P>(
     paramExtractor: @escaping (Action) -> P?,
     effectCreator: @escaping (P) -> Redux.Saga.Effect<State, R>,
-    outputTransformer: @escaping (Redux.Saga.Output<P>)
-    -> Redux.Saga.Output<P> = {$0})
+    options: Redux.Saga.TakeOptions = .default())
     -> Redux.Saga.TakeEveryEffect<State, Action, P, R> where
     Action: ReduxActionType
   {
-    return Redux.Saga.TakeEveryEffect
-      .init(paramExtractor, effectCreator, outputTransformer)
+    return Redux.Saga.TakeEveryEffect(paramExtractor, effectCreator, options)
   }
   
   /// Create a take latest effect.
@@ -176,17 +174,15 @@ extension Redux.Saga.Effect {
   /// - Parameters:
   ///   - paramExtractor: The param extractor function.
   ///   - effectCreator: The effect creator function.
-  ///   - outputTransformer: The output transformer to add functionalities.
+  ///   - options: Additinoal take options.
   /// - Returns: An Effect instance.
   public static func takeLatest<Action, P>(
     paramExtractor: @escaping (Action) -> P?,
     effectCreator: @escaping (P) -> Redux.Saga.Effect<State, R>,
-    outputTransformer: @escaping (Redux.Saga.Output<P>)
-    -> Redux.Saga.Output<P> = {$0})
+    options: Redux.Saga.TakeOptions = .default())
     -> Redux.Saga.TakeLatestEffect<State, Action, P, R> where
     Action: ReduxActionType
   {
-    return Redux.Saga.TakeLatestEffect
-      .init(paramExtractor, effectCreator, outputTransformer)
+    return Redux.Saga.TakeLatestEffect(paramExtractor, effectCreator, options)
   }
 }
