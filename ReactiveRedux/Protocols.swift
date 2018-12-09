@@ -15,8 +15,19 @@ import SwiftFP
 /// data as enum arguments.
 public protocol ReduxActionType {}
 
-/// This represents a Redux store that stream state updates.
+/// This represents a Redux store that can dispatch actions to mutate internal
+/// state and broadcast state updates to subscribers.
 public protocol ReduxStoreType {
+  
+  /// The app-specific state type. For example:
+  ///
+  ///     struct State {
+  ///       var counter: Int = 0
+  ///       var user: User? = nil
+  ///     }
+  ///
+  /// It is recommended to make the state immutable to avoid unintended side
+  /// effects.
   associatedtype State
   
   /// Get the last state instance.

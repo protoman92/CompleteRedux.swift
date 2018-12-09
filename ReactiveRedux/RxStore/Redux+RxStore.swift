@@ -28,7 +28,7 @@ public extension Redux.Store {
   /// should operation on the main thread.
   public struct RxStore<State> {
     
-    /// Create a redux store that only receives and delivers events on the main
+    /// Create a Redux store that only receives and delivers events on the main
     /// thread.
     ///
     /// - Parameters:

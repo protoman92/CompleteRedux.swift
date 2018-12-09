@@ -11,7 +11,7 @@ public extension Redux.UI {
   /// Static props container.
   public struct StaticProps<State> {
     
-    /// The injector instance used to inject redux props into compatible views.
+    /// The injector instance used to inject Redux props into compatible views.
     public let injector: Redux.UI.PropInjector<State>
     
     /// Remember to unsubscribe before re-injecting again.
@@ -36,7 +36,7 @@ public extension Redux.UI {
     /// The next state props.
     public let nextState: StateProps
     
-    /// Props to store redux actions.
+    /// Props to store Redux actions.
     public let action: ActionProps
     
     init(_ firstInstance: Bool,

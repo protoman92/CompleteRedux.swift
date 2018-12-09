@@ -8,7 +8,7 @@
 
 import RxSwift
 
-/// Classes that implement this protocol should act as a redux-compliant store.
+/// Classes that implement this protocol should act as a Redux-compliant store.
 public protocol RxReduxStoreType: ReduxStoreType {
   
   /// Trigger an action.

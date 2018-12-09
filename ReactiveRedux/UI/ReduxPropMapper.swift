@@ -6,7 +6,7 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-/// Prop mapper that maps state/dispatch to redux props. Redux props include
+/// Prop mapper that maps state/dispatch to Redux props. Redux props include
 /// StateProps (information to populate the UI) and ActionProps (set of actions
 /// to handle UI interactions).
 ///
@@ -16,9 +16,16 @@
 public protocol ReduxPropMapperType: class {
   associatedtype ReduxView: ReduxCompatibleViewType
   
+  /// The app-specific state type.
   typealias ReduxState = ReduxView.ReduxState
+  
+  /// The Redux view's OutProps.
   typealias OutProps = ReduxView.OutProps
+  
+  /// The Redux view's StateProps.
   typealias StateProps = ReduxView.StateProps
+  
+  /// The Redux view's ActionProps.
   typealias ActionProps = ReduxView.ActionProps
   
   /// Map ReduxState to StateProps.

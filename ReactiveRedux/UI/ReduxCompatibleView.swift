@@ -39,7 +39,7 @@ public protocol ReduxCompatibleViewType: class {
   var variableProps: VariableProps? { get set }
 }
 
-/// Generally the redux view also implements the prop mapper protocol, so in
+/// Generally the Redux view also implements the prop mapper protocol, so in
 /// this case we can define some default generics.
 public extension ReduxCompatibleViewType where Self: ReduxPropMapperType {
   public typealias ReduxView = Self

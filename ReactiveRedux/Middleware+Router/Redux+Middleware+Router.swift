@@ -7,7 +7,10 @@
 //
 
 public extension Redux.Middleware {
+
+  /// Top-level namespace for Redux Router middleware.
   public final class Router {
+    init() {}
 
     /// Screen navigation function.
     public typealias Navigate<Screen> = (Screen) -> Void
@@ -15,14 +18,14 @@ public extension Redux.Middleware {
     /// Middleware to handle router navigation. After we hook this middleware
     /// up, we can perform navigations by dispatching screens like so:
     ///
-    /// enum Screen: ReduxNavigationScreenType {
-    ///   case login
-    ///   case dashboard
-    /// }
+    ///     enum Screen: ReduxNavigationScreenType {
+    ///       case login
+    ///       case dashboard
+    ///     }
     ///
-    /// ...
-    /// dispatch(Screen.login)
-    /// dispatch(Screen.password)
+    ///     ...
+    ///     dispatch(Screen.login)
+    ///     dispatch(Screen.password)
     public struct Provider<State, Screen: ReduxNavigationScreenType>:
       ReduxMiddlewareProviderType
     {

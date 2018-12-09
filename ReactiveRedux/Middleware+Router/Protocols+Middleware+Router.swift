@@ -9,39 +9,41 @@
 /// Implement this protocol to represent a navigatable screen. Usually we would
 /// use an enum such as the following:
 ///
-/// enum Screen: ReduxNavigationScreenType {
-///   case login
-///   case dashboard
-/// }
+///     enum Screen: ReduxNavigationScreenType {
+///       case login
+///       case dashboard
+///     }
 public protocol ReduxNavigationScreenType: ReduxActionType {}
 
 /// Implement this protocol to handle in-app navigations. We can pass in the
 /// top navigation controller and, depending on the screen, go to the page
 /// associated with that screen or replace the whole stack:
 ///
-/// enum Screen: ReduxNavigationScreenType {
-///   case login
-///   case dashboard
-/// }
-///
-/// struct NavigationRouter: ReduxRouterType {
-///   private let controller: UINavigationController
-///
-///   init(_ controller: UINavigationController) {
-///     self.controller = controller
-///   }
-///
-///   func navigate(_ screen: Screen) {
-///     switch screen {
-///       case .login:
-///         // Go to login screen using nav controller.
-///       case .dashboard:
-///         // Go to dashboard screen using nav controller.
+///     enum Screen: ReduxNavigationScreenType {
+///       case login
+///       case dashboard
 ///     }
-///   }
-/// }
+///
+///     struct NavigationRouter: ReduxRouterType {
+///       private let controller: UINavigationController
+///
+///       init(_ controller: UINavigationController) {
+///         self.controller = controller
+///       }
+///
+///       func navigate(_ screen: Screen) {
+///         switch screen {
+///           case .login:
+///             // Go to login screen using nav controller.
+///           case .dashboard:
+///             // Go to dashboard screen using nav controller.
+///         }
+///       }
+///     }
 ///
 public protocol ReduxRouterType {
+  
+  /// The app-specific screen implementation for this router.
   associatedtype Screen: ReduxNavigationScreenType
   
   /// Navigate to a screen.

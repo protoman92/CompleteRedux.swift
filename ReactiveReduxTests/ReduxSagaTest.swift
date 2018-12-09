@@ -17,6 +17,7 @@ final class ReduxSagaTest: XCTestCase {
   
   override func setUp() {
     super.setUp()
+    _ = Redux.Middleware.Saga()
     let input = Redux.Middleware.Input({()})
     let wrapper = Redux.Store.DispatchWrapper("", {_ in self.dispatchCount += 1})
     self.dispatchCount = 0

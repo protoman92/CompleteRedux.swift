@@ -16,6 +16,7 @@ final class ReduxRouterTest: XCTestCase {
   
   override func setUp() {
     super.setUp()
+    _ = Redux.Middleware.Router()
     let input = Redux.Middleware.Input({()})
     let wrapper = Redux.Store.DispatchWrapper("", {_ in self.dispatchCount += 1})
     self.router = Router()

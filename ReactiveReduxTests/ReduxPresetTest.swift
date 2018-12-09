@@ -16,6 +16,7 @@ final class ReduxPresetTest: XCTestCase {
     _ = Redux()
     _ = Redux.Middleware()
     _ = Redux.Preset()
+    _ = Redux.Preset.Reducer()
     _ = Redux.Saga()
     _ = Redux.Store()
     _ = Redux.UI()

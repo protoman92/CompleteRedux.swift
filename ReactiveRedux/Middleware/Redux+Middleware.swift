@@ -69,7 +69,7 @@ public extension Redux.Middleware {
     }
   }
   
-  /// Apply a series of middlewares to a redux store.
+  /// Apply a series of middlewares to a Redux store.
   ///
   /// - Parameter middlewares: An Array of middlewares.
   /// - Returns: A Store instance.

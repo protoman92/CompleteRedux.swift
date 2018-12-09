@@ -10,7 +10,11 @@ import RxSwift
 import SwiftFP
 
 extension Redux.Saga {
+
+  /// Errors specific to Redux Saga.
   public enum Error: LocalizedError {
+    
+    /// Represents a lack of implementation.
     case unimplemented
     
     public var localizedDescription: String {
@@ -100,6 +104,10 @@ extension Redux.Saga {
       self.source.subscribe(onNext: callback).disposed(by: self.disposeBag)
     }
     
+    /// Get the next value of the stream on the current thread.
+    ///
+    /// - Parameter nano: The time in nanoseconds to wait for until timeout.
+    /// - Returns: A Try instance.
     public func nextValue(timeoutInNanoseconds nano: Double) -> Try<T> {
       let dispatchGroup = DispatchGroup()
       var value: Try<T> = Try.failure("No value found")
@@ -118,10 +126,18 @@ extension Redux.Saga {
       return value
     }
     
+    /// Get the next value of a stream on the current thread.
+    ///
+    /// - Parameter millis: The time in milliseconds to wait for until timeout.
+    /// - Returns: A Try instance.
     public func nextValue(timeoutInMilliseconds millis: Double) -> Try<T> {
       return self.nextValue(timeoutInNanoseconds: millis * pow(10, 6))
     }
     
+    /// Get the next value of a stream on the current thread.
+    ///
+    /// - Parameter seconds: The time in seconds to wait for until timeout.
+    /// - Returns: A Try instance.
     public func nextValue(timeoutInSeconds seconds: Double) -> Try<T> {
       return self.nextValue(timeoutInMilliseconds: seconds * pow(10, 3))
     }

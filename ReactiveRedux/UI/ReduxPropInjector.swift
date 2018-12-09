@@ -11,6 +11,8 @@ import UIKit
 /// Inject views with state/action props, similar to how React.js performs
 /// connect.
 public protocol ReduxPropInjectorType {
+  
+  /// The app-specific state type.
   associatedtype State
   
   /// Inject state/action props into a compatible view controller.

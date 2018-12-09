@@ -8,29 +8,29 @@
 
 public extension Redux.Store {
 
-  /// Enhanced store that can overwrite dispatch from a base store.
+  /// Enhanced store that can overwrite a base store's action dispatcher.
   struct EnhancedStore<State> {
+    private let _store: Redux.Store.DelegateStore<State>
     private let _dispatch: Dispatch
-    private let _lastState: () -> State
-    private let _subscribe: Subscribe<State>
     
+    /// Delegate all functionalities to a Redux store instance but customize
+    /// the dispatcher.
     init<S>(_ store: S, _ dispatch: @escaping Dispatch) where
       S: ReduxStoreType, S.State == State
     {
+      self._store = Redux.Store.DelegateStore(store)
       self._dispatch = dispatch
-      self._lastState = store.lastState
-      self._subscribe = store.subscribeState
     }
   }
 }
 
 extension Redux.Store.EnhancedStore: ReduxStoreType {
   public var lastState: Redux.Store.LastState<State> {
-    return self._lastState
+    return self._store.lastState
   }
   
   public var subscribeState: Redux.Store.Subscribe<State> {
-    return self._subscribe
+    return self._store.subscribeState
   }
   
   public var dispatch: Redux.Store.Dispatch {
