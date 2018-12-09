@@ -10,18 +10,6 @@ import RxSwift
 import SwiftFP
 
 extension Redux.Saga.Effect {
-  public typealias E = Redux.Saga.Effect
-  typealias Call = Redux.Saga.CallEffect
-  typealias CatchError = Redux.Saga.CatchErrorEffect
-  typealias Delay = Redux.Saga.DelayEffect
-  typealias Empty = Redux.Saga.EmptyEffect
-  typealias Just = Redux.Saga.JustEffect
-  typealias Map = Redux.Saga.MapEffect
-  typealias Put = Redux.Saga.PutEffect
-  typealias Select = Redux.Saga.SelectEffect
-  typealias Sequentialize = Redux.Saga.SequentializeEffect
-  typealias TakeEvery = Redux.Saga.TakeEveryEffect
-  typealias TakeLatest = Redux.Saga.TakeLatestEffect
   
   /// Create a call effect with an Observable.
   ///
@@ -30,10 +18,10 @@ extension Redux.Saga.Effect {
   ///   - callCreator: The call creator function.
   /// - Returns: An Effect instance.
   public static func call<P>(
-    with param: E<State, P>,
-    callCreator: @escaping (P) -> Observable<R>) -> E<State, R>
+    with param: Redux.Saga.Effect<State, P>,
+    callCreator: @escaping (P) -> Observable<R>) -> Redux.Saga.Effect<State, R>
   {
-    return Call(param, callCreator)
+    return Redux.Saga.CallEffect(param, callCreator)
   }
   
   /// Create a call effect with a callback-style async function.
@@ -43,9 +31,9 @@ extension Redux.Saga.Effect {
   ///   - callCreator: The call creator function.
   /// - Returns: An Effect instance.
   public static func call<P>(
-    with param: E<State, P>,
+    with param: Redux.Saga.Effect<State, P>,
     callCreator: @escaping (P, @escaping (Try<R>) -> Void) -> Void)
-    -> E<State, R>
+    -> Redux.Saga.Effect<State, R>
   {
     return call(with: param) {(param) in
       return Observable.create({obs in
@@ -70,25 +58,26 @@ extension Redux.Saga.Effect {
   ///   - catcher: The error catcher function.
   /// - Returns: An Effect instance.
   public static func catchError(
-    _ source: E<State, R>,
-    catcher: @escaping (Swift.Error) throws -> E<State, R>) -> E<State, R>
+    _ source: Redux.Saga.Effect<State, R>,
+    catcher: @escaping (Swift.Error) throws -> Redux.Saga.Effect<State, R>)
+    -> Redux.Saga.Effect<State, R>
   {
-    return CatchError(source, catcher)
+    return Redux.Saga.CatchErrorEffect(source, catcher)
   }
   
   /// Create an empty effect.
   ///
   /// - Returns: An Effect instance.
-  public static func empty() -> E<State, R> {
-    return Empty()
+  public static func empty() -> Redux.Saga.Effect<State, R> {
+    return Redux.Saga.EmptyEffect()
   }
   
   /// Create a just effect.
   ///
   /// - Parameter value: The value to form the effect with.
   /// - Returns: An Effect instance.
-  public static func just(_ value: R) -> E<State, R> {
-    return Just(value)
+  public static func just(_ value: R) -> Redux.Saga.Effect<State, R> {
+    return Redux.Saga.JustEffect(value)
   }
   
   /// Create a map effect.
@@ -99,10 +88,11 @@ extension Redux.Saga.Effect {
   /// - Returns: An Effect instance.
   public static func map<E1, R2>(
     _ source: E1,
-    withMapper mapper: @escaping (E1.R) throws -> R2) -> E<State, R2> where
+    withMapper mapper: @escaping (E1.R) throws -> R2)
+    -> Redux.Saga.Effect<State, R2> where
     E1: ReduxSagaEffectType, E1.State == State
   {
-    return Map(source, mapper)
+    return Redux.Saga.MapEffect(source, mapper)
   }
   
   /// Create a put effect.
@@ -113,19 +103,21 @@ extension Redux.Saga.Effect {
   ///   - dispatchQueue: The queue on which to dispatch the action.
   /// - Returns: An Effect instance.
   public static func put<P>(
-    _ param: E<State, P>,
+    _ param: Redux.Saga.Effect<State, P>,
     actionCreator: @escaping (P) -> ReduxActionType,
-    dispatchQueue: DispatchQueue = .main) -> E<State, Any>
+    dispatchQueue: DispatchQueue = .main) -> Redux.Saga.Effect<State, Any>
   {
-    return Put(param, actionCreator, dispatchQueue)
+    return Redux.Saga.PutEffect(param, actionCreator, dispatchQueue)
   }
   
   /// Create a select effect.
   ///
   /// - Parameter selector: The state selector function.
   /// - Returns: An Effect instance.
-  public static func select(_ selector: @escaping (State) -> R) -> E<State, R> {
-    return Select(selector)
+  public static func select(_ selector: @escaping (State) -> R)
+    -> Redux.Saga.Effect<State, R>
+  {
+    return Redux.Saga.SelectEffect(selector)
   }
   
   /// Create a sequentialize effect.
@@ -138,13 +130,14 @@ extension Redux.Saga.Effect {
   public static func sequentialize<E1, E2>(
     _ effect1: E1,
     _ effect2: E2,
-    selector: @escaping (E1.R, E2.R) throws -> R) -> E<E2.State, R> where
+    selector: @escaping (E1.R, E2.R) throws -> R)
+    -> Redux.Saga.Effect<E2.State, R> where
     E1: ReduxSagaEffectType,
     E2: ReduxSagaEffectType,
     E1.State == State,
     E2.State == State
   {
-    return Sequentialize(effect1, effect2, selector)
+    return Redux.Saga.SequentializeEffect(effect1, effect2, selector)
   }
   
   /// Create a delay effect.
@@ -155,11 +148,12 @@ extension Redux.Saga.Effect {
   ///   - queue: The dispatch queue to delay on.
   /// - Returns: An Effect instance.
   public static func delay(
-    _ source: E<State, R>,
+    _ source: Redux.Saga.Effect<State, R>,
     bySeconds sec: TimeInterval,
-    usingQueue queue: DispatchQueue = .global(qos: .default)) -> E<State, R>
+    usingQueue queue: DispatchQueue = .global(qos: .default))
+    -> Redux.Saga.Effect<State, R>
   {
-    return Delay(source, sec, queue)
+    return Redux.Saga.DelayEffect(source, sec, queue)
   }
   
   /// Create a take every effect.
@@ -171,12 +165,13 @@ extension Redux.Saga.Effect {
   /// - Returns: An Effect instance.
   public static func takeEvery<Action, P>(
     paramExtractor: @escaping (Action) -> P?,
-    effectCreator: @escaping (P) -> E<State, R>,
+    effectCreator: @escaping (P) -> Redux.Saga.Effect<State, R>,
     outputTransformer: @escaping (Redux.Saga.Output<P>)
     -> Redux.Saga.Output<P> = {$0})
-    -> E<State, R> where Action: ReduxActionType
+    -> Redux.Saga.Effect<State, R> where Action: ReduxActionType
   {
-    return TakeEvery(paramExtractor, effectCreator, outputTransformer)
+    return Redux.Saga.TakeEveryEffect
+      .init(paramExtractor, effectCreator, outputTransformer)
   }
   
   /// Create a take latest effect.
@@ -188,11 +183,12 @@ extension Redux.Saga.Effect {
   /// - Returns: An Effect instance.
   public static func takeLatest<Action, P>(
     paramExtractor: @escaping (Action) -> P?,
-    effectCreator: @escaping (P) -> E<State, R>,
+    effectCreator: @escaping (P) -> Redux.Saga.Effect<State, R>,
     outputTransformer: @escaping (Redux.Saga.Output<P>)
     -> Redux.Saga.Output<P> = {$0})
-    -> E<State, R> where Action: ReduxActionType
+    -> Redux.Saga.Effect<State, R> where Action: ReduxActionType
   {
-    return TakeLatest(paramExtractor, effectCreator, outputTransformer)
+    return Redux.Saga.TakeLatestEffect
+      .init(paramExtractor, effectCreator, outputTransformer)
   }
 }

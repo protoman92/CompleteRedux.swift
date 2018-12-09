@@ -34,6 +34,16 @@
 		D331D0FD21B2FE750000A4E1 /* Redux+RxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D331D0FC21B2FE750000A4E1 /* Redux+RxStore.swift */; };
 		D334826321B2869A002B01EA /* Redux+EnhancedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334826221B2869A002B01EA /* Redux+EnhancedStore.swift */; };
 		D334826521B28B11002B01EA /* Redux.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334826421B28B11002B01EA /* Redux.swift */; };
+		D334A02121BCC5950016E7EB /* Redux+Saga+Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334A02021BCC5950016E7EB /* Redux+Saga+Call.swift */; };
+		D334A02321BCC67F0016E7EB /* Redux+Saga+CatchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334A02221BCC67F0016E7EB /* Redux+Saga+CatchError.swift */; };
+		D334A02521BCC7A00016E7EB /* Redux+Saga+Delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334A02421BCC7A00016E7EB /* Redux+Saga+Delay.swift */; };
+		D334A02721BCC8050016E7EB /* Redux+Saga+Just.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334A02621BCC8050016E7EB /* Redux+Saga+Just.swift */; };
+		D334A02921BCC8770016E7EB /* Redux+Saga+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334A02821BCC8770016E7EB /* Redux+Saga+Empty.swift */; };
+		D334A02B21BCC9960016E7EB /* Redux+Saga+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334A02A21BCC9960016E7EB /* Redux+Saga+Map.swift */; };
+		D334A02D21BCCA6F0016E7EB /* Redux+Saga+Put.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334A02C21BCCA6F0016E7EB /* Redux+Saga+Put.swift */; };
+		D334A02F21BCCAC20016E7EB /* Redux+Saga+Select.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334A02E21BCCAC20016E7EB /* Redux+Saga+Select.swift */; };
+		D334A03121BCCB050016E7EB /* Redux+Saga+Sequentialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334A03021BCCB040016E7EB /* Redux+Saga+Sequentialize.swift */; };
+		D334A03321BCCB4E0016E7EB /* Redux+Saga+Take.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334A03221BCCB4E0016E7EB /* Redux+Saga+Take.swift */; };
 		D334ED5F21B773CA004C538E /* ReduxSagaTest+Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334ED5E21B773CA004C538E /* ReduxSagaTest+Effect.swift */; };
 		D335684621B67B0C00E3BFEB /* Redux+Saga.swift in Sources */ = {isa = PBXBuildFile; fileRef = D335684521B67B0C00E3BFEB /* Redux+Saga.swift */; };
 		D335E28821B6E048000E664D /* Redux+Saga.swift in Sources */ = {isa = PBXBuildFile; fileRef = D335E28421B6E048000E664D /* Redux+Saga.swift */; };
@@ -117,6 +127,16 @@
 		D331D0FC21B2FE750000A4E1 /* Redux+RxStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+RxStore.swift"; sourceTree = "<group>"; };
 		D334826221B2869A002B01EA /* Redux+EnhancedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+EnhancedStore.swift"; sourceTree = "<group>"; };
 		D334826421B28B11002B01EA /* Redux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Redux.swift; sourceTree = "<group>"; };
+		D334A02021BCC5950016E7EB /* Redux+Saga+Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Saga+Call.swift"; sourceTree = "<group>"; };
+		D334A02221BCC67F0016E7EB /* Redux+Saga+CatchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Saga+CatchError.swift"; sourceTree = "<group>"; };
+		D334A02421BCC7A00016E7EB /* Redux+Saga+Delay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Saga+Delay.swift"; sourceTree = "<group>"; };
+		D334A02621BCC8050016E7EB /* Redux+Saga+Just.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Saga+Just.swift"; sourceTree = "<group>"; };
+		D334A02821BCC8770016E7EB /* Redux+Saga+Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Saga+Empty.swift"; sourceTree = "<group>"; };
+		D334A02A21BCC9960016E7EB /* Redux+Saga+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Saga+Map.swift"; sourceTree = "<group>"; };
+		D334A02C21BCCA6F0016E7EB /* Redux+Saga+Put.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Saga+Put.swift"; sourceTree = "<group>"; };
+		D334A02E21BCCAC20016E7EB /* Redux+Saga+Select.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Saga+Select.swift"; sourceTree = "<group>"; };
+		D334A03021BCCB040016E7EB /* Redux+Saga+Sequentialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Saga+Sequentialize.swift"; sourceTree = "<group>"; };
+		D334A03221BCCB4E0016E7EB /* Redux+Saga+Take.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Saga+Take.swift"; sourceTree = "<group>"; };
 		D334ED5E21B773CA004C538E /* ReduxSagaTest+Effect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReduxSagaTest+Effect.swift"; sourceTree = "<group>"; };
 		D335684521B67B0C00E3BFEB /* Redux+Saga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Saga.swift"; sourceTree = "<group>"; };
 		D335E28421B6E048000E664D /* Redux+Saga.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Redux+Saga.swift"; sourceTree = "<group>"; };
@@ -256,8 +276,18 @@
 				D346C99421B7DD0F003AC8B9 /* Protocols+Saga.swift */,
 				D335E28621B6E048000E664D /* Redux+Middleware+Saga.swift */,
 				D335E28421B6E048000E664D /* Redux+Saga.swift */,
+				D334A02021BCC5950016E7EB /* Redux+Saga+Call.swift */,
+				D334A02221BCC67F0016E7EB /* Redux+Saga+CatchError.swift */,
+				D334A02421BCC7A00016E7EB /* Redux+Saga+Delay.swift */,
 				D335E28521B6E048000E664D /* Redux+Saga+Effect.swift */,
 				D335E28C21B6E455000E664D /* Redux+Saga+Effects.swift */,
+				D334A02821BCC8770016E7EB /* Redux+Saga+Empty.swift */,
+				D334A02621BCC8050016E7EB /* Redux+Saga+Just.swift */,
+				D334A02A21BCC9960016E7EB /* Redux+Saga+Map.swift */,
+				D334A02C21BCCA6F0016E7EB /* Redux+Saga+Put.swift */,
+				D334A02E21BCCAC20016E7EB /* Redux+Saga+Select.swift */,
+				D334A03021BCCB040016E7EB /* Redux+Saga+Sequentialize.swift */,
+				D334A03221BCCB4E0016E7EB /* Redux+Saga+Take.swift */,
 			);
 			path = "Middleware+Saga";
 			sourceTree = "<group>";
@@ -671,26 +701,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				D334826321B2869A002B01EA /* Redux+EnhancedStore.swift in Sources */,
+				D334A02521BCC7A00016E7EB /* Redux+Saga+Delay.swift in Sources */,
 				D381794A21AD01F4007B33A6 /* ReduxPropInjector.swift in Sources */,
+				D334A02B21BCC9960016E7EB /* Redux+Saga+Map.swift in Sources */,
 				D3803C6321B3CF4F0055467D /* Protocols+Middleware+Router.swift in Sources */,
 				D334826521B28B11002B01EA /* Redux.swift in Sources */,
+				D334A02721BCC8050016E7EB /* Redux+Saga+Just.swift in Sources */,
 				D3E6FC0C21A570420086862A /* Protocols.swift in Sources */,
 				D331D0FB21B2FC810000A4E1 /* Redux+PropInjector.swift in Sources */,
+				D334A02121BCC5950016E7EB /* Redux+Saga+Call.swift in Sources */,
 				D335E28A21B6E048000E664D /* Redux+Middleware+Saga.swift in Sources */,
 				D335E28821B6E048000E664D /* Redux+Saga.swift in Sources */,
 				D335E28921B6E048000E664D /* Redux+Saga+Effect.swift in Sources */,
 				D331D0F921B2FA010000A4E1 /* Redux+Middleware.swift in Sources */,
 				D321DD9B21B5969800F3E016 /* Redux+Props.swift in Sources */,
+				D334A03321BCCB4E0016E7EB /* Redux+Saga+Take.swift in Sources */,
 				D331D0FD21B2FE750000A4E1 /* Redux+RxStore.swift in Sources */,
 				D30DBFE321ADD9BB00CD1233 /* ReduxPropMapper.swift in Sources */,
 				D346C99521B7DD0F003AC8B9 /* Protocols+Saga.swift in Sources */,
 				D350C3571FA337A60040556F /* RxReduxStore.swift in Sources */,
+				D334A02321BCC67F0016E7EB /* Redux+Saga+CatchError.swift in Sources */,
+				D334A02F21BCCAC20016E7EB /* Redux+Saga+Select.swift in Sources */,
+				D334A02921BCC8770016E7EB /* Redux+Saga+Empty.swift in Sources */,
 				D3803C5F21B39C230055467D /* Redux+Middleware+Router.swift in Sources */,
 				D321DD9D21B598A400F3E016 /* Redux+Store.swift in Sources */,
+				D334A03121BCCB050016E7EB /* Redux+Saga+Sequentialize.swift in Sources */,
 				D3803C6121B39D9F0055467D /* Protocols+Middleware.swift in Sources */,
 				D335E28D21B6E455000E664D /* Redux+Saga+Effects.swift in Sources */,
 				D3040A1E1FA8566B00BE0E14 /* Redux+RxObserver.swift in Sources */,
 				D30DBFE121ADD99600CD1233 /* ReduxCompatibleView.swift in Sources */,
+				D334A02D21BCCA6F0016E7EB /* Redux+Saga+Put.swift in Sources */,
 				D31D272D21A59C200061C1DC /* Redux+Preset.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
