@@ -34,8 +34,8 @@ final class ReduxSagaEffectTest: XCTestCase {
   
   func test_callEffect_shouldPerformAsyncWork() {
     /// Setup
-    var dispatchCount = 0
-    let dispatch: Redux.Store.Dispatch = {_ in dispatchCount += 1}
+    let dispatch: Redux.Store.Dispatch = {_ in}
+    let error = Redux.Saga.Error.unimplemented
     
     let api1: (Int, @escaping (Try<Int>) -> Void) -> Void = {param, callback in
       let delayTime = UInt64(2 * pow(10 as Double, 9))
@@ -43,35 +43,46 @@ final class ReduxSagaEffectTest: XCTestCase {
       
       DispatchQueue.global(qos: .background).asyncAfter(
         deadline: DispatchTime(uptimeNanoseconds: finalTime),
-        execute: {callback(Try.success(param))
+        execute: {callback(.success(param))
       })
     }
     
-    let api2: (Int, @escaping (Try<Int>) -> Void) -> Void = {_, callback in
-      callback(Try.failure(Redux.Saga.Error.unimplemented))
-    }
-    
-    let api3: (Int) -> Observable<Int> = {_ in
-      .error(Redux.Saga.Error.unimplemented)
-    }
+    let api2: (Int, @escaping (Try<Int>) -> Void) -> Void = {$1(.failure(error))}
+    let api3: (Int) -> Observable<Int> = {_ in .error(error)}
+    let api4: (Int, @escaping (Int?, Error?) -> Void) -> Void = {$1($0, nil)}
+    let api5: (Int, @escaping (Int?, Error?) -> Void) -> Void = {$1(nil, error)}
+    let api6: (Int, @escaping (Int?, Error?) -> Void) -> Void = {$1(nil, nil)}
     
     let paramEffect = Effect<State, Int>.just(300)
     let effect1 = paramEffect.call(api1)
     let effect2 = paramEffect.call(api2)
     let effect3 = paramEffect.call(api3)
+    let effect4 = paramEffect.call(api4)
+    let effect5 = paramEffect.call(api5)
+    let effect6 = paramEffect.call(api6)
+    
     let output1 = effect1.invoke(withState: (), dispatch: dispatch)
     let output2 = effect2.invoke(withState: (), dispatch: dispatch)
     let output3 = effect3.invoke(withState: (), dispatch: dispatch)
+    let output4 = effect4.invoke(withState: (), dispatch: dispatch)
+    let output5 = effect5.invoke(withState: (), dispatch: dispatch)
+    let output6 = effect6.invoke(withState: (), dispatch: dispatch)
     
     /// When
     let value1 = output1.nextValue(timeoutInSeconds: self.timeout)
     let value2 = output2.nextValue(timeoutInSeconds: self.timeout)
     let value3 = output3.nextValue(timeoutInSeconds: self.timeout)
+    let value4 = output4.nextValue(timeoutInSeconds: self.timeout)
+    let value5 = output5.nextValue(timeoutInSeconds: self.timeout)
+    let value6 = output6.nextValue(timeoutInSeconds: self.timeout)
     
     /// Then
     XCTAssertEqual(value1.value, 300)
     XCTAssertTrue(value2.isFailure)
     XCTAssertTrue(value3.isFailure)
+    XCTAssertEqual(value4.value, 300)
+    XCTAssertTrue(value5.isFailure)
+    XCTAssertTrue(value6.isFailure)
   }
   
   func test_catchErrorEffect_shouldReturnFallback() {

@@ -53,4 +53,16 @@ extension ReduxSagaEffectType {
     return self.asEffect()
       .asInput(for: {.call(with: $0, callCreator: callCreator)})
   }
+  
+  /// Invoke a call effect on the current effect.
+  ///
+  /// - Parameter callCreator: A call creator function.
+  /// - Returns: An Effect instance.
+  public func call<R2>(
+    _ callCreator: @escaping (R, @escaping (R2?, Error?) -> Void) -> Void)
+    -> Redux.Saga.Effect<State, R2>
+  {
+    return self.asEffect()
+      .asInput(for: {.call(with: $0, callCreator: callCreator)})
+  }
 }

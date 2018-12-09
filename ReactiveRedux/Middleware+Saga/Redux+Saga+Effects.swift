@@ -36,7 +36,7 @@ extension Redux.Saga.Effect {
     callCreator: @escaping (P, @escaping (Try<R>) -> Void) -> Void)
     -> Redux.Saga.CallEffect<State, P, R>
   {
-    return call(with: param) {(param) in
+    return call(with: param) {param in
       return Observable.create({obs in
         callCreator(param, {
           do {
@@ -50,6 +50,28 @@ extension Redux.Saga.Effect {
         return Disposables.create()
       })
     }
+  }
+  
+  /// Create a call effect with a callback-style async function.
+  ///
+  /// - Parameters:
+  ///   - param: The parameter to call with.
+  ///   - callCreator: The call creator function.
+  /// - Returns: An Effect instance.
+  public static func call<P>(
+    with param: Redux.Saga.Effect<State, P>,
+    callCreator: @escaping (P, @escaping (R?, Error?) -> Void) -> Void)
+    -> Redux.Saga.CallEffect<State, P, R>
+  {
+    return call(with: param, callCreator: {(p, c: @escaping (Try<R>) -> Void) in
+      callCreator(p) {r, e in
+        if let error = e {
+          c(Try.failure(error))
+        } else {
+          c(Try<R>.from(r))
+        }
+      }
+    })
   }
   
   /// Create a catch error effect.
