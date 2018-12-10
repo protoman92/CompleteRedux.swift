@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PropInjector Structure Reference</title>
+    <title>PropInjector Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,18 +10,18 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/PropInjector" class="dashAnchor"></a>
-    <a title="PropInjector Structure Reference"></a>
+    <a name="//apple_ref/swift/Class/PropInjector" class="dashAnchor"></a>
+    <a title="PropInjector Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../../index.html">ReactiveRedux Docs</a> (84% documented)</p>
+        <p><a href="../../../index.html">ReactiveRedux Docs</a> (85% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
         <a href="../../../index.html">ReactiveRedux Reference</a>
         <img id="carat" src="../../../img/carat.png" />
-        PropInjector Structure Reference
+        PropInjector Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -81,9 +81,6 @@
                 <a href="../../../Protocols/ReduxSagaEffectType.html">ReduxSagaEffectType</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../../Protocols/ReduxSagaTakeEffectType.html">ReduxSagaTakeEffectType</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../../../Protocols/ReduxStoreType.html">ReduxStoreType</a>
               </li>
               <li class="nav-group-task">
@@ -99,7 +96,7 @@
             <h1>PropInjector</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PropInjector</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../../Protocols/ReduxPropInjectorType.html">ReduxPropInjectorType</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PropInjector</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../../Protocols/ReduxPropInjectorType.html">ReduxPropInjectorType</a></span></code></pre>
 
                 </div>
               </div>
@@ -112,9 +109,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C2UIC12PropInjectorV5storeAGy__xGqd___tc5StateQyd__RszAA0B9StoreTypeRd__lufc"></a>
+                    <a name="/s:13ReactiveRedux0B0C2UIC12PropInjectorC5storeAGy__xGqd___tc5StateQyd__RszAA0B9StoreTypeRd__lufc"></a>
                     <a name="//apple_ref/swift/Method/init(store:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC12PropInjectorV5storeAGy__xGqd___tc5StateQyd__RszAA0B9StoreTypeRd__lufc">init(store:)</a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC12PropInjectorC5storeAGy__xGqd___tc5StateQyd__RszAA0B9StoreTypeRd__lufc">init(store:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -141,9 +138,9 @@ state updates, and destroy it when the injectee is disposed of.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps10controller03outG06mapperAA0B0C5StoreC12SubscriptionVqd___03OutG0Qyd__qd_0_mtSo16UIViewControllerCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0R0Rtzr0_lF"></a>
+                    <a name="/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps10controller03outG06mapperyqd___03OutG0Qyd__qd_0_mtSo16UIViewControllerCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0P0Rtzr0_lF"></a>
                     <a name="//apple_ref/swift/Method/injectProps(controller:outProps:mapper:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps10controller03outG06mapperAA0B0C5StoreC12SubscriptionVqd___03OutG0Qyd__qd_0_mtSo16UIViewControllerCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0R0Rtzr0_lF">injectProps(controller:outProps:mapper:)</a>
+                    <a class="token" href="#/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps10controller03outG06mapperyqd___03OutG0Qyd__qd_0_mtSo16UIViewControllerCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0P0Rtzr0_lF">injectProps(controller:outProps:mapper:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -157,9 +154,8 @@ state updates, and destroy it when the injectee is disposed of.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="n">injectProps</span><span class="o">&lt;</span><span class="kt">VC</span><span class="p">,</span> <span class="kt">MP</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="kt">VC</span><span class="p">,</span> <span class="nv">outProps</span><span class="p">:</span> <span class="kt">VC</span><span class="o">.</span><span class="kt">OutProps</span><span class="p">,</span> <span class="nv">mapper</span><span class="p">:</span> <span class="kt">MP</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span>
-  <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Store.html">Store</a></span><span class="o">.</span><span class="kt">Subscription</span> <span class="k">where</span>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">injectProps</span><span class="o">&lt;</span><span class="kt">VC</span><span class="p">,</span> <span class="kt">MP</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nv">controller</span><span class="p">:</span> <span class="kt">VC</span><span class="p">,</span> <span class="nv">outProps</span><span class="p">:</span> <span class="kt">VC</span><span class="o">.</span><span class="kt">OutProps</span><span class="p">,</span> <span class="nv">mapper</span><span class="p">:</span> <span class="kt">MP</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="k">where</span>
   <span class="kt">MP</span><span class="p">:</span> <span class="kt"><a href="../../../Protocols/ReduxPropMapperType.html">ReduxPropMapperType</a></span><span class="p">,</span>
   <span class="kt">MP</span><span class="o">.</span><span class="kt">ReduxView</span> <span class="o">==</span> <span class="kt">VC</span><span class="p">,</span>
   <span class="kt">VC</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span>
@@ -173,9 +169,9 @@ state updates, and destroy it when the injectee is disposed of.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps4view03outG06mapperAA0B0C5StoreC12SubscriptionVqd___03OutG0Qyd__qd_0_mtSo6UIViewCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0Q0Rtzr0_lF"></a>
+                    <a name="/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps4view03outG06mapperyqd___03OutG0Qyd__qd_0_mtSo6UIViewCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0O0Rtzr0_lF"></a>
                     <a name="//apple_ref/swift/Method/injectProps(view:outProps:mapper:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps4view03outG06mapperAA0B0C5StoreC12SubscriptionVqd___03OutG0Qyd__qd_0_mtSo6UIViewCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0Q0Rtzr0_lF">injectProps(view:outProps:mapper:)</a>
+                    <a class="token" href="#/s:13ReactiveRedux0B16PropInjectorTypeP11injectProps4view03outG06mapperyqd___03OutG0Qyd__qd_0_mtSo6UIViewCRbd__0B4ViewQyd_0_Rsd__AA0bc6MapperE0Rd_0_0B5StateQyd__0O0Rtzr0_lF">injectProps(view:outProps:mapper:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -189,9 +185,8 @@ state updates, and destroy it when the injectee is disposed of.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="n">injectProps</span><span class="o">&lt;</span><span class="kt">V</span><span class="p">,</span> <span class="kt">MP</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">view</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">outProps</span><span class="p">:</span> <span class="kt">V</span><span class="o">.</span><span class="kt">OutProps</span><span class="p">,</span> <span class="nv">mapper</span><span class="p">:</span> <span class="kt">MP</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span>
-  <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Store.html">Store</a></span><span class="o">.</span><span class="kt">Subscription</span> <span class="k">where</span>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">injectProps</span><span class="o">&lt;</span><span class="kt">V</span><span class="p">,</span> <span class="kt">MP</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nv">view</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">outProps</span><span class="p">:</span> <span class="kt">V</span><span class="o">.</span><span class="kt">OutProps</span><span class="p">,</span> <span class="nv">mapper</span><span class="p">:</span> <span class="kt">MP</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="k">where</span>
   <span class="kt">MP</span><span class="p">:</span> <span class="kt"><a href="../../../Protocols/ReduxPropMapperType.html">ReduxPropMapperType</a></span><span class="p">,</span>
   <span class="kt">MP</span><span class="o">.</span><span class="kt">ReduxView</span> <span class="o">==</span> <span class="kt">V</span><span class="p">,</span>
   <span class="kt">V</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">,</span>
@@ -207,7 +202,7 @@ state updates, and destroy it when the injectee is disposed of.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-10)</p>
+          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

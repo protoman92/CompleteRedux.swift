@@ -14,7 +14,7 @@
     <a title="Effect Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../../index.html">ReactiveRedux Docs</a> (84% documented)</p>
+        <p><a href="../../../index.html">ReactiveRedux Docs</a> (85% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -79,9 +79,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../../Protocols/ReduxSagaEffectType.html">ReduxSagaEffectType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../../Protocols/ReduxSagaTakeEffectType.html">ReduxSagaTakeEffectType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../../Protocols/ReduxStoreType.html">ReduxStoreType</a>
@@ -366,6 +363,136 @@ the main invocation method to customize the saga output.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC6EffectC9doOnValue_8selectorAE02DofgD0Cy__xq_GAGy__xq_G_yq_KctFZ"></a>
+                    <a name="//apple_ref/swift/Method/doOnValue(_:selector:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC6EffectC9doOnValue_8selectorAE02DofgD0Cy__xq_GAGy__xq_G_yq_KctFZ">doOnValue(_:selector:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a do-on-value effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">doOnValue</span><span class="p">(</span>
+  <span class="n">_</span> <span class="nv">source</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="nv">selector</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">R</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga/DoOnValueEffect.html">DoOnValueEffect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>source</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The source effect.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>selector</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The side effect selector function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC6EffectC9doOnError_8selectorAE02DofgD0Cy__xq_GAGy__xq_G_ys0G0_pKctFZ"></a>
+                    <a name="//apple_ref/swift/Method/doOnError(_:selector:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC6EffectC9doOnError_8selectorAE02DofgD0Cy__xq_GAGy__xq_G_ys0G0_pKctFZ">doOnError(_:selector:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a do-on-error effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">doOnError</span><span class="p">(</span>
+  <span class="n">_</span> <span class="nv">source</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="nv">selector</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../../../Classes/Redux/Saga/Error.html">Error</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga/DoOnErrorEffect.html">DoOnErrorEffect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>source</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The source effect.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>selector</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The side effect selector function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13ReactiveRedux0B0C4SagaC6EffectC5emptyAE05EmptyD0Cy__xq_GyFZ"></a>
                     <a name="//apple_ref/swift/Method/empty()" class="dashAnchor"></a>
                     <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC6EffectC5emptyAE05EmptyD0Cy__xq_GyFZ">empty()</a>
@@ -512,9 +639,9 @@ the main invocation method to customize the saga output.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C4SagaC6EffectC3put_13actionCreator13dispatchQueueAE03PutD0Cy__xqd__GAGy__xqd__G_AA0B10ActionType_pqd__cSo03OS_H6_queueCtlFZ"></a>
-                    <a name="//apple_ref/swift/Method/put(_:actionCreator:dispatchQueue:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC6EffectC3put_13actionCreator13dispatchQueueAE03PutD0Cy__xqd__GAGy__xqd__G_AA0B10ActionType_pqd__cSo03OS_H6_queueCtlFZ">put(_:actionCreator:dispatchQueue:)</a>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC6EffectC3put_13actionCreator10usingQueueAE03PutD0Cy__xqd__GAGy__xqd__G_AA0B10ActionType_pqd__cSo17OS_dispatch_queueCtlFZ"></a>
+                    <a name="//apple_ref/swift/Method/put(_:actionCreator:usingQueue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC6EffectC3put_13actionCreator10usingQueueAE03PutD0Cy__xqd__GAGy__xqd__G_AA0B10ActionType_pqd__cSo17OS_dispatch_queueCtlFZ">put(_:actionCreator:usingQueue:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -532,7 +659,7 @@ the main invocation method to customize the saga output.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">put</span><span class="o">&lt;</span><span class="kt">P</span><span class="o">&gt;</span><span class="p">(</span>
   <span class="n">_</span> <span class="nv">param</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">P</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="nv">actionCreator</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">P</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span><span class="p">,</span>
-  <span class="nv">dispatchQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga/PutEffect.html">PutEffect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">P</span><span class="o">&gt;</span></code></pre>
+  <span class="n">usingQueue</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga/PutEffect.html">PutEffect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">P</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -567,7 +694,84 @@ the main invocation method to customize the saga output.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>dispatchQueue</em>
+                                <em>queue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The queue on which to dispatch the action.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC6EffectC3put_13actionCreator10usingQueueAE03PutD0Cy__xqd__Gqd___AA0B10ActionType_pqd__cSo17OS_dispatch_queueCtlFZ"></a>
+                    <a name="//apple_ref/swift/Method/put(_:actionCreator:usingQueue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC6EffectC3put_13actionCreator10usingQueueAE03PutD0Cy__xqd__Gqd___AA0B10ActionType_pqd__cSo17OS_dispatch_queueCtlFZ">put(_:actionCreator:usingQueue:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convenience function to create a put effect with a raw value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">put</span><span class="o">&lt;</span><span class="kt">P</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="n">_</span> <span class="nv">param</span><span class="p">:</span> <span class="kt">P</span><span class="p">,</span>
+  <span class="nv">actionCreator</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">P</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span><span class="p">,</span>
+  <span class="n">usingQueue</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga/PutEffect.html">PutEffect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">P</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>param</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The parameter to put into Redux state.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>actionCreator</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The action creator function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queue</em>
                                 </code>
                               </td>
                               <td>
@@ -956,7 +1160,7 @@ the main invocation method to customize the saga output.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-10)</p>
+          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

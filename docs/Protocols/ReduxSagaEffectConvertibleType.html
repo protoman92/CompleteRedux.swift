@@ -14,7 +14,7 @@
     <a title="ReduxSagaEffectConvertibleType Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">ReactiveRedux Docs</a> (84% documented)</p>
+        <p><a href="../index.html">ReactiveRedux Docs</a> (85% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -79,9 +79,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/ReduxSagaEffectType.html">ReduxSagaEffectType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Protocols/ReduxSagaTakeEffectType.html">ReduxSagaTakeEffectType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/ReduxStoreType.html">ReduxStoreType</a>
@@ -192,10 +189,790 @@
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE9transform4withAA0B0C0C0C0D0Cy__5StateQzqd__GAnKy__AM1RQzGXE_tlF"></a>
+                    <a name="//apple_ref/swift/Method/transform(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE9transform4withAA0B0C0C0C0D0Cy__5StateQzqd__GAnKy__AM1RQzGXE_tlF">transform(with:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Feed the current effect as input to create another effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">transform</span><span class="o">&lt;</span><span class="kt">R2</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="n">with</span> <span class="nv">effectCreator</span><span class="p">:</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">EffectTransformer</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>effectCreator</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The effect creator function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/call(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">call(_:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invoke a call effect on the current effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">call</span><span class="o">&lt;</span><span class="kt">R2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">callCreator</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Observable</span><span class="o">&lt;</span><span class="kt">R2</span><span class="o">&gt;</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callCreator</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A call creator function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE4callyAA0B0C0C0C0D0Cy__5StateQzqd__Gy1RQz_yqd__Sg_s5Error_pSgtctclF"></a>
+                    <a name="//apple_ref/swift/Method/call(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE4callyAA0B0C0C0C0D0Cy__5StateQzqd__Gy1RQz_yqd__Sg_s5Error_pSgtctclF">call(_:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invoke a call effect on the current effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">call</span><span class="o">&lt;</span><span class="kt">R2</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="n">_</span> <span class="nv">callCreator</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="p">,</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">R2</span><span class="p">?,</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callCreator</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A call creator function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE10catchErroryAA0B0C0C0C0D0Cy__5StateQz1RQzGAOs0H0_pKcF"></a>
+                    <a name="//apple_ref/swift/Method/catchError(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE10catchErroryAA0B0C0C0C0D0Cy__5StateQz1RQzGAOs0H0_pKcF">catchError(_:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invoke a catch error effect on the current effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">catchError</span><span class="p">(</span>
+  <span class="n">_</span> <span class="nv">catcher</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="o">&gt;</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>catcher</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error catcher function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE10catchErroryAA0B0C0C0C0D0Cy__5StateQz1RQzGANs0H0_pKcF"></a>
+                    <a name="//apple_ref/swift/Method/catchError(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE10catchErroryAA0B0C0C0C0D0Cy__5StateQz1RQzGANs0H0_pKcF">catchError(_:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convenience method to catch error and return a fallback value instead of
+an effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">catchError</span><span class="p">(</span><span class="n">_</span> <span class="nv">catcher</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>catcher</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error catcher function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE5delay9bySeconds10usingQueueAA0B0C0C0C0D0Cy__5StateQz1RQzGSd_So17OS_dispatch_queueCtF"></a>
+                    <a name="//apple_ref/swift/Method/delay(bySeconds:usingQueue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE5delay9bySeconds10usingQueueAA0B0C0C0C0D0Cy__5StateQz1RQzGSd_So17OS_dispatch_queueCtF">delay(bySeconds:usingQueue:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invoke a delay effect on the current effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">delay</span><span class="p">(</span>
+  <span class="n">bySeconds</span> <span class="nv">sec</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">,</span>
+  <span class="n">usingQueue</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="nf">global</span><span class="p">(</span><span class="nv">qos</span><span class="p">:</span> <span class="o">.</span><span class="k">default</span><span class="p">))</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sec</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The time interval to delay by.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The queue to delay on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE9doOnValueyAA0B0C0C0C0D0Cy__5StateQz1RQzGyANKcF"></a>
+                    <a name="//apple_ref/swift/Method/doOnValue(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE9doOnValueyAA0B0C0C0C0D0Cy__5StateQz1RQzGyANKcF">doOnValue(_:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invoke a do-on-value effect on the current effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">doOnValue</span><span class="p">(</span><span class="n">_</span> <span class="nv">selector</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>selector</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The side effect selector function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE9doOnErroryAA0B0C0C0C0D0Cy__5StateQz1RQzGys0I0_pKcF"></a>
+                    <a name="//apple_ref/swift/Method/doOnError(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE9doOnErroryAA0B0C0C0C0D0Cy__5StateQz1RQzGys0I0_pKcF">doOnError(_:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invoke a do-on-error effect on the current effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">doOnError</span><span class="p">(</span><span class="n">_</span> <span class="nv">selector</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>selector</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The side effect selector function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE3mapyAA0B0C0C0C0D0Cy__5StateQzqd__Gqd__1RQzKclF"></a>
+                    <a name="//apple_ref/swift/Method/map(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE3mapyAA0B0C0C0C0D0Cy__5StateQzqd__Gqd__1RQzKclF">map(_:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invoke a map effect on the current effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">R2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">mapper</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">R2</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mapper</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The mapper function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE3put_10usingQueueAA0B0C0C0C0D0Cy__5StateQzypGAA0b6ActionF0_p1RQzc_So17OS_dispatch_queueCtF"></a>
+                    <a name="//apple_ref/swift/Method/put(_:usingQueue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE3put_10usingQueueAA0B0C0C0C0D0Cy__5StateQzypGAA0b6ActionF0_p1RQzc_So17OS_dispatch_queueCtF">put(_:usingQueue:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invoke a put effect on the current effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">put</span><span class="p">(</span>
+  <span class="n">_</span> <span class="nv">actionCreator</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span><span class="p">,</span>
+  <span class="n">usingQueue</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt">Any</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>actionCreator</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The action creator function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The dispatch queue on which to put.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE4then_8selectorAA0B0C0C0C0D0Cy__5StateQzqd_0_GAKy__AMqd__G_qd_0_1RQz_qd__tKctr0_lF"></a>
+                    <a name="//apple_ref/swift/Method/then(_:selector:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE4then_8selectorAA0B0C0C0C0D0Cy__5StateQzqd_0_GAKy__AMqd__G_qd_0_1RQz_qd__tKctr0_lF">then(_:selector:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Trigger another effect in sequence and combining emissions with a
+selector function.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">then</span><span class="o">&lt;</span><span class="kt">R2</span><span class="p">,</span> <span class="kt">U</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="n">_</span> <span class="nv">effect2</span><span class="p">:</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="nv">selector</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP1RQa">R</a></span><span class="p">,</span> <span class="kt">R2</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">U</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt">U</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>effect2</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An Effect instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>selector</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The selector function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE4thenyAA0B0C0C0C0D0Cy__5StateQzqd__GAMlF"></a>
+                    <a name="//apple_ref/swift/Method/then(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE4thenyAA0B0C0C0C0D0Cy__5StateQzqd__GAMlF">then(_:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Trigger another effect and ignore emission from this one.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">then</span><span class="o">&lt;</span><span class="kt">R2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">effect2</span><span class="p">:</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span><span class="p">)</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>effect2</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An Effect instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE4thenyAA0B0C0C0C0D0Cy__5StateQzqd__Gqd__lF"></a>
+                    <a name="//apple_ref/swift/Method/then(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B25SagaEffectConvertibleTypePAAE4thenyAA0B0C0C0C0D0Cy__5StateQzqd__Gqd__lF">then(_:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convenience function to change emissions to another static value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">then</span><span class="o">&lt;</span><span class="kt">R2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">R2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt">Saga</span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/ReduxSagaEffectConvertibleType.html#/s:13ReactiveRedux0B25SagaEffectConvertibleTypeP5StateQa">State</a></span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value to change to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-10)</p>
+          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

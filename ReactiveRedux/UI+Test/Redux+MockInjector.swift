@@ -41,6 +41,12 @@ extension Redux.UI {
     
     deinit { pthread_rwlock_destroy(&self._lock) }
     
+    /// Add one count to the view controller injectee.
+    ///
+    /// - Parameters:
+    ///   - vc: A view controller instance.
+    ///   - outProps: An OutProps instance.
+    ///   - mapper: A Redux prop mapper.
     override public func injectProps<VC, MP>(
       controller: VC, outProps: VC.OutProps, mapper: MP.Type) where
       MP: ReduxPropMapperType,
@@ -51,6 +57,13 @@ extension Redux.UI {
       self.addInjecteeCount(controller)
     }
     
+    /// Add one count to the view injectee.
+    ///
+    /// - Parameters:
+    ///   - view: A view instance.
+    ///   - outProps: An OutProps instance.
+    ///   - mapper: A Redux prop mapper.
+    /// - Returns: A ReduxSubscription instance.
     override public func injectProps<V, MP>(
       view: V, outProps: V.OutProps, mapper: MP.Type) where
       MP: ReduxPropMapperType,

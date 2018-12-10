@@ -14,7 +14,7 @@
     <a title="Saga Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">ReactiveRedux Docs</a> (84% documented)</p>
+        <p><a href="../../index.html">ReactiveRedux Docs</a> (85% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -79,9 +79,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../Protocols/ReduxSagaEffectType.html">ReduxSagaEffectType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Protocols/ReduxSagaTakeEffectType.html">ReduxSagaTakeEffectType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Protocols/ReduxStoreType.html">ReduxStoreType</a>
@@ -207,6 +204,123 @@ some fallback effect.</p>
             </div>
             <div class="task-group">
               <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC15DoOnValueEffectC"></a>
+                    <a name="//apple_ref/swift/Class/DoOnValueEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC15DoOnValueEffectC">DoOnValueEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output performs some side effect on the source effect value.</p>
+
+                        <a href="../../Classes/Redux/Saga/DoOnValueEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">DoOnValueEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC15DoOnErrorEffectC"></a>
+                    <a name="//apple_ref/swift/Class/DoOnErrorEffect" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC15DoOnErrorEffectC">DoOnErrorEffect</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effect whose output performs some side effect on the source effect error,
+if any.</p>
+
+                        <a href="../../Classes/Redux/Saga/DoOnErrorEffect.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">DoOnErrorEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC17EffectTransformera"></a>
+                    <a name="//apple_ref/swift/Alias/EffectTransformer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC17EffectTransformera">EffectTransformer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Transformer function that takes an effect as the input and produces
+another effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">EffectTransformer</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R1</span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">(</span><span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R1</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R2</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC21MonoEffectTransformera"></a>
+                    <a name="//apple_ref/swift/Alias/MonoEffectTransformer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC21MonoEffectTransformera">MonoEffectTransformer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Transformer function that transforms one effect into another, with both
+effects having the same output value type.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">MonoEffectTransformer</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt"><a href="../../Classes/Redux/Saga.html#/s:13ReactiveRedux0B0C4SagaC17EffectTransformera">EffectTransformer</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -654,7 +768,7 @@ interested in.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-10)</p>
+          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

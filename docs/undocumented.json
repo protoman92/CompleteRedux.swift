@@ -36,34 +36,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Protocols+Saga.swift",
-      "line": 31,
-      "symbol": "ReduxSagaEffectType.invoke(withState:dispatch:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Protocols+Saga.swift",
-      "line": 53,
-      "symbol": "ReduxSagaTakeEffectType.Action",
-      "symbol_kind": "source.lang.swift.decl.associatedtype",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Protocols+Saga.swift",
-      "line": 54,
-      "symbol": "ReduxSagaTakeEffectType.P",
-      "symbol_kind": "source.lang.swift.decl.associatedtype",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Protocols+Saga.swift",
-      "line": 56,
-      "symbol": "ReduxSagaTakeEffectType.init(_:_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Redux+Middleware+Saga.swift",
       "line": 19,
       "symbol": "Redux.Middleware.Saga.Provider.init(effects:)",
@@ -99,8 +71,22 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Redux+Saga+Do.swift",
+      "line": 22,
+      "symbol": "Redux.Saga.DoOnValueEffect.invoke(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Redux+Saga+Do.swift",
+      "line": 39,
+      "symbol": "Redux.Saga.DoOnErrorEffect.invoke(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Redux+Saga+Effect.swift",
-      "line": 23,
+      "line": 32,
       "symbol": "Redux.Saga.Effect.asEffect()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -218,6 +204,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/UI/Redux+Props.swift",
+      "line": 42,
+      "symbol": "Redux.UI.VariableProps.init(_:_:_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/UI/ReduxCompatibleView.swift",
       "line": 31,
       "symbol": "ReduxCompatibleViewType.StaticProps",
@@ -243,6 +236,20 @@
       "line": 17,
       "symbol": "ReduxPropMapperType.ReduxView",
       "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/UI+Test/Redux+MockInjector.swift",
+      "line": 44,
+      "symbol": "Redux.UI.MockInjector.injectProps(controller:outProps:mapper:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/UI+Test/Redux+MockInjector.swift",
+      "line": 54,
+      "symbol": "Redux.UI.MockInjector.injectProps(view:outProps:mapper:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],

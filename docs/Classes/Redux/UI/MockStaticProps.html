@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Action Enumeration Reference</title>
+    <title>MockStaticProps Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/Action" class="dashAnchor"></a>
-    <a title="Action Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Class/MockStaticProps" class="dashAnchor"></a>
+    <a title="MockStaticProps Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../../index.html">ReactiveRedux Docs</a> (85% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../../../index.html">ReactiveRedux Reference</a>
         <img id="carat" src="../../../img/carat.png" />
-        Action Enumeration Reference
+        MockStaticProps Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -93,14 +93,17 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Action</h1>
+            <h1>MockStaticProps</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Action</span> <span class="p">:</span> <span class="kt"><a href="../../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">MockStaticProps</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux/UI/StaticProps.html">StaticProps</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
-            <p>Convenience enum that contains default actions.</p>
+            <p>Use this mock static props for testing:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">staticProps</span> <span class="o">=</span> <span class="kt">MockStaticProps</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">vc</span><span class="o">.</span><span class="n">staticProps</span> <span class="o">=</span> <span class="n">staticProps</span>
+</code></pre>
 
           </section>
           <section class="section task-group-section">
@@ -109,9 +112,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C6PresetC6ActionO4noopyA2GmF"></a>
-                    <a name="//apple_ref/swift/Element/noop" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C6PresetC6ActionO4noopyA2GmF">noop</a>
+                    <a name="/s:13ReactiveRedux0B0C2UIC15MockStaticPropsCyAGy__xGAE12PropInjectorCy__xGcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC15MockStaticPropsCyAGy__xGAE12PropInjectorCy__xGcfc">init(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -119,14 +122,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Does nothing.</p>
+                        <p>This initializer can be used to construct test static props.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">noop</span></code></pre>
+                          <pre class="highlight swift"><code><span class="n">convenience</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">injector</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/UI.html">UI</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/UI/PropInjector.html">PropInjector</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

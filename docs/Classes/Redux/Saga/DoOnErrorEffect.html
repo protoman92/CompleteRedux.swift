@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Action Enumeration Reference</title>
+    <title>DoOnErrorEffect Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/Action" class="dashAnchor"></a>
-    <a title="Action Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Class/DoOnErrorEffect" class="dashAnchor"></a>
+    <a title="DoOnErrorEffect Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../../index.html">ReactiveRedux Docs</a> (85% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../../../index.html">ReactiveRedux Reference</a>
         <img id="carat" src="../../../img/carat.png" />
-        Action Enumeration Reference
+        DoOnErrorEffect Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -93,14 +93,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Action</h1>
+            <h1>DoOnErrorEffect</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Action</span> <span class="p">:</span> <span class="kt"><a href="../../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">DoOnErrorEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
-            <p>Convenience enum that contains default actions.</p>
+            <p>Effect whose output performs some side effect on the source effect error,
+if any.</p>
 
           </section>
           <section class="section task-group-section">
@@ -109,9 +110,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C6PresetC6ActionO4noopyA2GmF"></a>
-                    <a name="//apple_ref/swift/Element/noop" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C6PresetC6ActionO4noopyA2GmF">noop</a>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC15DoOnErrorEffectC6invokeyAE6OutputVy__q_GAE5InputVy__xGF"></a>
+                    <a name="//apple_ref/swift/Method/invoke(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC15DoOnErrorEffectC6invokeyAE6OutputVy__q_GAE5InputVy__xGF">invoke(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -119,14 +120,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Does nothing.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">noop</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux/Saga.html#/s:13ReactiveRedux0B0C4SagaC5InputV">Input</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux/Saga/Output.html">Output</a></span><span class="o">&lt;</span><span class="kt">R</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
