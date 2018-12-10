@@ -29,17 +29,20 @@ final class ReduxRouterTest: XCTestCase {
 
 extension ReduxRouterTest {
   func test_navigateWithRouter_shouldWork() {
-    /// Setup && When
+    /// Setup
+    let expect = expectation(description: "Should have navigated")
+    self.router.navigateCallback = { if $0 == 3 { expect.fulfill() } }
+    
+    /// When
     self.dispatch(Screen.login)
     self.dispatch(Screen.dashboard)
     self.dispatch(Screen.login)
     self.dispatch(Redux.Preset.Action.noop)
     
     /// Then
-    DispatchQueue.main.async {
-      XCTAssertEqual(self.router.history, [.login, .dashboard, .login])
-      XCTAssertEqual(self.dispatchCount, 4)
-    }
+    waitForExpectations(timeout: 10, handler: nil)
+    XCTAssertEqual(self.router.history, [.login, .dashboard, .login])
+    XCTAssertEqual(self.dispatchCount, 4)
   }
 }
 
@@ -53,9 +56,11 @@ extension ReduxRouterTest {
     typealias Screen = ReduxRouterTest.Screen
     
     var history: [Screen] = []
+    var navigateCallback: ((Int) -> Void)?
     
     func navigate(_ screen: ReduxRouterTest.Screen) {
       self.history.append(screen)
+      self.navigateCallback?(self.history.count)
     }
   }
 }

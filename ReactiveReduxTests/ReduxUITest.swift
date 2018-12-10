@@ -29,30 +29,30 @@ extension ReduxUITests {
     _ view: View,
     _ inject: @escaping (View) -> Redux.Store.Subscription,
     _ checkOthers: @escaping (View) -> Void) where
-    View: ReduxCompatibleViewType,
+    View: TestReduxViewType,
     View.StateProps == State,
     View.ActionProps == () -> Void
   {
     /// Setup
     let subscription = inject(view)
+    let expect = expectation(description: "Should have injected enough")
+    view.injectCallback = { if $0 == self.iterations { expect.fulfill() } }
     
     /// When
     (0..<self.iterations).forEach({_ in self.store.state = .init()})
     subscription.unsubscribe()
     (0..<self.iterations).forEach({_ in self.store.state = .init()})
+    waitForExpectations(timeout: 10, handler: nil)
     
     /// Then
     XCTAssertEqual(self.store.lastState().counter, self.iterations * 2)
     XCTAssertEqual(self.store.unsubscribeCount, 1)
-    
-    DispatchQueue.main.async {
-      XCTAssertTrue(view.staticProps?.injector is Redux.UI.PropInjector<State>)
-      checkOthers(view)
-      
-      // Check if re-injecting would unsubscribe from the previous subscription.
-      _ = inject(view)
-      XCTAssertEqual(self.store.unsubscribeCount, 2)
-    }
+    XCTAssertTrue(view.staticProps?.injector is Redux.UI.PropInjector<State>)
+    checkOthers(view)
+  
+    // Check if re-injecting would unsubscribe from the previous subscription.
+    _ = inject(view)
+    XCTAssertEqual(self.store.unsubscribeCount, 2)
   }
   
   func test_injectViewController_shouldStreamState() {
@@ -93,14 +93,10 @@ extension ReduxUITests {
     let waitTime = UInt64(pow(10 as Double, 9) * 10)
     let timeout = DispatchTime.now().uptimeNanoseconds + waitTime
     
-    /// When
+    /// When && Then
     DispatchQueue.main.async { vc = nil; view = nil }
+    DispatchQueue.main.async { XCTAssertEqual(self.store.unsubscribeCount, 2) }
     _ = dispatchGroup.wait(timeout: DispatchTime(uptimeNanoseconds: timeout))
-    
-    /// Then
-    DispatchQueue.main.async {
-      XCTAssertEqual(self.store.unsubscribeCount, 2)
-    }
   }
 }
 
@@ -157,15 +153,17 @@ extension ReduxUITests {
     deinit { self.onDeinit?() }
     
     var staticProps: StaticProps?
-    var onDeinit: (() -> Void)?
     
     var variableProps: VariableProps? {
       didSet {
         self.setPropCount += 1
+        self.injectCallback?(self.setPropCount)
         self.variableProps?.action()
       }
     }
     
+    var injectCallback: ((Int) -> Void)?
+    var onDeinit: (() -> Void)?
     var setPropCount = 0
   }
   
@@ -173,20 +171,22 @@ extension ReduxUITests {
     deinit { self.onDeinit?() }
     
     var staticProps: StaticProps?
-    var onDeinit: (() -> Void)?
     
     var variableProps: VariableProps? {
       didSet {
         self.setPropCount += 1
+        self.injectCallback?(self.setPropCount)
         self.variableProps?.action()
       }
     }
     
+    var injectCallback: ((Int) -> Void)?
+    var onDeinit: (() -> Void)?
     var setPropCount = 0
   }
 }
 
-extension ReduxUITests.ViewController: ReduxCompatibleViewType {
+extension ReduxUITests.ViewController: TestReduxViewType {
   typealias ReduxState = ReduxUITests.State
   typealias OutProps = Int
   typealias StateProps = ReduxUITests.State
@@ -204,7 +204,7 @@ extension ReduxUITests.ViewController: ReduxPropMapperType {
   }
 }
 
-extension ReduxUITests.View: ReduxCompatibleViewType {
+extension ReduxUITests.View: TestReduxViewType {
   typealias ReduxState = ReduxUITests.State
   typealias OutProps = Int
   typealias StateProps = ReduxUITests.State
@@ -220,4 +220,8 @@ extension ReduxUITests.View: ReduxPropMapperType {
                         outProps: OutProps) -> ActionProps {
     return {dispatch(Redux.Preset.Action.noop)}
   }
+}
+
+protocol TestReduxViewType: ReduxCompatibleViewType {
+  var injectCallback: ((Int) -> Void)? { get set }
 }
