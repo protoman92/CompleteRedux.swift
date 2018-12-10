@@ -93,8 +93,16 @@ extension Redux.Saga {
       return self.with(source: self.source.debounce(sec, scheduler: scheduler))
     }
     
+    func doOnValue(_ fn: @escaping (T) throws -> Void) -> Output<T> {
+      return self.with(source: self.source.do(onNext: fn))
+    }
+    
+    func doOnError(_ fn: @escaping (Swift.Error) throws -> Void) -> Output<T> {
+      return self.with(source: self.source.do(onNext: nil, onError: fn))
+    }
+    
     func printValue() -> Output<T> {
-      return self.with(source: source.do(onNext: {print($0)}))
+      return self.doOnValue({print($0)})
     }
     
     func observeOn(_ scheduler: SchedulerType) -> Output<T> {

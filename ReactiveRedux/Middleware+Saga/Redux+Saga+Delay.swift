@@ -30,7 +30,7 @@ extension Redux.Saga {
   }
 }
 
-extension ReduxSagaEffectType {
+extension ReduxSagaEffectConvertibleType {
   
   /// Invoke a delay effect on the current effect.
   ///
@@ -44,6 +44,6 @@ extension ReduxSagaEffectType {
     -> Redux.Saga.Effect<State, R>
   {
     return self.asEffect()
-      .asInput(for: {.delay($0, bySeconds: sec, usingQueue: queue)})
+      .transform(with: {.delay($0, bySeconds: sec, usingQueue: queue)})
   }
 }

@@ -27,33 +27,33 @@ public protocol ReduxSagaEffectType: ReduxSagaEffectConvertibleType {
   func invoke(_ input: Redux.Saga.Input<State>) -> Redux.Saga.Output<R>
 }
 
+extension ReduxSagaEffectConvertibleType {
+
+  /// Feed the current effect as input to create another effect.
+  ///
+  /// - Parameter effectCreator: The effect creator function.
+  /// - Returns: An Effect instance.
+  public func transform<R2>(
+    with effectCreator: Redux.Saga.EffectTransformer<State, R, R2>)
+    -> Redux.Saga.Effect<State, R2>
+  {
+    return effectCreator(self.asEffect())
+  }
+}
+
 extension ReduxSagaEffectType {
+  
+  /// Create an output stream from input parameters. This is useful during
+  /// testing to reduce boilerplate w.r.t the creation of saga input.
+  ///
+  /// - Parameters:
+  ///   - state: A State instance.
+  ///   - dispatch: The action dispatch function.
+  /// - Returns: An Output instance.
   public func invoke(withState state: State,
                      dispatch: @escaping Redux.Store.Dispatch)
     -> Redux.Saga.Output<R>
   {
     return self.invoke(Redux.Saga.Input({state}, dispatch))
   }
-  
-  /// Feed the current effect as input to create another effect.
-  ///
-  /// - Parameter effectCreator: The effect creator function.
-  /// - Returns: An Effect instance.
-  public func asInput<R2>(
-    for effectCreator: (Self) throws -> Redux.Saga.Effect<State, R2>) rethrows
-    -> Redux.Saga.Effect<State, R2>
-  {
-    return try effectCreator(self)
-  }
-}
-
-/// Implement this protocol to represent a take effect (e.g. take latest or
-/// take every).
-public protocol ReduxSagaTakeEffectType: ReduxSagaEffectType {
-  associatedtype Action: ReduxActionType
-  associatedtype P
-  
-  init(_ actionType: Action.Type,
-       _ paramExtractor: @escaping (Action) -> P?,
-       _ outputCreator: @escaping (P) -> Redux.Saga.Effect<State, R>)
 }

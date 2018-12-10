@@ -27,7 +27,7 @@ extension Redux.Saga {
   }
 }
 
-extension ReduxSagaEffectType {
+extension ReduxSagaEffectConvertibleType {
   
   /// Invoke a catch error effect on the current effect.
   ///
@@ -37,7 +37,7 @@ extension ReduxSagaEffectType {
     _ catcher: @escaping (Swift.Error) throws -> Redux.Saga.Effect<State, R>)
     -> Redux.Saga.Effect<State, R>
   {
-    return self.asEffect().asInput(for: {.catchError($0, catcher: catcher)})
+    return self.asEffect().transform(with: {.catchError($0, catcher: catcher)})
   }
   
   /// Convenience method to catch error and return a fallback value instead of

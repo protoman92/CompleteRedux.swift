@@ -30,7 +30,7 @@ extension Redux.Saga {
   }
 }
 
-extension ReduxSagaEffectType {
+extension ReduxSagaEffectConvertibleType {
   
   /// Trigger another effect in sequence and combining emissions with a
   /// selector function.
@@ -45,7 +45,7 @@ extension ReduxSagaEffectType {
     -> Redux.Saga.Effect<State, U>
   {
     return self.asEffect()
-      .asInput(for: {.sequentialize($0, effect2, selector: selector)})
+      .transform(with: {.sequentialize($0, effect2, selector: selector)})
   }
   
   /// Trigger another effect and ignore emission from this one.

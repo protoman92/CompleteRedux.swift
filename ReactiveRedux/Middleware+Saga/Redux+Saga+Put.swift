@@ -36,7 +36,7 @@ extension Redux.Saga {
   }
 }
 
-extension ReduxSagaEffectType {
+extension ReduxSagaEffectConvertibleType {
   
   /// Invoke a put effect on the current effect.
   ///
@@ -49,7 +49,7 @@ extension ReduxSagaEffectType {
     dispatchQueue: DispatchQueue = .main)
     -> Redux.Saga.Effect<State, Any>
   {
-    return self.asEffect().asInput(for: {
+    return self.asEffect().transform(with: {
       .put($0, actionCreator: actionCreator, dispatchQueue: dispatchQueue)})
   }
 }

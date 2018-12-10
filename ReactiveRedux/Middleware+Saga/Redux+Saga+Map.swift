@@ -26,7 +26,7 @@ extension Redux.Saga {
   }
 }
 
-extension ReduxSagaEffectType {
+extension ReduxSagaEffectConvertibleType {
     
   /// Invoke a map effect on the current effect.
   ///
@@ -36,6 +36,6 @@ extension ReduxSagaEffectType {
     -> Redux.Saga.Effect<State, R2>
   {
     return self.asEffect()
-      .asInput(for: {Redux.Saga.Effect.map($0, withMapper: mapper)})
+      .transform(with: {Redux.Saga.Effect.map($0, withMapper: mapper)})
   }
 }

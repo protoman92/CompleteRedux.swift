@@ -29,7 +29,7 @@ extension Redux.Saga {
   }
 }
 
-extension ReduxSagaEffectType {
+extension ReduxSagaEffectConvertibleType {
 
   /// Invoke a call effect on the current effect.
   ///
@@ -39,7 +39,7 @@ extension ReduxSagaEffectType {
     -> Redux.Saga.Effect<State, R2>
   {
     return self.asEffect()
-      .asInput(for: {.call(with: $0, callCreator: callCreator)})
+      .transform(with: {.call(with: $0, callCreator: callCreator)})
   }
   
   /// Invoke a call effect on the current effect.
@@ -51,7 +51,7 @@ extension ReduxSagaEffectType {
     -> Redux.Saga.Effect<State, R2>
   {
     return self.asEffect()
-      .asInput(for: {.call(with: $0, callCreator: callCreator)})
+      .transform(with: {.call(with: $0, callCreator: callCreator)})
   }
   
   /// Invoke a call effect on the current effect.
@@ -63,6 +63,6 @@ extension ReduxSagaEffectType {
     -> Redux.Saga.Effect<State, R2>
   {
     return self.asEffect()
-      .asInput(for: {.call(with: $0, callCreator: callCreator)})
+      .transform(with: {.call(with: $0, callCreator: callCreator)})
   }
 }

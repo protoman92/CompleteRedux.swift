@@ -9,6 +9,15 @@
 import RxSwift
 
 extension Redux.Saga {
+  
+  /// Transformer function that takes an effect as the input and produces
+  /// another effect.
+  public typealias EffectTransformer<State, R1, R2> =
+    (Effect<State, R1>) -> Effect<State, R2>
+  
+  /// Transformer function that transforms one effect into another, with both
+  /// effects having the same output value type.
+  public typealias MonoEffectTransformer<State, R> = EffectTransformer<State, R, R>
 
   /// Base class for a side effect that is able to produce an output stream
   /// based on the current state of the Redux store. Subclasses must override
