@@ -69,9 +69,8 @@ public extension Redux.UI {
       return subscription
     }
     
-    @discardableResult
-    public func injectProps<VC, MP>(controller: VC, outProps: VC.OutProps, mapper: MP.Type)
-      -> Redux.Store.Subscription where
+    public func injectProps<VC, MP>(
+      controller: VC, outProps: VC.OutProps, mapper: MP.Type) where
       MP: ReduxPropMapperType,
       MP.ReduxView == VC,
       VC: UIViewController,
@@ -81,12 +80,10 @@ public extension Redux.UI {
       let lifecycleVC = LifecycleViewController()
       lifecycleVC.onDeinit = subscription.unsubscribe
       controller.addChild(lifecycleVC)
-      return subscription
     }
     
-    @discardableResult
-    public func injectProps<V, MP>(view: V, outProps: V.OutProps, mapper: MP.Type)
-      -> Redux.Store.Subscription where
+    public func injectProps<V, MP>(
+      view: V, outProps: V.OutProps, mapper: MP.Type) where
       MP: ReduxPropMapperType,
       MP.ReduxView == V,
       V: UIView,
@@ -96,7 +93,6 @@ public extension Redux.UI {
       let lifecycleView = LifecycleView()
       lifecycleView.onDeinit = subscription.unsubscribe
       view.addSubview(lifecycleView)
-      return subscription
     }
   }
 }

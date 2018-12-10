@@ -27,20 +27,20 @@ final class ReduxUITests: XCTestCase {
 extension ReduxUITests {
   func test_injectReduxView_shouldStreamState<View>(
     _ view: View,
-    _ inject: @escaping (View) -> Redux.Store.Subscription,
+    _ injectProps: @escaping (View) -> Void,
     _ checkOthers: @escaping (View) -> Void) where
     View: TestReduxViewType,
     View.StateProps == State,
     View.ActionProps == () -> Void
   {
     /// Setup
-    let subscription = inject(view)
     let expect = expectation(description: "Should have injected enough")
     view.injectCallback = { if $0 == self.iterations { expect.fulfill() } }
     
     /// When
+    injectProps(view)
     (0..<self.iterations).forEach({_ in self.store.state = .init()})
-    subscription.unsubscribe()
+    view.staticProps?.subscription.unsubscribe()
     (0..<self.iterations).forEach({_ in self.store.state = .init()})
     waitForExpectations(timeout: 10, handler: nil)
     
@@ -51,7 +51,7 @@ extension ReduxUITests {
     checkOthers(view)
   
     // Check if re-injecting would unsubscribe from the previous subscription.
-    _ = inject(view)
+    injectProps(view)
     XCTAssertEqual(self.store.unsubscribeCount, 2)
   }
   
@@ -88,8 +88,8 @@ extension ReduxUITests {
     var view: View? = View()
     vc!.onDeinit = dispatchGroup.leave
     view!.onDeinit = dispatchGroup.leave
-    _ = self.injector.injectProps(controller: vc!, outProps: 0)
-    _ = self.injector.injectProps(view: view!, outProps: 0)
+    self.injector.injectProps(controller: vc!, outProps: 0)
+    self.injector.injectProps(view: view!, outProps: 0)
     let waitTime = UInt64(pow(10 as Double, 9) * 10)
     let timeout = DispatchTime.now().uptimeNanoseconds + waitTime
     
