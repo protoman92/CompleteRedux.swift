@@ -150,14 +150,29 @@ extension Redux.Saga.Effect {
   /// - Parameters:
   ///   - param: The parameter to put into Redux state.
   ///   - actionCreator: The action creator function.
-  ///   - dispatchQueue: The queue on which to dispatch the action.
+  ///   - queue: The queue on which to dispatch the action.
   /// - Returns: An Effect instance.
   public static func put<P>(
     _ param: Redux.Saga.Effect<State, P>,
     actionCreator: @escaping (P) -> ReduxActionType,
-    dispatchQueue: DispatchQueue = .main) -> Redux.Saga.PutEffect<State, P>
+    usingQueue queue: DispatchQueue = .main) -> Redux.Saga.PutEffect<State, P>
   {
-    return Redux.Saga.PutEffect(param, actionCreator, dispatchQueue)
+    return Redux.Saga.PutEffect(param, actionCreator, queue)
+  }
+  
+  /// Convenience function to create a put effect with a raw value.
+  ///
+  /// - Parameters:
+  ///   - param: The parameter to put into Redux state.
+  ///   - actionCreator: The action creator function.
+  ///   - queue: The queue on which to dispatch the action.
+  /// - Returns: An Effect instance.
+  public static func put<P>(
+    _ param: P,
+    actionCreator: @escaping (P) -> ReduxActionType,
+    usingQueue queue: DispatchQueue = .main) -> Redux.Saga.PutEffect<State, P>
+  {
+    return self.put(.just(param), actionCreator: actionCreator, usingQueue: queue)
   }
   
   /// Create a select effect.

@@ -42,14 +42,14 @@ extension ReduxSagaEffectConvertibleType {
   ///
   /// - Parameters:
   ///   - actionCreator: The action creator function.
-  ///   - dispatchQueue: The dispatch queue on which to put.
+  ///   - queue: The dispatch queue on which to put.
   /// - Returns: An Effect instance.
   public func put(
     _ actionCreator: @escaping (R) -> ReduxActionType,
-    dispatchQueue: DispatchQueue = .main)
+    usingQueue queue: DispatchQueue = .main)
     -> Redux.Saga.Effect<State, Any>
   {
     return self.asEffect().transform(with: {
-      .put($0, actionCreator: actionCreator, dispatchQueue: dispatchQueue)})
+      .put($0, actionCreator: actionCreator, usingQueue: queue)})
   }
 }

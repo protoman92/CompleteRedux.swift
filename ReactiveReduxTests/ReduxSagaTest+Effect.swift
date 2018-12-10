@@ -204,32 +204,46 @@ final class ReduxSagaEffectTest: XCTestCase {
     XCTAssertEqual(value.value, 10)
   }
   
-  func test_putEffect_shouldDispatchPutEffect() {
+  func test_putEffect_shouldDispatchPutAction() {
     /// Setup
     enum Action: ReduxActionType { case input(Int) }
     var dispatchCount = 0
     var actions: [ReduxActionType] = []
-    let dispatch: Redux.Store.Dispatch = {dispatchCount += 1; actions.append($0)}
+    let expect = expectation(description: "Should have completed")
     
-    let effect = Effect<State, Int>.just(200)
-      .put(Action.input, dispatchQueue: DispatchQueue.global(qos: .default))
+    let dispatch: Redux.Store.Dispatch = {
+      dispatchCount += 1
+      actions.append($0)
+      if dispatchCount == 2 { expect.fulfill() }
+    }
     
-    let output = effect.invoke(withState: (), dispatch: dispatch)
+    let queue = DispatchQueue.global(qos: .default)
+    
+    let effect1 = Effect<State, Int>.just(200)
+      .put(Action.input, usingQueue: queue)
+    
+    let effect2 = Effect<State, Int>.put(200, actionCreator: Action.input)
+    let output1 = effect1.invoke(withState: (), dispatch: dispatch)
+    let output2 = effect2.invoke(withState: (), dispatch: dispatch)
     
     /// When
-    dispatch(Redux.Preset.Action.noop)
-    output.onAction(Redux.Preset.Action.noop)
-    _ = output.nextValue(timeoutInSeconds: self.timeout)
+    output1.onAction(Redux.Preset.Action.noop)
+    output2.onAction(Redux.Preset.Action.noop)
+    _ = output1.nextValue(timeoutInSeconds: self.timeout)
+    _ = output2.nextValue(timeoutInSeconds: self.timeout)
+    waitForExpectations(timeout: self.timeout, handler: nil)
     
     /// Then
     XCTAssertEqual(dispatchCount, 2)
     XCTAssertEqual(actions.count, 2)
-    XCTAssert(actions[0] is Redux.Preset.Action)
+    XCTAssert(actions[0] is Action)
     XCTAssert(actions[1] is Action)
-    let action = actions[1] as! Action
+    let action1 = actions[0] as! Action
+    let action2 = actions[1] as! Action
     
-    if case let .input(value) = action {
-      XCTAssertEqual(value, 200)
+    if case let .input(value1) = action1, case let .input(value2) = action2 {
+      XCTAssertEqual(value1, 200)
+      XCTAssertEqual(value2, 200)
     } else {
       XCTFail("Should not have reached here")
     }
