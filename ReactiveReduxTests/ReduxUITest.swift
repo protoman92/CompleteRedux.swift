@@ -98,6 +98,28 @@ extension ReduxUITests {
     DispatchQueue.main.async { XCTAssertEqual(self.store.unsubscribeCount, 2) }
     _ = dispatchGroup.wait(timeout: DispatchTime(uptimeNanoseconds: timeout))
   }
+  
+  func test_mockInjector_shouldKeepTrackOfInjectionCount() {
+    /// Setup
+    let mockInjector = Redux.UI.MockInjector(store: self.store)
+    let staticProps = Redux.UI.MockStaticProps(mockInjector)
+    let vc = ViewController()
+    let view = View()
+    vc.staticProps = staticProps
+    view.staticProps = staticProps
+
+    XCTAssertTrue(mockInjector.didInject(vc, times: 0))
+    XCTAssertTrue(mockInjector.didInject(view, times: 0))
+    
+    /// When
+    mockInjector.injectProps(controller: vc, outProps: 0)
+    mockInjector.injectProps(view: view, outProps: 0)
+    staticProps.subscription.unsubscribe()
+    
+    /// Then
+    XCTAssertTrue(mockInjector.didInject(vc, times: 1))
+    XCTAssertTrue(mockInjector.didInject(view, times: 1))
+  }
 }
 
 extension ReduxUITests {

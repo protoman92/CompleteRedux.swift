@@ -63,6 +63,8 @@
 		D350C36F1FA3881A0040556F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D350C36D1FA3881A0040556F /* LaunchScreen.storyboard */; };
 		D350C3771FA3A1F50040556F /* ReactiveRedux.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D350C3761FA3A1F50040556F /* ReactiveRedux.podspec */; };
 		D352CE60205CB3C800319B07 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D352CE5F205CB3C800319B07 /* README.md */; };
+		D365AD8621BED0A800BA6FED /* Redux+MockInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D365AD8521BED0A800BA6FED /* Redux+MockInjector.swift */; };
+		D365AD8821BEDA1000BA6FED /* Redux+MockProps.swift in Sources */ = {isa = PBXBuildFile; fileRef = D365AD8721BEDA1000BA6FED /* Redux+MockProps.swift */; };
 		D3803C5F21B39C230055467D /* Redux+Middleware+Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3803C5E21B39C230055467D /* Redux+Middleware+Router.swift */; };
 		D3803C6121B39D9F0055467D /* Protocols+Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3803C6021B39D9F0055467D /* Protocols+Middleware.swift */; };
 		D3803C6321B3CF4F0055467D /* Protocols+Middleware+Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3803C6221B3CF4F0055467D /* Protocols+Middleware+Router.swift */; };
@@ -160,6 +162,8 @@
 		D350C3701FA3881A0040556F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D350C3761FA3A1F50040556F /* ReactiveRedux.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReactiveRedux.podspec; sourceTree = "<group>"; };
 		D352CE5F205CB3C800319B07 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D365AD8521BED0A800BA6FED /* Redux+MockInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+MockInjector.swift"; sourceTree = "<group>"; };
+		D365AD8721BEDA1000BA6FED /* Redux+MockProps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+MockProps.swift"; sourceTree = "<group>"; };
 		D3803C5E21B39C230055467D /* Redux+Middleware+Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Middleware+Router.swift"; sourceTree = "<group>"; };
 		D3803C6021B39D9F0055467D /* Protocols+Middleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Protocols+Middleware.swift"; sourceTree = "<group>"; };
 		D3803C6221B3CF4F0055467D /* Protocols+Middleware+Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Protocols+Middleware+Router.swift"; sourceTree = "<group>"; };
@@ -321,6 +325,15 @@
 			path = "ReactiveRedux-Demo";
 			sourceTree = "<group>";
 		};
+		D365AD8421BED08C00BA6FED /* UI+Test */ = {
+			isa = PBXGroup;
+			children = (
+				D365AD8521BED0A800BA6FED /* Redux+MockInjector.swift */,
+				D365AD8721BEDA1000BA6FED /* Redux+MockProps.swift */,
+			);
+			path = "UI+Test";
+			sourceTree = "<group>";
+		};
 		D3803C5D21B39BF80055467D /* Middleware+Router */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +393,7 @@
 				D30CC2F7205C1B17005B5EA1 /* RxStore */,
 				D321DD9E21B598AC00F3E016 /* Store */,
 				D381794821ACFFB2007B33A6 /* UI */,
+				D365AD8421BED08C00BA6FED /* UI+Test */,
 			);
 			path = ReactiveRedux;
 			sourceTree = "<group>";
@@ -722,6 +736,7 @@
 				D331D0F921B2FA010000A4E1 /* Redux+Middleware.swift in Sources */,
 				D321DD9B21B5969800F3E016 /* Redux+Props.swift in Sources */,
 				D334A03321BCCB4E0016E7EB /* Redux+Saga+Take.swift in Sources */,
+				D365AD8621BED0A800BA6FED /* Redux+MockInjector.swift in Sources */,
 				D331D0FD21B2FE750000A4E1 /* Redux+RxStore.swift in Sources */,
 				D30DBFE321ADD9BB00CD1233 /* ReduxPropMapper.swift in Sources */,
 				D346C99521B7DD0F003AC8B9 /* Protocols+Saga.swift in Sources */,
@@ -730,6 +745,7 @@
 				D334A02F21BCCAC20016E7EB /* Redux+Saga+Select.swift in Sources */,
 				D334A02921BCC8770016E7EB /* Redux+Saga+Empty.swift in Sources */,
 				D3803C5F21B39C230055467D /* Redux+Middleware+Router.swift in Sources */,
+				D365AD8821BEDA1000BA6FED /* Redux+MockProps.swift in Sources */,
 				D321DD9D21B598A400F3E016 /* Redux+Store.swift in Sources */,
 				D334A03121BCCB050016E7EB /* Redux+Saga+Sequentialize.swift in Sources */,
 				D3803C6121B39D9F0055467D /* Protocols+Middleware.swift in Sources */,

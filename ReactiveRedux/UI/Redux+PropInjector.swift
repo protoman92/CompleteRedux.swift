@@ -9,7 +9,7 @@
 public extension Redux.UI {
   
   /// Basic Redux injector implementation that also handles view lifecycles.
-  public struct PropInjector<State>: ReduxPropInjectorType {
+  public class PropInjector<State>: ReduxPropInjectorType {
     private let store: Redux.Store.DelegateStore<State>
     
     /// Initialize the injector with a Redux store instance. Every time an
