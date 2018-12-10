@@ -127,6 +127,35 @@ final class ReduxSagaEffectTest: XCTestCase {
     XCTAssertEqual(value.value, 400)
   }
   
+  func test_doEffect_shouldPerformSideEffects() {
+    /// Setup
+    var valueCount = 0
+    var errorCount = 0
+    
+    let transformer: Redux.Saga.MonoEffectTransformer<State, Int> = {
+      $0.doOnValue({_ in valueCount += 1}).doOnError({_ in errorCount += 1})
+    }
+    
+    let valueSource = Redux.Saga.Effect<State, Int>
+      .call(with: .just(1), callCreator: {$1($0, nil)})
+      .transform(with: transformer)
+    
+    let errorSource = Redux.Saga.Effect<State, Int>
+      .call(with: .just(1), callCreator: {$1(nil, Redux.Saga.Error.unimplemented)})
+      .transform(with: transformer)
+    
+    let valueOutput = valueSource.invoke(withState: (), dispatch: {_ in})
+    let errorOutput = errorSource.invoke(withState: (), dispatch: {_ in})
+    
+    /// When
+    _ = valueOutput.nextValue(timeoutInSeconds: self.timeout)
+    _ = errorOutput.nextValue(timeoutInSeconds: self.timeout)
+    
+    /// Then
+    XCTAssertEqual(valueCount, 1)
+    XCTAssertEqual(errorCount, 1)
+  }
+  
   func test_emptyEffect_shouldNotEmitAnything() {
     /// Setup
     var dispatchCount = 0

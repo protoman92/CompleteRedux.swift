@@ -88,6 +88,34 @@ extension Redux.Saga.Effect {
     return Redux.Saga.CatchErrorEffect(source, catcher)
   }
   
+  /// Create a do-on-value effect.
+  ///
+  /// - Parameters:
+  ///   - source: The source effect.
+  ///   - selector: The side effect selector function.
+  /// - Returns: An Effect instance.
+  public static func doOnValue(
+    _ source: Redux.Saga.Effect<State, R>,
+    selector: @escaping (R) throws -> Void)
+    -> Redux.Saga.DoOnValueEffect<State, R>
+  {
+    return Redux.Saga.DoOnValueEffect(source, selector)
+  }
+  
+  /// Create a do-on-error effect.
+  ///
+  /// - Parameters:
+  ///   - source: The source effect.
+  ///   - selector: The side effect selector function.
+  /// - Returns: An Effect instance.
+  public static func doOnError(
+    _ source: Redux.Saga.Effect<State, R>,
+    selector: @escaping (Error) throws -> Void)
+    -> Redux.Saga.DoOnErrorEffect<State, R>
+  {
+    return Redux.Saga.DoOnErrorEffect(source, selector)
+  }
+  
   /// Create an empty effect.
   ///
   /// - Returns: An Effect instance.

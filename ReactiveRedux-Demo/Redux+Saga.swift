@@ -23,7 +23,9 @@ final class AppReduxSaga {
     return Redux.Saga.Effect<State, Bool>
       .just(true).put(AppRedux.Action.progress)
       .then(input).call(Api.performAutocomplete)
+      .doOnError({print($0)})
       .catchError({["Error was caught: \($0)"]})
+      .doOnValue({print($0)})
       .delay(bySeconds: 0.5)
       .put(AppRedux.Action.texts)
       .then(false).put(AppRedux.Action.progress)
