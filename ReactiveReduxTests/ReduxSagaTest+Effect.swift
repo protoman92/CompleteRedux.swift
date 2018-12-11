@@ -12,7 +12,7 @@ import XCTest
 @testable import ReactiveRedux
 
 final class ReduxSagaEffectTest: XCTestCase {
-  private let timeout: Double = 10
+  private let timeout: Double = 5
   
   func test_baseEffect_shouldThrowUnimplementedError() {
     /// Setup
@@ -171,6 +171,23 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// Then
     XCTAssertEqual(dispatchCount, 1)
     XCTAssertTrue(value.isFailure)
+  }
+  
+  func test_filterEffect_shouldFilterOutFailValues() {
+    /// Setup
+    let source = Effect<State, Int>.just(1)
+    let effect1 = source.filter({$0 % 2 == 0})
+    let effect2 = source.filter({$0 % 2 == 1})
+    let output1 = effect1.invoke(withState: (), dispatch: {_ in})
+    let output2 = effect2.invoke(withState: (), dispatch: {_ in})
+    
+    /// When
+    let value1 = output1.nextValue(timeoutInSeconds: self.timeout)
+    let value2 = output2.nextValue(timeoutInSeconds: self.timeout)
+    
+    /// Then
+    XCTAssertTrue(value1.isFailure)
+    XCTAssertEqual(value2.value, 1)
   }
   
   func test_justEffect_shouldEmitOnlyOneValue() {

@@ -101,6 +101,10 @@ extension Redux.Saga {
       return self.with(source: self.source.do(onNext: nil, onError: fn))
     }
     
+    func filter(_ fn: @escaping (T) throws -> Bool) -> Output<T> {
+      return self.with(source: self.source.filter(fn))
+    }
+    
     func printValue() -> Output<T> {
       return self.doOnValue({print($0)})
     }

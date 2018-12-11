@@ -123,6 +123,19 @@ extension Redux.Saga.Effect {
     return Redux.Saga.EmptyEffect()
   }
   
+  /// Create a filter effect.
+  ///
+  /// - Parameters:
+  ///   - source: The source effect to be filtered.
+  ///   - predicate: The filter predicate function.
+  /// - Returns: An Effect instance.
+  public static func filter(
+    _ source: Redux.Saga.Effect<State, R>,
+    predicate: @escaping (R) throws -> Bool) -> Redux.Saga.Effect<State, R>
+  {
+    return Redux.Saga.FilterEffect(source, predicate)
+  }
+  
   /// Create a just effect.
   ///
   /// - Parameter value: The value to form the effect with.
