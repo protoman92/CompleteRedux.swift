@@ -12,7 +12,7 @@ import XCTest
 @testable import ReactiveRedux
 
 final class ReduxSagaEffectTest: XCTestCase {
-  private let timeout: Double = 5
+  private let timeout: Double = 10
   
   func test_baseEffect_shouldThrowUnimplementedError() {
     /// Setup
@@ -106,6 +106,23 @@ final class ReduxSagaEffectTest: XCTestCase {
     /// Then
     XCTAssertTrue(value1.isFailure)
     XCTAssertEqual(value2.value, 100)
+  }
+  
+  func test_compactMap_shouldFilterNilValues() {
+    /// Setup
+    let source = Redux.Saga.Effect<State, String>.just("a")
+    let effect1 = source.compactMap(Int.init)
+    let effect2 = source.compactMap({$0 + "b"})
+    let output1 = effect1.invoke(withState: (), dispatch: {_ in})
+    let output2 = effect2.invoke(withState: (), dispatch: {_ in})
+    
+    /// When
+    let value1 = output1.nextValue(timeoutInSeconds: self.timeout)
+    let value2 = output2.nextValue(timeoutInSeconds: self.timeout)
+    
+    /// Then
+    XCTAssertTrue(value1.isFailure)
+    XCTAssertEqual(value2.value, "ab")
   }
   
   func test_delayEffect_shouldDelayEmission() {
