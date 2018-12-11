@@ -523,6 +523,70 @@ the main invocation method to customize the saga output.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC6EffectC6filter_9predicateAGy__xq_GAJ_Sbq_KctFZ"></a>
+                    <a name="//apple_ref/swift/Method/filter(_:predicate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC6EffectC6filter_9predicateAGy__xq_GAJ_Sbq_KctFZ">filter(_:predicate:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a filter effect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">filter</span><span class="p">(</span>
+  <span class="n">_</span> <span class="nv">source</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="nv">predicate</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">R</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>source</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The source effect to be filtered.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The filter predicate function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Effect instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13ReactiveRedux0B0C4SagaC6EffectC4justyAE04JustD0Cy__xq_Gq_FZ"></a>
                     <a name="//apple_ref/swift/Method/just(_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC6EffectC4justyAE04JustD0Cy__xq_Gq_FZ">just(_:)</a>
@@ -1159,7 +1223,7 @@ the main invocation method to customize the saga output.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-11)</p>
+          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-12)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

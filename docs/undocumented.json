@@ -71,6 +71,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Redux+Saga+Filter.swift",
+      "line": 22,
+      "symbol": "Redux.Saga.FilterEffect.invoke(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Redux+Saga+Just.swift",
       "line": 19,
       "symbol": "Redux.Saga.JustEffect.invoke(_:)",

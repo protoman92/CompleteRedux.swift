@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DelayEffect Class Reference</title>
+    <title>FilterEffect Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/DelayEffect" class="dashAnchor"></a>
-    <a title="DelayEffect Class Reference"></a>
+    <a name="//apple_ref/swift/Class/FilterEffect" class="dashAnchor"></a>
+    <a title="FilterEffect Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../../index.html">ReactiveRedux Docs</a> (87% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../../../index.html">ReactiveRedux Reference</a>
         <img id="carat" src="../../../img/carat.png" />
-        DelayEffect Class Reference
+        FilterEffect Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -93,14 +93,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>DelayEffect</h1>
+            <h1>FilterEffect</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">DelayEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">FilterEffect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux/Saga/Effect.html">Effect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
-            <p>Effect whose output delays emission by some period of time.</p>
+            <p>Effect whose output emissions will be filtered out using a predicate
+function.</p>
 
           </section>
           <section class="section task-group-section">
@@ -109,9 +110,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C4SagaC11DelayEffectC6invokeyAE6OutputVy__q_GAE5InputVy__xGF"></a>
+                    <a name="/s:13ReactiveRedux0B0C4SagaC12FilterEffectC6invokeyAE6OutputVy__q_GAE5InputVy__xGF"></a>
                     <a name="//apple_ref/swift/Method/invoke(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC11DelayEffectC6invokeyAE6OutputVy__q_GAE5InputVy__xGF">invoke(_:)</a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC12FilterEffectC6invokeyAE6OutputVy__q_GAE5InputVy__xGF">invoke(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
