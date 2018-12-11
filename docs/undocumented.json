@@ -237,20 +237,6 @@
       "symbol": "ReduxPropMapperType.ReduxView",
       "symbol_kind": "source.lang.swift.decl.associatedtype",
       "warning": "undocumented"
-    },
-    {
-      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/UI+Test/Redux+MockInjector.swift",
-      "line": 44,
-      "symbol": "Redux.UI.MockInjector.injectProps(controller:outProps:mapper:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/UI+Test/Redux+MockInjector.swift",
-      "line": 54,
-      "symbol": "Redux.UI.MockInjector.injectProps(view:outProps:mapper:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
     }
   ],
   "source_directory": "/Users/haipham/Desktop/ReactiveRedux-Swift"
