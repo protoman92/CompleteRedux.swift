@@ -19,7 +19,7 @@ public extension Redux.UI {
       self.store = Redux.Store.DelegateStore(store)
     }
     
-    func _inject<CV, MP>(_ cv: CV, _ outProps: CV.OutProps, _ mapper: MP.Type)
+    func _inject<CV, MP>(_ cv: CV, _ op: CV.OutProps, _ mapper: MP.Type)
       -> Redux.Store.Subscription where
       MP: ReduxPropMapperType,
       MP.ReduxView == CV,
@@ -40,16 +40,16 @@ public extension Redux.UI {
       // having parallel subscriptions.
       cv.staticProps?.subscription.unsubscribe()
       
-      let setProps: (CV?, State) -> Void = {cv, state in
+      let setProps: (CV?, State) -> Void = {cv, s in
         // Since UI operations must happen on the main thread, we dispatch
         // with the main queue. Setting the previous props here is ok as well
         // since only the main queue is accessing it.
         DispatchQueue.main.async {
-          let dispatch = MP.mapAction(dispatch: dispatch, outProps: outProps)
-          let next = MP.mapState(state: state, outProps: outProps)
+          let action = MP.mapAction(dispatch: dispatch, state: s, outProps: op)
+          let next = MP.mapState(state: s, outProps: op)
           
           if first || !MP.compareState(lhs: previous, rhs: next) {
-            cv?.variableProps = VariableProps(first, previous, next, dispatch)
+            cv?.variableProps = VariableProps(first, previous, next, action)
             previous = next
             first = false
           }

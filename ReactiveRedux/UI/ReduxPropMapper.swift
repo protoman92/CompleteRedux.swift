@@ -40,9 +40,11 @@ public protocol ReduxPropMapperType: class {
   ///
   /// - Parameters:
   ///   - dispatch: A Dispatch instance.
+  ///   - state: A ReduxState instance.
   ///   - outProps: An OutProps instance.
   /// - Returns: An ActionProps instance.
   static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
+                        state: ReduxState,
                         outProps: OutProps) -> ActionProps
   
   /// Compare previous/next StateProps.

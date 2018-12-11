@@ -221,6 +221,7 @@ extension ReduxUITests.ViewController: ReduxPropMapperType {
   }
   
   static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
+                        state: ReduxState,
                         outProps: OutProps) -> ActionProps {
     return {dispatch(Redux.Preset.Action.noop)}
   }
@@ -239,6 +240,7 @@ extension ReduxUITests.View: ReduxPropMapperType {
   }
   
   static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
+                        state: ReduxState,
                         outProps: OutProps) -> ActionProps {
     return {dispatch(Redux.Preset.Action.noop)}
   }
