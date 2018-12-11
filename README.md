@@ -14,7 +14,8 @@ Redux implementations for iOS clients. This library provides:
 
 For a deeper look into how this works, check out the [full documentation](https://protoman92.github.io/ReactiveRedux-Swift/), the repository sample app and some articles I wrote:
 
-- [Redux for Swift (Part 1): The Basics](https://medium.com/@swiften.svc/redux-for-swift-part-1-the-basics-842278cf4b93)
-- [Redux for Swift (Part 2): Automatic Subscription](https://medium.com/@swiften.svc/redux-for-swift-part-2-automatic-subscription-954a7c241c39)
-- [Redux for Swift (Part 3): OutProps](https://medium.com/@swiften.svc/redux-for-swift-part-3-outprops-3e754965581a)
-- [Redux for Swift (Part 4): Routing and Navigation](https://medium.com/@swiften.svc/redux-for-swift-part-4-routing-and-navigation-3f445892d70e)
+- [Redux for Swift (Part 1) - The Basics](https://medium.com/@swiften.svc/redux-for-swift-part-1-the-basics-7b66d73db7fa)
+- [Redux for Swift (Part 2) - Automatic Subscription](https://medium.com/@swiften.svc/redux-for-swift-part-2-automatic-subscription-569658eb087f)
+- [Redux for Swift (Part 3) - OutProps](https://medium.com/@swiften.svc/redux-for-swift-part-3-outprops-3e754965581a)
+- [Redux for Swift (Part 4) - Routing and Navigation](https://medium.com/@swiften.svc/redux-for-swift-part-4-routing-and-navigation-3f445892d70e)
+- [Redux for Swift (Part 5) - Asynchronous Work](https://medium.com/@swiften.svc/redux-for-swift-part-5-asynchronous-work-567a21e3dc26)

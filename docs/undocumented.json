@@ -15,27 +15,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Protocols+Saga.swift",
-      "line": 14,
-      "symbol": "ReduxSagaEffectConvertibleType.State",
-      "symbol_kind": "source.lang.swift.decl.associatedtype",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Protocols+Saga.swift",
-      "line": 15,
-      "symbol": "ReduxSagaEffectConvertibleType.R",
-      "symbol_kind": "source.lang.swift.decl.associatedtype",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Protocols+Saga.swift",
-      "line": 17,
-      "symbol": "ReduxSagaEffectConvertibleType.asEffect()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Redux+Middleware+Saga.swift",
       "line": 19,
       "symbol": "Redux.Middleware.Saga.Provider.init(effects:)",
@@ -81,13 +60,6 @@
       "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Redux+Saga+Do.swift",
       "line": 39,
       "symbol": "Redux.Saga.DoOnErrorEffect.invoke(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/Middleware+Saga/Redux+Saga+Effect.swift",
-      "line": 32,
-      "symbol": "Redux.Saga.Effect.asEffect()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
