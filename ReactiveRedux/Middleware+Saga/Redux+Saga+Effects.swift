@@ -17,10 +17,10 @@ extension Redux.Saga.Effect {
   ///   - param: The parameter to call with.
   ///   - callCreator: The call creator function.
   /// - Returns: An Effect instance.
-  public static func call<P>(
-    with param: Redux.Saga.Effect<State, P>,
-    callCreator: @escaping (P) -> Observable<R>)
-    -> Redux.Saga.CallEffect<State, P, R>
+  public static func call<R2>(
+    with param: Redux.Saga.Effect<State, R>,
+    callCreator: @escaping (R) -> Observable<R2>)
+    -> Redux.Saga.CallEffect<State, R, R2>
   {
     return Redux.Saga.CallEffect(param, callCreator)
   }
@@ -31,10 +31,10 @@ extension Redux.Saga.Effect {
   ///   - param: The parameter to call with.
   ///   - callCreator: The call creator function.
   /// - Returns: An Effect instance.
-  public static func call<P>(
-    with param: Redux.Saga.Effect<State, P>,
-    callCreator: @escaping (P, @escaping (Try<R>) -> Void) -> Void)
-    -> Redux.Saga.CallEffect<State, P, R>
+  public static func call<R2>(
+    with param: Redux.Saga.Effect<State, R>,
+    callCreator: @escaping (R, @escaping (Try<R2>) -> Void) -> Void)
+    -> Redux.Saga.CallEffect<State, R, R2>
   {
     return call(with: param) {param in
       return Observable.create({obs in
@@ -58,12 +58,12 @@ extension Redux.Saga.Effect {
   ///   - param: The parameter to call with.
   ///   - callCreator: The call creator function.
   /// - Returns: An Effect instance.
-  public static func call<P>(
-    with param: Redux.Saga.Effect<State, P>,
-    callCreator: @escaping (P, @escaping (R?, Error?) -> Void) -> Void)
-    -> Redux.Saga.CallEffect<State, P, R>
+  public static func call<R2>(
+    with param: Redux.Saga.Effect<State, R>,
+    callCreator: @escaping (R, @escaping (R2?, Error?) -> Void) -> Void)
+    -> Redux.Saga.CallEffect<State, R, R2>
   {
-    return call(with: param, callCreator: {(p, c: @escaping (Try<R>) -> Void) in
+    return call(with: param, callCreator: {(p, c: @escaping (Try<R2>) -> Void) in
       callCreator(p) {r, e in
         if let error = e {
           c(Try.failure(error))
@@ -152,10 +152,10 @@ extension Redux.Saga.Effect {
   ///   - actionCreator: The action creator function.
   ///   - queue: The queue on which to dispatch the action.
   /// - Returns: An Effect instance.
-  public static func put<P>(
-    _ param: Redux.Saga.Effect<State, P>,
-    actionCreator: @escaping (P) -> ReduxActionType,
-    usingQueue queue: DispatchQueue = .main) -> Redux.Saga.PutEffect<State, P>
+  public static func put(
+    _ param: Redux.Saga.Effect<State, R>,
+    actionCreator: @escaping (R) -> ReduxActionType,
+    usingQueue queue: DispatchQueue = .main) -> Redux.Saga.PutEffect<State, R>
   {
     return Redux.Saga.PutEffect(param, actionCreator, queue)
   }
@@ -167,10 +167,10 @@ extension Redux.Saga.Effect {
   ///   - actionCreator: The action creator function.
   ///   - queue: The queue on which to dispatch the action.
   /// - Returns: An Effect instance.
-  public static func put<P>(
-    _ param: P,
-    actionCreator: @escaping (P) -> ReduxActionType,
-    usingQueue queue: DispatchQueue = .main) -> Redux.Saga.PutEffect<State, P>
+  public static func put(
+    _ param: R,
+    actionCreator: @escaping (R) -> ReduxActionType,
+    usingQueue queue: DispatchQueue = .main) -> Redux.Saga.PutEffect<State, R>
   {
     return self.put(.just(param), actionCreator: actionCreator, usingQueue: queue)
   }
@@ -224,11 +224,11 @@ extension Redux.Saga.Effect {
   ///   - effectCreator: The effect creator function.
   ///   - options: Additional take options.
   /// - Returns: An Effect instance.
-  public static func takeEvery<Action, P>(
-    paramExtractor: @escaping (Action) -> P?,
-    effectCreator: @escaping (P) -> Redux.Saga.Effect<State, R>,
+  public static func takeEvery<Action, R2>(
+    paramExtractor: @escaping (Action) -> R?,
+    effectCreator: @escaping (R) -> Redux.Saga.Effect<State, R2>,
     options: Redux.Saga.TakeOptions = .default())
-    -> Redux.Saga.TakeEveryEffect<State, Action, P, R> where
+    -> Redux.Saga.TakeEveryEffect<State, Action, R, R2> where
     Action: ReduxActionType
   {
     return Redux.Saga.TakeEveryEffect(paramExtractor, effectCreator, options)
@@ -241,11 +241,11 @@ extension Redux.Saga.Effect {
   ///   - effectCreator: The effect creator function.
   ///   - options: Additinoal take options.
   /// - Returns: An Effect instance.
-  public static func takeLatest<Action, P>(
-    paramExtractor: @escaping (Action) -> P?,
-    effectCreator: @escaping (P) -> Redux.Saga.Effect<State, R>,
+  public static func takeLatest<Action, R2>(
+    paramExtractor: @escaping (Action) -> R?,
+    effectCreator: @escaping (R) -> Redux.Saga.Effect<State, R2>,
     options: Redux.Saga.TakeOptions = .default())
-    -> Redux.Saga.TakeLatestEffect<State, Action, P, R> where
+    -> Redux.Saga.TakeLatestEffect<State, Action, R, R2> where
     Action: ReduxActionType
   {
     return Redux.Saga.TakeLatestEffect(paramExtractor, effectCreator, options)

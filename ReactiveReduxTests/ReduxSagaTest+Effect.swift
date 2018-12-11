@@ -87,10 +87,10 @@ final class ReduxSagaEffectTest: XCTestCase {
   
   func test_catchErrorEffect_shouldReturnFallback() {
     /// Setup
-    let source = Redux.Saga.Effect<State, Int>.call(with: .just(1)) {_ in
-      let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
+    let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
-      return Observable
+    let source = Redux.Saga.Effect<State, Int>.call(with: .just(1)) {_ in
+      return Observable<Int>
         .error(Redux.Saga.Error.unimplemented)
         .delay(2, scheduler: scheduler)
     }
@@ -270,9 +270,10 @@ final class ReduxSagaEffectTest: XCTestCase {
   
   func test_sequentializeEffect_shouldEnsureExecutionOrder() {
     /// Setup
+    let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
+    
     let effect1 = Effect<State, Int>.call(with: .just(1)) {
-      let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
-      return Observable.just($0).delay(2, scheduler: scheduler)
+      Observable.just($0).delay(2, scheduler: scheduler)
     }
     
     let sequence = effect1.then(2)

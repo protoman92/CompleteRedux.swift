@@ -50,6 +50,8 @@ extension ReduxSagaEffectConvertibleType {
     -> Redux.Saga.Effect<State, Any>
   {
     return self.asEffect().transform(with: {
-      .put($0, actionCreator: actionCreator, usingQueue: queue)})
+      Redux.Saga.Effect<State, R>
+        .put($0, actionCreator: actionCreator, usingQueue: queue)
+    })
   }
 }

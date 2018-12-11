@@ -6,14 +6,18 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-import RxSwift
-import SwiftFP
-
 /// Implement this protocol to convert to an effect instance.
 public protocol ReduxSagaEffectConvertibleType {
+  
+  /// The app-specific state type.
   associatedtype State
+  
+  /// The type of the effect's output value.
   associatedtype R
   
+  /// Convert the current object into an Effect.
+  ///
+  /// - Returns: An Effect instance.
   func asEffect() -> Redux.Saga.Effect<State, R>
 }
 

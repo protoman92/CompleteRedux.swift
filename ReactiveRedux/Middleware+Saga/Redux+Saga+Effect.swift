@@ -6,8 +6,6 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-import RxSwift
-
 extension Redux.Saga {
   
   /// Transformer function that takes an effect as the input and produces

@@ -38,8 +38,9 @@ extension ReduxSagaEffectConvertibleType {
   public func call<R2>(_ callCreator: @escaping (R) -> Observable<R2>)
     -> Redux.Saga.Effect<State, R2>
   {
-    return self.asEffect()
-      .transform(with: {.call(with: $0, callCreator: callCreator)})
+    return self.asEffect().transform(with: {
+      Redux.Saga.Effect<State, R>.call(with: $0, callCreator: callCreator)
+    })
   }
   
   /// Invoke a call effect on the current effect.
@@ -50,8 +51,9 @@ extension ReduxSagaEffectConvertibleType {
     _ callCreator: @escaping (R, @escaping (Try<R2>) -> Void) -> Void)
     -> Redux.Saga.Effect<State, R2>
   {
-    return self.asEffect()
-      .transform(with: {.call(with: $0, callCreator: callCreator)})
+    return self.asEffect().transform(with: {
+      Redux.Saga.Effect<State, R>.call(with: $0, callCreator: callCreator)
+    })
   }
   
   /// Invoke a call effect on the current effect.
@@ -62,7 +64,8 @@ extension ReduxSagaEffectConvertibleType {
     _ callCreator: @escaping (R, @escaping (R2?, Error?) -> Void) -> Void)
     -> Redux.Saga.Effect<State, R2>
   {
-    return self.asEffect()
-      .transform(with: {.call(with: $0, callCreator: callCreator)})
+    return self.asEffect().transform(with: {
+      Redux.Saga.Effect<State, R>.call(with: $0, callCreator: callCreator)
+    })
   }
 }
