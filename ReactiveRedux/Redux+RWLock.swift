@@ -29,19 +29,19 @@ extension Redux {
     deinit {pthread_rwlock_destroy(&self._mainLock)}
     
     @discardableResult
-    public func lockRead(tryAcquire: Bool) -> Bool {
-      let result = tryAcquire
-        ? pthread_rwlock_tryrdlock(&self._mainLock)
-        : pthread_rwlock_rdlock(&self._mainLock)
+    public func lockRead(force: Bool) -> Bool {
+      let result = force
+        ? pthread_rwlock_rdlock(&self._mainLock)
+        : pthread_rwlock_tryrdlock(&self._mainLock)
       
       return result == 0
     }
     
     @discardableResult
-    public func lockWrite(tryAcquire: Bool) -> Bool {
-      let result = tryAcquire
-        ? pthread_rwlock_trywrlock(&self._mainLock)
-        : pthread_rwlock_wrlock(&self._mainLock)
+    public func lockWrite(force: Bool) -> Bool {
+      let result = force
+        ? pthread_rwlock_wrlock(&self._mainLock)
+        : pthread_rwlock_trywrlock(&self._mainLock)
       
       return result == 0
     }
