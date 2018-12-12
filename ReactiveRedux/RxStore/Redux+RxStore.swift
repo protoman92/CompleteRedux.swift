@@ -47,12 +47,7 @@ public extension Redux.Store {
     private var _stateObserver: BehaviorSubject<State>
     private let _defaultState: State
     
-    var stateTrigger: AnyObserver<State> {
-      return self._stateObserver.asObserver()
-    }
-    
-    private init(_ initialState: State,
-                 _ reducer: @escaping Reducer<State>) {
+    private init(_ initialState: State, _ reducer: @escaping Reducer<State>) {
       self._disposeBag = DisposeBag()
       self._actionObserver = RxObserver(Redux.Preset.Action.noop)
       self._stateObserver = BehaviorSubject(value: initialState)

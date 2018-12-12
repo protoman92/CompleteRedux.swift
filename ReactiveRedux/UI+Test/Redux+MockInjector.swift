@@ -27,19 +27,14 @@ extension Redux.UI {
   /// This class keeps track of the injection count for each Redux-compatible
   /// view.
   public final class MockInjector<State>: PropInjector<State> {
+    public let lock: ReadWriteLockType
     private var _injectCount: [String : Int]
-    private var _lock: pthread_rwlock_t
     
-    override public init<S>(store: S) where
-      S: ReduxStoreType, S.State == State
-    {
+    override public init<S>(store: S) where S: ReduxStoreType, S.State == State {
+      self.lock = Redux.ReadWriteLock()
       self._injectCount = [:]
-      self._lock = pthread_rwlock_t()
       super.init(store: store)
-      pthread_rwlock_init(&self._lock, nil)
     }
-    
-    deinit { pthread_rwlock_destroy(&self._lock) }
     
     /// Add one count to the view controller injectee.
     ///
@@ -86,18 +81,6 @@ extension Redux.UI {
       return self.getInjecteeCount(view) == times
     }
     
-    private func read<T>(_ fn: () -> T) -> T {
-      pthread_rwlock_rdlock(&self._lock)
-      defer { pthread_rwlock_unlock(&self._lock) }
-      return fn()
-    }
-    
-    private func modify(_ fn: () -> Void) {
-      pthread_rwlock_wrlock(&self._lock)
-      defer { pthread_rwlock_unlock(&self._lock) }
-      fn()
-    }
-    
     private func addInjecteeCount(_ id: String) {
       self.modify {
         self._injectCount[id] = self._injectCount[id, default: 0] + 1
@@ -111,7 +94,7 @@ extension Redux.UI {
     }
     
     private func getInjecteeCount(_ id: String) -> Int {
-      return self.read { self._injectCount[id, default: 0] }
+      return self.access { self._injectCount[id, default: 0] }.getOrElse(0)
     }
     
     private func getInjecteeCount<View>(_ view: View) -> Int where
@@ -121,3 +104,5 @@ extension Redux.UI {
     }
   }
 }
+
+extension Redux.UI.MockInjector: ReadWriteLockableType {}
