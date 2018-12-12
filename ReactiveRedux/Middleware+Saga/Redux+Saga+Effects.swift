@@ -168,7 +168,8 @@ extension Redux.Saga.Effect {
   public static func put(
     _ param: Redux.Saga.Effect<State, R>,
     actionCreator: @escaping (R) -> ReduxActionType,
-    usingQueue queue: DispatchQueue = .main) -> Redux.Saga.PutEffect<State, R>
+    usingQueue queue: DispatchQueue = .global(qos: .default))
+    -> Redux.Saga.PutEffect<State, R>
   {
     return Redux.Saga.PutEffect(param, actionCreator, queue)
   }
@@ -183,7 +184,8 @@ extension Redux.Saga.Effect {
   public static func put(
     _ param: R,
     actionCreator: @escaping (R) -> ReduxActionType,
-    usingQueue queue: DispatchQueue = .main) -> Redux.Saga.PutEffect<State, R>
+    usingQueue queue: DispatchQueue = .global(qos: .default))
+    -> Redux.Saga.PutEffect<State, R>
   {
     return self.put(.just(param), actionCreator: actionCreator, usingQueue: queue)
   }

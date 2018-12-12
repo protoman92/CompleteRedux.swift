@@ -241,9 +241,10 @@ final class ReduxSagaEffectTest: XCTestCase {
   func test_putEffect_shouldDispatchPutAction() {
     /// Setup
     enum Action: ReduxActionType { case input(Int) }
+    typealias E = Effect<State, Int>
+    let expect = expectation(description: "Should have completed")
     var dispatchCount = 0
     var actions: [ReduxActionType] = []
-    let expect = expectation(description: "Should have completed")
     
     let dispatch: Redux.Store.Dispatch = {
       dispatchCount += 1
@@ -251,12 +252,9 @@ final class ReduxSagaEffectTest: XCTestCase {
       if dispatchCount == 2 { expect.fulfill() }
     }
     
-    let queue = DispatchQueue.global(qos: .default)
-    
-    let effect1 = Effect<State, Int>.just(200)
-      .put(Action.input, usingQueue: queue)
-    
-    let effect2 = Effect<State, Int>.put(200, actionCreator: Action.input)
+    let queue = DispatchQueue.global(qos: .background)
+    let effect1 = E.just(200).put(Action.input, usingQueue: queue)
+    let effect2 = E.put(200, actionCreator: Action.input, usingQueue: queue)
     let output1 = effect1.invoke(withState: (), dispatch: dispatch)
     let output2 = effect2.invoke(withState: (), dispatch: dispatch)
     

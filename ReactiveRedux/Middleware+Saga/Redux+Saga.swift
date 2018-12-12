@@ -122,19 +122,24 @@ extension Redux.Saga {
     /// - Parameter nano: The time in nanoseconds to wait for until timeout.
     /// - Returns: A Try instance.
     public func nextValue(timeoutInNanoseconds nano: Double) -> Try<T> {
+      let scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
+      let stopStream = PublishSubject<Any?>()
+      defer {stopStream.onNext(nil)}
       let dispatchGroup = DispatchGroup()
       var value: Try<T> = Try.failure("No value found")
       dispatchGroup.enter()
       
-      self.source.take(1)
+      self.source
+        .timeout(nano / pow(10, 9), scheduler: scheduler)
+        .takeUntil(stopStream)
         .subscribe(
           onNext: {value = Try.success($0); dispatchGroup.leave()},
-          onError: {value = Try.failure($0); dispatchGroup.leave()})
+          onError: {value = Try.failure($0); dispatchGroup.leave()}
+        )
         .disposed(by: self.disposeBag)
-
-      let dispatchTimeout = DispatchTime(uptimeNanoseconds:
-        DispatchTime.now().uptimeNanoseconds + UInt64(nano))
       
+      let timeout = DispatchTime.now().uptimeNanoseconds + UInt64(nano)
+      let dispatchTimeout = DispatchTime(uptimeNanoseconds: timeout)
       _ = dispatchGroup.wait(timeout: dispatchTimeout)
       return value
     }
