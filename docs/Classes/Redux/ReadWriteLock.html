@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>UI Class Reference</title>
+    <title>ReadWriteLock Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/UI" class="dashAnchor"></a>
-    <a title="UI Class Reference"></a>
+    <a name="//apple_ref/swift/Class/ReadWriteLock" class="dashAnchor"></a>
+    <a title="ReadWriteLock Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html">ReactiveRedux Docs</a> (88% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html">ReactiveRedux Reference</a>
         <img id="carat" src="../../img/carat.png" />
-        UI Class Reference
+        ReadWriteLock Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -99,14 +99,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>UI</h1>
+            <h1>ReadWriteLock</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">UI</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ReadWriteLock</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ReadWriteLockType.html">ReadWriteLockType</a></span></code></pre>
 
                 </div>
               </div>
-            <p>Top-level namespace for UI-related functionalities.</p>
+            <p>Simple read-write lock implementation with pthread_rwlock_t.</p>
 
           </section>
           <section class="section task-group-section">
@@ -115,9 +115,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C2UIC12MockInjectorC"></a>
-                    <a name="//apple_ref/swift/Class/MockInjector" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC12MockInjectorC">MockInjector</a>
+                    <a name="/s:13ReactiveRedux0B0C13ReadWriteLockCAEycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C13ReadWriteLockCAEycfc">init()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -125,129 +125,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Prop injector subclass that can be used for testing. For example:</p>
-<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">ReduxCompatibleView</span> <span class="p">{</span>
-  <span class="k">var</span> <span class="nv">staticProps</span><span class="p">:</span> <span class="kt">StaticProps</span><span class="p">?</span>
-  <span class="o">...</span>
-<span class="p">}</span>
+                        <p>Initialize a new read-write lock with pthread_rwlock_t.</p>
 
-<span class="kd">func</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
-  <span class="o">...</span>
-  <span class="k">let</span> <span class="nv">injector</span> <span class="o">=</span> <span class="kt">MockInjector</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-  <span class="n">vc</span><span class="o">.</span><span class="n">staticProps</span> <span class="o">=</span> <span class="kt">StaticProps</span><span class="p">(</span><span class="n">injector</span><span class="p">)</span>
-  <span class="o">...</span>
-<span class="p">}</span>
-</code></pre>
-
-<p>This class keeps track of the injection count for each Redux-compatible
-view.</p>
-
-                        <a href="../../Classes/Redux/UI/MockInjector.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">MockInjector</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/UI/PropInjector.html">PropInjector</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13ReactiveRedux0B0C2UIC15MockStaticPropsC"></a>
-                    <a name="//apple_ref/swift/Class/MockStaticProps" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC15MockStaticPropsC">MockStaticProps</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Use this mock static props for testing:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">staticProps</span> <span class="o">=</span> <span class="kt">MockStaticProps</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="n">vc</span><span class="o">.</span><span class="n">staticProps</span> <span class="o">=</span> <span class="n">staticProps</span>
-</code></pre>
-
-                        <a href="../../Classes/Redux/UI/MockStaticProps.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">MockStaticProps</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Redux/UI/StaticProps.html">StaticProps</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13ReactiveRedux0B0C2UIC12PropInjectorC"></a>
-                    <a name="//apple_ref/swift/Class/PropInjector" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC12PropInjectorC">PropInjector</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Basic Redux injector implementation that also handles view lifecycles.</p>
-
-                        <a href="../../Classes/Redux/UI/PropInjector.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PropInjector</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ReduxPropInjectorType.html">ReduxPropInjectorType</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13ReactiveRedux0B0C2UIC11StaticPropsC"></a>
-                    <a name="//apple_ref/swift/Class/StaticProps" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC11StaticPropsC">StaticProps</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Static props container.</p>
-
-                        <a href="../../Classes/Redux/UI/StaticProps.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">StaticProps</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -257,9 +142,9 @@ view.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C2UIC13VariablePropsV"></a>
-                    <a name="//apple_ref/swift/Struct/VariableProps" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC13VariablePropsV">VariableProps</a>
+                    <a name="/s:13ReactiveRedux17ReadWriteLockTypeP04lockC04waitS2b_tF"></a>
+                    <a name="//apple_ref/swift/Method/lockRead(wait:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux17ReadWriteLockTypeP04lockC04waitS2b_tF">lockRead(wait:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -267,15 +152,68 @@ view.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Variable props container.</p>
-
-                        <a href="../../Classes/Redux/UI/VariableProps.html" class="slightly-smaller">See more</a>
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">VariableProps</span><span class="o">&lt;</span><span class="kt">StateProps</span><span class="p">,</span> <span class="kt">ActionProps</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">lockRead</span><span class="p">(</span><span class="nv">wait</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux17ReadWriteLockTypeP04lockD04waitS2b_tF"></a>
+                    <a name="//apple_ref/swift/Method/lockWrite(wait:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux17ReadWriteLockTypeP04lockD04waitS2b_tF">lockWrite(wait:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">lockWrite</span><span class="p">(</span><span class="nv">wait</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux17ReadWriteLockTypeP6unlockSbyF"></a>
+                    <a name="//apple_ref/swift/Method/unlock()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux17ReadWriteLockTypeP6unlockSbyF">unlock()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">unlock</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>

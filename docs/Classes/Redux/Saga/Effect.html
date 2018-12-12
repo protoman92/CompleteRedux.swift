@@ -14,7 +14,7 @@
     <a title="Effect Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../../index.html">ReactiveRedux Docs</a> (87% documented)</p>
+        <p><a href="../../../index.html">ReactiveRedux Docs</a> (88% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -48,11 +48,17 @@
               <li class="nav-group-task">
                 <a href="../../../Classes/Redux/Preset.html">– Preset</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../../../Classes/Redux/ReadWriteLock.html">– ReadWriteLock</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="../../../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Protocols/ReadWriteLockType.html">ReadWriteLockType</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a>
               </li>
@@ -722,7 +728,8 @@ the main invocation method to customize the saga output.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">put</span><span class="p">(</span>
   <span class="n">_</span> <span class="nv">param</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt">Effect</span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="nv">actionCreator</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">R</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span><span class="p">,</span>
-  <span class="n">usingQueue</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga/PutEffect.html">PutEffect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+  <span class="n">usingQueue</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="nf">global</span><span class="p">(</span><span class="nv">qos</span><span class="p">:</span> <span class="o">.</span><span class="k">default</span><span class="p">))</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga/PutEffect.html">PutEffect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -799,7 +806,8 @@ the main invocation method to customize the saga output.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">put</span><span class="p">(</span>
   <span class="n">_</span> <span class="nv">param</span><span class="p">:</span> <span class="kt">R</span><span class="p">,</span>
   <span class="nv">actionCreator</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">R</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span><span class="p">,</span>
-  <span class="n">usingQueue</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga/PutEffect.html">PutEffect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
+  <span class="n">usingQueue</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="nf">global</span><span class="p">(</span><span class="nv">qos</span><span class="p">:</span> <span class="o">.</span><span class="k">default</span><span class="p">))</span>
+  <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga.html">Saga</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Saga/PutEffect.html">PutEffect</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="p">,</span> <span class="kt">R</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>

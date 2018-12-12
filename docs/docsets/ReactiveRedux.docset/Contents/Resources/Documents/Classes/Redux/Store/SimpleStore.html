@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>RxStore Structure Reference</title>
+    <title>SimpleStore Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/RxStore" class="dashAnchor"></a>
-    <a title="RxStore Structure Reference"></a>
+    <a name="//apple_ref/swift/Class/SimpleStore" class="dashAnchor"></a>
+    <a title="SimpleStore Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../../index.html">ReactiveRedux Docs</a> (88% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../../../index.html">ReactiveRedux Reference</a>
         <img id="carat" src="../../../img/carat.png" />
-        RxStore Structure Reference
+        SimpleStore Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -99,16 +99,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>RxStore</h1>
+            <h1>SimpleStore</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "Use simple store for better thread safety.")</span>
-<span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RxStore</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">SimpleStore</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../../../Protocols/ReduxStoreType.html">ReduxStoreType</a></span></code></pre>
 
                 </div>
               </div>
-            <p>A Redux-compliant store. Since this store is used for UI-related work, it
-should operation on the main thread.</p>
+            <p>Simple store that keeps track of subscribers in a Dictionary. This store
+is thread-safe.</p>
 
           </section>
           <section class="section task-group-section">
@@ -117,9 +116,9 @@ should operation on the main thread.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C5StoreC02RxC0V6createyAGy__xGx_xx_AA0B10ActionType_ptctFZ"></a>
+                    <a name="/s:13ReactiveRedux0B0C5StoreC06SimpleC0C6createyAGy__xGx_xx_AA0B10ActionType_ptctFZ"></a>
                     <a name="//apple_ref/swift/Method/create(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C5StoreC02RxC0V6createyAGy__xGx_xx_AA0B10ActionType_ptctFZ">create(_:_:)</a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C5StoreC06SimpleC0C6createyAGy__xGx_xx_AA0B10ActionType_ptctFZ">create(_:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -127,8 +126,7 @@ should operation on the main thread.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Create a Redux store that only receives and delivers events on the main
-thread.</p>
+                        <p>Create a simple store instance with an initial state and reducer.</p>
 
                       </div>
                       <div class="declaration">
@@ -137,7 +135,7 @@ thread.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">create</span><span class="p">(</span>
   <span class="n">_</span> <span class="nv">initialState</span><span class="p">:</span> <span class="kt">State</span><span class="p">,</span>
-  <span class="n">_</span> <span class="nv">reducer</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../../../Classes/Redux/Store.html#/s:13ReactiveRedux0B0C5StoreC7Reducera">Reducer</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">RxStore</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span></code></pre>
+  <span class="n">_</span> <span class="nv">reducer</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../../../Classes/Redux/Store.html#/s:13ReactiveRedux0B0C5StoreC7Reducera">Reducer</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">SimpleStore</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -153,19 +151,19 @@ thread.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>A State instance.</p>
+                                  <p>The initial store state.</p>
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>mainReducer</em>
+                                <em>reducer</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>A Reducer instance.</p>
+                                  <p>The main reducer instance.</p>
                                 </div>
                               </td>
                             </tr>
@@ -174,21 +172,17 @@ thread.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A RxReduxStore instance.</p>
+                        <p>A simple store instance.</p>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B9StoreTypeP8dispatchyyAA0b6ActionD0_pcvp"></a>
-                    <a name="//apple_ref/swift/Property/dispatch" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B9StoreTypeP8dispatchyyAA0b6ActionD0_pcvp">dispatch</a>
+                    <a name="/s:13ReactiveRedux0B0C5StoreC06SimpleC0C9lastStatexycvp"></a>
+                    <a name="//apple_ref/swift/Property/lastState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C5StoreC06SimpleC0C9lastStatexycvp">lastState</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -196,7 +190,36 @@ thread.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Get the last reduced state in a thread-safe manner.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">lastState</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux/Store.html#/s:13ReactiveRedux0B0C5StoreC9LastStatea">LastState</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C5StoreC06SimpleC0C8dispatchyyAA0B10ActionType_pcvp"></a>
+                    <a name="//apple_ref/swift/Property/dispatch" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C5StoreC06SimpleC0C8dispatchyyAA0B10ActionType_pcvp">dispatch</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reduce the action to produce a new state and broadcast this state to
+all subscribers.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -212,9 +235,9 @@ thread.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B9StoreTypeP14subscribeStateyAA0B0C0C0C12SubscriptionVSS_y0F0Qzctcvp"></a>
+                    <a name="/s:13ReactiveRedux0B0C5StoreC06SimpleC0C14subscribeStateyAE12SubscriptionVSS_yxctcvp"></a>
                     <a name="//apple_ref/swift/Property/subscribeState" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B9StoreTypeP14subscribeStateyAA0B0C0C0C12SubscriptionVSS_y0F0Qzctcvp">subscribeState</a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C5StoreC06SimpleC0C14subscribeStateyAE12SubscriptionVSS_yxctcvp">subscribeState</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -222,97 +245,15 @@ thread.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">subscribeState</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Store.html">Store</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Store.html#/s:13ReactiveRedux0B0C5StoreC9Subscribea">Subscribe</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13ReactiveRedux0B9StoreTypeP9lastState0F0Qzycvp"></a>
-                    <a name="//apple_ref/swift/Property/lastState" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B9StoreTypeP9lastState0F0Qzycvp">lastState</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">lastState</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux.html">Redux</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Store.html">Store</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/Redux/Store.html#/s:13ReactiveRedux0B0C5StoreC9LastStatea">LastState</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/actionTrigger" class="dashAnchor"></a>
-                    <a class="token" href="#/">actionTrigger</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Subscribe to state updates and immediately receive the latest state.
+On unsubscription, remove the subscriber.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">actionTrigger</span><span class="p">:</span> <span class="kt">AnyObserver</span><span class="o">&lt;</span><span class="kt"><a href="../../../Protocols.html#/s:13ReactiveRedux0B10ActionTypeP">ReduxActionType</a></span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/stateStream" class="dashAnchor"></a>
-                    <a class="token" href="#/">stateStream</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">stateStream</span><span class="p">:</span> <span class="kt">Observable</span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">subscribeState</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/Redux/Store.html#/s:13ReactiveRedux0B0C5StoreC9Subscribea">Subscribe</a></span><span class="o">&lt;</span><span class="kt">State</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>

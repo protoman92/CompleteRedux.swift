@@ -156,14 +156,14 @@
     },
     {
       "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/RxStore/Redux+RxStore.swift",
-      "line": 95,
+      "line": 91,
       "symbol": "Redux.Store.RxStore.actionTrigger",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/RxStore/Redux+RxStore.swift",
-      "line": 99,
+      "line": 95,
       "symbol": "Redux.Store.RxStore.stateStream",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"

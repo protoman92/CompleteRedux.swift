@@ -7,10 +7,11 @@
 
 Redux implementations for iOS clients. This library provides:
 
-- A Rx-enabled store.
-- Middleware support and default middleware providers (e.g. router middleware);
-- Prop injection for a Redux-compatible view/view controller;
-- A side effect model (Saga) to handle asynchronous work;
+- [A simple, thread-safe Redux store](https://github.com/protoman92/ReactiveRedux-Swift/tree/master/ReactiveRedux/SimpleStore);
+- [Middleware support](https://github.com/protoman92/ReactiveRedux-Swift/tree/master/ReactiveRedux/Middleware);
+- [Prop injection for a Redux-compatible view/view controller](https://github.com/protoman92/ReactiveRedux-Swift/tree/master/ReactiveRedux/UI);
+- [A Router middleware implementation](https://github.com/protoman92/ReactiveRedux-Swift/tree/master/ReactiveRedux/Middleware%2BRouter);
+- [A side effect model (Saga) to handle asynchronous work](https://github.com/protoman92/ReactiveRedux-Swift/tree/master/ReactiveRedux/Middleware%2BSaga);
 
 For a deeper look into how this works, check out the [full documentation](https://protoman92.github.io/ReactiveRedux-Swift/), the repository sample app and some articles I wrote:
 

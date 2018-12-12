@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Redux Class Reference</title>
+    <title>ReadWriteLockType Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/Redux" class="dashAnchor"></a>
-    <a title="Redux Class Reference"></a>
+    <a name="//apple_ref/swift/Protocol/ReadWriteLockType" class="dashAnchor"></a>
+    <a title="ReadWriteLockType Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">ReactiveRedux Docs</a> (88% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">ReactiveRedux Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Redux Class Reference
+        ReadWriteLockType Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -99,14 +99,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Redux</h1>
+            <h1>ReadWriteLockType</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Redux</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ReadWriteLockType</span></code></pre>
 
                 </div>
               </div>
-            <p>Top-level namespace for Redux that provides crucial functionalities.</p>
+            <p>Implement this protocol to provide read-write lock capabilities.</p>
 
           </section>
           <section class="section task-group-section">
@@ -115,9 +115,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C5StoreC"></a>
-                    <a name="//apple_ref/swift/Class/Store" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C5StoreC">Store</a>
+                    <a name="/s:13ReactiveRedux17ReadWriteLockTypeP04lockC04waitS2b_tF"></a>
+                    <a name="//apple_ref/swift/Method/lockRead(wait:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux17ReadWriteLockTypeP04lockC04waitS2b_tF">lockRead(wait:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -125,17 +125,40 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Top-level namespace for Store-related functionalities.</p>
+                        <p>Lock reads for safe property access.</p>
 
-                        <a href="../Classes/Redux/Store.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Store</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="nf">lockRead</span><span class="p">(</span><span class="nv">wait</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>wait</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Wait if not possible to acquire lock.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Anything that indicates the success of lock acquisition.</p>
                       </div>
                     </section>
                   </div>
@@ -143,9 +166,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C10MiddlewareC"></a>
-                    <a name="//apple_ref/swift/Class/Middleware" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C10MiddlewareC">Middleware</a>
+                    <a name="/s:13ReactiveRedux17ReadWriteLockTypeP04lockD04waitS2b_tF"></a>
+                    <a name="//apple_ref/swift/Method/lockWrite(wait:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux17ReadWriteLockTypeP04lockD04waitS2b_tF">lockWrite(wait:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -153,17 +176,40 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Top-level namespace for Middleware-related functionalities.</p>
+                        <p>Lock writes for safe property modification.</p>
 
-                        <a href="../Classes/Redux/Middleware.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Middleware</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="nf">lockWrite</span><span class="p">(</span><span class="nv">wait</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>wait</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Wait if not possible to acquire lock.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Anything that indicates the success of lock acquisition.</p>
                       </div>
                     </section>
                   </div>
@@ -171,9 +217,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C2UIC"></a>
-                    <a name="//apple_ref/swift/Class/UI" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC">UI</a>
+                    <a name="/s:13ReactiveRedux17ReadWriteLockTypeP6unlockSbyF"></a>
+                    <a name="//apple_ref/swift/Method/unlock()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux17ReadWriteLockTypeP6unlockSbyF">unlock()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -181,77 +227,21 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Top-level namespace for UI-related functionalities.</p>
+                        <p>Release the lock.</p>
 
-                        <a href="../Classes/Redux/UI.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">UI</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="nf">unlock</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13ReactiveRedux0B0C4SagaC"></a>
-                    <a name="//apple_ref/swift/Class/Saga" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C4SagaC">Saga</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Top-level namespace for Saga-related functionalities.</p>
-
-                        <a href="../Classes/Redux/Saga.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Saga</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:13ReactiveRedux0B0C6PresetC"></a>
-                    <a name="//apple_ref/swift/Class/Preset" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C6PresetC">Preset</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Top-level namespace for presets.</p>
-
-                        <a href="../Classes/Redux/Preset.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Preset</span></code></pre>
-
-                        </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Anything that indicates the success of lock acquisition.</p>
                       </div>
                     </section>
                   </div>
@@ -263,25 +253,57 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:13ReactiveRedux0B0C13ReadWriteLockC"></a>
-                    <a name="//apple_ref/swift/Class/ReadWriteLock" class="dashAnchor"></a>
-                    <a class="token" href="#/s:13ReactiveRedux0B0C13ReadWriteLockC">ReadWriteLock</a>
+                    <a name="/s:13ReactiveRedux17ReadWriteLockTypePAAE6accessyqd__Sgqd__yKXEKlF"></a>
+                    <a name="//apple_ref/swift/Method/access(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux17ReadWriteLockTypePAAE6accessyqd__Sgqd__yKXEKlF">access(_:)</a>
                     </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Simple read-write lock implementation with pthread_rwlock_t.</p>
+                        <p>Access some property in a thread-safe manner.</p>
 
-                        <a href="../Classes/Redux/ReadWriteLock.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ReadWriteLock</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ReadWriteLockType.html">ReadWriteLockType</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">access</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">accessor</span><span class="p">:</span> <span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="k">rethrows</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux17ReadWriteLockTypePAAE6modifyyyyyKXEKF"></a>
+                    <a name="//apple_ref/swift/Method/modify(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux17ReadWriteLockTypePAAE6modifyyyyyKXEKF">modify(_:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Modify some property in a thread-safe manner.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">modify</span><span class="p">(</span><span class="n">_</span> <span class="nv">modifier</span><span class="p">:</span> <span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">rethrows</span></code></pre>
 
                         </div>
                       </div>
