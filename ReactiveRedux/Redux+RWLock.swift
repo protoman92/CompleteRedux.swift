@@ -20,8 +20,8 @@ extension Redux {
     
     #if DEBUG
     /// Use this initializer during testing to check state of the lock.
-    init(_ lock: inout pthread_rwlock_t) {
-      self._mainLock = lock
+    init(_ _lock: inout pthread_rwlock_t) {
+      self._mainLock = _lock
       pthread_rwlock_init(&self._mainLock, nil)
     }
     #endif

@@ -41,14 +41,6 @@ public protocol ReduxStoreType {
   var subscribeState: Redux.Store.Subscribe<State> { get }
 }
 
-/// Objects that implement this protocol must have a read-write lock that
-/// allows thread-safe reads/writes.
-public protocol ReadWriteLockableType {
-
-  /// The read-write lock object.
-  var lock: ReadWriteLockType { get }
-}
-
 /// Implement this protocol to provide read-write lock capabilities.
 public protocol ReadWriteLockType {
   
@@ -73,12 +65,12 @@ public protocol ReadWriteLockType {
   func unlock() -> Bool
 }
 
-public extension ReadWriteLockableType {
+public extension ReadWriteLockType {
   
   /// Access some property in a thread-safe manner.
   func access<T>(_ accessor: () throws -> T) rethrows -> T? {
-    if self.lock.lockRead(wait: true) {
-      defer {self.lock.unlock()}
+    if self.lockRead(wait: true) {
+      defer {self.unlock()}
       return try accessor()
     }
     
@@ -87,8 +79,8 @@ public extension ReadWriteLockableType {
   
   /// Modify some property in a thread-safe manner.
   func modify(_ modifier: () throws -> Void) rethrows {
-    if self.lock.lockWrite(wait: true) {
-      defer {self.lock.unlock()}
+    if self.lockWrite(wait: true) {
+      defer {self.unlock()}
       try modifier()
     }
   }

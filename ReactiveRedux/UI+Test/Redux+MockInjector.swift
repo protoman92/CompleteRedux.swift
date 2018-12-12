@@ -26,10 +26,8 @@ extension Redux.UI {
   ///
   /// This class keeps track of the injection count for each Redux-compatible
   /// view.
-  public final class MockInjector<State>: PropInjector<State>,
-    ReadWriteLockableType
-  {
-    public let lock: ReadWriteLockType = Redux.ReadWriteLock()
+  public final class MockInjector<State>: PropInjector<State> {
+    private let _lock: ReadWriteLockType = Redux.ReadWriteLock()
     private var _injectCount: [String : Int] = [:]
     
     /// Add one count to the view controller injectee.
@@ -78,7 +76,7 @@ extension Redux.UI {
     }
     
     private func addInjecteeCount(_ id: String) {
-      self.modify {
+      self._lock.modify {
         self._injectCount[id] = self._injectCount[id, default: 0] + 1
       }
     }
@@ -90,7 +88,7 @@ extension Redux.UI {
     }
     
     private func getInjecteeCount(_ id: String) -> Int {
-      return self.access { self._injectCount[id, default: 0] }.getOrElse(0)
+      return self._lock.access { self._injectCount[id, default: 0] }.getOrElse(0)
     }
     
     private func getInjecteeCount<View>(_ view: View) -> Int where

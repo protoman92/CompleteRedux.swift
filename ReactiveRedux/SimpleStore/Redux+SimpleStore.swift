@@ -25,13 +25,13 @@ extension Redux.Store {
       return .init(initialState, reducer)
     }
     
-    public let lock: ReadWriteLockType
+    private let _lock: ReadWriteLockType
     private var _state: State
     private let _reducer: Reducer<State>
     private var _subscribers: [String : StateCallback<State>]
     
     private init(_ initialState: State, _ reducer: @escaping Reducer<State>) {
-      self.lock = Redux.ReadWriteLock()
+      self._lock = Redux.ReadWriteLock()
       self._state = initialState
       self._reducer = reducer
       self._subscribers = [:]
@@ -39,15 +39,15 @@ extension Redux.Store {
     
     /// Get the last reduced state in a thread-safe manner.
     public var lastState: LastState<State> {
-      return {self.access {self._state}.getOrElse(self._state)}
+      return {self._lock.access {self._state}.getOrElse(self._state)}
     }
     
     /// Reduce the action to produce a new state and broadcast this state to
     /// all subscribers.
     public var dispatch: Redux.Store.Dispatch {
       return {action in
-        self.modify {self._state = self._reducer(self._state, action)}
-        self.access {self._subscribers.forEach({$0.value(self._state)})}
+        self._lock.modify {self._state = self._reducer(self._state, action)}
+        self._lock.access {self._subscribers.forEach({$0.value(self._state)})}
       }
     }
     
@@ -55,17 +55,15 @@ extension Redux.Store {
     /// On unsubscription, remove the subscriber.
     public var subscribeState: Subscribe<State> {
       return {subscriberId, callback in
-        self.modify {self._subscribers[subscriberId] = callback}
+        self._lock.modify {self._subscribers[subscriberId] = callback}
         
         /// Broadcast the latest state to this subscriber.
-        self.access {callback(self._state)}
+        self._lock.access {callback(self._state)}
         
         return Subscription {
-          self.modify {self._subscribers.removeValue(forKey: subscriberId)}
+          self._lock.modify {self._subscribers.removeValue(forKey: subscriberId)}
         }
       }
     }
   }
 }
-
-extension Redux.Store.SimpleStore: ReadWriteLockableType {}

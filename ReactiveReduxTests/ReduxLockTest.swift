@@ -13,8 +13,8 @@ final class ReduxLockTest: XCTestCase {
   #if DEBUG
   func test_readWriteLock_shouldDestroyLockOnDeinit() {
     /// Setup
-    var lock = pthread_rwlock_t()
-    var disposableLock: Redux.ReadWriteLock? = .init(&lock)
+    var _lock = pthread_rwlock_t()
+    var disposableLock: Redux.ReadWriteLock? = .init(&_lock)
     let dispatchGroup = DispatchGroup()
     dispatchGroup.enter()
     
@@ -32,36 +32,25 @@ final class ReduxLockTest: XCTestCase {
     dispatchGroup.wait()
     
     /// Then
-    XCTAssertNotEqual(pthread_rwlock_destroy(&lock), 0)
+    XCTAssertNotEqual(pthread_rwlock_destroy(&_lock), 0)
   }
   #endif
   
-  func test_lockableObject_shouldReturnNilWhenDeadlock() {
+  func test_acquiringLockWithoutForce_shouldReturnNilWhenUnavailable() {
     /// Setup
     let lock = Redux.ReadWriteLock()
-    let lockable = Lockable(lock)
     var readCount = 0
     var writeCount = 0
     defer {lock.unlock()}
     
     /// When
     lock.lockWrite(wait: true)
-    lockable.modify {writeCount += 1}
-    let readResult = lockable.access {() -> Int in readCount += 1; return 1}
+    lock.modify {writeCount += 1}
+    let readResult = lock.access {() -> Int in readCount += 1; return 1}
     
     /// Then
     XCTAssertNil(readResult)
     XCTAssertEqual(readCount, 0)
     XCTAssertEqual(writeCount, 0)
-  }
-}
-
-extension ReduxLockTest {
-  final class Lockable: ReadWriteLockableType {
-    let lock: ReadWriteLockType
-    
-    init(_ lock: Redux.ReadWriteLock) {
-      self.lock = lock
-    }
   }
 }

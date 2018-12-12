@@ -157,6 +157,6 @@ extension ReduxStoreTest {
   
   final class StoreTestParams {
     static var callCount = 50000
-    static var waitTime: TimeInterval = 10
+    static var waitTime: TimeInterval = 100
   }
 }
