@@ -27,14 +27,8 @@ extension Redux.UI {
   /// This class keeps track of the injection count for each Redux-compatible
   /// view.
   public final class MockInjector<State>: PropInjector<State> {
-    public let lock: ReadWriteLockType
-    private var _injectCount: [String : Int]
-    
-    override public init<S>(store: S) where S: ReduxStoreType, S.State == State {
-      self.lock = Redux.ReadWriteLock()
-      self._injectCount = [:]
-      super.init(store: store)
-    }
+    public let lock: ReadWriteLockType = Redux.ReadWriteLock()
+    private var _injectCount: [String : Int] = [:]
     
     /// Add one count to the view controller injectee.
     ///
