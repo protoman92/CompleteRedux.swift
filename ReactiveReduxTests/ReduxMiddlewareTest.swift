@@ -10,12 +10,12 @@ import XCTest
 @testable import ReactiveRedux
 
 final class ReduxMiddlewareTest: XCTestCase {
-  private var store: Redux.Store.RxStore<State>!
+  private var store: Redux.Store.SimpleStore<State>!
   
   override func setUp() {
     super.setUp()
-    let initState = State(a: -1)
-    self.store = Redux.Store.RxStore.create(initState, {s, a in s.increment()})
+    let initState = State(a: 0)
+    self.store = Redux.Store.SimpleStore.create(initState, {s, a in s.increment()})
   }
 }
 

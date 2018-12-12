@@ -8,7 +8,6 @@
 
 import RxSwift
 import RxTest
-import SafeNest
 import SwiftFP
 import XCTest
 @testable import ReactiveRedux
@@ -16,9 +15,9 @@ import XCTest
 final class ReduxStoreTest: XCTestCase {
   private var disposeBag: DisposeBag!
   private var scheduler: TestScheduler!
-  private var initialState: SafeNest!
-  private var rxStore: Redux.Store.RxStore<SafeNest>!
-  private var simpleStore: Redux.Store.SimpleStore<SafeNest>!
+  private var initialState: State!
+  private var rxStore: Redux.Store.RxStore<State>!
+  private var simpleStore: Redux.Store.SimpleStore<State>!
   private var actionsPerIter: Int!
 
   private var updateId: String {
@@ -30,16 +29,15 @@ final class ReduxStoreTest: XCTestCase {
     self.scheduler = TestScheduler(initialClock: 0)
     self.disposeBag = DisposeBag()
     self.actionsPerIter = 5
-    self.initialState = try! SafeNest.empty().updating(at: self.updateId, value: 0)
+    self.initialState = 0
     self.rxStore = .create(self.initialState!, self.reduce)
     self.simpleStore = .create(self.initialState!, self.reduce)
   }
 
-  func reduce(_ state: SafeNest, _ action: ReduxActionType) -> SafeNest {
+  func reduce(_ state: State, _ action: ReduxActionType) -> State {
     switch action as? Action {
     case .some(let action):
-      let updateFn = action.stateUpdateFn()
-      return try! state.mapping(at: updateId, withMapper: updateFn)
+      return action.stateUpdateFn()(state)
       
     default:
       return state
@@ -49,13 +47,13 @@ final class ReduxStoreTest: XCTestCase {
 
 extension ReduxStoreTest {
   func test_dispatchAction_shouldUpdateStoreState<Store>(
-    _ store: Store,
-    _ dispatchFn: (Action) -> Void,
-    _ lastStateFn: Redux.Store.LastState<SafeNest>,
-    _ lastValueFn: () -> Try<Int>) where Store: ReduxStoreType
+    _ store: Store, async: Bool) where
+    Store: ReduxStoreType, Store.State == State
   {
     /// Setup
-    var original = 0
+    var accumStateValue = 0
+    let expect = expectation(description: "Should have completed")
+    let qoses = [DispatchQoS.QoSClass.userInteractive, .userInitiated, .background]
 
     /// When
     for _ in 0..<StoreTestParams.callCount {
@@ -63,50 +61,43 @@ extension ReduxStoreTest {
       
       for _ in 0..<self.actionsPerIter! {
         let action = Action.allValues().randomElement()!
-        original = action.stateUpdateFn()(original) as! Int
+        accumStateValue = action.stateUpdateFn()(accumStateValue)
         actions.append(action)
       }
 
-      actions.forEach(dispatchFn)
-      let action1 = Action.allValues().randomElement()!
-      original = action1.stateUpdateFn()(original) as! Int
-      dispatchFn(action1)
+      if async {
+        actions.forEach({action in
+          let qos = qoses.randomElement()!
+          DispatchQueue.global(qos: qos).async{store.dispatch(action)}
+        })
+      } else {
+        actions.forEach(store.dispatch)
+      }
     }
 
-    Thread.sleep(forTimeInterval: StoreTestParams.waitTime)
+    DispatchQueue.global(qos: .utility).async {
+      while store.lastState() != accumStateValue { continue }
+      expect.fulfill()
+    }
+    
+    waitForExpectations(timeout: StoreTestParams.waitTime, handler: nil)
 
     /// Then
-    let lastState = lastStateFn()
-    let lastValue = lastValueFn().value!
-    let currentValue = lastState.value(at: self.updateId).value as! Int
-    XCTAssertEqual(currentValue, original)
-    XCTAssertEqual(currentValue, lastValue)
+    XCTAssertEqual(store.lastState(), accumStateValue)
   }
 
   func test_dispatchRxStoreAction_shouldUpdateState() {
     /// Setup
-    let valueObs = self.scheduler.createObserver(Try<Int>.self)
-
-    self.rxStore.stateStream
-      .map({$0.value(at: self.updateId).cast(Int.self)})
-      .subscribe(valueObs)
-      .disposed(by: self.disposeBag!)
+    let valueObs = self.scheduler.createObserver(Int.self)
+    self.rxStore.stateStream.subscribe(valueObs).disposed(by: self.disposeBag!)
 
     /// When & Then
-    test_dispatchAction_shouldUpdateStoreState(
-      self.rxStore,
-      self.rxStore.dispatch,
-      self.rxStore.lastState,
-      {valueObs.events.map({$0.value.element!}).last!})
+    test_dispatchAction_shouldUpdateStoreState(self.rxStore, async: false)
   }
   
   func test_dispatchSimpleStoreAction_shouldUpdateState() {
     /// Setup && When && Then
-    test_dispatchAction_shouldUpdateStoreState(
-      self.simpleStore,
-      self.simpleStore.dispatch,
-      self.simpleStore.lastState,
-      {self.simpleStore.lastState().value(at: self.updateId).cast(Int.self)})
+    test_dispatchAction_shouldUpdateStoreState(self.simpleStore, async: true)
   }
 }
 
@@ -138,6 +129,8 @@ extension ReduxStoreTest {
 }
 
 extension ReduxStoreTest {
+  typealias State = Int
+  
   enum Action: CaseIterable, ReduxActionType {
     case add
     case addTwo
@@ -148,9 +141,9 @@ extension ReduxStoreTest {
       return [add, addTwo, addThree, minus]
     }
     
-    func stateUpdateFn() -> (Any) -> Any {
+    func stateUpdateFn() -> (Int) -> Int {
       return {
-        let value = $0 as! Int
+        let value = $0
         
         switch self {
         case .add: return value + 1
@@ -163,12 +156,7 @@ extension ReduxStoreTest {
   }
   
   final class StoreTestParams {
-    static var callCount = 5000
-    static var waitTime: TimeInterval = 5
-  }
-  
-  struct Substate: Decodable, Equatable {
-    let a: Int?
-    let b: Int?
+    static var callCount = 50000
+    static var waitTime: TimeInterval = 10
   }
 }

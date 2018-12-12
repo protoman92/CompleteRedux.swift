@@ -26,6 +26,7 @@ public extension Redux.Store {
   
   /// A Redux-compliant store. Since this store is used for UI-related work, it
   /// should operation on the main thread.
+  @available(*, deprecated, message: "Use simple store for better thread safety.")
   public struct RxStore<State> {
     
     /// Create a Redux store that only receives and delivers events on the main
