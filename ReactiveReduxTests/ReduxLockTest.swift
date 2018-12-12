@@ -19,9 +19,9 @@ final class ReduxLockTest: XCTestCase {
     dispatchGroup.enter()
     
     /// When
-    XCTAssertEqual(disposableLock?.lockRead(force: true), true)
+    XCTAssertEqual(disposableLock?.lockRead(wait: true), true)
     XCTAssertEqual(disposableLock?.unlock(), true)
-    XCTAssertEqual(disposableLock?.lockWrite(force: true), true)
+    XCTAssertEqual(disposableLock?.lockWrite(wait: true), true)
     XCTAssertEqual(disposableLock?.unlock(), true)
     
     DispatchQueue.global(qos: .background).async {
@@ -45,7 +45,7 @@ final class ReduxLockTest: XCTestCase {
     defer {lock.unlock()}
     
     /// When
-    lock.lockWrite(force: true)
+    lock.lockWrite(wait: true)
     lockable.modify {writeCount += 1}
     let readResult = lockable.access {() -> Int in readCount += 1; return 1}
     

@@ -54,17 +54,17 @@ public protocol ReadWriteLockType {
   
   /// Lock reads for safe property access.
   ///
-  /// - Parameter force: Deadlock if not possible to acquire lock.
+  /// - Parameter wait: Wait if not possible to acquire lock.
   /// - Returns: Anything that indicates the success of lock acquisition.
   @discardableResult
-  func lockRead(force: Bool) -> Bool
+  func lockRead(wait: Bool) -> Bool
   
   /// Lock writes for safe property modification.
   ///
-  /// - Parameter force: Deadlock if not possible to acquire lock.
+  /// - Parameter wait: Wait if not possible to acquire lock.
   /// - Returns: Anything that indicates the success of lock acquisition.
   @discardableResult
-  func lockWrite(force: Bool) -> Bool
+  func lockWrite(wait: Bool) -> Bool
   
   /// Release the lock.
   ///
@@ -77,7 +77,7 @@ public extension ReadWriteLockableType {
   
   /// Access some property in a thread-safe manner.
   func access<T>(_ accessor: () throws -> T) rethrows -> T? {
-    if self.lock.lockRead(force: false) {
+    if self.lock.lockRead(wait: true) {
       defer {self.lock.unlock()}
       return try accessor()
     }
@@ -87,7 +87,7 @@ public extension ReadWriteLockableType {
   
   /// Modify some property in a thread-safe manner.
   func modify(_ modifier: () throws -> Void) rethrows {
-    if self.lock.lockWrite(force: false) {
+    if self.lock.lockWrite(wait: true) {
       defer {self.lock.unlock()}
       try modifier()
     }

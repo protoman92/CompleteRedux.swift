@@ -29,8 +29,8 @@ extension Redux {
     deinit {pthread_rwlock_destroy(&self._mainLock)}
     
     @discardableResult
-    public func lockRead(force: Bool) -> Bool {
-      let result = force
+    public func lockRead(wait: Bool) -> Bool {
+      let result = wait
         ? pthread_rwlock_rdlock(&self._mainLock)
         : pthread_rwlock_tryrdlock(&self._mainLock)
       
@@ -38,8 +38,8 @@ extension Redux {
     }
     
     @discardableResult
-    public func lockWrite(force: Bool) -> Bool {
-      let result = force
+    public func lockWrite(wait: Bool) -> Bool {
+      let result = wait
         ? pthread_rwlock_wrlock(&self._mainLock)
         : pthread_rwlock_trywrlock(&self._mainLock)
       
