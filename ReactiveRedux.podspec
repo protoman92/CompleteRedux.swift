@@ -16,10 +16,15 @@ Pod::Spec.new do |s|
     ss.source_files = "ReactiveRedux/*.{h,swift}", "ReactiveRedux/Preset/*", "ReactiveRedux/Store/*"
   end
 
-  s.subspec "Rx" do |ss|
+  s.subspec "SimpleStore" do |ss|
+    ss.dependency "ReactiveRedux/Main"
+    ss.source_files = "ReactiveRedux/SimpleStore/*"
+  end
+
+  s.subspec "RxStore" do |ss|
     ss.dependency "RxSwift"
     ss.dependency "ReactiveRedux/Main"
-    ss.source_files = "ReactiveRedux/RxStore/*.{swift}"
+    ss.source_files = "ReactiveRedux/RxStore/*"
   end
 
   s.subspec "UI" do |ss|
