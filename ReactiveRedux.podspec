@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
 
   s.subspec "UI" do |ss|
     ss.dependency "ReactiveRedux/Main"
-    ss.source_files = "ReactiveRedux/UI/*"
+    ss.source_files = "ReactiveRedux/{UI,UI+Test}/*"
   end
 
   s.subspec "Middleware" do |ss|
@@ -46,10 +46,5 @@ Pod::Spec.new do |s|
     ss.dependency "RxSwift"
     ss.dependency "ReactiveRedux/Middleware"
     ss.source_files = "ReactiveRedux/Middleware+Saga/*"
-  end
-
-  s.subspec "UI+Test" do |ss|
-    ss.dependency "ReactiveRedux/UI"
-    ss.source_files = "ReactiveRedux/UI+Test/*"
   end
 end
