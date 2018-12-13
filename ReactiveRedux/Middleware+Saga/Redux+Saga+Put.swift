@@ -46,12 +46,11 @@ extension ReduxSagaEffectConvertibleType {
   /// - Returns: An Effect instance.
   public func put(
     _ actionCreator: @escaping (R) -> ReduxActionType,
-    usingQueue queue: DispatchQueue = .main)
+    usingQueue queue: DispatchQueue = .global(qos: .default))
     -> Redux.Saga.Effect<State, Any>
   {
     return self.asEffect().transform(with: {
-      Redux.Saga.Effect<State, R>
-        .put($0, actionCreator: actionCreator, usingQueue: queue)
+      Redux.Saga.Effect.put($0, actionCreator: actionCreator, usingQueue: queue)
     })
   }
 }

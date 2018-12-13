@@ -65,7 +65,7 @@ extension ReduxSagaEffectConvertibleType {
     -> Redux.Saga.Effect<State, R2>
   {
     return self.asEffect().transform(with: {
-      Redux.Saga.Effect<State, R>.call(with: $0, callCreator: callCreator)
+      Redux.Saga.Effect.call(with: $0, callCreator: callCreator)
     })
   }
 }
