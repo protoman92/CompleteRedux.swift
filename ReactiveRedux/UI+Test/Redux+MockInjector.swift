@@ -103,6 +103,11 @@ extension Redux.UI {
       return self.getInjecteeCount(type) == times
     }
     
+    /// Reset all internal statistics.
+    public func reset() {
+      self._lock.modify { self._injectCount = [:] }
+    }
+    
     private func addInjecteeCount(_ id: String) {
       self._lock.modify {
         self._injectCount[id] = self._injectCount[id, default: 0] + 1

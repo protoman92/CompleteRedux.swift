@@ -126,6 +126,9 @@ extension ReduxUITests {
       mockInjector.injectCount,
       [String(describing: ViewController.self) : 1,
        String(describing: View.self) : 1])
+    
+    mockInjector.reset()
+    XCTAssertEqual(mockInjector.injectCount, [:])
   }
 }
 
