@@ -16,7 +16,7 @@ extension Redux.UI {
   public final class MockStaticProps<State>: StaticProps<State> {
 
     /// This initializer can be used to construct test static props.
-    convenience public init(_ injector: Redux.UI.PropInjector<State>) {
+    convenience public init(injector: Redux.UI.PropInjector<State>) {
       self.init(injector, Redux.Store.Subscription({}))
     }
   }

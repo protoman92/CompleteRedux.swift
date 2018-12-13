@@ -49,7 +49,13 @@ public extension Redux.UI {
           let next = MP.mapState(state: s, outProps: op)
           
           if first || !MP.compareState(lhs: previous, rhs: next) {
-            cv?.variableProps = VariableProps(first, previous, next, action)
+            cv?.variableProps = VariableProps(
+              firstInstance: first,
+              previousState: previous,
+              nextState: next,
+              action: action
+            )
+
             previous = next
             first = false
           }

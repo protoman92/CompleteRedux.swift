@@ -102,7 +102,7 @@ extension ReduxUITests {
   func test_mockInjector_shouldKeepTrackOfInjectionCount() {
     /// Setup
     let mockInjector = Redux.UI.MockInjector(forState: State.self)
-    let staticProps = Redux.UI.MockStaticProps(mockInjector)
+    let staticProps = Redux.UI.MockStaticProps(injector: mockInjector)
     let vc = ViewController()
     let view = View()
     vc.staticProps = staticProps

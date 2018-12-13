@@ -39,10 +39,10 @@ public extension Redux.UI {
     /// Props to store Redux actions.
     public let action: ActionProps
     
-    public init(_ firstInstance: Bool,
-                _ previousState: StateProps?,
-                _ nextState: StateProps,
-                _ action: ActionProps) {
+    public init(firstInstance: Bool = false,
+                previousState: StateProps? = nil,
+                nextState: StateProps,
+                action: ActionProps) {
       self.firstInstance = firstInstance
       self.previousState = previousState
       self.nextState = nextState
