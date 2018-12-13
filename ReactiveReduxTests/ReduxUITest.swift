@@ -101,7 +101,7 @@ extension ReduxUITests {
   
   func test_mockInjector_shouldKeepTrackOfInjectionCount() {
     /// Setup
-    let mockInjector = Redux.UI.MockInjector(store: self.store)
+    let mockInjector = Redux.UI.MockInjector(forState: State.self)
     let staticProps = Redux.UI.MockStaticProps(mockInjector)
     let vc = ViewController()
     let view = View()
@@ -118,7 +118,14 @@ extension ReduxUITests {
     
     /// Then
     XCTAssertTrue(mockInjector.didInject(vc, times: 1))
+    XCTAssertTrue(mockInjector.didInject(ViewController.self, times: 1))
     XCTAssertTrue(mockInjector.didInject(view, times: 1))
+    XCTAssertTrue(mockInjector.didInject(View.self, times: 1))
+    
+    XCTAssertEqual(
+      mockInjector.injectCount,
+      [String(describing: ViewController.self) : 1,
+       String(describing: View.self) : 1])
   }
 }
 

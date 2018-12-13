@@ -47,9 +47,15 @@ public extension Redux.Store {
     public let subscribeState: Subscribe<State>
     
     init<S>(_ store: S) where S: ReduxStoreType, S.State == State {
-      self.lastState = store.lastState
-      self.dispatch = store.dispatch
-      self.subscribeState = store.subscribeState
+      self.init(store.lastState, store.dispatch, store.subscribeState)
+    }
+    
+    init(_ lastState: @escaping LastState<State>,
+         _ dispatch: @escaping Dispatch,
+         _ subscribeState: @escaping Subscribe<State>) {
+      self.lastState = lastState
+      self.dispatch = dispatch
+      self.subscribeState = subscribeState
     }
   }
 }
