@@ -185,7 +185,7 @@
     {
       "file": "/Users/haipham/Desktop/ReactiveRedux-Swift/ReactiveRedux/UI/Redux+Props.swift",
       "line": 42,
-      "symbol": "Redux.UI.VariableProps.init(_:_:_:_:)",
+      "symbol": "Redux.UI.VariableProps.init(firstInstance:previousState:nextState:action:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },

@@ -130,6 +130,60 @@ view.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:13ReactiveRedux0B0C2UIC12MockInjectorC8forStateAGy__xGxm_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(forState:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC12MockInjectorC8forStateAGy__xGxm_tcfc">init(forState:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialize with a mock store that does not have any functionality.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="n">convenience</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">forState</span><span class="p">:</span> <span class="kt">State</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C2UIC12MockInjectorC11injectCountSDySSSiGvp"></a>
+                    <a name="//apple_ref/swift/Property/injectCount" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC12MockInjectorC11injectCountSDySSSiGvp">injectCount</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Access the internal inject count statistics.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">injectCount</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Int</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:13ReactiveRedux0B0C2UIC12MockInjectorC11injectProps10controller03outG06mapperyqd___03OutG0Qyd__qd_0_mt0B5StateQyd__RszSo16UIViewControllerCRbd__0B4ViewQyd_0_Rsd__AA0B14PropMapperTypeRd_0_r0_lF"></a>
                     <a name="//apple_ref/swift/Method/injectProps(controller:outProps:mapper:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:13ReactiveRedux0B0C2UIC12MockInjectorC11injectProps10controller03outG06mapperyqd___03OutG0Qyd__qd_0_mt0B5StateQyd__RszSo16UIViewControllerCRbd__0B4ViewQyd_0_Rsd__AA0B14PropMapperTypeRd_0_r0_lF">injectProps(controller:outProps:mapper:)</a>
@@ -344,12 +398,102 @@ view.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C2UIC12MockInjectorC9didInject_5timesSbqd__m_SitAA0B18CompatibleViewTypeRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/didInject(_:times:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC12MockInjectorC9didInject_5timesSbqd__m_SitAA0B18CompatibleViewTypeRd__lF">didInject(_:times:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check if a Redux view has been injected as many times as specified.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">didInject</span><span class="o">&lt;</span><span class="kt">View</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">View</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span> <span class="nv">times</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">where</span>
+  <span class="kt">View</span><span class="p">:</span> <span class="kt"><a href="../../../Protocols/ReduxCompatibleViewType.html">ReduxCompatibleViewType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>view</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A Redux-compatible view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>times</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An Int value.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A Bool value.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13ReactiveRedux0B0C2UIC12MockInjectorC5resetyyF"></a>
+                    <a name="//apple_ref/swift/Method/reset()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13ReactiveRedux0B0C2UIC12MockInjectorC5resetyyF">reset()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reset all internal statistics.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">reset</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-12)</p>
+          <p>&copy; 2018 <a class="link" href="https://github.com/protoman92/ReactiveRedux-Swift.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2018-12-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
