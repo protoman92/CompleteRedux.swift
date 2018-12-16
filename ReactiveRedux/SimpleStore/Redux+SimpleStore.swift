@@ -38,31 +38,27 @@ extension Redux.Store {
     }
     
     /// Get the last reduced state in a thread-safe manner.
-    public var lastState: LastState<State> {
-      return {self._lock.access {self._state}.getOrElse(self._state)}
+    public lazy private(set) var lastState: LastState<State> = {
+      self._lock.access {self._state}.getOrElse(self._state)
     }
     
     /// Reduce the action to produce a new state and broadcast this state to
     /// all subscribers.
-    public var dispatch: Redux.Store.Dispatch {
-      return {action in
-        self._lock.modify {self._state = self._reducer(self._state, action)}
-        self._lock.access {self._subscribers.forEach({$0.value(self._state)})}
-      }
+    public lazy private(set) var dispatch: Redux.Store.Dispatch = {action in
+      self._lock.modify {self._state = self._reducer(self._state, action)}
+      self._lock.access {self._subscribers.forEach({$0.value(self._state)})}
     }
     
     /// Subscribe to state updates and immediately receive the latest state.
     /// On unsubscription, remove the subscriber.
-    public var subscribeState: Subscribe<State> {
-      return {subscriberId, callback in
-        self._lock.modify {self._subscribers[subscriberId] = callback}
-        
-        /// Broadcast the latest state to this subscriber.
-        self._lock.access {callback(self._state)}
-        
-        return Subscription {
-          self._lock.modify {self._subscribers.removeValue(forKey: subscriberId)}
-        }
+    public lazy private(set) var subscribeState: Subscribe<State> = {id, cb in
+      self._lock.modify {self._subscribers[id] = cb}
+      
+      /// Broadcast the latest state to this subscriber.
+      self._lock.access {cb(self._state)}
+      
+      return Subscription {
+        self._lock.modify {self._subscribers.removeValue(forKey: id)}
       }
     }
   }
