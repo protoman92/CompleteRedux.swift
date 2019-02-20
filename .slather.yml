@@ -1,7 +1,7 @@
 coverage_service: cobertura_xml
-xcodeproj: ReactiveRedux.xcodeproj
-scheme: ReactiveRedux
-source_directory: ReactiveRedux
+xcodeproj: SwiftRedux.xcodeproj
+scheme: SwiftRedux
+source_directory: SwiftRedux
 output_directory: xml_report
 ignore:
-  - ReactiveReduxTests/**
+  - SwiftReduxTests/**

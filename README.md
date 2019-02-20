@@ -1,9 +1,9 @@
-# ReactiveRedux
+# SwiftRedux
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![CocoaPods](https://img.shields.io/cocoapods/v/ReactiveRedux.svg)
-[![Build Status](https://travis-ci.org/protoman92/ReactiveRedux-Swift.svg?branch=master)](https://travis-ci.org/protoman92/ReactiveRedux-Swift)
-[![Coverage Status](https://codecov.io/gh/protoman92/ReactiveRedux-Swift/branch/master/graph/badge.svg)](https://codecov.io/gh/protoman92/ReactiveRedux-Swift/branch/master/graph/badge.svg)
+![CocoaPods](https://img.shields.io/cocoapods/v/SwiftRedux.svg)
+[![Build Status](https://travis-ci.org/protoman92/SwiftRedux.svg?branch=master)](https://travis-ci.org/protoman92/SwiftRedux)
+[![Coverage Status](https://codecov.io/gh/protoman92/SwiftRedux/branch/master/graph/badge.svg)](https://codecov.io/gh/protoman92/SwiftRedux/branch/master/graph/badge.svg)
 
 Redux implementations for iOS clients.
 
@@ -19,15 +19,15 @@ As much as I love [RxSwift](https://github.com/ReactiveX/RxSwift) in development
 
 This library provides:
 
-- A simple, thread-safe [Redux store](https://github.com/protoman92/ReactiveRedux-Swift/tree/master/ReactiveRedux/SimpleStore);
-- [Middleware support](https://github.com/protoman92/ReactiveRedux-Swift/tree/master/ReactiveRedux/Middleware);
-- [Prop injection](https://github.com/protoman92/ReactiveRedux-Swift/tree/master/ReactiveRedux/UI) for a Redux-compatible view/view controller;
-- A [Router middleware](https://github.com/protoman92/ReactiveRedux-Swift/tree/master/ReactiveRedux/Middleware%2BRouter) implementation;
-- A side effect model ([Redux-Saga](https://github.com/protoman92/ReactiveRedux-Swift/tree/master/ReactiveRedux/Middleware%2BSaga), as inspired by [redux-saga](https://github.com/redux-saga/redux-saga)) to handle asynchronous work;
+- A simple, thread-safe [Redux store](https://github.com/protoman92/SwiftRedux/tree/master/SwiftRedux/SimpleStore);
+- [Middleware support](https://github.com/protoman92/SwiftRedux/tree/master/SwiftRedux/Middleware);
+- [Prop injection](https://github.com/protoman92/SwiftRedux/tree/master/SwiftRedux/UI) for a Redux-compatible view/view controller;
+- A [Router middleware](https://github.com/protoman92/SwiftRedux/tree/master/SwiftRedux/Middleware%2BRouter) implementation;
+- A side effect model ([Redux-Saga](https://github.com/protoman92/SwiftRedux/tree/master/SwiftRedux/Middleware%2BSaga), as inspired by [redux-saga](https://github.com/redux-saga/redux-saga)) to handle asynchronous work;
 
 ## Documentation
 
-For a deeper look into how this works, check out the [full documentation](https://protoman92.github.io/ReactiveRedux-Swift/), the [sample app](https://github.com/protoman92/ReduxForSwift) and some articles I wrote:
+For a deeper look into how this works, check out the [full documentation](https://protoman92.github.io/SwiftRedux/), the [sample app](https://github.com/protoman92/ReduxForSwift) and some articles I wrote:
 
 - [Redux for Swift (Part 1) - The Basics](https://medium.com/@swiften.svc/redux-for-swift-part-1-the-basics-7b66d73db7fa)
 - [Redux for Swift (Part 2) - Automatic Subscription](https://medium.com/@swiften.svc/redux-for-swift-part-2-automatic-subscription-569658eb087f)
