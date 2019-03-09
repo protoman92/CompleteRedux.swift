@@ -13,13 +13,7 @@ import XCTest
 final class ReduxPresetTest: XCTestCase {
   override func setUp() {
     super.setUp()
-    _ = Redux()
-    _ = Redux.Middleware()
-    _ = Redux.Preset()
-    _ = Redux.Preset.Reducer()
-    _ = Redux.Saga()
-    _ = Redux.Store()
-    _ = Redux.UI()
+    _ = DefaultReducer()
   }
   
   func test_defaultAction_shouldWork() {
@@ -28,7 +22,7 @@ final class ReduxPresetTest: XCTestCase {
     var state = SafeNest.builder().with(initialObject: initialObject).build()
 
     /// When
-    state = Redux.Preset.Reducer.reduce(state, Redux.Preset.Action.noop)
+    state = DefaultReducer.reduce(state, DefaultAction.noop)
 
     /// Then
     XCTAssertEqual(state.object as! [String : Int], initialObject)

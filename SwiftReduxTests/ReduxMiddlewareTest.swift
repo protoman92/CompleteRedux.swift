@@ -10,12 +10,12 @@ import XCTest
 @testable import SwiftRedux
 
 final class ReduxMiddlewareTest: XCTestCase {
-  private var store: Redux.Store.SimpleStore<State>!
+  private var store: SimpleStore<State>!
   
   override func setUp() {
     super.setUp()
     let initState = State(a: 0)
-    self.store = Redux.Store.SimpleStore.create(initState, {s, a in s.increment()})
+    self.store = SimpleStore.create(initState, {s, a in s.increment()})
   }
 }
 
@@ -25,26 +25,26 @@ extension ReduxMiddlewareTest {
     var data: [Int] = []
     var subscribedValue = 0
     
-    let middlewares: [Redux.Middleware.Middleware<State>] = [
-      {input in {wrapper in Redux.Store.DispatchWrapper(
+    let middlewares: [ReduxMiddleware<State>] = [
+      {input in {wrapper in DispatchWrapper(
         "\(wrapper.identifier)-1",
         {data.append(1); wrapper.dispatch($0)})}},
-      {input in {wrapper in Redux.Store.DispatchWrapper(
+      {input in {wrapper in DispatchWrapper(
         "\(wrapper.identifier)-2",
         {data.append(2); wrapper.dispatch($0)})}},
-      {input in {wrapper in Redux.Store.DispatchWrapper(
+      {input in {wrapper in DispatchWrapper(
         "\(wrapper.identifier)-3",
         {data.append(3); wrapper.dispatch($0)})}}
     ]
     
-    let wrapper = Redux.Middleware.combineMiddlewares(middlewares)(self.store)
-    let newStore = Redux.Middleware.applyMiddlewares(middlewares)(self.store)
+    let wrapper = combineMiddlewares(middlewares)(self.store)
+    let newStore = applyMiddlewares(middlewares)(self.store)
     let subscription = newStore.subscribeState("", {subscribedValue = $0.a})
     
     /// When
-    newStore.dispatch(Redux.Preset.Action.noop)
-    newStore.dispatch(Redux.Preset.Action.noop)
-    newStore.dispatch(Redux.Preset.Action.noop)
+    newStore.dispatch(DefaultAction.noop)
+    newStore.dispatch(DefaultAction.noop)
+    newStore.dispatch(DefaultAction.noop)
     
     /// Then
     XCTAssertEqual(wrapper.identifier, "root-3-2-1")
@@ -56,7 +56,7 @@ extension ReduxMiddlewareTest {
   
   func test_wrappingWithNoMiddlewares_shouldReturnBaseDispatch() {
     /// Setup && When
-    let wrapper = Redux.Middleware.combineMiddlewares([])(self.store)
+    let wrapper = combineMiddlewares([])(self.store)
     
     /// Then
     XCTAssertEqual(wrapper.identifier, "root")

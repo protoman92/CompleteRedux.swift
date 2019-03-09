@@ -6,12 +6,9 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-extension Redux.Saga {
-  
-  /// Empty effect whose output does not stream anything.
-  public final class EmptyEffect<State, R>: Effect<State, R> {
-    override public func invoke(_ input: Input<State>) -> Output<R> {
-      return Output(.empty(), {_ in})
-    }
+/// Empty effect whose output does not stream anything.
+public final class EmptyEffect<State, R>: SagaEffect<State, R> {
+  override public func invoke(_ input: SagaInput<State>) -> SagaOutput<R> {
+    return SagaOutput(.empty(), {_ in})
   }
 }

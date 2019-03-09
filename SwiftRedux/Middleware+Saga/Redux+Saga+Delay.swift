@@ -8,31 +8,29 @@
 
 import Foundation
 
-extension Redux.Saga {
-
-  /// Effect whose output delays emission by some period of time.
-  public final class DelayEffect<State, R>: Effect<State, R> {
-    private let sourceEffect: Effect<State, R>
-    private let delayTime: TimeInterval
-    private let dispatchQueue: DispatchQueue
-    
-    init(_ sourceEffect: Effect<State, R>,
-         _ delayTime: TimeInterval,
-         _ dispatchQueue: DispatchQueue) {
-      self.sourceEffect = sourceEffect
-      self.delayTime = delayTime
-      self.dispatchQueue = dispatchQueue
-    }
-    
-    override public func invoke(_ input: Input<State>) -> Output<R> {
-      return self.sourceEffect.invoke(input).delay(
-        bySeconds: self.delayTime,
-        usingQueue: self.dispatchQueue)
-    }
+/// Effect whose output delays emission by some period of time.
+public final class DelayEffect<State, R>: SagaEffect<State, R> {
+  private let sourceEffect: SagaEffect<State, R>
+  private let delayTime: TimeInterval
+  private let dispatchQueue: DispatchQueue
+  
+  init(_ sourceEffect: SagaEffect<State, R>,
+       _ delayTime: TimeInterval,
+       _ dispatchQueue: DispatchQueue) {
+    self.sourceEffect = sourceEffect
+    self.delayTime = delayTime
+    self.dispatchQueue = dispatchQueue
+  }
+  
+  override public func invoke(_ input: SagaInput<State>) -> SagaOutput<R> {
+    return self.sourceEffect.invoke(input).delay(
+      bySeconds: self.delayTime,
+      usingQueue: self.dispatchQueue
+    )
   }
 }
 
-extension ReduxSagaEffectConvertibleType {
+extension SagaEffectConvertibleType {
   
   /// Invoke a delay effect on the current effect.
   ///
@@ -43,7 +41,7 @@ extension ReduxSagaEffectConvertibleType {
   public func delay(
     bySeconds sec: TimeInterval,
     usingQueue queue: DispatchQueue = .global(qos: .default))
-    -> Redux.Saga.Effect<State, R>
+    -> SagaEffect<State, R>
   {
     return self.asEffect()
       .transform(with: {.delay($0, bySeconds: sec, usingQueue: queue)})

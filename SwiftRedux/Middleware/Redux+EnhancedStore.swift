@@ -6,34 +6,31 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-public extension Redux.Store {
-
-  /// Enhanced store that can overwrite a base store's action dispatcher.
-  struct EnhancedStore<State> {
-    private let _store: Redux.Store.DelegateStore<State>
-    private let _dispatch: Dispatch
-    
-    /// Delegate all functionalities to a Redux store instance but customize
-    /// the dispatcher.
-    init<S>(_ store: S, _ dispatch: @escaping Dispatch) where
-      S: ReduxStoreType, S.State == State
-    {
-      self._store = Redux.Store.DelegateStore(store)
-      self._dispatch = dispatch
-    }
+/// Enhanced store that can overwrite a base store's action dispatcher.
+struct EnhancedStore<State> {
+  private let _store: DelegateStore<State>
+  private let _dispatch: ReduxDispatcher
+  
+  /// Delegate all functionalities to a Redux store instance but customize
+  /// the dispatcher.
+  init<S>(_ store: S, _ dispatch: @escaping ReduxDispatcher) where
+    S: ReduxStoreType, S.State == State
+  {
+    self._store = DelegateStore(store)
+    self._dispatch = dispatch
   }
 }
 
-extension Redux.Store.EnhancedStore: ReduxStoreType {
-  public var lastState: Redux.Store.LastState<State> {
+extension EnhancedStore: ReduxStoreType {
+  public var lastState: ReduxStateGetter<State> {
     return self._store.lastState
   }
   
-  public var subscribeState: Redux.Store.Subscribe<State> {
+  public var subscribeState: ReduxSubscriber<State> {
     return self._store.subscribeState
   }
   
-  public var dispatch: Redux.Store.Dispatch {
+  public var dispatch: ReduxDispatcher {
     return self._dispatch
   }
 }

@@ -9,7 +9,7 @@
 import SwiftRedux
 import UIKit
 
-public enum ReduxScreen: ReduxNavigationScreenType {
+public enum ReduxScreen: RouterScreenType {
   case back
   case viewController1
 }

@@ -13,14 +13,14 @@ import XCTest
 
 final class ReduxUITests: XCTestCase {
   private var store: Store!
-  private var injector: Redux.UI.PropInjector<State>!
+  private var injector: PropInjector<State>!
   private let iterations = 100
   
   override func setUp() {
     super.setUp()
     State.counter = -1
     self.store = ReduxUITests.Store()
-    self.injector = Redux.UI.PropInjector(store: self.store)
+    self.injector = PropInjector(store: self.store)
   }
 }
 
@@ -47,7 +47,7 @@ extension ReduxUITests {
     /// Then
     XCTAssertEqual(self.store.lastState().counter, self.iterations * 2)
     XCTAssertEqual(self.store.unsubscribeCount, 1)
-    XCTAssertTrue(view.staticProps?.injector is Redux.UI.PropInjector<State>)
+    XCTAssertTrue(view.staticProps?.injector is PropInjector<State>)
     checkOthers(view)
   
     // Check if re-injecting would unsubscribe from the previous subscription.
@@ -101,8 +101,8 @@ extension ReduxUITests {
   
   func test_mockInjector_shouldKeepTrackOfInjectionCount() {
     /// Setup
-    let mockInjector = Redux.UI.MockInjector(forState: State.self)
-    let staticProps = Redux.UI.MockStaticProps(injector: mockInjector)
+    let mockInjector = MockInjector(forState: State.self)
+    let staticProps = MockStaticProps(injector: mockInjector)
     let vc = ViewController()
     let view = View()
     vc.staticProps = staticProps
@@ -151,27 +151,27 @@ extension ReduxUITests {
       }
     }
     
-    private var subscribers = [String : Redux.Store.StateCallback<State>]()
+    private var subscribers = [String : ReduxStateCallback<State>]()
     var unsubscribeCount: Int = 0
     
     init() {
       self.state = State()
     }
     
-    var lastState: Redux.Store.LastState<State> {
+    var lastState: ReduxStateGetter<State> {
       return {self.state}
     }
     
-    var dispatch: Redux.Store.Dispatch {
+    var dispatch: ReduxDispatcher {
       return {_ in}
     }
     
-    var subscribeState: Redux.Store.Subscribe<State> {
+    var subscribeState: ReduxSubscriber<State> {
       return {
         let subscriberId = $0
         self.subscribers[subscriberId] = $1
       
-        return Redux.Store.Subscription({
+        return ReduxSubscription({
           self.unsubscribeCount += 1
           self.subscribers.removeValue(forKey: subscriberId)
         })
@@ -184,9 +184,9 @@ extension ReduxUITests {
   final class ViewController: UIViewController {
     deinit { self.onDeinit?() }
     
-    var staticProps: StaticProps?
+    var staticProps: StaticProps<State>?
     
-    var variableProps: VariableProps? {
+    var variableProps: VariableProps<StateProps, ActionProps>? {
       didSet {
         self.setPropCount += 1
         self.injectCallback?(self.setPropCount)
@@ -202,9 +202,9 @@ extension ReduxUITests {
   final class View: UIView {
     deinit { self.onDeinit?() }
     
-    var staticProps: StaticProps?
+    var staticProps: StaticProps<State>?
     
-    var variableProps: VariableProps? {
+    var variableProps: VariableProps<StateProps, ActionProps>? {
       didSet {
         self.setPropCount += 1
         self.injectCallback?(self.setPropCount)
@@ -225,15 +225,15 @@ extension ReduxUITests.ViewController: TestReduxViewType {
   typealias ActionProps = () -> Void
 }
 
-extension ReduxUITests.ViewController: ReduxPropMapperType {
+extension ReduxUITests.ViewController: PropMapperType {
   static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
     return state
   }
   
-  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
+  static func mapAction(dispatch: @escaping ReduxDispatcher,
                         state: ReduxState,
                         outProps: OutProps) -> ActionProps {
-    return {dispatch(Redux.Preset.Action.noop)}
+    return {dispatch(DefaultAction.noop)}
   }
 }
 
@@ -244,15 +244,15 @@ extension ReduxUITests.View: TestReduxViewType {
   typealias ActionProps = () -> Void
 }
 
-extension ReduxUITests.View: ReduxPropMapperType {
+extension ReduxUITests.View: PropMapperType {
   static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
     return state
   }
   
-  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
+  static func mapAction(dispatch: @escaping ReduxDispatcher,
                         state: ReduxState,
                         outProps: OutProps) -> ActionProps {
-    return {dispatch(Redux.Preset.Action.noop)}
+    return {dispatch(DefaultAction.noop)}
   }
 }
 

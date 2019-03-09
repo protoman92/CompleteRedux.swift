@@ -10,19 +10,18 @@ import XCTest
 @testable import SwiftRedux
 
 final class ReduxRouterTest: XCTestCase {
-  private var dispatch: Redux.Store.Dispatch!
+  private var dispatch: ReduxDispatcher!
   private var dispatchCount: Int!
-  private var router: Router!
+  private var router: ReduxRouter!
   
   override func setUp() {
     super.setUp()
-    _ = Redux.Middleware.Router()
-    let input = Redux.Middleware.Input({()})
-    let wrapper = Redux.Store.DispatchWrapper("", {_ in self.dispatchCount += 1})
-    self.router = Router()
+    let input = MiddlewareInput({()})
+    let wrapper = DispatchWrapper("", {_ in self.dispatchCount += 1})
+    self.router = ReduxRouter()
     self.dispatchCount = 0
 
-    self.dispatch = Redux.Middleware.Router.Provider(router: self.router)
+    self.dispatch = RouterMiddleware(router: self.router)
       .middleware(input)(wrapper).dispatch
   }
 }
@@ -37,7 +36,7 @@ extension ReduxRouterTest {
     self.dispatch(Screen.login)
     self.dispatch(Screen.dashboard)
     self.dispatch(Screen.login)
-    self.dispatch(Redux.Preset.Action.noop)
+    self.dispatch(DefaultAction.noop)
     
     /// Then
     waitForExpectations(timeout: 10, handler: nil)
@@ -47,12 +46,12 @@ extension ReduxRouterTest {
 }
 
 extension ReduxRouterTest {
-  enum Screen: ReduxNavigationScreenType {
+  enum Screen: RouterScreenType {
     case login
     case dashboard
   }
   
-  final class Router: ReduxRouterType {
+  final class ReduxRouter: ReduxRouterType {
     typealias Screen = ReduxRouterTest.Screen
     
     var history: [Screen] = []

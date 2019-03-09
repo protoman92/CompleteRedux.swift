@@ -7,11 +7,11 @@
 //
 
 /// Middleware provider that can be used to wrap a base store.
-public protocol ReduxMiddlewareProviderType {
+public protocol MiddlewareProviderType {
   
   /// The app-specific state type
   associatedtype State
   
   /// Create a dispatch mapper from a middleware input object.
-  var middleware: Redux.Middleware.Middleware<State> { get }
+  var middleware: ReduxMiddleware<State> { get }
 }

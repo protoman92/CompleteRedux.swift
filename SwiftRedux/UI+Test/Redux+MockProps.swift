@@ -6,18 +6,15 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-extension Redux.UI {
+/// Use this mock static props for testing:
+///
+///     let staticProps = MockStaticProps(...)
+///     vc.staticProps = staticProps
+///
+public final class MockStaticProps<State>: StaticProps<State> {
 
-  /// Use this mock static props for testing:
-  ///
-  ///     let staticProps = MockStaticProps(...)
-  ///     vc.staticProps = staticProps
-  ///
-  public final class MockStaticProps<State>: StaticProps<State> {
-
-    /// This initializer can be used to construct test static props.
-    convenience public init(injector: Redux.UI.PropInjector<State>) {
-      self.init(injector, Redux.Store.Subscription({}))
-    }
+  /// This initializer can be used to construct test static props.
+  convenience public init(injector: PropInjector<State>) {
+    self.init(injector, ReduxSubscription({}))
   }
 }

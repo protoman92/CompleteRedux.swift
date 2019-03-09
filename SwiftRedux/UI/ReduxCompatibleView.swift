@@ -28,19 +28,16 @@ public protocol ReduxCompatibleViewType: class {
   /// interactions.
   associatedtype ActionProps
   
-  typealias StaticProps = Redux.UI.StaticProps<ReduxState>
-  typealias VariableProps = Redux.UI.VariableProps<StateProps, ActionProps>
-  
   /// This prop container includes static dependencies that can be used to
   /// wire up child views/view controllers.
-  var staticProps: StaticProps? { get set }
+  var staticProps: StaticProps<ReduxState>? { get set }
   
   /// This prop container includes variable state/action props.
-  var variableProps: VariableProps? { get set }
+  var variableProps: VariableProps<StateProps, ActionProps>? { get set }
 }
 
 /// Generally the Redux view also implements the prop mapper protocol, so in
 /// this case we can define some default generics.
-public extension ReduxCompatibleViewType where Self: ReduxPropMapperType {
+public extension ReduxCompatibleViewType where Self: PropMapperType {
   public typealias ReduxView = Self
 }

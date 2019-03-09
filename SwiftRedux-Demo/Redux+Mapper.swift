@@ -9,7 +9,7 @@
 import SwiftRedux
 import SafeNest
 
-extension RootController: ReduxPropMapperType {
+extension RootController: PropMapperType {
   typealias ReduxState = SafeNest
   
   static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
@@ -29,7 +29,7 @@ extension RootController: ReduxPropMapperType {
   }
 }
 
-extension ViewController1: ReduxPropMapperType {
+extension ViewController1: PropMapperType {
   static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
     return state
       .decode(at: AppRedux.Path.rootPath, ofType: StateProps.self)
@@ -51,7 +51,7 @@ extension ViewController1: ReduxPropMapperType {
   }
 }
 
-extension ConfirmButton: ReduxPropMapperType {
+extension ConfirmButton: PropMapperType {
   static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
     return StateProps()
   }
@@ -65,7 +65,7 @@ extension ConfirmButton: ReduxPropMapperType {
   }
 }
 
-extension TableCell: ReduxPropMapperType {  
+extension TableCell: PropMapperType {  
   static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
     return StateProps(
       text: state.value(at: AppRedux.Path

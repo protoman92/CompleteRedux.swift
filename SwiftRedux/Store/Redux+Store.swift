@@ -6,56 +6,53 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-public extension Redux.Store {
+/// Represent a reducer that takes an action and a state to produce another
+/// state.
+public typealias ReduxReducer<State> = (State, ReduxActionType) -> State
+
+/// Unique id for a subscriber.
+public typealias SubscriberId = String
+
+/// Callback for state subscriptions.
+public typealias ReduxStateCallback<State> = (State) -> Void
+
+/// Typealias for the state getter function.
+public typealias ReduxStateGetter<State> = () -> State
+
+/// Typealias for the dispatch function.
+public typealias ReduxDispatcher = (ReduxActionType) -> Void
+
+/// Typealias for the state subscribe function. Pass in the subscriber id and
+/// callback function.
+public typealias ReduxSubscriber<State> =
+  (SubscriberId, @escaping ReduxStateCallback<State>) -> ReduxSubscription
+
+/// Subscription that can be unsubscribed from. This allows subscribers to
+/// store state to cancel anytime they want.
+public struct ReduxSubscription {
+  public let unsubscribe: () -> Void
   
-  /// Represent a reducer that takes an action and a state to produce another
-  /// state.
-  public typealias Reducer<State> = (State, ReduxActionType) -> State
+  public init(_ unsubscribe: @escaping () -> Void) {
+    self.unsubscribe = unsubscribe
+  }
+}
+
+/// This store delegates all its functionalities to another store. It is used
+/// mainly for its type concreteness.
+public struct DelegateStore<State>: ReduxStoreType {
+  public let lastState: ReduxStateGetter<State>
+  public let dispatch: ReduxDispatcher
+  public let subscribeState: ReduxSubscriber<State>
   
-  /// Unique id for a subscriber.
-  public typealias SubscriberId = String
-  
-  /// Callback for state subscriptions.
-  public typealias StateCallback<State> = (State) -> Void
-  
-  /// Typealias for the state getter function.
-  public typealias LastState<State> = () -> State
-  
-  /// Typealias for the dispatch function.
-  public typealias Dispatch = (ReduxActionType) -> Void
-  
-  /// Typealias for the state subscribe function. Pass in the subscriber id and
-  /// callback function.
-  public typealias Subscribe<State> =
-    (SubscriberId, @escaping StateCallback<State>) -> Subscription
-  
-  /// Subscription that can be unsubscribed from. This allows subscribers to
-  /// store state to cancel anytime they want.
-  public struct Subscription {
-    public let unsubscribe: () -> Void
-    
-    public init(_ unsubscribe: @escaping () -> Void) {
-      self.unsubscribe = unsubscribe
-    }
+  init<S>(_ store: S) where S: ReduxStoreType, S.State == State {
+    self.init(store.lastState, store.dispatch, store.subscribeState)
   }
   
-  /// This store delegates all its functionalities to another store. It is
-  /// used mainly for its type concreteness.
-  public struct DelegateStore<State>: ReduxStoreType {
-    public let lastState: LastState<State>
-    public let dispatch: Dispatch
-    public let subscribeState: Subscribe<State>
-    
-    init<S>(_ store: S) where S: ReduxStoreType, S.State == State {
-      self.init(store.lastState, store.dispatch, store.subscribeState)
-    }
-    
-    init(_ lastState: @escaping LastState<State>,
-         _ dispatch: @escaping Dispatch,
-         _ subscribeState: @escaping Subscribe<State>) {
-      self.lastState = lastState
-      self.dispatch = dispatch
-      self.subscribeState = subscribeState
-    }
+  init(_ lastState: @escaping ReduxStateGetter<State>,
+       _ dispatch: @escaping ReduxDispatcher,
+       _ subscribeState: @escaping ReduxSubscriber<State>) {
+    self.lastState = lastState
+    self.dispatch = dispatch
+    self.subscribeState = subscribeState
   }
 }

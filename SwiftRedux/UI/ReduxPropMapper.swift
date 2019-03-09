@@ -13,7 +13,7 @@
 /// The methods defined here are static because we want to restrict usage of
 /// internal state as much as possible. We should only use whatever data that
 /// are passed in via parameters to create props (e.g. state, outProps).
-public protocol ReduxPropMapperType: class {
+public protocol PropMapperType: class {
   associatedtype ReduxView: ReduxCompatibleViewType
   
   /// The app-specific state type.
@@ -43,7 +43,7 @@ public protocol ReduxPropMapperType: class {
   ///   - state: A ReduxState instance.
   ///   - outProps: An OutProps instance.
   /// - Returns: An ActionProps instance.
-  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
+  static func mapAction(dispatch: @escaping ReduxDispatcher,
                         state: ReduxState,
                         outProps: OutProps) -> ActionProps
   
@@ -58,7 +58,7 @@ public protocol ReduxPropMapperType: class {
 
 /// We should make state props conform to Equatable, so that some defaults
 /// can be implemented.
-public extension ReduxPropMapperType where StateProps: Equatable {
+public extension PropMapperType where StateProps: Equatable {
   public static func compareState(lhs: StateProps?, rhs: StateProps?) -> Bool {
     return lhs == rhs
   }

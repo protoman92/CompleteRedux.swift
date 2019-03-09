@@ -8,48 +8,39 @@
 
 import Foundation
 
-public extension Redux.Middleware {
+/// Screen navigation function.
+public typealias Navigate<Screen> = (Screen) -> Void
 
-  /// Top-level namespace for Redux Router middleware.
-  public final class Router {
-    init() {}
-
-    /// Screen navigation function.
-    public typealias Navigate<Screen> = (Screen) -> Void
-    
-    /// Middleware to handle router navigation. After we hook this middleware
-    /// up, we can perform navigations by dispatching screens like so:
-    ///
-    ///     enum Screen: ReduxNavigationScreenType {
-    ///       case login
-    ///       case dashboard
-    ///     }
-    ///
-    ///     ...
-    ///     dispatch(Screen.login)
-    ///     dispatch(Screen.password)
-    public struct Provider<State, Screen: ReduxNavigationScreenType>:
-      ReduxMiddlewareProviderType
-    {
-      private let _navigate: Navigate<Screen>
-      
-      public init<R>(router: R) where R: ReduxRouterType, R.Screen == Screen {
-        self._navigate = router.navigate
-      }
-      
-      public var middleware: Middleware<State> {
-        return {_ in
-          {wrapper in
-            let newWrapperId = "\(wrapper.identifier)-router"
-            
-            return Redux.Store.DispatchWrapper(newWrapperId) {action in
-              wrapper.dispatch(action)
-              
-              if let screen = action as? Screen {
-                // Force-navigate on the main thread.
-                DispatchQueue.main.async {self._navigate(screen)}
-              }
-            }
+/// Middleware to handle router navigation. After we hook this middleware up,
+/// we can perform navigations by dispatching screens like so:
+///
+///     enum Screen: RouterScreenType {
+///       case login
+///       case dashboard
+///     }
+///
+///     ...
+///     dispatch(Screen.login)
+///     dispatch(Screen.password)
+///
+public struct RouterMiddleware<State, Screen: RouterScreenType>: MiddlewareProviderType {
+  private let _navigate: Navigate<Screen>
+  
+  public init<R>(router: R) where R: ReduxRouterType, R.Screen == Screen {
+    self._navigate = router.navigate
+  }
+  
+  public var middleware: ReduxMiddleware<State> {
+    return {_ in
+      {wrapper in
+        let newWrapperId = "\(wrapper.identifier)-router"
+        
+        return DispatchWrapper(newWrapperId) {action in
+          wrapper.dispatch(action)
+          
+          if let screen = action as? Screen {
+            // Force-navigate on the main thread.
+            DispatchQueue.main.async {self._navigate(screen)}
           }
         }
       }

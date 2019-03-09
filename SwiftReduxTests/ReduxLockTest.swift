@@ -14,7 +14,7 @@ final class ReduxLockTest: XCTestCase {
   func test_readWriteLock_shouldDestroyLockOnDeinit() {
     /// Setup
     var _lock = pthread_rwlock_t()
-    var disposableLock: Redux.ReadWriteLock? = .init(&_lock)
+    var disposableLock: ReadWriteLock? = .init(&_lock)
     let dispatchGroup = DispatchGroup()
     dispatchGroup.enter()
     
@@ -38,7 +38,7 @@ final class ReduxLockTest: XCTestCase {
   
   func test_acquiringLockWithoutForce_shouldReturnNilWhenUnavailable() {
     /// Setup
-    let lock = Redux.ReadWriteLock()
+    let lock = ReadWriteLock()
     var readCount = 0
     var writeCount = 0
     defer {lock.unlock()}

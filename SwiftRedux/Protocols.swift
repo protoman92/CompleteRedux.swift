@@ -31,14 +31,14 @@ public protocol ReduxStoreType {
   associatedtype State
   
   /// Get the last state instance.
-  var lastState: Redux.Store.LastState<State> { get }
+  var lastState: ReduxStateGetter<State> { get }
   
   /// Dispatch an action and notify listeners.
-  var dispatch: Redux.Store.Dispatch { get }
+  var dispatch: ReduxDispatcher { get }
   
   /// Set up state callback so that every time a new state arrives, call the
   /// callback function.
-  var subscribeState: Redux.Store.Subscribe<State> { get }
+  var subscribeState: ReduxSubscriber<State> { get }
 }
 
 /// Implement this protocol to provide read-write lock capabilities.

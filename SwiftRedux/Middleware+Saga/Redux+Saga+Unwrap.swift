@@ -8,13 +8,13 @@
 
 import SwiftFP
 
-extension ReduxSagaEffectConvertibleType where R: OptionalType {
+extension SagaEffectConvertibleType where R: OptionalType {
 
   /// If the output values are optional, unwrap them if possible, otherwise
   /// emit nothing.
   ///
   /// - Returns: An Effect instance.
-  public func unwrap() -> Redux.Saga.Effect<State, R.Value> {
+  public func unwrap() -> SagaEffect<State, R.Value> {
     return self.filter({$0.isSome}).map({$0.value!})
   }
 }

@@ -9,17 +9,17 @@
 /// Implement this protocol to represent a navigatable screen. Usually we would
 /// use an enum such as the following:
 ///
-///     enum Screen: ReduxNavigationScreenType {
+///     enum Screen: RouterScreenType {
 ///       case login
 ///       case dashboard
 ///     }
-public protocol ReduxNavigationScreenType: ReduxActionType {}
+public protocol RouterScreenType: ReduxActionType {}
 
 /// Implement this protocol to handle in-app navigations. We can pass in the
 /// top navigation controller and, depending on the screen, go to the page
 /// associated with that screen or replace the whole stack:
 ///
-///     enum Screen: ReduxNavigationScreenType {
+///     enum Screen: RouterScreenType {
 ///       case login
 ///       case dashboard
 ///     }
@@ -44,7 +44,7 @@ public protocol ReduxNavigationScreenType: ReduxActionType {}
 public protocol ReduxRouterType {
   
   /// The app-specific screen implementation for this router.
-  associatedtype Screen: ReduxNavigationScreenType
+  associatedtype Screen: RouterScreenType
   
   /// Navigate to a screen.
   ///

@@ -10,7 +10,7 @@ import UIKit
 
 /// Inject views with state/action props, similar to how React.js performs
 /// connect.
-public protocol ReduxPropInjectorType {
+public protocol PropInjectorType {
   
   /// The app-specific state type.
   associatedtype State
@@ -22,7 +22,7 @@ public protocol ReduxPropInjectorType {
   ///   - outProps: An OutProps instance.
   ///   - mapper: A Redux prop mapper.
   func injectProps<VC, MP>(controller: VC, outProps: VC.OutProps, mapper: MP.Type) where
-    MP: ReduxPropMapperType,
+    MP: PropMapperType,
     MP.ReduxView == VC,
     VC: UIViewController,
     VC.ReduxState == State
@@ -35,13 +35,13 @@ public protocol ReduxPropInjectorType {
   ///   - mapper: A Redux prop mapper.
   /// - Returns: A ReduxSubscription instance.
   func injectProps<V, MP>(view: V, outProps: V.OutProps, mapper: MP.Type) where
-    MP: ReduxPropMapperType,
+    MP: PropMapperType,
     MP.ReduxView == V,
     V: UIView,
     V.ReduxState == State
 }
 
-public extension ReduxPropInjectorType {
+public extension PropInjectorType {
   
   /// Convenience method to inject props when the controller also conforms to
   /// the necessary protocols.
@@ -52,7 +52,7 @@ public extension ReduxPropInjectorType {
   /// - Returns: A ReduxSubscription instance.
   public func injectProps<VC>(controller vc: VC, outProps: VC.OutProps) where
     VC: UIViewController,
-    VC: ReduxPropMapperType,
+    VC: PropMapperType,
     VC.ReduxState == State,
     VC.ReduxView == VC
   {
@@ -68,7 +68,7 @@ public extension ReduxPropInjectorType {
   /// - Returns: A ReduxSubscription instance.
   public func injectProps<V>(view: V, outProps: V.OutProps) where
     V: UIView,
-    V: ReduxPropMapperType,
+    V: PropMapperType,
     V.ReduxState == State,
     V.ReduxView == V
   {

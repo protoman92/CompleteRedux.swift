@@ -16,8 +16,7 @@ final class ReduxStoreTest: XCTestCase {
   private var disposeBag: DisposeBag!
   private var scheduler: TestScheduler!
   private var initialState: State!
-  private var rxStore: Redux.Store.RxStore<State>!
-  private var simpleStore: Redux.Store.SimpleStore<State>!
+  private var simpleStore: SimpleStore<State>!
   private var actionsPerIter: Int!
 
   private var updateId: String {
@@ -30,7 +29,6 @@ final class ReduxStoreTest: XCTestCase {
     self.disposeBag = DisposeBag()
     self.actionsPerIter = 5
     self.initialState = 0
-    self.rxStore = .create(self.initialState!, self.reduce)
     self.simpleStore = .create(self.initialState!, self.reduce)
   }
 
@@ -85,15 +83,6 @@ extension ReduxStoreTest {
     /// Then
     XCTAssertEqual(store.lastState(), accumStateValue)
   }
-
-  func test_dispatchRxStoreAction_shouldUpdateState() {
-    /// Setup
-    let valueObs = self.scheduler.createObserver(Int.self)
-    self.rxStore.stateStream.subscribe(valueObs).disposed(by: self.disposeBag!)
-
-    /// When & Then
-    test_dispatchAction_shouldUpdateStoreState(self.rxStore, async: false)
-  }
   
   func test_dispatchSimpleStoreAction_shouldUpdateState() {
     /// Setup && When && Then
@@ -117,10 +106,6 @@ extension ReduxStoreTest {
     
     /// Then
     XCTAssertEqual(callbackCount, iterations + 1)
-  }
-  
-  func test_unsubscribeFromRxStore_shouldStopStream() {
-    self.test_unsubscribeFromStore_shouldStopStream(self.rxStore)
   }
   
   func test_unsubscribeFromSimpleStore_shouldStopStream() {

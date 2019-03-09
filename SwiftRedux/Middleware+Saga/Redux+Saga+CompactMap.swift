@@ -6,7 +6,7 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
-extension ReduxSagaEffectConvertibleType {
+extension SagaEffectConvertibleType {
 
   /// Invoke a map effect on the current effect, but if the result of the map
   /// effect is optional, try to unwrap it if possible and emit nothing
@@ -14,9 +14,7 @@ extension ReduxSagaEffectConvertibleType {
   ///
   /// - Parameter selector: The mapper function.
   /// - Returns: An Effect instance.
-  public func compactMap<R2>(_ mapper: @escaping (R) throws -> R2?)
-    -> Redux.Saga.Effect<State, R2>
-  {
+  public func compactMap<R2>(_ mapper: @escaping (R) throws -> R2?) -> SagaEffect<State, R2> {
     return self.map(mapper).unwrap()
   }
 }
