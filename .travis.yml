@@ -7,7 +7,7 @@ before_install:
   - gem install cocoapods --pre
   - gem install slather --pre
   - gem install xcpretty
-  - pod repo update
+  - pod install
 
 script:
   - set -o pipefail && xcodebuild clean test -sdk iphonesimulator -workspace SwiftRedux.xcworkspace -scheme SwiftRedux -destination 'platform=iOS Simulator,name=iPhone 7' | xcpretty

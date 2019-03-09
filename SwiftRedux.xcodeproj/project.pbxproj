@@ -382,9 +382,8 @@
 				EEAABD12221D174500543DE2 /* UI */,
 				EEAABD19221D174500543DE2 /* UI+Test */,
 			);
-			name = SwiftRedux;
-			path = /Users/viethai.pham/Desktop/SwiftRedux/SwiftRedux;
-			sourceTree = "<absolute>";
+			path = SwiftRedux;
+			sourceTree = "<group>";
 		};
 		EEAABD44221D174B00543DE2 /* AppIcon.appiconset */ = {
 			isa = PBXGroup;
@@ -430,9 +429,8 @@
 				EEAABD45221D174B00543DE2 /* Assets.xcassets */,
 				EEAABD48221D174B00543DE2 /* Base.lproj */,
 			);
-			name = "SwiftRedux-Demo";
-			path = "/Users/viethai.pham/Desktop/SwiftRedux/SwiftRedux-Demo";
-			sourceTree = "<absolute>";
+			path = "SwiftRedux-Demo";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 

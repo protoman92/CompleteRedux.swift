@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.summary = "Rx-enabled Redux implementation for iOS clients."
   s.requires_arc = true
   s.version = "1.0.2"
-  s.license = { :type => "Apache-2.0", :file => "LICENSE" }
+  s.license = { :type => "MIT", :file => "LICENSE" }
   s.author = { "Hai Pham" => "swiften.svc@gmail.com" }
   s.homepage = "https://github.com/protoman92/SwiftRedux.git"
   s.source = { :git => "https://github.com/protoman92/SwiftRedux.git", :tag => "#{s.version}"}
@@ -19,12 +19,6 @@ Pod::Spec.new do |s|
   s.subspec "SimpleStore" do |ss|
     ss.dependency "SwiftRedux/Main"
     ss.source_files = "SwiftRedux/SimpleStore/*"
-  end
-
-  s.subspec "RxStore" do |ss|
-    ss.dependency "RxSwift"
-    ss.dependency "SwiftRedux/Main"
-    ss.source_files = "SwiftRedux/RxStore/*"
   end
 
   s.subspec "UI" do |ss|
