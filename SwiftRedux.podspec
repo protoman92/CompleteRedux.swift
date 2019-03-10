@@ -11,23 +11,23 @@ Pod::Spec.new do |s|
   s.homepage = "https://github.com/protoman92/SwiftRedux.git"
   s.source = { :git => "https://github.com/protoman92/SwiftRedux.git", :tag => "#{s.version}"}
 
-  s.subspec "Main" do |ss|
+  s.subspec "Core" do |ss|
     ss.dependency "SwiftFP/Main"
-    ss.source_files = "SwiftRedux/*.{h,swift}", "SwiftRedux/Preset/*", "SwiftRedux/Store/*"
+    ss.source_files = "SwiftRedux/*.{h,swift}", "SwiftRedux/Core/*"
   end
 
   s.subspec "SimpleStore" do |ss|
-    ss.dependency "SwiftRedux/Main"
+    ss.dependency "SwiftRedux/Core"
     ss.source_files = "SwiftRedux/SimpleStore/*"
   end
 
   s.subspec "UI" do |ss|
-    ss.dependency "SwiftRedux/Main"
+    ss.dependency "SwiftRedux/Core"
     ss.source_files = "SwiftRedux/{UI,UI+Test}/*"
   end
 
   s.subspec "Middleware" do |ss|
-    ss.dependency "SwiftRedux/Main"
+    ss.dependency "SwiftRedux/Core"
     ss.source_files = "SwiftRedux/Middleware/*"
   end
 

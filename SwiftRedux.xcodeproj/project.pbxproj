@@ -71,6 +71,7 @@
 		EE3A11D9221D7F650023B445 /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD42221D174B00543DE2 /* ViewController1.swift */; };
 		EE3A11DA221D7F650023B445 /* LaunchScreen.storyboard in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD46221D174B00543DE2 /* LaunchScreen.storyboard */; };
 		EE3A11DB221D7F650023B445 /* Main.storyboard in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD47221D174B00543DE2 /* Main.storyboard */; };
+		EEFD1AAF2234A38D00C3C00E /* SwiftRedux.podspec in Resources */ = {isa = PBXBuildFile; fileRef = EEFD1AAE2234A38D00C3C00E /* SwiftRedux.podspec */; };
 		F1930B26DA6FFB9CC094EC03 /* Pods_SwiftRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C2E81432E7FA15157BDAD6E /* Pods_SwiftRedux.framework */; };
 /* End PBXBuildFile section */
 
@@ -173,6 +174,7 @@
 		EEAABD50221D174B00543DE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEAABD51221D174B00543DE2 /* Redux+Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Router.swift"; sourceTree = "<group>"; };
 		EEAABD52221D174B00543DE2 /* ConfirmButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButton.swift; sourceTree = "<group>"; };
+		EEFD1AAE2234A38D00C3C00E /* SwiftRedux.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftRedux.podspec; sourceTree = "<group>"; };
 		F48F8B4E6973B398A90D0BDC /* Pods-SwiftRedux-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftRedux-Demo.release.xcconfig"; path = "Target Support Files/Pods-SwiftRedux-Demo/Pods-SwiftRedux-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		FC5D0C76EF1DF4B48DAEF6B0 /* Pods-SwiftRedux-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftRedux-Demo.debug.xcconfig"; path = "Target Support Files/Pods-SwiftRedux-Demo/Pods-SwiftRedux-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -239,6 +241,7 @@
 		D3943EC41FA32D5600898233 = {
 			isa = PBXGroup;
 			children = (
+				EEFD1AAE2234A38D00C3C00E /* SwiftRedux.podspec */,
 				D352CE5F205CB3C800319B07 /* README.md */,
 				1D7935C1229840048D82E81B /* Frameworks */,
 				75947DDCFB998DF58761D8E8 /* Pods */,
@@ -314,14 +317,6 @@
 			path = "UI+Test";
 			sourceTree = "<group>";
 		};
-		EEAABD1B221D174500543DE2 /* Preset */ = {
-			isa = PBXGroup;
-			children = (
-				EEAABD1A221D174500543DE2 /* Redux+Preset.swift */,
-			);
-			path = Preset;
-			sourceTree = "<group>";
-		};
 		EEAABD35221D174500543DE2 /* Middleware+Saga */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,27 +353,16 @@
 			path = "Middleware+Router";
 			sourceTree = "<group>";
 		};
-		EEAABD3E221D174500543DE2 /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				EEAABD3D221D174500543DE2 /* Redux+Store.swift */,
-			);
-			path = Store;
-			sourceTree = "<group>";
-		};
 		EEAABD3F221D174500543DE2 /* SwiftRedux */ = {
 			isa = PBXGroup;
 			children = (
+				EEFD1AAD2234A37200C3C00E /* Core */,
 				EEAABD3B221D174500543DE2 /* SwiftRedux.h */,
 				EEAABD3C221D174500543DE2 /* Info.plist */,
-				EEAABD3A221D174500543DE2 /* Protocols.swift */,
-				EEAABD20221D174500543DE2 /* Redux+RWLock.swift */,
 				EEAABD16221D174500543DE2 /* Middleware */,
 				EEAABD39221D174500543DE2 /* Middleware+Router */,
 				EEAABD35221D174500543DE2 /* Middleware+Saga */,
-				EEAABD1B221D174500543DE2 /* Preset */,
 				EEAABD0C221D174500543DE2 /* SimpleStore */,
-				EEAABD3E221D174500543DE2 /* Store */,
 				EEAABD12221D174500543DE2 /* UI */,
 				EEAABD19221D174500543DE2 /* UI+Test */,
 			);
@@ -431,6 +415,17 @@
 			);
 			path = "SwiftRedux-Demo";
 			sourceTree = SOURCE_ROOT;
+		};
+		EEFD1AAD2234A37200C3C00E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				EEAABD3A221D174500543DE2 /* Protocols.swift */,
+				EEAABD1A221D174500543DE2 /* Redux+Preset.swift */,
+				EEAABD20221D174500543DE2 /* Redux+RWLock.swift */,
+				EEAABD3D221D174500543DE2 /* Redux+Store.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -564,6 +559,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D352CE60205CB3C800319B07 /* README.md in Resources */,
+				EEFD1AAF2234A38D00C3C00E /* SwiftRedux.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
