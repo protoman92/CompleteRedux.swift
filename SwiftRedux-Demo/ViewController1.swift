@@ -21,18 +21,48 @@ final class ViewController1: UIViewController {
   @IBOutlet private weak var clearButton: ConfirmButton!
   @IBOutlet private weak var textTable: UITableView!
   
-  public var staticProps: StaticProps? {
+  let uniqueID = DefaultUniqueIDProvider.next()
+  
+  public var staticProps: StaticProps<ReduxState>? {
     didSet {
       _ = self.staticProps?.injector
         .injectProps(view: self.clearButton, outProps: ())
     }
   }
   
-  public var variableProps: VariableProps? {
+  public var variableProps: VariableProps<StateProps, ActionProps>? {
     didSet {
-      if let props = self.variableProps {
-        self.didSetProps(props)
+      guard let props = self.variableProps else { return }
+      let nextState = props.nextState
+      self.counterTF.text = props.nextState.number.map(String.init)
+      self.slideTF.text = props.nextState.slider.map(String.init)
+      self.stringTF1.text = props.nextState.string
+      self.stringTF2.text = props.nextState.string
+      self.valueSL.value = props.nextState.slider ?? valueSL.minimumValue
+      
+      if props.nextState.progress.getOrElse(false) {
+        if props.nextState.progress != props.previousState?.progress {
+          MRProgressOverlayView.showOverlayAdded(to: self.view, animated: true)
+        }
+      } else {
+        MRProgressOverlayView.dismissOverlay(for: self.view, animated: true)
       }
+      
+      let prevIndexes = props.previousState?.textIndexes ?? []
+      let nextIndexes = nextState.textIndexes ?? []
+      let prevSet = Set(prevIndexes.enumerated().map({[$0, $1]}))
+      let nextSet = Set(nextIndexes.enumerated().map({[$0, $1]}))
+      
+      let additions = nextSet.subtracting(prevSet)
+        .map({IndexPath(row: $0[0], section: 0)})
+      
+      let deletions = prevSet.subtracting(nextSet)
+        .map({IndexPath(row: $0[0], section: 0)})
+      
+      self.textTable.beginUpdates()
+      self.textTable.deleteRows(at: deletions, with: .fade)
+      self.textTable.insertRows(at: additions, with: .fade)
+      self.textTable.endUpdates()
     }
   }
 
@@ -54,39 +84,6 @@ final class ViewController1: UIViewController {
       style: .plain,
       target: self,
       action: #selector(self.reloadTable))
-  }
-  
-  private func didSetProps(_ props: VariableProps) {
-    let nextState = props.nextState
-    self.counterTF.text = props.nextState.number.map(String.init)
-    self.slideTF.text = props.nextState.slider.map(String.init)
-    self.stringTF1.text = props.nextState.string
-    self.stringTF2.text = props.nextState.string
-    self.valueSL.value = props.nextState.slider ?? valueSL.minimumValue
-    
-    if props.nextState.progress.getOrElse(false) {
-      if props.nextState.progress != props.previousState?.progress {
-        MRProgressOverlayView.showOverlayAdded(to: self.view, animated: true)
-      }
-    } else {
-      MRProgressOverlayView.dismissOverlay(for: self.view, animated: true)
-    }
-    
-    let prevIndexes = props.previousState?.textIndexes ?? []
-    let nextIndexes = nextState.textIndexes ?? []
-    let prevSet = Set(prevIndexes.enumerated().map({[$0, $1]}))
-    let nextSet = Set(nextIndexes.enumerated().map({[$0, $1]}))
-    
-    let additions = nextSet.subtracting(prevSet)
-      .map({IndexPath(row: $0[0], section: 0)})
-    
-    let deletions = prevSet.subtracting(nextSet)
-      .map({IndexPath(row: $0[0], section: 0)})
-    
-    self.textTable.beginUpdates()
-    self.textTable.deleteRows(at: deletions, with: .fade)
-    self.textTable.insertRows(at: additions, with: .fade)
-    self.textTable.endUpdates()
   }
   
   @IBAction func incrementNumber(_ sender: UIButton) {

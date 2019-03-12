@@ -16,7 +16,7 @@ extension RootController: PropMapperType {
     return ()
   }
   
-  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
+  static func mapAction(dispatch: @escaping ReduxDispatcher,
                         state: ReduxState,
                         outProps: OutProps) -> ActionProps {
     return ActionProps(
@@ -36,7 +36,7 @@ extension ViewController1: PropMapperType {
       .getOrElse(StateProps())
   }
   
-  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
+  static func mapAction(dispatch: @escaping ReduxDispatcher,
                         state: ReduxState,
                         outProps: OutProps) -> ActionProps {
     return ActionProps(
@@ -56,7 +56,7 @@ extension ConfirmButton: PropMapperType {
     return StateProps()
   }
   
-  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
+  static func mapAction(dispatch: @escaping ReduxDispatcher,
                         state: ReduxState,
                         outProps: OutProps) -> ActionProps {
     return ActionProps(
@@ -74,7 +74,7 @@ extension TableCell: PropMapperType {
     )
   }
   
-  static func mapAction(dispatch: @escaping Redux.Store.Dispatch,
+  static func mapAction(dispatch: @escaping ReduxDispatcher,
                         state: ReduxState,
                         outProps: OutProps) -> ActionProps {
     return ActionProps(

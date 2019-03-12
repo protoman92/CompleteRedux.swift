@@ -13,18 +13,15 @@ final class TableCell: UITableViewCell {
   @IBOutlet private weak var textInput: UITextField!
   
   var textIndex: Int?
-  var staticProps: StaticProps?
+  let uniqueID = DefaultUniqueIDProvider.next()
+  var staticProps: StaticProps<ReduxState>?
   
-  var variableProps: VariableProps? {
+  var variableProps: VariableProps<StateProps, ActionProps>? {
     didSet {
       if let props = self.variableProps {
-        self.didSetProps(props)
+        textInput.text = props.nextState.text
       }
     }
-  }
-  
-  private func didSetProps(_ props: VariableProps) {
-    textInput.text = props.nextState.text
   }
   
   @IBAction func updateText(_ sender: UITextField) {

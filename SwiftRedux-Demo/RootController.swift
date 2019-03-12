@@ -12,8 +12,9 @@ import UIKit
 final class RootController: UIViewController {
   @IBOutlet private weak var viewController1: UIButton!
   
-  var staticProps: StaticProps?
-  var variableProps: VariableProps?
+  let uniqueID = DefaultUniqueIDProvider.next()
+  var staticProps: StaticProps<ReduxState>?
+  var variableProps: VariableProps<StateProps, ActionProps>?
   
   @IBAction func goToViewController1(_ sender: UIButton) {
     self.variableProps?.action.goToViewController1()

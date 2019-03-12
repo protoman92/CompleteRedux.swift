@@ -18,7 +18,7 @@ public class DefaultUniqueIDProvider {
   /// Get the next available unique ID.
   ///
   /// - Returns: A UniqueID instance.
-  static func next() -> UniqueIDProviderType.UniqueID {
+  public static func next() -> UniqueIDProviderType.UniqueID {
     return OSAtomicIncrement64(&self._current)
   }
   

@@ -12,7 +12,7 @@ import RxSwift
 final class Api {
   static func performAutocomplete(_ input: String) -> Observable<[String]> {
     if Bool.random() {
-      return Observable.error(Error.unimplemented)
+      return Observable.error(SagaError.unimplemented)
     }
     
     return Observable.just(())

@@ -10,8 +10,8 @@ import SwiftRedux
 import SafeNest
 
 struct Dependency {
-  let store: Redux.Store.DelegateStore<SafeNest>
-  let injector: Redux.UI.PropInjector<SafeNest>
+  let store: DelegateStore<SafeNest>
+  let injector: PropInjector<SafeNest>
   
   init(_ navController: UINavigationController) {
     let initial = try! SafeNest.empty()
@@ -28,10 +28,10 @@ struct Dependency {
     let router = ReduxRouter(navController)
     
     self.store = applyMiddlewares([
-      Redux.Middleware.Router.Provider(router: router).middleware,
-      Redux.Middleware.Saga.Provider(effects: AppReduxSaga.sagas()).middleware
-      ])(Redux.Store.SimpleStore.create(initial, AppRedux.Reducer.main))
+      RouterMiddleware(router: router).middleware,
+      SagaMiddleware(effects: AppReduxSaga.sagas()).middleware
+      ])(SimpleStore.create(initial, AppRedux.Reducer.main))
     
-    self.injector = Redux.UI.PropInjector(store: self.store)
+    self.injector = PropInjector(store: self.store)
   }
 }
