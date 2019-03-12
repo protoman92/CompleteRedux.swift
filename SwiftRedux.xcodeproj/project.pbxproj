@@ -51,9 +51,8 @@
 		EE3A11C5221D7F4A0023B445 /* Redux+SimpleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD0B221D174500543DE2 /* Redux+SimpleStore.swift */; };
 		EE3A11C6221D7F4A0023B445 /* Redux+Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD3D221D174500543DE2 /* Redux+Store.swift */; };
 		EE3A11C7221D7F4A0023B445 /* Redux+PropInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD0D221D174500543DE2 /* Redux+PropInjector.swift */; };
-		EE3A11C8221D7F4A0023B445 /* ReduxCompatibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD0E221D174500543DE2 /* ReduxCompatibleView.swift */; };
-		EE3A11C9221D7F4A0023B445 /* ReduxPropMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD0F221D174500543DE2 /* ReduxPropMapper.swift */; };
-		EE3A11CA221D7F4A0023B445 /* ReduxPropInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD10221D174500543DE2 /* ReduxPropInjector.swift */; };
+		EE3A11C8221D7F4A0023B445 /* Redux+PropContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD0E221D174500543DE2 /* Redux+PropContainer.swift */; };
+		EE3A11C9221D7F4A0023B445 /* Redux+PropMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD0F221D174500543DE2 /* Redux+PropMapper.swift */; };
 		EE3A11CB221D7F4A0023B445 /* Redux+Props.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD11221D174500543DE2 /* Redux+Props.swift */; };
 		EE3A11CC221D7F4A0023B445 /* Redux+MockProps.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD17221D174500543DE2 /* Redux+MockProps.swift */; };
 		EE3A11CD221D7F4A0023B445 /* Redux+MockInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAABD18221D174500543DE2 /* Redux+MockInjector.swift */; };
@@ -143,9 +142,8 @@
 		EE7111DA2235756300532177 /* Redux+Saga+Output.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Redux+Saga+Output.swift"; sourceTree = "<group>"; };
 		EEAABD0B221D174500543DE2 /* Redux+SimpleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+SimpleStore.swift"; sourceTree = "<group>"; };
 		EEAABD0D221D174500543DE2 /* Redux+PropInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+PropInjector.swift"; sourceTree = "<group>"; };
-		EEAABD0E221D174500543DE2 /* ReduxCompatibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxCompatibleView.swift; sourceTree = "<group>"; };
-		EEAABD0F221D174500543DE2 /* ReduxPropMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxPropMapper.swift; sourceTree = "<group>"; };
-		EEAABD10221D174500543DE2 /* ReduxPropInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxPropInjector.swift; sourceTree = "<group>"; };
+		EEAABD0E221D174500543DE2 /* Redux+PropContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+PropContainer.swift"; sourceTree = "<group>"; };
+		EEAABD0F221D174500543DE2 /* Redux+PropMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+PropMapper.swift"; sourceTree = "<group>"; };
 		EEAABD11221D174500543DE2 /* Redux+Props.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Props.swift"; sourceTree = "<group>"; };
 		EEAABD13221D174500543DE2 /* Redux+Middleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Middleware.swift"; sourceTree = "<group>"; };
 		EEAABD14221D174500543DE2 /* Redux+EnhancedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+EnhancedStore.swift"; sourceTree = "<group>"; };
@@ -332,6 +330,8 @@
 				EEAABD10221D174500543DE2 /* ReduxPropInjector.swift */,
 				EEAABD0F221D174500543DE2 /* ReduxPropMapper.swift */,
 				EEC1DE82223DE98300E4AF43 /* Redux+MainThread.swift */,
+				EEAABD0E221D174500543DE2 /* Redux+PropContainer.swift */,
+				EEAABD0F221D174500543DE2 /* Redux+PropMapper.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -798,9 +798,8 @@
 				EE3A11C5221D7F4A0023B445 /* Redux+SimpleStore.swift in Sources */,
 				EE3A11C6221D7F4A0023B445 /* Redux+Store.swift in Sources */,
 				EE3A11C7221D7F4A0023B445 /* Redux+PropInjector.swift in Sources */,
-				EE3A11C8221D7F4A0023B445 /* ReduxCompatibleView.swift in Sources */,
-				EE3A11C9221D7F4A0023B445 /* ReduxPropMapper.swift in Sources */,
-				EE3A11CA221D7F4A0023B445 /* ReduxPropInjector.swift in Sources */,
+				EE3A11C8221D7F4A0023B445 /* Redux+PropContainer.swift in Sources */,
+				EE3A11C9221D7F4A0023B445 /* Redux+PropMapper.swift in Sources */,
 				EE3A11CB221D7F4A0023B445 /* Redux+Props.swift in Sources */,
 				EEFD1AB12234A53D00C3C00E /* Redux+Awaitable.swift in Sources */,
 				EE3A11CC221D7F4A0023B445 /* Redux+MockProps.swift in Sources */,

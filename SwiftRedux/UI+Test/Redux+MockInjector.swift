@@ -45,7 +45,7 @@ public final class MockInjector<State>: PropInjector<State> {
     return self._injectCount
   }
   
-  /// Add one count to the view controller injectee.
+  /// Add one count for a compatible view injectee.
   ///
   /// - Parameters:
   ///   - cv: A Redux-compatible view.
@@ -54,7 +54,7 @@ public final class MockInjector<State>: PropInjector<State> {
   public override func injectProps<CV, MP>(_ cv: CV, _ op: CV.OutProps, _ mapper: MP.Type)
     -> ReduxSubscription where
     MP: PropMapperType,
-    MP.ReduxView == CV,
+    MP.PropContainer == CV,
     CV.ReduxState == State
   {
     self.addInjecteeCount(cv)
@@ -68,7 +68,7 @@ public final class MockInjector<State>: PropInjector<State> {
   ///   - times: An Int value.
   /// - Returns: A Bool value.
   public func didInject<View>(_ view: View, times: Int) -> Bool where
-    View: ReduxCompatibleViewType
+    View: PropContainerType
   {
     return self.getInjecteeCount(view) == times
   }
@@ -80,7 +80,7 @@ public final class MockInjector<State>: PropInjector<State> {
   ///   - times: An Int value.
   /// - Returns: A Bool value.
   public func didInject<View>(_ type: View.Type, times: Int) -> Bool where
-    View: ReduxCompatibleViewType
+    View: PropContainerType
   {
     return self.getInjecteeCount(type) == times
   }
@@ -100,7 +100,7 @@ public final class MockInjector<State>: PropInjector<State> {
   /// many times views/view controllers of a certain class have received
   /// injection.
   private func addInjecteeCount<View>(_ view: View) where
-    View: ReduxCompatibleViewType
+    View: PropContainerType
   {
     self.addInjecteeCount(String(describing: View.self))
   }
@@ -110,13 +110,13 @@ public final class MockInjector<State>: PropInjector<State> {
   }
   
   private func getInjecteeCount<View>(_ type: View.Type) -> Int where
-    View: ReduxCompatibleViewType
+    View: PropContainerType
   {
     return self.getInjecteeCount(String(describing: type))
   }
   
   private func getInjecteeCount<View>(_ view: View) -> Int where
-    View: ReduxCompatibleViewType
+    View: PropContainerType
   {
     return self.getInjecteeCount(View.self)
   }

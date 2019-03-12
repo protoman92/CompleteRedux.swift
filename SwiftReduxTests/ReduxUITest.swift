@@ -265,6 +265,6 @@ extension ReduxUITests.View: PropMapperType {
   }
 }
 
-protocol TestReduxViewType: ReduxCompatibleViewType {
+protocol TestReduxViewType: PropContainerType {
   var injectCallback: ((Int) -> Void)? { get set }
 }

@@ -29,7 +29,7 @@ final class TableCell: UITableViewCell {
   }
 }
 
-extension TableCell: ReduxCompatibleViewType {
+extension TableCell: PropContainerType {
   typealias OutProps = Int
   
   struct StateProps: Equatable {

@@ -21,7 +21,7 @@ final class RootController: UIViewController {
   }
 }
 
-extension RootController: ReduxCompatibleViewType {
+extension RootController: PropContainerType {
   typealias OutProps = ()
   typealias StateProps = ()
   

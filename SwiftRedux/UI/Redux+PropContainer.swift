@@ -1,5 +1,5 @@
 //
-//  ReduxCompatibleView.swift
+//  Redux+PropContainer.swift
 //  SwiftRedux
 //
 //  Created by Hai Pham on 11/28/18.
@@ -10,7 +10,7 @@ import UIKit
 
 /// A view that conforms to this protocol can receive state/action props and
 /// subscribe to state changes.
-public protocol ReduxCompatibleViewType: class, UniqueIDProviderType {
+public protocol PropContainerType: class, UniqueIDProviderType {
 
   /// The app's global state type. This helps define the prop injector.
   associatedtype ReduxState
@@ -38,6 +38,6 @@ public protocol ReduxCompatibleViewType: class, UniqueIDProviderType {
 
 /// Generally the Redux view also implements the prop mapper protocol, so in
 /// this case we can define some default generics.
-public extension ReduxCompatibleViewType where Self: PropMapperType {
-  public typealias ReduxView = Self
+public extension PropContainerType where Self: PropMapperType {
+  public typealias PropContainer = Self
 }

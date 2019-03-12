@@ -182,6 +182,6 @@ extension ViewController1.StateProps: Equatable {}
 extension ViewController1.StateProps: Encodable {}
 extension ViewController1.StateProps: Decodable {}
 
-extension ViewController1: ReduxCompatibleViewType {
+extension ViewController1: PropContainerType {
   typealias OutProps = ()
 }
