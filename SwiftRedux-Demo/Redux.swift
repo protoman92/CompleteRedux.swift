@@ -11,11 +11,11 @@ import SafeNest
 import SwiftFP
 
 extension UIViewController {
-  typealias ReduxState = SafeNest
+  typealias GlobalState = SafeNest
 }
 
 extension UIView {
-  typealias ReduxState = SafeNest
+  typealias GlobalState = SafeNest
 }
 
 final class AppRedux {

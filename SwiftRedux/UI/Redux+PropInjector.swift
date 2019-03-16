@@ -13,7 +13,7 @@ import UIKit
 public protocol PropInjectorType {
   
   /// The app-specific state type.
-  associatedtype State
+  associatedtype GlobalState
 
   /// Inject state/action props into a compatible prop container.
   ///
@@ -25,7 +25,7 @@ public protocol PropInjectorType {
     -> ReduxSubscription where
     MP: PropMapperType,
     MP.PropContainer == CV,
-    CV.ReduxState == State
+    CV.GlobalState == GlobalState
 }
 
 public extension PropInjectorType {
@@ -41,7 +41,7 @@ public extension PropInjectorType {
     MP: PropMapperType,
     MP.PropContainer == VC,
     VC: UIViewController,
-    VC.ReduxState == State
+    VC.GlobalState == GlobalState
   {
     let subscription = self.injectProps(controller, outProps, mapper)
     let lifecycleVC = LifecycleViewController()
@@ -61,7 +61,7 @@ public extension PropInjectorType {
     MP: PropMapperType,
     MP.PropContainer == V,
     V: UIView,
-    V.ReduxState == State
+    V.GlobalState == GlobalState
   {
     let subscription = self.injectProps(view, outProps, mapper)
     let lifecycleView = LifecycleView()
@@ -79,7 +79,7 @@ public extension PropInjectorType {
   public func injectProps<VC>(controller vc: VC, outProps: VC.OutProps) where
     VC: UIViewController,
     VC: PropMapperType,
-    VC.ReduxState == State,
+    VC.GlobalState == GlobalState,
     VC.PropContainer == VC
   {
     self.injectProps(controller: vc, outProps: outProps, mapper: VC.self)
@@ -95,7 +95,7 @@ public extension PropInjectorType {
   public func injectProps<V>(view: V, outProps: V.OutProps) where
     V: UIView,
     V: PropMapperType,
-    V.ReduxState == State,
+    V.GlobalState == GlobalState,
     V.PropContainer == V
   {
     self.injectProps(view: view, outProps: outProps, mapper: V.self)
@@ -104,15 +104,15 @@ public extension PropInjectorType {
 
 
 /// Basic Redux injector implementation that also handles view lifecycles.
-public class PropInjector<State>: PropInjectorType {
-  private let store: DelegateStore<State>
+public class PropInjector<GlobalState>: PropInjectorType {
+  private let store: DelegateStore<GlobalState>
   private let runner: MainThreadRunnerType
   
   /// Initialize the injector with a Redux store instance. Every time an
   /// injection is requested, create a new subscription to this store's
   /// state updates, and destroy it when the injectee is disposed of.
   public init<S>(store: S, runner: MainThreadRunnerType = MainThreadRunner())
-    where S: ReduxStoreType, S.State == State {
+    where S: ReduxStoreType, S.State == GlobalState {
     self.store = DelegateStore(store)
     self.runner = runner
   }
@@ -121,7 +121,7 @@ public class PropInjector<State>: PropInjectorType {
     -> ReduxSubscription where
     MP: PropMapperType,
     MP.PropContainer == CV,
-    CV.ReduxState == State
+    CV.GlobalState == GlobalState
   {
     let dispatch = self.store.dispatch
     var previous: CV.StateProps? = nil
@@ -131,7 +131,7 @@ public class PropInjector<State>: PropInjectorType {
     // having parallel subscriptions.
     cv.staticProps?.subscription.unsubscribe()
     
-    let setProps: (CV?, State) -> Void = {cv, s in
+    let setProps: (CV?, GlobalState) -> Void = {cv, s in
       // Since UI operations must happen on the main thread, we dispatch
       // with the main queue. Setting the previous props here is ok as well
       // since only the main queue is accessing it.

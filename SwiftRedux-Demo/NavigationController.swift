@@ -24,10 +24,10 @@ extension NavigationController: UINavigationControllerDelegate {
                             animated: Bool) {
     switch viewController {
     case let vc as RootController:
-      _ = self.dependency?.injector.injectProps(controller: vc, outProps: ())
+      self.dependency?.injector.injectProps(controller: vc, outProps: ())
       
     case let vc as ViewController1:
-      _ = self.dependency?.injector.injectProps(controller: vc, outProps: ())
+      self.dependency?.injector.injectProps(controller: vc, outProps: ())
       
     default:
       fatalError()

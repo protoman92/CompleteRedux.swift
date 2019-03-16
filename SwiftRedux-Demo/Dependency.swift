@@ -15,7 +15,7 @@ struct Dependency {
   
   init(_ navController: UINavigationController) {
     let initial = try! SafeNest.empty()
-      .encoding(at: AppRedux.Path.rootPath, value: ViewController1.StateProps(
+      .encoding(at: AppRedux.Path.rootPath, value: ViewController1.State(
         number: 0,
         slider: 0,
         string: nil,

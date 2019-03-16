@@ -17,16 +17,16 @@ public protocol PropMapperType: class {
   associatedtype PropContainer: PropContainerType
   
   /// The app-specific state type.
-  typealias ReduxState = PropContainer.ReduxState
+  typealias GlobalState = PropContainer.GlobalState
   
   /// The Redux view's OutProps.
   typealias OutProps = PropContainer.OutProps
   
-  /// The Redux view's StateProps.
-  typealias StateProps = PropContainer.StateProps
+  /// The Redux view's State.
+  typealias State = PropContainer.StateProps
   
-  /// The Redux view's ActionProps.
-  typealias ActionProps = PropContainer.ActionProps
+  /// The Redux view's Action.
+  typealias Action = PropContainer.ActionProps
   
   /// Map ReduxState to StateProps.
   ///
@@ -34,7 +34,7 @@ public protocol PropMapperType: class {
   ///   - state: A ReduxState instance.
   ///   - outProps: An OutProps instance.
   /// - Returns: A StateProps instance.
-  static func mapState(state: ReduxState, outProps: OutProps) -> StateProps
+  static func mapState(state: GlobalState, outProps: OutProps) -> State
   
   /// Map a Redux dispatch to action props.
   ///
@@ -44,8 +44,8 @@ public protocol PropMapperType: class {
   ///   - outProps: An OutProps instance.
   /// - Returns: An ActionProps instance.
   static func mapAction(dispatch: @escaping ReduxDispatcher,
-                        state: ReduxState,
-                        outProps: OutProps) -> ActionProps
+                        state: GlobalState,
+                        outProps: OutProps) -> Action
   
   /// Compare previous/next StateProps.
   ///
@@ -53,13 +53,13 @@ public protocol PropMapperType: class {
   ///   - lhs: Previous StateProps.
   ///   - rhs: Next StateProps.
   /// - Returns: A Bool instance.
-  static func compareState(lhs: StateProps?, rhs: StateProps?) -> Bool
+  static func compareState(lhs: State?, rhs: State?) -> Bool
 }
 
 /// We should make state props conform to Equatable, so that some defaults
 /// can be implemented.
-public extension PropMapperType where StateProps: Equatable {
-  public static func compareState(lhs: StateProps?, rhs: StateProps?) -> Bool {
+public extension PropMapperType where State: Equatable {
+  public static func compareState(lhs: State?, rhs: State?) -> Bool {
     return lhs == rhs
   }
 }

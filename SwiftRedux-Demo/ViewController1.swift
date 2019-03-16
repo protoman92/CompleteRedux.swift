@@ -23,14 +23,13 @@ final class ViewController1: UIViewController {
   
   let uniqueID = DefaultUniqueIDProvider.next()
   
-  public var staticProps: StaticProps<ReduxState>? {
+  public var staticProps: Static? {
     didSet {
-      _ = self.staticProps?.injector
-        .injectProps(view: self.clearButton, outProps: ())
+      self.staticProps?.injector.injectProps(view: self.clearButton, outProps: ())
     }
   }
   
-  public var variableProps: VariableProps<StateProps, ActionProps>? {
+  public var variableProps: Variables? {
     didSet {
       guard let props = self.variableProps else { return }
       let nextState = props.nextState
@@ -157,7 +156,9 @@ extension ViewController1: UITableViewDelegate {
   }
 }
 
-extension ViewController1 {
+extension ViewController1: PropContainerType {
+  typealias OutProps = ()
+  
   struct StateProps {
     public var number: Int? = nil
     public var slider: Float? = nil
@@ -181,7 +182,3 @@ extension ViewController1 {
 extension ViewController1.StateProps: Equatable {}
 extension ViewController1.StateProps: Encodable {}
 extension ViewController1.StateProps: Decodable {}
-
-extension ViewController1: PropContainerType {
-  typealias OutProps = ()
-}

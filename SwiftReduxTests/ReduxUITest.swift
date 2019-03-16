@@ -189,7 +189,7 @@ extension ReduxUITests {
   final class ViewController: UIViewController {
     deinit { print("Deinit \(self)"); self.onDeinit?() }
     let uniqueID = DefaultUniqueIDProvider.next()
-    var staticProps: StaticProps<State>?
+    var staticProps: StaticProps<StateProps>?
     
     var variableProps: VariableProps<StateProps, ActionProps>? {
       didSet {
@@ -207,7 +207,7 @@ extension ReduxUITests {
   final class View: UIView {
     deinit { print("Deinit \(self)"); self.onDeinit?() }
     let uniqueID = DefaultUniqueIDProvider.next()
-    var staticProps: StaticProps<State>?
+    var staticProps: StaticProps<StateProps>?
     
     var variableProps: VariableProps<StateProps, ActionProps>? {
       didSet {
@@ -228,38 +228,46 @@ extension ReduxUITests {
 }
 
 extension ReduxUITests.ViewController: TestReduxViewType {
-  typealias ReduxState = ReduxUITests.State
+  typealias GlobalState = ReduxUITests.State
   typealias OutProps = Int
   typealias StateProps = ReduxUITests.State
   typealias ActionProps = () -> Void
+  
+  func beforePropInjectionStarts(sp: StaticProps<GlobalState>) {}
+  
+  func afterPropInjectionEnds(sp: StaticProps<GlobalState>) {}
 }
 
 extension ReduxUITests.ViewController: PropMapperType {
-  static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
+  static func mapState(state: GlobalState, outProps: OutProps) -> StateProps {
     return state
   }
   
   static func mapAction(dispatch: @escaping ReduxDispatcher,
-                        state: ReduxState,
+                        state: GlobalState,
                         outProps: OutProps) -> ActionProps {
     return {_ = dispatch(DefaultAction.noop)}
   }
 }
 
 extension ReduxUITests.View: TestReduxViewType {
-  typealias ReduxState = ReduxUITests.State
+  typealias GlobalState = ReduxUITests.State
   typealias OutProps = Int
   typealias StateProps = ReduxUITests.State
   typealias ActionProps = () -> Void
+  
+  func beforePropInjectionStarts(sp: StaticProps<GlobalState>) {}
+  
+  func afterPropInjectionEnds(sp: StaticProps<GlobalState>) {}
 }
 
 extension ReduxUITests.View: PropMapperType {
-  static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
+  static func mapState(state: GlobalState, outProps: OutProps) -> StateProps {
     return state
   }
   
   static func mapAction(dispatch: @escaping ReduxDispatcher,
-                        state: ReduxState,
+                        state: GlobalState,
                         outProps: OutProps) -> ActionProps {
     return {_ = dispatch(DefaultAction.noop)}
   }

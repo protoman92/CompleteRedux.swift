@@ -326,9 +326,6 @@
 			children = (
 				EEAABD0D221D174500543DE2 /* Redux+PropInjector.swift */,
 				EEAABD11221D174500543DE2 /* Redux+Props.swift */,
-				EEAABD0E221D174500543DE2 /* ReduxCompatibleView.swift */,
-				EEAABD10221D174500543DE2 /* ReduxPropInjector.swift */,
-				EEAABD0F221D174500543DE2 /* ReduxPropMapper.swift */,
 				EEC1DE82223DE98300E4AF43 /* Redux+MainThread.swift */,
 				EEAABD0E221D174500543DE2 /* Redux+PropContainer.swift */,
 				EEAABD0F221D174500543DE2 /* Redux+PropMapper.swift */,

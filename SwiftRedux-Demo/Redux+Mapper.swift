@@ -10,14 +10,14 @@ import SwiftRedux
 import SafeNest
 
 extension RootController: PropMapperType {
-  typealias ReduxState = SafeNest
+  typealias GlobalState = SafeNest
   
-  static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
+  static func mapState(state: GlobalState, outProps: OutProps) -> StateProps {
     return ()
   }
   
   static func mapAction(dispatch: @escaping ReduxDispatcher,
-                        state: ReduxState,
+                        state: GlobalState,
                         outProps: OutProps) -> ActionProps {
     return ActionProps(
       goToViewController1: {dispatch(ReduxScreen.viewController1)}
@@ -30,16 +30,16 @@ extension RootController: PropMapperType {
 }
 
 extension ViewController1: PropMapperType {
-  static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
+  static func mapState(state: GlobalState, outProps: OutProps) -> State {
     return state
-      .decode(at: AppRedux.Path.rootPath, ofType: StateProps.self)
-      .getOrElse(StateProps())
+      .decode(at: AppRedux.Path.rootPath, ofType: State.self)
+      .getOrElse(State())
   }
   
   static func mapAction(dispatch: @escaping ReduxDispatcher,
-                        state: ReduxState,
-                        outProps: OutProps) -> ActionProps {
-    return ActionProps(
+                        state: GlobalState,
+                        outProps: OutProps) -> Action {
+    return Action(
       goBack: {dispatch(ReduxScreen.back)},
       incrementNumber: {dispatch(AppRedux.Action.addNumber)},
       decrementNumber: {dispatch(AppRedux.Action.minusNumber)},
@@ -52,22 +52,20 @@ extension ViewController1: PropMapperType {
 }
 
 extension ConfirmButton: PropMapperType {
-  static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
-    return StateProps()
+  static func mapState(state: GlobalState, outProps: OutProps) -> StateProps {
+    return State()
   }
   
   static func mapAction(dispatch: @escaping ReduxDispatcher,
-                        state: ReduxState,
+                        state: GlobalState,
                         outProps: OutProps) -> ActionProps {
-    return ActionProps(
-      confirmEdit: {dispatch(AppRedux.Action.triggerClear)}
-    )
+    return ActionProps(confirmEdit: {dispatch(AppRedux.Action.triggerClear)})
   }
 }
 
 extension TableCell: PropMapperType {  
-  static func mapState(state: ReduxState, outProps: OutProps) -> StateProps {
-    return StateProps(
+  static func mapState(state: GlobalState, outProps: OutProps) -> State {
+    return State(
       text: state.value(at: AppRedux.Path
         .textItemPath(outProps))
         .cast(String.self).value
@@ -75,10 +73,8 @@ extension TableCell: PropMapperType {
   }
   
   static func mapAction(dispatch: @escaping ReduxDispatcher,
-                        state: ReduxState,
-                        outProps: OutProps) -> ActionProps {
-    return ActionProps(
-      updateText: {dispatch(AppRedux.Action.text(outProps, $0))}
-    )
+                        state: GlobalState,
+                        outProps: OutProps) -> Action {
+    return Action(updateText: {dispatch(AppRedux.Action.text(outProps, $0))})
   }
 }

@@ -14,9 +14,9 @@ final class TableCell: UITableViewCell {
   
   var textIndex: Int?
   let uniqueID = DefaultUniqueIDProvider.next()
-  var staticProps: StaticProps<ReduxState>?
+  var staticProps: Static?
   
-  var variableProps: VariableProps<StateProps, ActionProps>? {
+  var variableProps: Variables? {
     didSet {
       if let props = self.variableProps {
         textInput.text = props.nextState.text

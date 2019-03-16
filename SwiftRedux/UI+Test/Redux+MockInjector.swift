@@ -55,7 +55,7 @@ public final class MockInjector<State>: PropInjector<State> {
     -> ReduxSubscription where
     MP: PropMapperType,
     MP.PropContainer == CV,
-    CV.ReduxState == State
+    CV.GlobalState == State
   {
     self.addInjecteeCount(cv)
     return ReduxSubscription.noop
