@@ -65,16 +65,16 @@ public protocol ReadWriteLockType {
 public extension ReadWriteLockType {
   
   /// Access some property in a thread-safe manner.
-  func access<T>(_ accessor: () throws -> T) rethrows -> T? {
+  func access<T>(_ accessor: () throws -> T) rethrows -> T {
     self.lockRead()
     defer {self.unlock()}
     return try accessor()
   }
   
   /// Modify some property in a thread-safe manner.
-  func modify(_ modifier: () throws -> Void) rethrows {
+  func modify<T>(_ modifier: () throws -> T) rethrows -> T {
     self.lockWrite()
     defer {self.unlock()}
-    try modifier()
+    return try modifier()
   }
 }

@@ -106,7 +106,7 @@ public final class MockInjector<State>: PropInjector<State> {
   }
   
   private func getInjecteeCount(_ id: String) -> Int {
-    return self._lock.access { self._injectCount[id, default: 0] }.getOrElse(0)
+    return self._lock.access { self._injectCount[id, default: 0] }
   }
   
   private func getInjecteeCount<View>(_ type: View.Type) -> Int where

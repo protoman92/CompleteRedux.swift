@@ -37,7 +37,7 @@ public final class SimpleStore<State>: ReduxStoreType {
   
   /// Get the last reduced state in a thread-safe manner.
   public lazy private(set) var lastState: ReduxStateGetter<State> = {
-    self._lock.access {self._state}.getOrElse(self._state)
+    self._lock.access {self._state}
   }
   
   /// Reduce the action to produce a new state and broadcast this state to
@@ -65,6 +65,6 @@ public final class SimpleStore<State>: ReduxStoreType {
   }
   
   public lazy private(set) var unsubscribe: ReduxUnsubscriber = {id in
-    self._lock.modify {self._subscribers.removeValue(forKey: id)}
+    _ = self._lock.modify {self._subscribers.removeValue(forKey: id)}
   }
 }
