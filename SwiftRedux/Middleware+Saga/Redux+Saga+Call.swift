@@ -13,16 +13,15 @@ import SwiftFP
 /// result.
 public final class CallEffect<P, R>: SagaEffect<R> {
   private let _param: SagaEffect<P>
-  private let _callCreator: (P) -> Observable<R>
+  private let _callCreator: (P) -> Single<R>
   
-  public init(_ param: SagaEffect<P>,
-              _ callCreator: @escaping (P) -> Observable<R>) {
+  public init(_ param: SagaEffect<P>, _ callCreator: @escaping (P) -> Single<R>) {
     self._param = param
     self._callCreator = callCreator
   }
   
   override public func invoke(_ input: SagaInput) -> SagaOutput<R> {
-    return self._param.invoke(input).flatMap(self._callCreator)
+    return self._param.invoke(input).flatMap({self._callCreator($0).asObservable()})
   }
 }
 
@@ -35,7 +34,7 @@ extension SagaEffectConvertibleType {
   ///
   /// - Parameter callCreator: A call creator function.
   /// - Returns: An Effect instance.
-  public func call<R2>(_ callCreator: @escaping (R) -> Observable<R2>) -> SagaEffect<R2> {
+  public func call<R2>(_ callCreator: @escaping (R) -> Single<R2>) -> SagaEffect<R2> {
     return self.asEffect().transform(with: {
       SagaEffects.call(with: $0, callCreator: callCreator)
     })

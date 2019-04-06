@@ -31,7 +31,7 @@ public final class SagaEffects {
   ///   - callCreator: The call creator function.
   /// - Returns: An Effect instance.
   public static func call<R, R2>(with param: SagaEffect<R>,
-                                 callCreator: @escaping (R) -> Observable<R2>)
+                                 callCreator: @escaping (R) -> Single<R2>)
     -> CallEffect<R, R2>
   {
     return CallEffect(param, callCreator)
@@ -60,7 +60,7 @@ public final class SagaEffects {
         })
         
         return Disposables.create()
-      })
+      }).asSingle()
     }
   }
   

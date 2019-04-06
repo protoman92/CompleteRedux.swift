@@ -103,7 +103,7 @@ public final class ReduxSagaEffectTest: XCTestCase {
     }
     
     let api2: (Int, @escaping (Try<Int>) -> Void) -> Void = {$1(.failure(error))}
-    let api3: (Int) -> Observable<Int> = {_ in .error(error)}
+    let api3: (Int) -> Single<Int> = {_ in .error(error)}
     let api4: (Int, @escaping (Int?, Error?) -> Void) -> Void = {$1($0, nil)}
     let api5: (Int, @escaping (Int?, Error?) -> Void) -> Void = {$1(nil, error)}
     let api6: (Int, @escaping (Int?, Error?) -> Void) -> Void = {$1(nil, nil)}
@@ -137,7 +137,7 @@ public final class ReduxSagaEffectTest: XCTestCase {
     let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
     let source = SagaEffects.call(with: SagaEffects.just(1)) {_ in
-      return Observable<Int>
+      return Single<Int>
         .error(SagaError.unimplemented)
         .delay(2, scheduler: scheduler)
     }
@@ -357,7 +357,7 @@ public final class ReduxSagaEffectTest: XCTestCase {
     let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
     
     let effect1 = SagaEffects.call(with: SagaEffects.just(1)) {
-      Observable.just($0).delay(2, scheduler: scheduler)
+      Single.just($0).delay(2, scheduler: scheduler)
     }
     
     let sequence = effect1.then(2)
