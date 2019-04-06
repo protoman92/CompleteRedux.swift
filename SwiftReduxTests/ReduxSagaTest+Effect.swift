@@ -35,12 +35,12 @@ public final class ReduxSagaEffectTest: XCTestCase {
     
     /// When
     let result = try SagaEffects.await {input -> Int in
-      try SagaEffects.put(0, actionCreator: Action.init).await(input)
-      try SagaEffects.put(1, actionCreator: Action.init).await(input)
-      try SagaEffects.put(2, actionCreator: Action.init).await(input)
-      try SagaEffects.put(3, actionCreator: Action.init).await(input)
-      return 4
-      }.await(SagaInput({0}) {
+      SagaEffects.put(0, actionCreator: Action.init).await(input)
+      SagaEffects.put(1, actionCreator: Action.init).await(input)
+      SagaEffects.put(2, actionCreator: Action.init).await(input)
+      SagaEffects.put(3, actionCreator: Action.init).await(input)
+      return SagaEffects.select({(state: Int) in state}).await(input)
+      }.await(SagaInput({4}) {
         dispatched.append($0); return EmptyAwaitable.instance
       })
     

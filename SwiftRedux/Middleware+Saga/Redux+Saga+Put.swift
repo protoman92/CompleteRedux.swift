@@ -30,6 +30,16 @@ public final class PutEffect<P>: SagaEffect<Any> {
       .observeOn(ConcurrentDispatchQueueScheduler(queue: self._dispatchQueue))
       .map(input.dispatch)
   }
+  
+  /// Await for the first result that arrives. Since this can never throw an
+  /// error, we can force a try here.
+  ///
+  /// - Parameter input: A SagaInput instance.
+  /// - Returns: Any value.
+  @discardableResult
+  public func await(_ input: SagaInput) -> Any {
+    return try! self.invoke(input).await()
+  }
 }
 
 // MARK: - SingleSagaEffectType
