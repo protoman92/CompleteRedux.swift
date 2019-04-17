@@ -14,10 +14,16 @@ public enum SagaError: LocalizedError {
   /// Represents a lack of implementation.
   case unimplemented
   
+  /// Represents a lack of value.
+  case unavailable
+  
   public var localizedDescription: String {
     switch self {
     case .unimplemented:
       return "Should have implemented this method"
+      
+    case .unavailable:
+      return "Should have emitted something"
     }
   }
   

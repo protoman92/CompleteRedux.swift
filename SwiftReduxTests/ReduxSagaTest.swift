@@ -58,6 +58,7 @@ public final class ReduxSagaTest: XCTestCase {
   public func test_sagaError_shouldHaveDescriptions() {
     /// Setup && When && Then
     XCTAssertNotNil(SagaError.unimplemented.errorDescription)
+    XCTAssertNotNil(SagaError.unavailable.errorDescription)
   }
   
   public func test_receivingAction_shouldInvokeSagaEffects() {

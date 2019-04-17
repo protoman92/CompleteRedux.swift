@@ -6,10 +6,11 @@ xcode_sdk: iphonesimulator12.1
 before_install:
   - gem install cocoapods --pre
   - gem install slather --pre
+  - gem install xcpretty
   - pod install
 
 script:
-  - xcodebuild test -sdk iphonesimulator -workspace SwiftRedux.xcworkspace -scheme SwiftRedux -destination 'platform=iOS Simulator,name=iPhone 8 Plus'
+  - xcodebuild test -sdk iphonesimulator -workspace SwiftRedux.xcworkspace -scheme SwiftRedux -destination 'platform=iOS Simulator,name=iPhone 8 Plus' | xcpretty
   - pod lib lint --quick
 
 after_success:

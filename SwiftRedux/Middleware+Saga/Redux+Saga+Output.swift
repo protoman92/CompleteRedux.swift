@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import RxBlocking
 import SwiftFP
 
 /// Output for each saga effect. This is simply a wrapper for Observable.
@@ -86,39 +87,12 @@ public final class SagaOutput<T>: Awaitable<T> {
   }
   
   override public func await() throws -> T {
-    return try self._await(timeoutMillis: nil)
+    return try self.source.toBlocking().first().getOrThrow(SagaError.unavailable)
   }
   
   override public func await(timeoutMillis: Double) throws -> T {
-    return try self._await(timeoutMillis: timeoutMillis)
-  }
-  
-  private func _await(timeoutMillis: Double?) throws -> T {
-    let dispatchGroup = DispatchGroup()
-    var result: Try<T> = Try.failure(AwaitableError.unavailable)
-    dispatchGroup.enter()
-    
-    let disposable = self.source
-      .do(
-        onNext: {result = .success($0); dispatchGroup.leave()},
-        onError: {result = .failure($0); dispatchGroup.leave()}
-      )
-      .subscribe()
-    
-    if let timeout = timeoutMillis {
-      let waitTimeNano = UInt64(timeout * pow(10, 6))
-      let deadlineTime = DispatchTime.now().uptimeNanoseconds + waitTimeNano
-      let deadline = DispatchTime(uptimeNanoseconds: deadlineTime)
-      
-      switch dispatchGroup.wait(timeout: deadline) {
-      case .success: return try result.getOrThrow()
-        
-      case .timedOut:
-        disposable.dispose(); throw AwaitableError.timedOut(millis: timeout)
-      }
-    }
-    
-    dispatchGroup.wait()
-    return try result.getOrThrow()
+    return try self.source
+      .toBlocking(timeout: timeoutMillis).first()
+      .getOrThrow(SagaError.unavailable)
   }
 }
