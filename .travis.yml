@@ -1,16 +1,15 @@
-osx_image: xcode10.1
+osx_image: xcode10.2
 language: objective-c
 xcode_workspace: SwiftRedux.xcworkspace
 xcode_scheme: SwiftRedux
-xcode_sdk: iphonesimulator11.2
+xcode_sdk: iphonesimulator12.1
 before_install:
   - gem install cocoapods --pre
   - gem install slather --pre
-  - gem install xcpretty
   - pod install
 
 script:
-  - set -o pipefail && xcodebuild clean test -sdk iphonesimulator -workspace SwiftRedux.xcworkspace -scheme SwiftRedux -destination 'platform=iOS Simulator,name=iPhone 7' | xcpretty
+  - xcodebuild test -sdk iphonesimulator -workspace SwiftRedux.xcworkspace -scheme SwiftRedux -destination 'platform=iOS Simulator,name=iPhone 8 Plus'
   - pod lib lint --quick
 
 after_success:
