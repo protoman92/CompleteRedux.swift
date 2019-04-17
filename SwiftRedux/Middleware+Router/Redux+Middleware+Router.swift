@@ -23,22 +23,18 @@ public typealias Navigate<Screen> = (Screen) -> Void
 ///     dispatch(Screen.login)
 ///     dispatch(Screen.password)
 ///
-public struct RouterMiddleware<State>: MiddlewareProviderType {
-  private let _navigate: Navigate<RouterScreenType>
+public struct RouterMiddleware<State> {
+  public let middleware: ReduxMiddleware<State>
   
   public init<R>(router: R) where R: ReduxRouterType {
-    self._navigate = router.navigate
-  }
-  
-  public var middleware: ReduxMiddleware<State> {
-    return {_ in
+    self.middleware = {_ in
       {wrapper in
         let newWrapperId = "\(wrapper.identifier)-router"
         
         return DispatchWrapper(newWrapperId) {action in
           if let screen = action as? RouterScreenType {
             // Force-navigate on the main thread.
-            DispatchQueue.main.async {self._navigate(screen)}
+            DispatchQueue.main.async {router.navigate(screen)}
           }
           
           return wrapper.dispatch(action)
@@ -47,3 +43,6 @@ public struct RouterMiddleware<State>: MiddlewareProviderType {
     }
   }
 }
+
+// MARK: - MiddlewareProviderType
+extension RouterMiddleware: MiddlewareProviderType {}
