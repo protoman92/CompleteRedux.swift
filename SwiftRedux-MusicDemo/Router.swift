@@ -11,7 +11,6 @@ import UIKit
 
 public enum AppScreen: RouterScreenType {
   case iTunesSearch
-  case viewController1
   case externalUrl(String?)
 }
 
@@ -33,13 +32,6 @@ extension AppRouter: ReduxRouterType {
       let vc = storyboard
         .instantiateViewController(withIdentifier: "iTunesController")
         as! iTunesController
-      
-      self.controller?.setViewControllers([vc], animated: true)
-      
-    case .some(.viewController1):
-      let vc = storyboard
-        .instantiateViewController(withIdentifier: "ViewController1")
-        as! ViewController1
       
       self.controller?.setViewControllers([vc], animated: true)
       

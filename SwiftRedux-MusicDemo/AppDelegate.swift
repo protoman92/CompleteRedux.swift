@@ -10,7 +10,7 @@ import SwiftRedux
 import UIKit
 
 @UIApplicationMain
-public final class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
 
   public func application(
@@ -42,4 +42,3 @@ public final class AppDelegate: UIResponder, UIApplicationDelegate {
   public func applicationDidBecomeActive(_ application: UIApplication) {}
   public func applicationWillTerminate(_ application: UIApplication) {}
 }
-

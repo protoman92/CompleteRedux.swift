@@ -23,9 +23,6 @@ extension NavigationController: UINavigationControllerDelegate {
                                    willShow viewController: UIViewController,
                                    animated: Bool) {
     switch viewController {
-    case let vc as ViewController1:
-      self.dependency?.propInjector.injectProps(controller: vc, outProps: ())
-      
     case let vc as iTunesController:
       self.dependency?.propInjector.injectProps(controller: vc, outProps: ())
       

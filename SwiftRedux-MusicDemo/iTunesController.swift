@@ -21,16 +21,6 @@ public final class iTunesController: UIViewController {
     didSet { self.reduxProps.map(self.didSetProps) }
   }
   
-  override public func viewDidLoad() {
-    super.viewDidLoad()
-    
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-      title: "View controller 1",
-      style: .plain,
-      target: self,
-      action: #selector(self.goToViewController1))
-  }
-  
   private func didSetProps(_ props: ReduxProps) {
     let state = props.state
     self.autocompleteInput.text = state.autocompleteInput
@@ -40,10 +30,6 @@ public final class iTunesController: UIViewController {
   
   @IBAction func updateAutocompleteInput(_ sender: UITextField) {
     self.reduxProps?.action.updateAutocompleteInput(sender.text)
-  }
-  
-  @objc func goToViewController1(_ sender: UIBarButtonItem) {
-    self.reduxProps?.action.goToViewController1()
   }
 }
 
@@ -83,7 +69,6 @@ extension iTunesController: PropContainerType {
   }
   
   public struct ActionProps {
-    let goToViewController1: () -> Void
     let updateAutocompleteInput: (String?) -> Void
   }
 }
@@ -102,7 +87,6 @@ extension iTunesController: PropMapperType {
                                state: GlobalState,
                                outProps: OutProps) -> ActionProps {
     return ActionProps(
-      goToViewController1: {dispatch(AppScreen.viewController1)},
       updateAutocompleteInput: {dispatch(AppAction.updateAutocompleteInput($0))}
     )
   }
