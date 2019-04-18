@@ -35,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search iTunes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pag-1f-otr">
-                                <rect key="frame" x="16" y="80" width="343" height="40"/>
+                                <rect key="frame" x="16" y="80" width="307" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Jep-YD-KQe"/>
                                 </constraints>
@@ -114,28 +114,36 @@
                                     <outlet property="delegate" destination="dYW-23-Aqh" id="y5f-Ld-w95"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="HNR-4M-14l">
+                                <rect key="frame" x="339" y="90" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="HNR-4M-14l" firstAttribute="leading" secondItem="Pag-1f-otr" secondAttribute="trailing" constant="16" id="3zs-7s-W4s"/>
+                            <constraint firstItem="HNR-4M-14l" firstAttribute="centerY" secondItem="Pag-1f-otr" secondAttribute="centerY" id="Ofb-rm-fFw"/>
                             <constraint firstItem="Pag-1f-otr" firstAttribute="top" secondItem="YLi-Sr-vM8" secondAttribute="top" constant="16" id="RSw-iD-JUM"/>
                             <constraint firstItem="Kgj-Hb-gLc" firstAttribute="top" secondItem="Pag-1f-otr" secondAttribute="bottom" constant="8" id="YdZ-CR-hoP"/>
                             <constraint firstItem="YLi-Sr-vM8" firstAttribute="bottom" secondItem="Kgj-Hb-gLc" secondAttribute="bottom" constant="16" id="a8t-p1-Ggb"/>
                             <constraint firstItem="Kgj-Hb-gLc" firstAttribute="leading" secondItem="2s0-eJ-pUl" secondAttribute="leading" constant="16" id="c63-v4-tYA"/>
                             <constraint firstAttribute="trailing" secondItem="Kgj-Hb-gLc" secondAttribute="trailing" constant="16" id="hoz-XC-9YS"/>
-                            <constraint firstAttribute="trailing" secondItem="Pag-1f-otr" secondAttribute="trailing" constant="16" id="kpc-c3-Y5p"/>
                             <constraint firstItem="Pag-1f-otr" firstAttribute="leading" secondItem="2s0-eJ-pUl" secondAttribute="leading" constant="16" id="mfJ-PW-BMI"/>
+                            <constraint firstItem="YLi-Sr-vM8" firstAttribute="trailing" secondItem="HNR-4M-14l" secondAttribute="trailing" constant="16" id="vpF-OU-y5b"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YLi-Sr-vM8"/>
                     </view>
                     <navigationItem key="navigationItem" id="n4S-Vt-gGc"/>
                     <connections>
                         <outlet property="autocompleteInput" destination="Pag-1f-otr" id="7iv-dd-0cb"/>
+                        <outlet property="progressIndicator" destination="HNR-4M-14l" id="2zl-j6-TKA"/>
+                        <outlet property="progressIndicatorLeading" destination="3zs-7s-W4s" id="AzP-Sy-L1R"/>
+                        <outlet property="progressIndicatorTrailing" destination="vpF-OU-y5b" id="zQj-6I-oNZ"/>
                         <outlet property="resultTable" destination="Kgj-Hb-gLc" id="qIV-qU-EZH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Klx-QG-qkK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-172" y="26"/>
+            <point key="canvasLocation" x="-172" y="25.637181409295355"/>
         </scene>
     </scenes>
 </document>

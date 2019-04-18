@@ -10,8 +10,11 @@ import SwiftRedux
 import UIKit
 
 public final class iTunesController: UIViewController {
-  @IBOutlet weak var autocompleteInput: UITextField!
-  @IBOutlet weak var resultTable: UITableView!
+  @IBOutlet private weak var autocompleteInput: UITextField!
+  @IBOutlet private weak var progressIndicator: UIActivityIndicatorView!
+  @IBOutlet private weak var resultTable: UITableView!
+  @IBOutlet weak var progressIndicatorLeading: NSLayoutConstraint!
+  @IBOutlet weak var progressIndicatorTrailing: NSLayoutConstraint!
   
   public let uniqueID = DefaultUniqueIDProvider.next()
   
@@ -25,11 +28,18 @@ public final class iTunesController: UIViewController {
     let state = props.state
     self.autocompleteInput.text = state.autocompleteInput
     self.resultTable.reloadData()
-    UIApplication.shared.isNetworkActivityIndicatorVisible = state.progress ?? false
+    self.showProgress(state.progress ?? false)
   }
   
   @IBAction func updateAutocompleteInput(_ sender: UITextField) {
     self.reduxProps?.action.updateAutocompleteInput(sender.text)
+  }
+  
+  private func showProgress(_ show: Bool) {
+    self.progressIndicator.alpha = show ? 1 : 0
+    self.progressIndicator.frame.size.width = show ? 20 : 0
+    self.progressIndicatorLeading.constant = show ? 16 : 0
+    self.progressIndicatorTrailing.constant = show ? 16 : 0
   }
 }
 

@@ -34,9 +34,11 @@ public final class AppSaga {
     return SagaEffects
       .put(true, actionCreator: AppAction.updateAutocompleteProgress)
       .then(input).call(api.searchITunes)
+      .delay(bySeconds: 1)
       .put(AppAction.updateITunesResults, usingQueue: .global(qos: .background))
       .catchError({_ in ()})
-      .then(false).put(AppAction.updateAutocompleteProgress)
+      .then(false)
+      .put(AppAction.updateAutocompleteProgress)
   }
   
   /// Verbose saga to demonstrate full use of helper functions.
