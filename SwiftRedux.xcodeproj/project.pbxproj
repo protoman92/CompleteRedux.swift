@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		290C995F7127B6D53389A263 /* libPods-SwiftRedux.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 264D2F5CF37A96715759C6AD /* libPods-SwiftRedux.a */; };
 		5AF948F4127472E07B00FA5B /* libPods-SwiftRedux-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA99C208B73BC3A7B12D3B7 /* libPods-SwiftRedux-Demo.a */; };
+		8FA78018ADCD3669A4318AFB /* libPods-SwiftRedux-MusicDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBB78E929DB3C2637E69413 /* libPods-SwiftRedux-MusicDemo.a */; };
 		D30CC2FF205C40F0005B5EA1 /* ReduxPresetTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30CC2FE205C40F0005B5EA1 /* ReduxPresetTest.swift */; };
 		D30DBF9D21AD8E2900CD1233 /* Redux+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30DBF9C21AD8E2900CD1233 /* Redux+UI.swift */; };
 		D3300E1121B3713E00779B7F /* ReduxMiddlewareTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3300E1021B3713E00779B7F /* ReduxMiddlewareTest.swift */; };
@@ -84,6 +85,23 @@
 		EEB0F2412259FEAC00A7AABF /* ReduxRouterTest+NestedRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB0F2402259FEAC00A7AABF /* ReduxRouterTest+NestedRouter.swift */; };
 		EEC1DE83223DE98300E4AF43 /* Redux+MainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC1DE82223DE98300E4AF43 /* Redux+MainThread.swift */; };
 		EEC1DE85223E035000E4AF43 /* Redux+MainThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC1DE84223E035000E4AF43 /* Redux+MainThread.swift */; };
+		EEDEF6BD22686E5300FDB815 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEDEF6BC22686E5300FDB815 /* Assets.xcassets */; };
+		EEDEF6D322686EBB00FDB815 /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6C522686EBB00FDB815 /* JSONDecoder.swift */; };
+		EEDEF6D422686EBB00FDB815 /* iTunesTrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6C622686EBB00FDB815 /* iTunesTrackCell.swift */; };
+		EEDEF6D522686EBB00FDB815 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6C722686EBB00FDB815 /* Repository.swift */; };
+		EEDEF6D622686EBB00FDB815 /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6C822686EBB00FDB815 /* TableCell.swift */; };
+		EEDEF6D722686EBB00FDB815 /* Redux+Saga.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6C922686EBB00FDB815 /* Redux+Saga.swift */; };
+		EEDEF6D822686EBB00FDB815 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6CA22686EBB00FDB815 /* Data.swift */; };
+		EEDEF6D922686EBB00FDB815 /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6CB22686EBB00FDB815 /* AppAPI.swift */; };
+		EEDEF6DA22686EBB00FDB815 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6CC22686EBB00FDB815 /* NavigationController.swift */; };
+		EEDEF6DB22686EBB00FDB815 /* Redux+Action+Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6CD22686EBB00FDB815 /* Redux+Action+Reducer.swift */; };
+		EEDEF6DC22686EBB00FDB815 /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6CE22686EBB00FDB815 /* ViewController1.swift */; };
+		EEDEF6DD22686EBB00FDB815 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6CF22686EBB00FDB815 /* Dependency.swift */; };
+		EEDEF6DE22686EBB00FDB815 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6D022686EBB00FDB815 /* Router.swift */; };
+		EEDEF6DF22686EBB00FDB815 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6D122686EBB00FDB815 /* AppDelegate.swift */; };
+		EEDEF6E022686EBB00FDB815 /* iTunesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDEF6D222686EBB00FDB815 /* iTunesController.swift */; };
+		EEDEF6E522686EC600FDB815 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEDEF6E122686EC600FDB815 /* LaunchScreen.storyboard */; };
+		EEDEF6E622686EC600FDB815 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEDEF6E322686EC600FDB815 /* Main.storyboard */; };
 		EEF9E337225668DA0033290C /* Redux+NestedRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF9E336225668DA0033290C /* Redux+NestedRouter.swift */; };
 		EEFD1AAF2234A38D00C3C00E /* SwiftRedux.podspec in Resources */ = {isa = PBXBuildFile; fileRef = EEFD1AAE2234A38D00C3C00E /* SwiftRedux.podspec */; };
 		EEFD1AB12234A53D00C3C00E /* Redux+Awaitable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFD1AB02234A53D00C3C00E /* Redux+Awaitable.swift */; };
@@ -109,13 +127,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		176CFEF7E903BF7F7BBDABE7 /* Pods-SwiftRedux-MusicDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftRedux-MusicDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftRedux-MusicDemo/Pods-SwiftRedux-MusicDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		264D2F5CF37A96715759C6AD /* libPods-SwiftRedux.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftRedux.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DEEBE6A8185C28411643E2B /* Pods-SwiftRedux.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftRedux.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftRedux/Pods-SwiftRedux.debug.xcconfig"; sourceTree = "<group>"; };
 		2F439E67D6D255CB1B24990B /* Pods-SwiftReduxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftReduxTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftReduxTests/Pods-SwiftReduxTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3CE6601D3327C45E6604A5B8 /* Pods-SwiftRedux-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftRedux-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftRedux-Demo/Pods-SwiftRedux-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		5A1EF9BB09008A3B727D90E9 /* Pods-SwiftReduxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftReduxTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftReduxTests/Pods-SwiftReduxTests.release.xcconfig"; sourceTree = "<group>"; };
+		5BBB78E929DB3C2637E69413 /* libPods-SwiftRedux-MusicDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftRedux-MusicDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E24FDB0AEB2BECDE718D60 /* Pods-SwiftRedux.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftRedux.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftRedux/Pods-SwiftRedux.release.xcconfig"; sourceTree = "<group>"; };
 		9AC50AF0AD0097520C8970CF /* libPods-SwiftReduxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftReduxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3F4A9CE52B8F23D3C9739DD /* Pods-SwiftRedux-MusicDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftRedux-MusicDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftRedux-MusicDemo/Pods-SwiftRedux-MusicDemo.release.xcconfig"; sourceTree = "<group>"; };
 		D30CC2FE205C40F0005B5EA1 /* ReduxPresetTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxPresetTest.swift; sourceTree = "<group>"; };
 		D30DBF9C21AD8E2900CD1233 /* Redux+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+UI.swift"; sourceTree = "<group>"; };
 		D3300E1021B3713E00779B7F /* ReduxMiddlewareTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxMiddlewareTest.swift; sourceTree = "<group>"; };
@@ -199,6 +220,25 @@
 		EEB0F2402259FEAC00A7AABF /* ReduxRouterTest+NestedRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReduxRouterTest+NestedRouter.swift"; sourceTree = "<group>"; };
 		EEC1DE82223DE98300E4AF43 /* Redux+MainThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+MainThread.swift"; sourceTree = "<group>"; };
 		EEC1DE84223E035000E4AF43 /* Redux+MainThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+MainThread.swift"; sourceTree = "<group>"; };
+		EEDEF6B322686E5200FDB815 /* SwiftRedux-MusicDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftRedux-MusicDemo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEDEF6BC22686E5300FDB815 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EEDEF6C122686E5300FDB815 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EEDEF6C522686EBB00FDB815 /* JSONDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
+		EEDEF6C622686EBB00FDB815 /* iTunesTrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTunesTrackCell.swift; sourceTree = "<group>"; };
+		EEDEF6C722686EBB00FDB815 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		EEDEF6C822686EBB00FDB815 /* TableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
+		EEDEF6C922686EBB00FDB815 /* Redux+Saga.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Redux+Saga.swift"; sourceTree = "<group>"; };
+		EEDEF6CA22686EBB00FDB815 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		EEDEF6CB22686EBB00FDB815 /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
+		EEDEF6CC22686EBB00FDB815 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		EEDEF6CD22686EBB00FDB815 /* Redux+Action+Reducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Redux+Action+Reducer.swift"; sourceTree = "<group>"; };
+		EEDEF6CE22686EBB00FDB815 /* ViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
+		EEDEF6CF22686EBB00FDB815 /* Dependency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
+		EEDEF6D022686EBB00FDB815 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		EEDEF6D122686EBB00FDB815 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EEDEF6D222686EBB00FDB815 /* iTunesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTunesController.swift; sourceTree = "<group>"; };
+		EEDEF6E222686EC600FDB815 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EEDEF6E422686EC600FDB815 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EEF9E336225668DA0033290C /* Redux+NestedRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+NestedRouter.swift"; sourceTree = "<group>"; };
 		EEFD1AAE2234A38D00C3C00E /* SwiftRedux.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftRedux.podspec; sourceTree = "<group>"; };
 		EEFD1AB02234A53D00C3C00E /* Redux+Awaitable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Redux+Awaitable.swift"; sourceTree = "<group>"; };
@@ -232,6 +272,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EEDEF6B022686E5200FDB815 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FA78018ADCD3669A4318AFB /* libPods-SwiftRedux-MusicDemo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -241,6 +289,7 @@
 				264D2F5CF37A96715759C6AD /* libPods-SwiftRedux.a */,
 				EAA99C208B73BC3A7B12D3B7 /* libPods-SwiftRedux-Demo.a */,
 				9AC50AF0AD0097520C8970CF /* libPods-SwiftReduxTests.a */,
+				5BBB78E929DB3C2637E69413 /* libPods-SwiftRedux-MusicDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -254,6 +303,8 @@
 				3CE6601D3327C45E6604A5B8 /* Pods-SwiftRedux-Demo.release.xcconfig */,
 				2F439E67D6D255CB1B24990B /* Pods-SwiftReduxTests.debug.xcconfig */,
 				5A1EF9BB09008A3B727D90E9 /* Pods-SwiftReduxTests.release.xcconfig */,
+				176CFEF7E903BF7F7BBDABE7 /* Pods-SwiftRedux-MusicDemo.debug.xcconfig */,
+				C3F4A9CE52B8F23D3C9739DD /* Pods-SwiftRedux-MusicDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -261,14 +312,15 @@
 		D3943EC41FA32D5600898233 = {
 			isa = PBXGroup;
 			children = (
-				EEFD1AAE2234A38D00C3C00E /* SwiftRedux.podspec */,
 				D352CE5F205CB3C800319B07 /* README.md */,
+				EEFD1AAE2234A38D00C3C00E /* SwiftRedux.podspec */,
+				4D8CE06A6D54EC514BD1D7BB /* Frameworks */,
 				75947DDCFB998DF58761D8E8 /* Pods */,
 				D3943ECF1FA32D5600898233 /* Products */,
 				EEAABD3F221D174500543DE2 /* SwiftRedux */,
 				EEAABD53221D174B00543DE2 /* SwiftRedux-Demo */,
+				EEDEF6B422686E5200FDB815 /* SwiftRedux-MusicDemo */,
 				D3943EDB1FA32D5600898233 /* SwiftReduxTests */,
-				4D8CE06A6D54EC514BD1D7BB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -278,6 +330,7 @@
 				D3943ECE1FA32D5600898233 /* SwiftRedux.framework */,
 				D3943ED71FA32D5600898233 /* SwiftReduxTests.xctest */,
 				D350C3621FA388190040556F /* SwiftRedux-Demo.app */,
+				EEDEF6B322686E5200FDB815 /* SwiftRedux-MusicDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -449,6 +502,31 @@
 			path = "SwiftRedux-Demo";
 			sourceTree = SOURCE_ROOT;
 		};
+		EEDEF6B422686E5200FDB815 /* SwiftRedux-MusicDemo */ = {
+			isa = PBXGroup;
+			children = (
+				EEDEF6C122686E5300FDB815 /* Info.plist */,
+				EEDEF6CB22686EBB00FDB815 /* AppAPI.swift */,
+				EEDEF6D122686EBB00FDB815 /* AppDelegate.swift */,
+				EEDEF6CA22686EBB00FDB815 /* Data.swift */,
+				EEDEF6CF22686EBB00FDB815 /* Dependency.swift */,
+				EEDEF6D222686EBB00FDB815 /* iTunesController.swift */,
+				EEDEF6C622686EBB00FDB815 /* iTunesTrackCell.swift */,
+				EEDEF6C522686EBB00FDB815 /* JSONDecoder.swift */,
+				EEDEF6CC22686EBB00FDB815 /* NavigationController.swift */,
+				EEDEF6CD22686EBB00FDB815 /* Redux+Action+Reducer.swift */,
+				EEDEF6C922686EBB00FDB815 /* Redux+Saga.swift */,
+				EEDEF6C722686EBB00FDB815 /* Repository.swift */,
+				EEDEF6D022686EBB00FDB815 /* Router.swift */,
+				EEDEF6C822686EBB00FDB815 /* TableCell.swift */,
+				EEDEF6CE22686EBB00FDB815 /* ViewController1.swift */,
+				EEDEF6BC22686E5300FDB815 /* Assets.xcassets */,
+				EEDEF6E122686EC600FDB815 /* LaunchScreen.storyboard */,
+				EEDEF6E322686EC600FDB815 /* Main.storyboard */,
+			);
+			path = "SwiftRedux-MusicDemo";
+			sourceTree = "<group>";
+		};
 		EEFD1AAD2234A37200C3C00E /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,6 +611,24 @@
 			productReference = D3943ED71FA32D5600898233 /* SwiftReduxTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		EEDEF6B222686E5200FDB815 /* SwiftRedux-MusicDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEDEF6C422686E5300FDB815 /* Build configuration list for PBXNativeTarget "SwiftRedux-MusicDemo" */;
+			buildPhases = (
+				A4983FA4316A1E03F2C614EC /* [CP] Check Pods Manifest.lock */,
+				EEDEF6AF22686E5200FDB815 /* Sources */,
+				EEDEF6B022686E5200FDB815 /* Frameworks */,
+				EEDEF6B122686E5200FDB815 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SwiftRedux-MusicDemo";
+			productName = "SwiftRedux-MusicDemo";
+			productReference = EEDEF6B322686E5200FDB815 /* SwiftRedux-MusicDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -558,6 +654,11 @@
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
+					EEDEF6B222686E5200FDB815 = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = D3943EC81FA32D5600898233 /* Build configuration list for PBXProject "SwiftRedux" */;
@@ -576,6 +677,7 @@
 				D3943ECD1FA32D5600898233 /* SwiftRedux */,
 				D3943ED61FA32D5600898233 /* SwiftReduxTests */,
 				D350C3611FA388190040556F /* SwiftRedux-Demo */,
+				EEDEF6B222686E5200FDB815 /* SwiftRedux-MusicDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -601,6 +703,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEDEF6B122686E5200FDB815 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEDEF6E622686EC600FDB815 /* Main.storyboard in Resources */,
+				EEDEF6BD22686E5300FDB815 /* Assets.xcassets in Resources */,
+				EEDEF6E522686EC600FDB815 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +779,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-SwiftRedux-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4983FA4316A1E03F2C614EC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwiftRedux-MusicDemo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -772,6 +906,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EEDEF6AF22686E5200FDB815 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEDEF6D322686EBB00FDB815 /* JSONDecoder.swift in Sources */,
+				EEDEF6DA22686EBB00FDB815 /* NavigationController.swift in Sources */,
+				EEDEF6D822686EBB00FDB815 /* Data.swift in Sources */,
+				EEDEF6D422686EBB00FDB815 /* iTunesTrackCell.swift in Sources */,
+				EEDEF6DE22686EBB00FDB815 /* Router.swift in Sources */,
+				EEDEF6DB22686EBB00FDB815 /* Redux+Action+Reducer.swift in Sources */,
+				EEDEF6D722686EBB00FDB815 /* Redux+Saga.swift in Sources */,
+				EEDEF6DD22686EBB00FDB815 /* Dependency.swift in Sources */,
+				EEDEF6DF22686EBB00FDB815 /* AppDelegate.swift in Sources */,
+				EEDEF6DC22686EBB00FDB815 /* ViewController1.swift in Sources */,
+				EEDEF6D622686EBB00FDB815 /* TableCell.swift in Sources */,
+				EEDEF6D922686EBB00FDB815 /* AppAPI.swift in Sources */,
+				EEDEF6D522686EBB00FDB815 /* Repository.swift in Sources */,
+				EEDEF6E022686EBB00FDB815 /* iTunesController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -786,6 +941,25 @@
 			targetProxy = D3943ED91FA32D5600898233 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EEDEF6E122686EC600FDB815 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EEDEF6E222686EC600FDB815 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		EEDEF6E322686EC600FDB815 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EEDEF6E422686EC600FDB815 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D350C3721FA3881A0040556F /* Debug */ = {
@@ -1035,6 +1209,48 @@
 			};
 			name = Release;
 		};
+		EEDEF6C222686E5300FDB815 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 176CFEF7E903BF7F7BBDABE7 /* Pods-SwiftRedux-MusicDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MHY2SWZ976;
+				INFOPLIST_FILE = "SwiftRedux-MusicDemo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.swiften.SwiftRedux-MusicDemo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EEDEF6C322686E5300FDB815 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3F4A9CE52B8F23D3C9739DD /* Pods-SwiftRedux-MusicDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MHY2SWZ976;
+				INFOPLIST_FILE = "SwiftRedux-MusicDemo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.swiften.SwiftRedux-MusicDemo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1070,6 +1286,15 @@
 			buildConfigurations = (
 				D3943EE61FA32D5600898233 /* Debug */,
 				D3943EE71FA32D5600898233 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EEDEF6C422686E5300FDB815 /* Build configuration list for PBXNativeTarget "SwiftRedux-MusicDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEDEF6C222686E5300FDB815 /* Debug */,
+				EEDEF6C322686E5300FDB815 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

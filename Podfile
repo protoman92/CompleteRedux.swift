@@ -21,4 +21,10 @@ target 'SwiftRedux' do
     pod 'RxCocoa'
     pod 'SafeNest/Main', git: 'https://github.com/protoman92/SafeNest.git'
   end
+  
+  target 'SwiftRedux-MusicDemo' do
+    inherit! :search_paths
+    # Pods for demo
+    pod 'MRProgress'
+  end
 end

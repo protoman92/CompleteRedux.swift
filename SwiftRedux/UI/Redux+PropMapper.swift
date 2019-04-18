@@ -28,10 +28,10 @@ public protocol PropMapperType: class {
   /// The Redux view's Action.
   typealias Action = PropContainer.ActionProps
   
-  /// Map ReduxState to StateProps.
+  /// Map GlobalState to StateProps.
   ///
   /// - Parameters:
-  ///   - state: A ReduxState instance.
+  ///   - state: A GlobalState instance.
   ///   - outProps: An OutProps instance.
   /// - Returns: A StateProps instance.
   static func mapState(state: GlobalState, outProps: OutProps) -> State
@@ -40,7 +40,7 @@ public protocol PropMapperType: class {
   ///
   /// - Parameters:
   ///   - dispatch: A Dispatch instance.
-  ///   - state: A ReduxState instance.
+  ///   - state: A GlobalState instance.
   ///   - outProps: An OutProps instance.
   /// - Returns: An ActionProps instance.
   static func mapAction(dispatch: @escaping ReduxDispatcher,
