@@ -37,14 +37,12 @@ public final class SagaOutput<T>: Awaitable<T> {
       onError: nil,
       onCompleted: nil,
       onSubscribe: nil,
-      onSubscribed: nil
-    ) {monitor.removeDispatcher(uniqueID)}
-    
-    monitor.addDispatcher(uniqueID, onAction)
+      onSubscribed: {monitor.addDispatcher(uniqueID, onAction)},
+      onDispose: {monitor.removeDispatcher(uniqueID)})
   }
   
   func with<R>(source: Observable<R>) -> SagaOutput<R> {
-    return SagaOutput<R>(self.monitor, source, self.onAction)
+    return SagaOutput<R>(self.monitor, source)
   }
   
   func map<R>(_ fn: @escaping (T) throws -> R) -> SagaOutput<R> {
