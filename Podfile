@@ -1,10 +1,11 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '9.0'
 target 'SwiftRedux' do
 
   # Pods for SwiftRedux
-  pod 'RxSwift'
-  pod 'RxBlocking'
+  pod 'RxSwift', '~> 4.0'
+  pod 'RxBlocking', '~> 4.0'
+  pod 'RxAtomic', '~> 4.0', :modular_headers => true
   pod 'SwiftFP/Main', git: 'https://github.com/protoman92/SwiftFP.git'
   
   target 'SwiftReduxTests' do
