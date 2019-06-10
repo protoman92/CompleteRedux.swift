@@ -5,7 +5,6 @@ target 'SwiftRedux' do
   # Pods for SwiftRedux
   pod 'RxSwift', '~> 4.0'
   pod 'RxBlocking', '~> 4.0'
-  pod 'RxAtomic', '~> 4.0', :modular_headers => true
   pod 'SwiftFP/Main', git: 'https://github.com/protoman92/SwiftFP.git'
   
   target 'SwiftReduxTests' do
