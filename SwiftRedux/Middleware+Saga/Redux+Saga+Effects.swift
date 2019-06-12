@@ -95,10 +95,13 @@ public final class SagaEffects {
   
   /// Create a select effect.
   ///
-  /// - Parameter selector: The state selector function.
+  /// - Parameters:
+  ///   - type: The type of State to be selected from.
+  ///   - selector: Selector function.
   /// - Returns: An Effect instance.
-  public static func select<State, R>(_ selector: @escaping (State) -> R)
-    -> SelectEffect<State, R> {
+  public static func select<State, R>(fromType type: State.Type, _ selector: @escaping (State) -> R)
+    -> SelectEffect<State, R>
+  {
     return SelectEffect(selector)
   }
   

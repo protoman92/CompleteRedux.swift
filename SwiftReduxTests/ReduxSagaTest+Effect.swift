@@ -40,7 +40,7 @@ public final class ReduxSagaEffectTest: XCTestCase {
       SagaEffects.put(1, actionCreator: Action.init).await(input)
       SagaEffects.put(2, actionCreator: Action.init).await(input)
       SagaEffects.put(3, actionCreator: Action.init).await(input)
-      return SagaEffects.select({(state: Int) in state}).await(input)
+      return SagaEffects.select(fromType: Int.self, {$0}).await(input)
       }.await(SagaInput(SagaMonitor(), {4}) {dispatched.append($0)})
     
     /// Then
@@ -190,7 +190,7 @@ public final class ReduxSagaEffectTest: XCTestCase {
     let dispatch: ReduxDispatcher = {_ in dispatchCount += 1}
     let monitor = SagaMonitor()
     let input = SagaInput(monitor, {()}, dispatch)
-    let effect = SagaEffects.select({(_: State) in 100})
+    let effect = SagaEffects.select(fromType: State.self, {_ in 100})
     let output = effect.invoke(input)
     
     /// When
