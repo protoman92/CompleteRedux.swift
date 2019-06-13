@@ -140,7 +140,12 @@ public class PropInjector<GlobalState>: PropInjectorType {
       defer { semaphore.signal() }
       
       if first || !MP.compareState(previous, next) {
-        runner.runOnMainThread {cv?.reduxProps = ReduxPropContainer(first, next, action)}
+        let firstTime = first
+
+        runner.runOnMainThread {
+          cv?.reduxProps = ReduxPropContainer(firstTime, next, action)
+        }
+        
         previous = next
         first = false
       }
