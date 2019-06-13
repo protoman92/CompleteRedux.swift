@@ -6,6 +6,8 @@
 //  Copyright © 2018 Hai Pham. All rights reserved.
 //
 
+import Foundation
+
 /// Function that maps one dispatch to another.
 public typealias DispatchMapper = (DispatchWrapper) -> DispatchWrapper
 
@@ -37,14 +39,41 @@ public struct MiddlewareInput<State> {
   }
 }
 
-/// A lazily initialized dispatcher to help create the middleware input.
-private final class LazyDispatcher {
-  var lateinitDispatcher: AwaitableReduxDispatcher!
-  public private(set) var dispatch: AwaitableReduxDispatcher
+/// A lazily initialized dispatcher to help create the middleware input. If an
+/// action is dispatched when the inner dispatcher is not initialized yet,
+/// buffer it and dispatch once the dispatcher is set.
+final class LazyDispatcher {
+  var lateinitDispatcher: AwaitableReduxDispatcher? {
+    didSet { self.lateinitDispatcher.map(self.didSetDispatcher) }
+  }
+  
+  private(set) var dispatch: AwaitableReduxDispatcher
+  private var buffer: [ReduxActionType]
+  private let semaphore: DispatchSemaphore
   
   init() {
     self.dispatch = {_ in EmptyAwaitable.instance}
-    self.dispatch = {self.lateinitDispatcher!($0)}
+    self.buffer = []
+    self.semaphore = DispatchSemaphore(value: 1)
+    
+    self.dispatch = {
+      self.semaphore.wait()
+      defer { self.semaphore.signal() }
+      
+      guard let lateinitDispatcher = self.lateinitDispatcher else {
+        self.buffer.append($0)
+        return EmptyAwaitable.instance
+      }
+      
+      return lateinitDispatcher($0)
+    }
+  }
+  
+  private func didSetDispatcher(_ dispatcher: AwaitableReduxDispatcher) {
+    self.semaphore.wait()
+    defer { self.semaphore.signal() }
+    self.buffer.forEach({_ = try? dispatcher($0).await()})
+    self.buffer.removeAll()
   }
 }
 
@@ -72,7 +101,7 @@ func combineMiddlewares<S>(_ middlewares: [ReduxMiddleware<S.State>])
     
       let finalWrapper = combined(input)(rootWrapper)
       lazyDispatcher.lateinitDispatcher = finalWrapper.dispatcher
-      return DispatchWrapper(finalWrapper.identifier, lazyDispatcher.dispatch)
+      return finalWrapper
     }
     
     return rootWrapper

@@ -124,4 +124,32 @@ public final class ReduxMiddlewareTest: XCTestCase {
     /// Then
     XCTAssertEqual(wrapper.identifier, "root")
   }
+  
+  public func test_lazyDispatcher_shouldBufferActionIfNotSet() {
+    /// Setup
+    let iterations = 1000
+    let lazyDispatcher = LazyDispatcher()
+    let dispatchGroup = DispatchGroup()
+    
+    /// When
+    (0...iterations).forEach({_ in dispatchGroup.enter()})
+    
+    (0...iterations).forEach({_ in
+      DispatchQueue.global(qos: .background).async {
+        _ = try! lazyDispatcher.dispatch(DefaultAction.noop).await()
+        dispatchGroup.leave()
+      }
+    })
+    
+    dispatchGroup.wait()
+    var dispatchCount: Int64 = 0
+    
+    lazyDispatcher.lateinitDispatcher = {_ in
+      OSAtomicIncrement64(&dispatchCount)
+      return EmptyAwaitable.instance
+    }
+    
+    /// Then
+    XCTAssertEqual(Int(dispatchCount), iterations + 1)
+  }
 }
