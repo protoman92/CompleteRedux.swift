@@ -43,7 +43,7 @@ public final class ReduxSagaTest: XCTestCase {
     var innerDispatchCount: Int64 = 0
     
     let effect = SagaEffects
-      .take({(action: LifecycleAction) -> Bool? in
+      .takeAction({(action: LifecycleAction) -> Bool? in
         switch action {
         case .initialize: return true
         case .deinitialize: return false
@@ -52,7 +52,7 @@ public final class ReduxSagaTest: XCTestCase {
       .switchMap({(valid: Bool) -> SagaEffect<()> in
         if valid {
           return SagaEffects
-            .take({(action: InnerAction) in ()})
+            .takeAction({(action: InnerAction) in ()})
             .switchMap({_ in SagaEffects.await(with: {_ in
               OSAtomicIncrement64(&innerDispatchCount)
             })})

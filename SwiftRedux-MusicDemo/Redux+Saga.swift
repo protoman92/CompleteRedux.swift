@@ -15,7 +15,7 @@ public final class AppSaga {
   public static func sagas(_ api: AppRepositoryType) -> [SagaEffect<()>] {
     return [
       SagaEffects
-        .take {(action: AppAction) -> String? in
+        .takeAction {(action: AppAction) -> String? in
           switch action {
           case .updateAutocompleteInput(let input): return input
           default: return nil

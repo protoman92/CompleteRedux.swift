@@ -15,7 +15,7 @@ final class AppReduxSaga {
   static func sagas() -> [SagaEffect<()>] {
     return [
       SagaEffects
-        .take({(a: AppRedux.Action) -> String? in
+        .takeAction({(a: AppRedux.Action) -> String? in
           switch a {
           case .string(let input): return input
           default: return nil

@@ -8,9 +8,9 @@
 
 import RxSwift
 
-/// Take effects are streams that filter actions and pluck out the appropriate
-/// ones to perform additional work on.
-public class TakeEffect<Action, P>: SagaEffect<P> where Action: ReduxActionType {
+/// Take action effects are streams that filter actions and pluck out the
+/// appropriate ones to perform additional work on.
+public class TakeActionEffect<Action, P>: SagaEffect<P> where Action: ReduxActionType {
   private let _paramExtractor: (Action) -> P?
   
   init(_ paramExtractor: @escaping (Action) -> P?) {

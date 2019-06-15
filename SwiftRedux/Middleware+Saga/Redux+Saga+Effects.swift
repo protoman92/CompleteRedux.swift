@@ -116,31 +116,31 @@ public final class SagaEffects {
   ///   - type: The type of State to be selected from.
   ///   - selector: Selector function.
   /// - Returns: An Effect instance.
-  public static func select<State, R>(fromType type: State.Type, _ selector: @escaping (State) -> R)
+  public static func select<State, R>(fromType type: State.Type, _ fn: @escaping (State) -> R)
     -> SelectEffect<State, R>
   {
-    return SelectEffect(selector)
+    return SelectEffect(fn)
   }
   
-  /// Create a take effect.
+  /// Create a TakeActionEffect.
   ///
   /// - Parameter fn: The param extractor function.
   /// - Returns: An Effect instance.
-  public static func take<Action, R>(_ fn: @escaping (Action) -> R?)
-    -> TakeEffect<Action, R> where Action: ReduxActionType
+  public static func takeAction<Action, R>(_ fn: @escaping (Action) -> R?)
+    -> TakeActionEffect<Action, R> where Action: ReduxActionType
   {
-    return TakeEffect(fn)
+    return TakeActionEffect(fn)
   }
   
-  /// Create a take effect with some type helpers.
+  /// Create a take action effect with some type helpers.
   ///
   /// - Parameters:
   ///   - type: The Action type.
   ///   - fn: The param extractor function.
   /// - Returns: An Effect instance.
-  public static func take<Action, R>(type: Action.Type, _ fn: @escaping (Action) -> R?)
-    -> TakeEffect<Action, R> where Action: ReduxActionType
+  public static func takeAction<Action, R>(type: Action.Type, _ fn: @escaping (Action) -> R?)
+    -> TakeActionEffect<Action, R> where Action: ReduxActionType
   {
-    return self.take(fn)
+    return self.takeAction(fn)
   }
 }
