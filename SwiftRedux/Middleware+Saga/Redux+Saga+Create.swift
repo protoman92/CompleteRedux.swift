@@ -21,6 +21,7 @@ public final class FromEffect<O>: SagaEffect<Try<O.E>> where O: ObservableConver
   override public func invoke(_ input: SagaInput) -> SagaOutput<Try<O.E>> {
     return SagaOutput(input.monitor, self.source
       .asObservable()
+      .observeOn(input.scheduler)
       .map(Try.success)
       .catchError({.just(Try<O.E>.failure($0))}))
   }

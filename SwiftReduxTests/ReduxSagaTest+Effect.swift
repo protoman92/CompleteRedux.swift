@@ -137,7 +137,7 @@ public final class ReduxSagaEffectTest: XCTestCase {
       })
     
     let effect = SagaEffects.from(source)
-    let input = SagaInput(dispatcher: NoopDispatcher.instance, lastState: {()})
+    let input = SagaInput(lastState: {()}, scheduler: scheduler)
     effect.invoke(input).source.subscribe(observer).disposed(by: self.disposeBag)
     
     /// When
