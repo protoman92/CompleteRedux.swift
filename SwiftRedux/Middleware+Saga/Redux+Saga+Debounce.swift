@@ -3,7 +3,7 @@
 //  SwiftRedux
 //
 //  Created by Viethai Pham on 11/6/19.
-//  Copyright © 2019 Holmusk. All rights reserved.
+//  Copyright © 2019 Swiften. All rights reserved.
 //
 
 import RxSwift
