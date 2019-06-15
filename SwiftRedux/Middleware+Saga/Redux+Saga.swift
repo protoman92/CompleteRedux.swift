@@ -42,7 +42,7 @@ public struct SagaInput {
   
   public init(dispatcher: @escaping AwaitableReduxDispatcher,
               lastState: @escaping ReduxStateGetter<Any>,
-              scheduler: SchedulerType = SerialDispatchQueueScheduler(qos: .background)) {
+              scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .default)) {
     self.monitor = SagaMonitor()
     self.dispatcher = dispatcher
     self.lastState = lastState

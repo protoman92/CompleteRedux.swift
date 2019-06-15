@@ -20,13 +20,11 @@ public final class PutEffect<P>: SagaEffect<Any> {
   override public func invoke(_ input: SagaInput) -> SagaOutput<Any> {
     let action = self.action
     
-    let single = Single.create(subscribe: {(obs: (SingleEvent<Any>) -> Void) -> Disposable in
+    return SagaOutput(input.monitor, Single.create(subscribe: {
       let result = try! input.dispatcher(action).await()
-      obs(.success(result))
+      $0(.success(result))
       return Disposables.create()
-    })
-    
-    return SagaOutput(input.monitor, single.asObservable())
+    }).asObservable())
   }
   
   /// Await for the first result that arrives. Since this can never throw an

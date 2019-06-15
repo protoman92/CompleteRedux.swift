@@ -14,14 +14,12 @@ public final class SelectEffect<State>: SagaEffect<State> {
   override init() {}
   
   override public func invoke(_ input: SagaInput) -> SagaOutput<State> {
-    let single = Single.create(subscribe: {(obs: (SingleEvent<R>) -> Void) -> Disposable in
+    return SagaOutput(input.monitor, Single.create(subscribe: {
       let lastState = input.lastState()
       precondition(lastState is State)
-      obs(.success(lastState as! State))
+      $0(.success(lastState as! State))
       return Disposables.create()
-    })
-    
-    return SagaOutput(input.monitor, single.asObservable())
+    }).asObservable())
   }
   
   /// Await for the first result that arrives. Since this can never throw an
