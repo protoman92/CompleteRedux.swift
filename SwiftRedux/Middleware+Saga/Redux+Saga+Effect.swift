@@ -25,7 +25,10 @@ public class SagaEffect<R> {
   }
 }
 
-// MARK: - SagaEffectType
-extension SagaEffect: SagaEffectType {
+// MARK: - SagaEffectConvertibleType
+extension SagaEffect: SagaEffectConvertibleType {
   public func asEffect() -> SagaEffect<R> { return self }
 }
+
+// MARK: - SagaEffectType
+extension SagaEffect: SagaEffectType {}
