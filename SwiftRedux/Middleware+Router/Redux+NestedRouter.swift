@@ -88,7 +88,7 @@ extension NestedRouter: ReduxRouterType {
     default:
       self.lock.lock()
       defer { self.lock.unlock() }
-      self.subRouters.first(where: {$0.navigate(screen)})
+      _ = self.subRouters.first(where: {$0.navigate(screen)})
     }
   }
 }
