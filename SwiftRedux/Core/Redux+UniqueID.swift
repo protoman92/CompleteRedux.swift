@@ -13,13 +13,13 @@ import Foundation
 public class DefaultUniqueIDProvider {
   
   /// The current value.
-  private static var _current: Int64 = -1
+  private static var current: Int64 = -1
   
   /// Get the next available unique ID.
   ///
   /// - Returns: A UniqueID instance.
   public static func next() -> UniqueIDProviderType.UniqueID {
-    return OSAtomicIncrement64(&self._current)
+    return OSAtomicIncrement64(&self.current)
   }
   
   init() {}

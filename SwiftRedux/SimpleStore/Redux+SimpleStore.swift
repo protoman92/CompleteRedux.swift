@@ -23,29 +23,29 @@ public final class SimpleStore<State>: ReduxStoreType {
     return .init(initialState, reducer)
   }
   
-  private let _lock: ReadWriteLockType
-  private var _state: State
-  private let _reducer: ReduxReducer<State>
-  private var _subscribers: [SubscriberID : ReduxStateCallback<State>]
+  private let lock: ReadWriteLockType
+  private var state: State
+  private let reducer: ReduxReducer<State>
+  private var subscribers: [SubscriberID : ReduxStateCallback<State>]
   
   private init(_ initialState: State, _ reducer: @escaping ReduxReducer<State>) {
-    self._lock = ReadWriteLock()
-    self._state = initialState
-    self._reducer = reducer
-    self._subscribers = [:]
+    self.lock = ReadWriteLock()
+    self.state = initialState
+    self.reducer = reducer
+    self.subscribers = [:]
   }
   
   /// Get the last reduced state in a thread-safe manner.
   public lazy private(set) var lastState: ReduxStateGetter<State> = {
-    self._lock.access {self._state}
+    self.lock.access {self.state}
   }
   
   /// Reduce the action to produce a new state and broadcast this state to
   /// all subscribers.
   public lazy private(set) var dispatch: AwaitableReduxDispatcher = {action in
-    self._lock.modify {
-      self._state = self._reducer(self._state, action)
-      self._subscribers.forEach({$0.value(self._state)})
+    self.lock.modify {
+      self.state = self.reducer(self.state, action)
+      self.subscribers.forEach({$0.value(self.state)})
     }
     
     return EmptyAwaitable.instance
@@ -54,17 +54,17 @@ public final class SimpleStore<State>: ReduxStoreType {
   /// Subscribe to state updates and immediately receive the latest state.
   /// On unsubscription, remove the subscriber.
   public lazy private(set) var subscribeState: ReduxSubscriber<State> = {id, cb in
-    self._lock.modify {
-      self._subscribers[id] = cb
+    self.lock.modify {
+      self.subscribers[id] = cb
       
       /// Broadcast the latest state to this subscriber.
-      cb(self._state)
+      cb(self.state)
     }
     
     return ReduxSubscription(id) {self.unsubscribe(id)}
   }
   
   public lazy private(set) var unsubscribe: ReduxUnsubscriber = {id in
-    _ = self._lock.modify {self._subscribers.removeValue(forKey: id)}
+    _ = self.lock.modify {self.subscribers.removeValue(forKey: id)}
   }
 }

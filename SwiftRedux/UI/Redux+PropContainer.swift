@@ -52,7 +52,7 @@ extension PropContainerType where Self: UniqueIDProviderType {
 /// Generally the Redux view also implements the prop mapper protocol, so in
 /// this case we can define some default generics.
 public extension PropContainerType where Self: PropMapperType {
-  public typealias PropContainer = Self
+  typealias PropContainer = Self
 }
 
 public extension PropContainerType {
@@ -60,7 +60,7 @@ public extension PropContainerType {
   /// Ensure reduxProps is non-nil.
   ///
   /// - Returns: A ReduxProps instance.
-  public func requireReduxProps() -> ReduxProps {
+  func requireReduxProps() -> ReduxProps {
     precondition(self.reduxProps != nil)
     return self.reduxProps!
   }

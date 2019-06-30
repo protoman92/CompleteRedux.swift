@@ -25,7 +25,7 @@ import UIKit
 /// This class keeps track of the injection count for each Redux-compatible
 /// view.
 public final class MockInjector<State>: PropInjector<State> {
-  private let _lock: ReadWriteLockType = ReadWriteLock()
+  private let lock: ReadWriteLockType = ReadWriteLock()
   private var _injectCount: [String : Int] = [:]
   
   /// Initialize with a mock store that does not have any functionality.
@@ -87,12 +87,12 @@ public final class MockInjector<State>: PropInjector<State> {
   
   /// Reset all internal statistics.
   public func reset() {
-    self._lock.modify { self._injectCount = [:] }
+    self.lock.modify { self._injectCount = [:] }
   }
   
   private func addInjecteeCount(_ id: String) {
-    self._lock.modify {
-      self._injectCount[id] = self._injectCount[id, default: 0] + 1
+    self.lock.modify {
+      self._injectCount[id] = self.injectCount[id, default: 0] + 1
     }
   }
   
@@ -106,7 +106,7 @@ public final class MockInjector<State>: PropInjector<State> {
   }
   
   private func getInjecteeCount(_ id: String) -> Int {
-    return self._lock.access { self._injectCount[id, default: 0] }
+    return self.lock.access { self.injectCount[id, default: 0] }
   }
   
   private func getInjecteeCount<View>(_ type: View.Type) -> Int where

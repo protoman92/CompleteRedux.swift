@@ -59,7 +59,7 @@ public protocol PropMapperType: class {
 /// We should make state props conform to Equatable, so that some defaults
 /// can be implemented.
 public extension PropMapperType where State: Equatable {
-  public static func compareState(_ lhs: State?, _ rhs: State?) -> Bool {
+  static func compareState(_ lhs: State?, _ rhs: State?) -> Bool {
     return lhs == rhs
   }
 }

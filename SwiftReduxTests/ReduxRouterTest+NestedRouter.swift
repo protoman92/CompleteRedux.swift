@@ -13,7 +13,7 @@ public final class NestedReduxRouterTest: XCTestCase {
   final class SubRouter: VetoableReduxRouterType {
     let subRouterPriority: Int64
     private(set) var navigationCount: Int64
-    private let _navigate: (RouterScreenType) -> Bool
+    private let navigate: (RouterScreenType) -> Bool
     
     var uniqueID: UniqueID = DefaultUniqueIDProvider.next()
     
@@ -21,11 +21,11 @@ public final class NestedReduxRouterTest: XCTestCase {
          _ navigate: @escaping (RouterScreenType) -> Bool = {_ in true}) {
       self.subRouterPriority = subRouterPriority
       self.navigationCount = 0
-      self._navigate = navigate
+      self.navigate = navigate
     }
     
     func navigate(_ screen: RouterScreenType) -> Bool {
-      if (self._navigate(screen)) {
+      if self.navigate(screen) {
         OSAtomicIncrement64(&self.navigationCount)
         return true
       }

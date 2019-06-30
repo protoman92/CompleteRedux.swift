@@ -40,9 +40,7 @@ public extension SagaEffectConvertibleType {
   ///
   /// - Parameter effectCreator: The effect creator function.
   /// - Returns: An Effect instance.
-  public func transform<R2>(with effectCreator: SagaEffectTransformer<R, R2>)
-    -> SagaEffect<R2>
-  {
+  func transform<R2>(with effectCreator: SagaEffectTransformer<R, R2>) -> SagaEffect<R2> {
     return effectCreator(self.asEffect())
   }
 }
@@ -56,7 +54,7 @@ public extension SagaEffectType where Self: SingleSagaEffectType {
   /// - Returns: An R value.
   /// - Throws: Error if the resulting saga output fails to wait for result.
   @discardableResult
-  public func await(_ input: SagaInput) throws -> R {
+  func await(_ input: SagaInput) throws -> R {
     return try self.invoke(input).await()
   }
 }

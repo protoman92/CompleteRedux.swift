@@ -13,10 +13,10 @@ public protocol AppAPIType {
 }
 
 public struct AppAPI: AppAPIType {
-  private let _urlSession: URLSession
+  private let urlSession: URLSession
   
   public init(_ urlSession: URLSession) {
-    self._urlSession = urlSession
+    self.urlSession = urlSession
   }
   
   public func searchITunes(_ input: String, _ cb: @escaping (Data?, Error?) -> Void) {
@@ -28,7 +28,7 @@ public struct AppAPI: AppAPIType {
       URLQueryItem(name: "media", value: "music")
     ]
     
-    let task = self._urlSession.dataTask(with: comps.url!) {cb($0, $2)}
+    let task = self.urlSession.dataTask(with: comps.url!) {cb($0, $2)}
     task.resume()
   }
 }

@@ -15,10 +15,10 @@ public enum ReduxScreen: RouterScreenType {
 }
 
 public struct ReduxRouter: ReduxRouterType {
-  private weak var _controller: UINavigationController?
+  private weak var controller: UINavigationController?
   
   public init(_ controller: UINavigationController) {
-    self._controller = controller
+    self.controller = controller
   }
   
   public func navigate(_ screen: RouterScreenType) {
@@ -30,10 +30,10 @@ public struct ReduxRouter: ReduxRouterType {
         .instantiateViewController(withIdentifier: "ViewController1")
         as! ViewController1
       
-      self._controller?.pushViewController(vc, animated: true)
+      self.controller?.pushViewController(vc, animated: true)
       
     case .some(.back):
-      self._controller?.popViewController(animated: true)
+      self.controller?.popViewController(animated: true)
       
     default:
       break

@@ -36,7 +36,7 @@ public extension PropInjectorType {
   ///   - vc: A view controller instance.
   ///   - outProps: An OutProps instance.
   ///   - mapper: A Redux prop mapper.
-  public func injectProps<VC, MP>(
+  func injectProps<VC, MP>(
     controller: VC, outProps: VC.OutProps, mapper: MP.Type) where
     MP: PropMapperType,
     MP.PropContainer == VC,
@@ -56,7 +56,7 @@ public extension PropInjectorType {
   ///   - outProps: An OutProps instance.
   ///   - mapper: A Redux prop mapper.
   /// - Returns: A ReduxSubscription instance.
-  public func injectProps<V, MP>(
+  func injectProps<V, MP>(
     view: V, outProps: V.OutProps, mapper: MP.Type) where
     MP: PropMapperType,
     MP.PropContainer == V,
@@ -76,7 +76,7 @@ public extension PropInjectorType {
   ///   - vc: A view controller instance.
   ///   - outProps: An OutProps instance.
   /// - Returns: A ReduxSubscription instance.
-  public func injectProps<VC>(controller vc: VC, outProps: VC.OutProps) where
+  func injectProps<VC>(controller vc: VC, outProps: VC.OutProps) where
     VC: UIViewController,
     VC: PropMapperType,
     VC.GlobalState == GlobalState,
@@ -92,7 +92,7 @@ public extension PropInjectorType {
   ///   - view: A view instance.
   ///   - outProps: An OutProps instance.
   /// - Returns: A ReduxSubscription instance.
-  public func injectProps<V>(view: V, outProps: V.OutProps) where
+  func injectProps<V>(view: V, outProps: V.OutProps) where
     V: UIView,
     V: PropMapperType,
     V.GlobalState == GlobalState,

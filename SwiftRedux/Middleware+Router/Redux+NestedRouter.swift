@@ -52,12 +52,12 @@ public final class NestedRouter {
     return NestedRouter()
   }
   
-  private let _lock: ReadWriteLockType
-  private var _subRouters: [VetoableReduxRouterType]
+  private let lock: ReadWriteLockType
+  private var subRouters: [VetoableReduxRouterType]
   
   private init() {
-    self._lock = ReadWriteLock()
-    self._subRouters = []
+    self.lock = ReadWriteLock()
+    self.subRouters = []
   }
 }
 
@@ -68,23 +68,23 @@ extension NestedRouter: ReduxRouterType {
     case let screen as DefaultScreen:
       switch screen {
       case .registerSubRouter(let s):
-        self._lock.modify {
-          guard !self._subRouters.contains(where: {$0.uniqueID == s.uniqueID}) else { return }
-          self._subRouters.insert(s, at: 0)
-          self._subRouters.sort(by: {$0.subRouterPriority > $1.subRouterPriority})
+        self.lock.modify {
+          guard !self.subRouters.contains(where: {$0.uniqueID == s.uniqueID}) else { return }
+          self.subRouters.insert(s, at: 0)
+          self.subRouters.sort(by: {$0.subRouterPriority > $1.subRouterPriority})
         }
         
       case .unregisterSubRouter(let id):
-        self._lock.modify {
-          if let index = self._subRouters.firstIndex(where: {$0.uniqueID == id}) {
-            self._subRouters.remove(at: index)
+        self.lock.modify {
+          if let index = self.subRouters.firstIndex(where: {$0.uniqueID == id}) {
+            self.subRouters.remove(at: index)
           }
         }
       }
       
     default:
-      return self._lock.access {
-        _ = self._subRouters.first(where: {$0.navigate(screen)})
+      return self.lock.access {
+        _ = self.subRouters.first(where: {$0.navigate(screen)})
       }
     }
   }

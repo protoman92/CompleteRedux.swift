@@ -12,6 +12,7 @@ target 'SwiftRedux' do
   target 'SwiftReduxTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'RxBlocking', '~> 4.0'
     pod 'RxTest', '~> 4.0'
     pod 'SafeNest/Main', git: 'https://github.com/protoman92/SafeNest.git'
   end
@@ -19,10 +20,14 @@ target 'SwiftRedux' do
   target 'SwiftRedux-Demo' do
     inherit! :search_paths
     # Pods for demo
+    pod 'RxBlocking', '~> 4.0'
     pod 'SafeNest/Main', git: 'https://github.com/protoman92/SafeNest.git'
+    pod 'SwiftFP/Main', git: 'https://github.com/protoman92/SwiftFP.git'
   end
   
   target 'SwiftRedux-MusicDemo' do
     inherit! :search_paths
+    pod 'RxBlocking', '~> 4.0'
+    pod 'SwiftFP/Main', git: 'https://github.com/protoman92/SwiftFP.git'
   end
 end
