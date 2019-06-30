@@ -1,320 +1,313 @@
 {
   "warnings": [
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Protocols.swift",
-      "line": 50,
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Protocols.swift",
+      "line": 48,
       "symbol": "UniqueIDProviderType.UniqueID",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 38,
       "symbol": "AwaitableType.Result",
       "symbol_kind": "source.lang.swift.decl.associatedtype",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 75,
       "symbol": "EmptyAwaitable.await()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 79,
       "symbol": "EmptyAwaitable.await(timeoutMillis:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 88,
       "symbol": "JustAwaitable.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 92,
       "symbol": "JustAwaitable.await()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 96,
       "symbol": "JustAwaitable.await(timeoutMillis:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 106,
       "symbol": "AsyncAwaitable.AsyncBlock",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 111,
       "symbol": "AsyncAwaitable.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 119,
       "symbol": "AsyncAwaitable.await()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 124,
       "symbol": "AsyncAwaitable.await(timeoutMillis:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 142,
       "symbol": "BatchAwaitable.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 146,
       "symbol": "BatchAwaitable.await()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Awaitable.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Awaitable.swift",
       "line": 150,
       "symbol": "BatchAwaitable.await(timeoutMillis:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+RWLock.swift",
-      "line": 29,
-      "symbol": "ReadWriteLock.deinit",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Subscription.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Subscription.swift",
       "line": 16,
       "symbol": "ReduxSubscription.unsubscribe",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Core/Redux+Subscription.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Core/Redux+Subscription.swift",
       "line": 18,
       "symbol": "ReduxSubscription.init(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware/Redux+Middleware.swift",
-      "line": 33,
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware/Redux+Middleware.swift",
+      "line": 32,
       "symbol": "MiddlewareInput.dispatcher",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware/Redux+Middleware.swift",
-      "line": 34,
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware/Redux+Middleware.swift",
+      "line": 33,
       "symbol": "MiddlewareInput.lastState",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Router/Redux+Middleware+Router.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Router/Redux+Middleware+Router.swift",
       "line": 29,
       "symbol": "RouterMiddleware.init(router:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Router/Redux+NestedRouter.swift",
-      "line": 13,
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Router/Redux+NestedRouter.swift",
+      "line": 15,
       "symbol": "NestedRouter.UniqueID",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Middleware+Saga.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Middleware+Saga.swift",
       "line": 18,
       "symbol": "SagaMiddleware.init(scheduler:effects:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+Await.swift",
-      "line": 22,
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+Await.swift",
+      "line": 21,
       "symbol": "AwaitEffect.invoke(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+Call.swift",
-      "line": 20,
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+Call.swift",
+      "line": 19,
       "symbol": "JustCallEffect.invoke(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+Create.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+Create.swift",
       "line": 21,
       "symbol": "FromEffect.invoke(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+Delay.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+Delay.swift",
       "line": 20,
       "symbol": "DelayEffect.invoke(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+Delay.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+Delay.swift",
       "line": 29,
       "symbol": "DelayEffect.await(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+Empty.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+Empty.swift",
       "line": 11,
       "symbol": "EmptyEffect.invoke(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+FlatMap.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+FlatMap.swift",
       "line": 19,
       "symbol": "FlatMapEffect.invoke(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+FlatMap.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+FlatMap.swift",
       "line": 27,
       "symbol": "SwitchMapEffect.invoke(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+Output.swift",
-      "line": 63,
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+Output.swift",
+      "line": 62,
       "symbol": "SagaOutput.await()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+Output.swift",
-      "line": 67,
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+Output.swift",
+      "line": 66,
       "symbol": "SagaOutput.await(timeoutMillis:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+Put.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+Put.swift",
       "line": 20,
       "symbol": "PutEffect.invoke(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+Select.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+Select.swift",
       "line": 16,
       "symbol": "SelectEffect.invoke(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga+Take.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga+Take.swift",
       "line": 20,
       "symbol": "TakeActionEffect.invoke(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga.swift",
       "line": 21,
       "symbol": "SagaError.localizedDescription",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga.swift",
       "line": 38,
       "symbol": "SagaInput.monitor",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga.swift",
       "line": 43,
       "symbol": "SagaInput.init(dispatcher:lastState:scheduler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+Saga.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+Saga.swift",
       "line": 52,
       "symbol": "SagaInput.init(dispatcher:lastState:scheduler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/Middleware+Saga/Redux+SagaMonitor.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/Middleware+Saga/Redux+SagaMonitor.swift",
       "line": 18,
       "symbol": "SagaMonitor.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/UI/Redux+MainThread.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/UI/Redux+MainThread.swift",
       "line": 22,
       "symbol": "MainThreadRunner.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/UI/Redux+PropContainer.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/UI/Redux+PropContainer.swift",
       "line": 55,
       "symbol": "PropContainerType.PropContainer",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/UI/Redux+PropMapper.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/UI/Redux+PropMapper.swift",
       "line": 17,
       "symbol": "PropMapperType.PropContainer",
       "symbol_kind": "source.lang.swift.decl.associatedtype",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/UI/Redux+Props.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/UI/Redux+Props.swift",
       "line": 19,
       "symbol": "StaticPropContainer.init(_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/haipham/Desktop/SwiftRedux/SwiftRedux/UI/Redux+Props.swift",
+      "file": "/Users/haipham/Desktop/CompleteRedux/CompleteRedux/UI/Redux+Props.swift",
       "line": 40,
       "symbol": "ReduxPropContainer.init(_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/haipham/Desktop/SwiftRedux"
+  "source_directory": "/Users/haipham/Desktop/CompleteRedux"
 }

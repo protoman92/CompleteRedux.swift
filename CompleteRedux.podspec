@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.version = "2.0.0"
   s.license = { :type => "MIT", :file => "LICENSE" }
   s.author = { "Hai Pham" => "swiften.svc@gmail.com" }
-  s.homepage = "https://github.com/protoman92/CompleteRedux.git"
+  s.homepage = "https://github.com/protoman92/CompleteRedux.swift.git"
   s.source = { :git => "https://github.com/protoman92/CompleteRedux.swift.git", :tag => "#{s.version}"}
 
   s.subspec "Core" do |ss|

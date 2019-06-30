@@ -2,8 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![CocoaPods](https://img.shields.io/cocoapods/v/CompleteRedux.svg)
-[![Build Status](https://travis-ci.org/protoman92/CompleteRedux.svg?branch=master)](https://travis-ci.org/protoman92/CompleteRedux)
-[![Coverage Status](https://codecov.io/gh/protoman92/CompleteRedux/branch/master/graph/badge.svg)](https://codecov.io/gh/protoman92/CompleteRedux/branch/master/graph/badge.svg)
+[![Build Status](https://travis-ci.org/protoman92/CompleteRedux.swift.svg?branch=master)](https://travis-ci.org/protoman92/CompleteRedux.swift)
+[![Coverage Status](https://codecov.io/gh/protoman92/CompleteRedux.swift/branch/master/graph/badge.svg)](https://codecov.io/gh/protoman92/CompleteRedux.swift/branch/master/graph/badge.svg)
 
 Redux implementations for iOS clients.
 
