@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>PropContainerType Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/PropContainerType" class="dashAnchor"></a>
+    <a title="PropContainerType Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SwiftRedux Docs</a> (82% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SwiftRedux Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        PropContainerType Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AsyncAwaitable.html">AsyncAwaitable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AwaitEffect.html">AwaitEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Awaitable.html">Awaitable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BatchAwaitable.html">BatchAwaitable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultReducer.html">DefaultReducer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultUniqueIDProvider.html">DefaultUniqueIDProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DelayEffect.html">DelayEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EmptyAwaitable.html">EmptyAwaitable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EmptyEffect.html">EmptyEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FlatMapEffect.html">FlatMapEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FromEffect.html">FromEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JustAwaitable.html">JustAwaitable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JustCallEffect.html">JustCallEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MainThreadRunner.html">MainThreadRunner</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MockInjector.html">MockInjector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MockStaticProps.html">MockStaticProps</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NestedRouter.html">NestedRouter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NoopDispatcher.html">NoopDispatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PropInjector.html">PropInjector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PutEffect.html">PutEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ReadWriteLock.html">ReadWriteLock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SagaEffect.html">SagaEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SagaEffects.html">SagaEffects</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SagaMiddleware.html">SagaMiddleware</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SagaMonitor.html">SagaMonitor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SagaOutput.html">SagaOutput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SelectEffect.html">SelectEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SimpleStore.html">SimpleStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StaticPropContainer.html">StaticPropContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SwitchMapEffect.html">SwitchMapEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TakeActionEffect.html">TakeActionEffect</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/DefaultAction.html">DefaultAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SagaError.html">SagaError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/EnhancedStore.html">EnhancedStore</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:10SwiftRedux16applyMiddlewaresyAA13DelegateStoreVy5StateQzGxcSayAA15DispatchWrapperVAIcAA15MiddlewareInputVyAFGcGAA0bF4TypeRzlF">applyMiddlewares(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AwaitableType.html">AwaitableType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MainThreadRunnerType.html">MainThreadRunnerType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MiddlewareProviderType.html">MiddlewareProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PropContainerType.html">PropContainerType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PropInjectorType.html">PropInjectorType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PropMapperType.html">PropMapperType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReadWriteLockType.html">ReadWriteLockType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:10SwiftRedux0B10ActionTypeP">ReduxActionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxDispatcherProviderType.html">ReduxDispatcherProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxRouterType.html">ReduxRouterType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxStoreType.html">ReduxStoreType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxUnsubscriberProviderType.html">ReduxUnsubscriberProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:10SwiftRedux16RouterScreenTypeP">RouterScreenType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SagaEffectConvertibleType.html">SagaEffectConvertibleType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SagaEffectType.html">SagaEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SagaMonitorType.html">SagaMonitorType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:10SwiftRedux20SingleSagaEffectTypeP">SingleSagaEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UniqueIDProviderType.html">UniqueIDProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/VetoableReduxRouterType.html">VetoableReduxRouterType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/DelegateStore.html">DelegateStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:10SwiftRedux15DispatchWrapperV">DispatchWrapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MiddlewareInput.html">MiddlewareInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReduxPropContainer.html">ReduxPropContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReduxSubscription.html">ReduxSubscription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RouterMiddleware.html">RouterMiddleware</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SagaInput.html">SagaInput</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux09AwaitableB10Dispatchera">AwaitableReduxDispatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux14DispatchMappera">DispatchMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux21MonoEffectTransformera">MonoEffectTransformer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux8Navigatea">Navigate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B10Dispatchera">ReduxDispatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B10Middlewarea">ReduxMiddleware</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B7Reducera">ReduxReducer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B13StateCallbacka">ReduxStateCallback</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B11StateGettera">ReduxStateGetter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B10Subscribera">ReduxSubscriber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B12Unsubscribera">ReduxUnsubscriber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux21SagaEffectTransformera">SagaEffectTransformer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux12SubscriberIDa">SubscriberID</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>PropContainerType</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PropContainerType</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="kt"><a href="../Protocols/UniqueIDProviderType.html">UniqueIDProviderType</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>A view that conforms to this protocol can receive state/action props and
+subscribe to state changes.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux17PropContainerTypeP11GlobalStateQa"></a>
+                    <a name="//apple_ref/swift/Alias/GlobalState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux17PropContainerTypeP11GlobalStateQa">GlobalState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The app&rsquo;s global state type. This helps define the prop injector.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">GlobalState</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux17PropContainerTypeP8OutPropsQa"></a>
+                    <a name="//apple_ref/swift/Alias/OutProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux17PropContainerTypeP8OutPropsQa">OutProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This props represents data that is directly related to the parent view/
+view controller. For example, when we inject a table view cell, this may
+contain the index of that cell - which will be used to create variable
+props.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">OutProps</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux17PropContainerTypeP10StatePropsQa"></a>
+                    <a name="//apple_ref/swift/Alias/StateProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux17PropContainerTypeP10StatePropsQa">StateProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This represents variable state that can be used to update the UI.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">StateProps</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux17PropContainerTypeP11ActionPropsQa"></a>
+                    <a name="//apple_ref/swift/Alias/ActionProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux17PropContainerTypeP11ActionPropsQa">ActionProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This represents a set of actions that can be used to handle user
+interactions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">ActionProps</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux17PropContainerTypeP11StaticPropsa"></a>
+                    <a name="//apple_ref/swift/Alias/StaticProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux17PropContainerTypeP11StaticPropsa">StaticProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convenience type for static props.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">StaticProps</span> <span class="o">=</span> <span class="kt"><a href="../Classes/StaticPropContainer.html">StaticPropContainer</a></span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/PropContainerType.html#/s:10SwiftRedux17PropContainerTypeP11GlobalStateQa">GlobalState</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux17PropContainerTypeP0B5Propsa"></a>
+                    <a name="//apple_ref/swift/Alias/ReduxProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux17PropContainerTypeP0B5Propsa">ReduxProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convenience type for variable props.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">ReduxProps</span> <span class="o">=</span> <span class="kt"><a href="../Structs/ReduxPropContainer.html">ReduxPropContainer</a></span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/PropContainerType.html#/s:10SwiftRedux17PropContainerTypeP10StatePropsQa">StateProps</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/PropContainerType.html#/s:10SwiftRedux17PropContainerTypeP11ActionPropsQa">ActionProps</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux17PropContainerTypeP11staticPropsAA06StaticcD0Cy11GlobalStateQzGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/staticProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux17PropContainerTypeP11staticPropsAA06StaticcD0Cy11GlobalStateQzGSgvp">staticProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This prop container includes static dependencies that can be used to
+wire up child views/view controllers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">staticProps</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PropContainerType.html#/s:10SwiftRedux17PropContainerTypeP11StaticPropsa">StaticProps</a></span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux17PropContainerTypeP10reduxPropsAA0bcD0Vy05StateG0Qz06ActionG0QzGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/reduxProps" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux17PropContainerTypeP10reduxPropsAA0bcD0Vy05StateG0Qz06ActionG0QzGSgvp">reduxProps</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This container includes various Redux-related props, most notably state
+and action.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">reduxProps</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PropContainerType.html#/s:10SwiftRedux17PropContainerTypeP0B5Propsa">ReduxProps</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux20UniqueIDProviderTypeP8uniqueIDs5Int64Vvp"></a>
+                    <a name="//apple_ref/swift/Property/uniqueID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux20UniqueIDProviderTypeP8uniqueIDs5Int64Vvp">uniqueID</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">uniqueID</span><span class="p">:</span> <span class="k">Self</span><span class="o">.</span><span class="kt">UniqueID</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux17PropContainerTypePA2A0c6MapperE0RzrlE0cD0a"></a>
+                    <a name="//apple_ref/swift/Alias/PropContainer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux17PropContainerTypePA2A0c6MapperE0RzrlE0cD0a">PropContainer</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">PropContainer</span> <span class="o">=</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux17PropContainerTypePAAE07requireB5PropsAA0bcD0Vy05StateG0Qz06ActionG0QzGyF"></a>
+                    <a name="//apple_ref/swift/Method/requireReduxProps()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux17PropContainerTypePAAE07requireB5PropsAA0bcD0Vy05StateG0Qz06ActionG0QzGyF">requireReduxProps()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Ensure reduxProps is non-nil.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">requireReduxProps</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/PropContainerType.html#/s:10SwiftRedux17PropContainerTypeP0B5Propsa">ReduxProps</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A ReduxProps instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://github.com/protoman92/SwiftRedux.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2019-06-30)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

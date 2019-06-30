@@ -10,7 +10,7 @@ before_install:
   - pod install
 
 script:
-  - xcodebuild test -sdk iphonesimulator -workspace SwiftRedux.xcworkspace -scheme SwiftRedux -destination 'platform=iOS Simulator,name=iPhone 8 Plus' | xcpretty
+  - set -o pipefail && xcodebuild clean test -sdk iphonesimulator -workspace SwiftRedux.xcworkspace -scheme SwiftRedux -destination 'platform=iOS Simulator,name=iPhone 8 Plus' | xcpretty
   - pod lib lint --quick
 
 after_success:

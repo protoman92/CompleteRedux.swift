@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MainThreadRunnerType Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/MainThreadRunnerType" class="dashAnchor"></a>
+    <a title="MainThreadRunnerType Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SwiftRedux Docs</a> (82% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SwiftRedux Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        MainThreadRunnerType Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AsyncAwaitable.html">AsyncAwaitable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AwaitEffect.html">AwaitEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Awaitable.html">Awaitable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BatchAwaitable.html">BatchAwaitable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultReducer.html">DefaultReducer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DefaultUniqueIDProvider.html">DefaultUniqueIDProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DelayEffect.html">DelayEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EmptyAwaitable.html">EmptyAwaitable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EmptyEffect.html">EmptyEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FlatMapEffect.html">FlatMapEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FromEffect.html">FromEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JustAwaitable.html">JustAwaitable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JustCallEffect.html">JustCallEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MainThreadRunner.html">MainThreadRunner</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MockInjector.html">MockInjector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MockStaticProps.html">MockStaticProps</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NestedRouter.html">NestedRouter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NoopDispatcher.html">NoopDispatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PropInjector.html">PropInjector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PutEffect.html">PutEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ReadWriteLock.html">ReadWriteLock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SagaEffect.html">SagaEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SagaEffects.html">SagaEffects</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SagaMiddleware.html">SagaMiddleware</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SagaMonitor.html">SagaMonitor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SagaOutput.html">SagaOutput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SelectEffect.html">SelectEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SimpleStore.html">SimpleStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StaticPropContainer.html">StaticPropContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SwitchMapEffect.html">SwitchMapEffect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TakeActionEffect.html">TakeActionEffect</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/DefaultAction.html">DefaultAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SagaError.html">SagaError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/EnhancedStore.html">EnhancedStore</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:10SwiftRedux16applyMiddlewaresyAA13DelegateStoreVy5StateQzGxcSayAA15DispatchWrapperVAIcAA15MiddlewareInputVyAFGcGAA0bF4TypeRzlF">applyMiddlewares(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AwaitableType.html">AwaitableType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MainThreadRunnerType.html">MainThreadRunnerType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MiddlewareProviderType.html">MiddlewareProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PropContainerType.html">PropContainerType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PropInjectorType.html">PropInjectorType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PropMapperType.html">PropMapperType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReadWriteLockType.html">ReadWriteLockType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:10SwiftRedux0B10ActionTypeP">ReduxActionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxDispatcherProviderType.html">ReduxDispatcherProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxRouterType.html">ReduxRouterType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxStoreType.html">ReduxStoreType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ReduxUnsubscriberProviderType.html">ReduxUnsubscriberProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:10SwiftRedux16RouterScreenTypeP">RouterScreenType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SagaEffectConvertibleType.html">SagaEffectConvertibleType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SagaEffectType.html">SagaEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SagaMonitorType.html">SagaMonitorType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:10SwiftRedux20SingleSagaEffectTypeP">SingleSagaEffectType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UniqueIDProviderType.html">UniqueIDProviderType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/VetoableReduxRouterType.html">VetoableReduxRouterType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/DelegateStore.html">DelegateStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:10SwiftRedux15DispatchWrapperV">DispatchWrapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MiddlewareInput.html">MiddlewareInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReduxPropContainer.html">ReduxPropContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReduxSubscription.html">ReduxSubscription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RouterMiddleware.html">RouterMiddleware</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SagaInput.html">SagaInput</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux09AwaitableB10Dispatchera">AwaitableReduxDispatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux14DispatchMappera">DispatchMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux21MonoEffectTransformera">MonoEffectTransformer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux8Navigatea">Navigate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B10Dispatchera">ReduxDispatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B10Middlewarea">ReduxMiddleware</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B7Reducera">ReduxReducer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B13StateCallbacka">ReduxStateCallback</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B11StateGettera">ReduxStateGetter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B10Subscribera">ReduxSubscriber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux0B12Unsubscribera">ReduxUnsubscriber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux21SagaEffectTransformera">SagaEffectTransformer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10SwiftRedux12SubscriberIDa">SubscriberID</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>MainThreadRunnerType</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">MainThreadRunnerType</span></code></pre>
+
+                </div>
+              </div>
+            <p>Represents an object that can run some operation on the main thread.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10SwiftRedux20MainThreadRunnerTypeP05runOncD05blockyyyc_tF"></a>
+                    <a name="//apple_ref/swift/Method/runOnMainThread(block:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10SwiftRedux20MainThreadRunnerTypeP05runOncD05blockyyyc_tF">runOnMainThread(block:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Run an operation on the main thread.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">runOnMainThread</span><span class="p">(</span><span class="nv">block</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>block</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The operation to run.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://github.com/protoman92/SwiftRedux.git" target="_blank" rel="external">Hai Pham</a>. All rights reserved. (Last updated: 2019-06-30)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
