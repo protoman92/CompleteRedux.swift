@@ -1,7 +1,7 @@
 coverage_service: cobertura_xml
-xcodeproj: SwiftRedux.xcodeproj
-scheme: SwiftRedux
-source_directory: SwiftRedux
+xcodeproj: CompleteRedux.xcodeproj
+scheme: CompleteRedux
+source_directory: CompleteRedux
 output_directory: xml_report
 ignore:
-  - SwiftReduxTests/**
+  - CompleteReduxTests/**
